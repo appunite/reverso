@@ -17,7 +17,7 @@
 
 <body style="background-color: #F7F9FA;">
 
-  <!-- <div id="menu" style="width: 100%;"> 
+  <div id="menu" style="width: 100%;"> 
     <div class="row menu">
 
       <div class="col-sm-11 menu-el">
@@ -36,7 +36,7 @@
       </div>
 
     </div>
-  </div>-->
+  </div>
 
   <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
   <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
