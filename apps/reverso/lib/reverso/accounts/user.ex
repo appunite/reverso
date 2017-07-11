@@ -7,8 +7,8 @@ defmodule Reverso.Accounts.User do
   schema "accounts_users" do
     field :email, :string, unique: true
     field :crypted_password, :string
-    field :password, :string, virtual: true
-    field :password_confirmation, :string, virtual: true
+    field :password, :string, virtual: true, default: ""
+    field :password_confirmation, :string, virtual: true, default: ""
     field :name, :string
 
     timestamps()
@@ -23,8 +23,19 @@ defmodule Reverso.Accounts.User do
     |> validate_length(:password, min: 5)
     |> validate_confirmation(:password)
     |> unique_constraint(:email)
+    |> put_change(:crypted_password, hashed_password(user.password))
+    
   end
 
+  def login_changeset(%User{} = user, attrs) do
+    user
+    |> cast(attrs, [:email, :password])
+    |> validate_required([:email, :password])
+    |> validate_format(:email, ~r/@/)
+  end
   
+  defp hashed_password(password) do
+    Comeonin.Bcrypt.hashpwsalt(password)
+  end
 end
 

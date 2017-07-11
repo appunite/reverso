@@ -54,7 +54,6 @@ defmodule Reverso.Accounts do
     %{"password" => password} = attrs
     %User{}
     |> User.changeset(attrs)
-    |> Ecto.Changeset.put_change(:crypted_password, hashed_password(password))
     |> Repo.insert()
   end
 
@@ -71,10 +70,8 @@ defmodule Reverso.Accounts do
 
   """
   def update_user(%User{} = user, attrs) do
-    %{"password" => password} = attrs    
     user
     |> User.changeset(attrs)
-    |> Ecto.Changeset.put_change(:crypted_password, hashed_password(password))
     |> Repo.update()
   end
 
@@ -105,10 +102,6 @@ defmodule Reverso.Accounts do
   """
   def change_user(%User{} = user) do
     User.changeset(user, %{})
-  end
-
-  defp hashed_password(password) do
-    Comeonin.Bcrypt.hashpwsalt(password)
   end
   
 end
