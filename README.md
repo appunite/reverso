@@ -8,3 +8,9 @@ $ yarn add vue
 $ yarn add vue-brunch
 $ yarn install
 ```
+
+In root directory:
+```
+$ mix ecto.create
+$ mix ecto.migrate
+```
