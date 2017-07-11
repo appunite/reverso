@@ -1,0 +1,28 @@
+<h2>Listing Translations</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Basic</th>
+      <th>Translation</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for translation <- @translations do %>
+    <tr>
+      <td><%= translation.basic %></td>
+      <td><%= translation.translation %></td>
+
+      <td class="text-right">
+        <span><%= link "Show", to: translation_path(@conn, :show, translation), class: "btn btn-default btn-xs" %></span>
+        <span><%= link "Edit", to: translation_path(@conn, :edit, translation), class: "btn btn-default btn-xs" %></span>
+        <span><%= link "Delete", to: translation_path(@conn, :delete, translation), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "New Translation", to: translation_path(@conn, :new) %></span>
