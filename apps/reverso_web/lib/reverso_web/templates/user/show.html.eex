@@ -13,11 +13,6 @@
   </li>
 
   <li>
-    <strong>Surname:</strong>
-    <%= @user.surname %>
-  </li>
-
-  <li>
     <strong>Password:</strong>
     <%= @user.crypted_password %>
   </li>
