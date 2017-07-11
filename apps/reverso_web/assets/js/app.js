@@ -12,6 +12,19 @@
 // If you no longer want to use a dependency, remember
 // to also remove its path from "config.paths.watched".
 import "phoenix_html"
+import Vue from 'vue'
+
+import LogIn from './components/log-in.vue'
+
+Vue.component('log-in', LogIn)
+// And create the top-level view model:
+new Vue({
+  el: '#app',
+  render(createElement) {
+    return createElement(LogIn, {})
+  }
+});
+
 
 // Import local files
 //
