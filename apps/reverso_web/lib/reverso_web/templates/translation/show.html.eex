@@ -1,0 +1,18 @@
+<h2>Show Translation</h2>
+
+<ul>
+
+  <li>
+    <strong>Basic:</strong>
+    <%= @translation.basic %>
+  </li>
+
+  <li>
+    <strong>Translation:</strong>
+    <%= @translation.translation %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: translation_path(@conn, :edit, @translation) %></span>
+<span><%= link "Back", to: translation_path(@conn, :index) %></span>

@@ -1,0 +1,6 @@
+<h2>Edit Translation</h2>
+
+<%= render "form.html", changeset: @changeset,
+                        action: translation_path(@conn, :update, @translation) %>
+
+<span><%= link "Back", to: translation_path(@conn, :index) %></span>
