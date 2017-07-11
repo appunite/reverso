@@ -8,8 +8,13 @@
   </li>
 
   <li>
-    <strong>Username:</strong>
-    <%= @user.username %>
+    <strong>Name:</strong>
+    <%= @user.name %>
+  </li>
+
+  <li>
+    <strong>Surname:</strong>
+    <%= @user.surname %>
   </li>
 
   <li>
