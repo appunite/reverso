@@ -17,33 +17,16 @@
 
 <body style="background-color: #F7F9FA;">
 
-  <!-- <div id="menu" style="width: 100%;"> 
-    <div class="row menu">
+  <div id="login-box"> 
+    Reverso.co
 
-      <div class="col-sm-11 menu-el">
-        <%= link "Reverso.co", to: page_path(@conn, :index) %>
-      </div>
-
-      <div class="col-sm-1 menu-el">
-        <div class="dropdown menu">
-          <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">User
-            <span class="caret"></span></button>
-            <ul class="dropdown-menu">
-              <li><a href="#">Account </a></li>
-              <li><a href="#">Log Out</a></li>
-            </ul>
-        </div>
-      </div>
-
-    </div>
-  </div>-->
+      <main role="main" style="padding: 15px;">
+    <%= render @view_module, @view_template, assigns %>
+  </main>
+  </div>
 
   <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
   <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
-
-  <main role="main" style="padding: 15px;">
-    <%= render @view_module, @view_template, assigns %>
-  </main>
 
   <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
 </body>
