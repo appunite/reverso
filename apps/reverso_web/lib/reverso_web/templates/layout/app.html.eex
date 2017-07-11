@@ -7,20 +7,25 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Hello Reverso!</title>
+    <title>Reverso.co</title>
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
   </head>
 
-  <body>
-    <div class="container">
-      <header class="header">
-        <nav role="navigation">
-          <ul class="nav nav-pills pull-right">
-            <li><a href="http://www.phoenixframework.org/docs">Get Started</a></li>
-          </ul>
-        </nav>
-        <span class="logo"></span>
-      </header>
+  <body style="background-color: #F7F9FA;">
+      <ul class="top-menu">
+        <li class="top-menu-el">
+          <%= link "Reverso.co", to: page_path(@conn, :index) %>
+        </li>
+        <!-- <li class="top-menu-l">
+          <%= link "upgrade plan", to: page_path(@conn, :index) %>
+        </li>
+        <li class="top-menu-l">
+          <%= link "notifications", to: page_path(@conn, :index) %>
+        </li> -->
+        <li class="top-menu-el" style="float: right;">
+          <%= link "user", to: page_path(@conn, :index) %>
+        </li>
+      </ul>
 
       <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
       <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
@@ -29,7 +34,6 @@
         <%= render @view_module, @view_template, assigns %>
       </main>
 
-    </div> <!-- /container -->
     <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
   </body>
 </html>

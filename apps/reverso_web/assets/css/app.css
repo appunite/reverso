@@ -1,1 +1,23 @@
 /* This file is for your main application css. */
+
+
+ul.top-menu {
+	width: 100%;
+	list-style-type: none;
+	background:  #040a42; 
+	margin: 0;
+    padding: 0;
+
+}
+li.top-menu-el {
+	float: left;
+}
+
+.top-menu-el a {
+	display: block;
+    color: white;
+    background:  #040a42; 
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
