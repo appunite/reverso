@@ -11,5 +11,7 @@ defmodule Reverso.Repo.Migrations.CreateReverso.Accounts.User do
       timestamps()
     end
 
+    create unique_index(:accounts_users, [:email])
+
   end
 end
