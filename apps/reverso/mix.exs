@@ -20,7 +20,7 @@ defmodule Reverso.Mixfile do
   # Type `mix help compile.app` for more information.
   def application do
     [mod: {Reverso.Application, []},
-     extra_applications: [:logger, :runtime_tools]]
+     extra_applications: [:logger, :runtime_tools, :comeonin]]
   end
 
   # Specifies which paths to compile per environment.
@@ -32,7 +32,8 @@ defmodule Reverso.Mixfile do
   # Type `mix help deps` for examples and options.
   defp deps do
     [{:postgrex, ">= 0.0.0"},
-     {:ecto, "~> 2.1"}]
+     {:ecto, "~> 2.1"},
+     {:comeonin, "~> 3.2"}]
   end
 
   # Aliases are shortcuts or tasks specific to the current project.

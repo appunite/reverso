@@ -4,8 +4,9 @@ defmodule Reverso.Repo.Migrations.CreateReverso.Accounts.User do
   def change do
     create table(:accounts_users) do
       add :email, :string
-      add :username, :string
-      add :password, :string
+      add :name, :string
+      add :surname, :string
+      add :crypted_password, :string
 
       timestamps()
     end
