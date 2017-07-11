@@ -5,7 +5,7 @@ defmodule Reverso.Accounts.User do
 
 
   schema "accounts_users" do
-    field :email, :string
+    field :email, :string, unique: true
     field :crypted_password, :string
     field :password, :string, virtual: true
     field :name, :string
