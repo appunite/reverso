@@ -20,7 +20,7 @@ defmodule Reverso.Web.Router do
     get "/", PageController, :index
     resources "/projects", ProjectController
     resources "/translations", TranslationController
-    resources "/langauges", LanguageController
+    resources "/languages", LanguageController
   end
 
   # Other scopes may use custom stacks.
