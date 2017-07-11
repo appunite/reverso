@@ -8,6 +8,7 @@ defmodule Reverso.Accounts.User do
     field :email, :string, unique: true
     field :crypted_password, :string
     field :password, :string, virtual: true
+    field :password_confirmation, :string, virtual: true
     field :name, :string
     field :surname, :string
 
@@ -21,6 +22,7 @@ defmodule Reverso.Accounts.User do
     |> validate_required([:email, :name, :surname, :password])
     |> validate_format(:email, ~r/@/)
     |> validate_length(:password, min: 5)
+    |> validate_confirmation(:password)
     |> unique_constraint(:email)
   end
 

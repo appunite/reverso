@@ -19,7 +19,7 @@
 
   <li>
     <strong>Password:</strong>
-    <%= @user.password %>
+    <%= @user.crypted_password %>
   </li>
 
 </ul>
