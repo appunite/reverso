@@ -16,6 +16,7 @@ defmodule Reverso.Web.Router do
   scope "/", Reverso.Web do
     pipe_through :browser # Use the default browser stack
 
+    resources "/users", UserController
     get "/", PageController, :index
     resources "/projects", ProjectController
     resources "/translations", TranslationController

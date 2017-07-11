@@ -1,0 +1,29 @@
+defmodule Reverso.Accounts.User do
+  use Ecto.Schema
+  import Ecto.Changeset
+  alias Reverso.Accounts.User
+
+
+  schema "accounts_users" do
+    field :email, :string
+    field :crypted_password, :string
+    field :password, :string, virtual: true
+    field :name, :string
+    field :surname, :string
+
+    timestamps()
+  end
+
+  @doc false
+  def changeset(%User{} = user, attrs) do
+    user
+    |> cast(attrs, [:email, :name, :surname, :password])
+    |> validate_required([:email, :name, :surname, :password])
+    |> validate_format(:email, ~r/@/)
+    |> validate_length(:password, min: 5)
+    |> unique_constraint(:email)
+  end
+
+  
+end
+

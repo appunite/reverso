@@ -1,1 +1,29 @@
 /* This file is for your main application css. */
+
+
+
+
+
+#menu button {
+	border: 0px;
+	color: white;
+    background:  #040a42;
+}
+
+
+#menu div{
+	background:  #040a42; 
+}
+
+.menu-el {    
+	color: white;
+    background:  #040a42;
+    padding: 12px 16px;
+
+}
+
+#menu-el a {
+	   color: white;
+
+}
+

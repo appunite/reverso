@@ -6,9 +6,12 @@ defmodule Reverso.AccountsTest do
   describe "users" do
     alias Reverso.Accounts.User
 
-    @valid_attrs %{email: "some email", passsswordhash: "some passsswordhash", password: "some password", username: "some username"}
-    @update_attrs %{email: "some updated email", passsswordhash: "some updated passsswordhash", password: "some updated password", username: "some updated username"}
-    @invalid_attrs %{email: nil, passsswordhash: nil, password: nil, username: nil}
+
+
+    @valid_attrs %{email: "some email", password: "some password", username: "some username"}
+    @update_attrs %{email: "some updated email", password: "some updated password", username: "some updated username"}
+    @invalid_attrs %{email: nil, password: nil, username: nil}
+
 
     def user_fixture(attrs \\ %{}) do
       {:ok, user} =
@@ -32,7 +35,7 @@ defmodule Reverso.AccountsTest do
     test "create_user/1 with valid data creates a user" do
       assert {:ok, %User{} = user} = Accounts.create_user(@valid_attrs)
       assert user.email == "some email"
-      assert user.passsswordhash == "some passsswordhash"
+
       assert user.password == "some password"
       assert user.username == "some username"
     end
@@ -46,7 +49,7 @@ defmodule Reverso.AccountsTest do
       assert {:ok, user} = Accounts.update_user(user, @update_attrs)
       assert %User{} = user
       assert user.email == "some updated email"
-      assert user.passsswordhash == "some updated passsswordhash"
+
       assert user.password == "some updated password"
       assert user.username == "some updated username"
     end
