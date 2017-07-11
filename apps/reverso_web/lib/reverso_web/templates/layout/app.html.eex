@@ -12,20 +12,19 @@
   </head>
 
   <body style="background-color: #F7F9FA;">
-      <ul class="top-menu">
-        <li class="top-menu-el">
-          <%= link "Reverso.co", to: page_path(@conn, :index) %>
-        </li>
-        <!-- <li class="top-menu-l">
-          <%= link "upgrade plan", to: page_path(@conn, :index) %>
-        </li>
-        <li class="top-menu-l">
-          <%= link "notifications", to: page_path(@conn, :index) %>
-        </li> -->
-        <li class="top-menu-el" style="float: right;">
-          <%= link "user", to: page_path(@conn, :index) %>
-        </li>
-      </ul>
+
+    <div id="menu" style="width: 100%;"> 
+      <table style="width:100%">
+        <tr>
+          <th style="text-align: left">
+            <%= link "Reverso.co", to: page_path(@conn, :index) %>
+          </th>
+          <th style="text-align: right">
+            <%= link "user", to: page_path(@conn, :index) %>
+          </th>
+        </tr>
+      </table>
+    </div>
 
       <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
       <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
