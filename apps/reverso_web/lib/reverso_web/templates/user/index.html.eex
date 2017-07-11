@@ -16,7 +16,6 @@
     <tr>
       <td><%= user.email %></td>
       <td><%= user.name %></td>
-      <td><%= user.surname %></td>
       <td><%= user.crypted_password %></td>
 
       <td class="text-right">
