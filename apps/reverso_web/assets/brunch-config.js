@@ -62,8 +62,9 @@ exports.config = {
 
   npm: {
     enabled: true,
+    whitelist: ["phoenix", "phoenix.html", "vue"],
     globals: {
-      Vue: 'vue/dist/vue.js'
+      Vue: 'vue/dist/vue.common.js'
     }
   }
 };

@@ -1,11 +1,11 @@
 <template>
   <div id="lost-pass-box"> 
-    Reverso.co
-    <h2>Lost your password?</h2>
-    Please enter your email address. You will recieve a link to create a new password via e-mail. 
+
+    <h3>Lost your password?</h3>
+    <p>Please enter your email address. You will recieve a link to create a new password via e-mail.</p>
     <form>
       Email:<br>
-      <input type="text"><br>
+      <input type="text" placeholder="Email"><br>
       <input type="submit" value="Reset Password">
     </form>
  </div>
@@ -16,6 +16,7 @@ export default {
 	
 	data() {
 		return {
+
 
 		} 
 	}
