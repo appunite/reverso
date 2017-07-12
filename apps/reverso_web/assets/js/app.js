@@ -22,11 +22,6 @@ const router = new VueRouter({
     routes: Routes
 });
 
-
-import LogIn from './components/loggingIn/log-in.vue'
-//import SignIn from './components/signIn/sign-in.vue'
-
-
 // Vue.component('log-in', LogIn)
 // And create the top-level view model:
 const app = new Vue({

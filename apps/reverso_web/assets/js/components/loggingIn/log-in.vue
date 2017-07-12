@@ -2,21 +2,19 @@
 
 	<div class="box-container">
     <center>Reverso.co</center>
-		<!-- <router-view></router-view> -->
-    <!-- <loginBox></loginBox> -->
-    <!-- <lostPass></lostPass> -->
+
+    <loginBox></loginBox>
+    
 	</div>
 </template>
 
 <script>
 import loginBox from './login-box.vue'
-import lostPass from './lost-password.vue'
 
 
 export default {
   components: {
-    'loginBox': loginBox,
-    'lostPass': lostPass
+    'loginBox': loginBox
   },
   data() {
     return {
