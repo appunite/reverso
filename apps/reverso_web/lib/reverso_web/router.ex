@@ -17,6 +17,10 @@ defmodule Reverso.Web.Router do
     plug :put_layout, {Reverso.Web.LayoutView, :logged_in}
   end
 
+  pipeline :registration_layout do
+    plug :put_layout, {Reverso.Web.LayoutView, :registration}
+  end
+
   scope "/manage", Reverso.Web do
     pipe_through [:browser, :manage_layout]
 
@@ -25,11 +29,18 @@ defmodule Reverso.Web.Router do
     resources "/langauges", LanguageController
   end  
 
+  scope "/register", Reverso.Web do
+    pipe_through [:browser, :registration_layout]
+
+    resources "/users", UserController, only: [:new, :create]
+  end  
+
+
   scope "/", Reverso.Web do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
-    resources "/users", UserController
+    resources "/users", UserController, only: [:show, :edit, :index]
   end
 
   # Other scopes may use custom stacks.

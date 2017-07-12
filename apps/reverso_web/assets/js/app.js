@@ -14,7 +14,7 @@
 import "phoenix_html"
 import Vue from 'vue'
 
-import LogIn from './components/log-in.vue'
+import LogIn from './components/loggingIn/log-in.vue'
 
 Vue.component('log-in', LogIn)
 // And create the top-level view model:
