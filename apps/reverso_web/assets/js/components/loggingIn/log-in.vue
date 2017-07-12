@@ -2,21 +2,34 @@
 
 	<div class="box-container">
     <center>Reverso.co</center>
+<<<<<<< HEAD
 		<!-- <router-view></router-view> -->
     <!-- <loginBox></loginBox> -->
     <!-- <lostPass></lostPass> -->
+=======
+
+    <loginBox></loginBox>
+    
+>>>>>>> master
 	</div>
 </template>
 
 <script>
 import loginBox from './login-box.vue'
+<<<<<<< HEAD
 import lostPass from './lost-password.vue'
+=======
+>>>>>>> master
 
 
 export default {
   components: {
+<<<<<<< HEAD
     'loginBox': loginBox,
     'lostPass': lostPass
+=======
+    'loginBox': loginBox
+>>>>>>> master
   },
   data() {
     return {

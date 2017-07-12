@@ -13,6 +13,7 @@ defmodule Reverso.Web.Router do
     plug :accepts, ["json"]
   end
 
+<<<<<<< HEAD
   pipeline :manage_layout do
     plug :put_layout, {Reverso.Web.LayoutView, :logged_in}
   end
@@ -33,6 +34,22 @@ defmodule Reverso.Web.Router do
     pipe_through :api # Use the default browser stack
 
     resources "/users", UserController
+=======
+  scope "/", Reverso.Web do
+    pipe_through :browser
+
+    get "/", PageController, :index
+  end
+
+
+  scope "/api", Reverso.Web do
+    pipe_through :api
+
+    resources "/users", UserController
+    resources "/projects", ProjectController
+    resources "/translations", TranslationController
+    resources "/languages", LanguageController
+>>>>>>> master
   end
 
   # Other scopes may use custom stacks.
