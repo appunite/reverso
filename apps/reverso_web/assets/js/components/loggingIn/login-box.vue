@@ -11,11 +11,7 @@
       Password:<br>
       <input type="password" v-model="password" placeholder="Password"><br>
       
-<<<<<<< HEAD
-      <p v-if="wrong_pass" id="passAlert">Wrong password. <a v-link to:"/vue/lost-password">Forgot password?</a></p>
-=======
       <p v-if="wrong_pass" id="passAlert">Wrong password. <router-link to="/vue/session">Forgot password?</router-link></p>
->>>>>>> master
 
       <button v-on:click.prevent="login">Log in</button>
       <p id="lostPassMild"><router-link to="/vue/lost-password">Can't log in?</router-link></p>
