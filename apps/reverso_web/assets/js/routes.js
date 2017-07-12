@@ -11,4 +11,5 @@ export default [
     { path: '/', component: logIn},
     { path: '/vue/session', component: activeSession},
     { path: '/vue/lost-password', component: lostPass}
+
 ]

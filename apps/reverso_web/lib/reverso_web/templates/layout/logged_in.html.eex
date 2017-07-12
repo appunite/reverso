@@ -22,10 +22,6 @@
   <div id="menu" style="width: 100%;"> 
 
     <ul>
-      <li>
-        <%= link "Reverso.co", to: page_path(@conn, :index) %> 
-      </li>
-
       <li style="float: right;">  
         <div class="dropdown">
           <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"> User

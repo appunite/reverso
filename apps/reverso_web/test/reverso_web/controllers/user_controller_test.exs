@@ -9,63 +9,61 @@ defmodule Reverso.Web.UserControllerTest do
   @invalid_attrs %{email: nil, password: nil, username: nil}
 
 
-  def fixture(:user) do
-    {:ok, user} = Accounts.create_user(@create_attrs)
-    user
-  end
+  describe "users" do
+    def user_fixture(attrs \\ %{}) do
+      {:ok, user} =
+        attrs
+        |> Enum.into(@valid_attrs)
+        |> Accounts.create_user()
 
-  test "lists all entries on index", %{conn: conn} do
-    conn = get conn, user_path(conn, :index)
-    assert html_response(conn, 200) =~ "Listing Users"
-  end
+      user
+    end
 
-  test "renders form for new users", %{conn: conn} do
-    conn = get conn, user_path(conn, :new)
-    assert html_response(conn, 200) =~ "New User"
-  end
+    test "list_users/0 returns all users" do
+      user = user_fixture()
+      assert Accounts.list_users() == [user]
+    end
 
-  test "creates user and redirects to show when data is valid", %{conn: conn} do
-    conn = post conn, user_path(conn, :create), user: @create_attrs
+    test "get_user!/1 returns the user with given id" do
+      user = user_fixture()
+      assert Accounts.get_user!(user.id) == user
+    end
 
-    assert %{id: id} = redirected_params(conn)
-    assert redirected_to(conn) == user_path(conn, :show, id)
+    test "create_user/1 with valid data creates a user" do
+      assert {:ok, %User{} = user} = Accounts.create_user(@valid_attrs)
+      assert user.email == "some email"
+      assert user.name == "some name"
+      assert user.password == "some password"
+    end
 
-    conn = get conn, user_path(conn, :show, id)
-    assert html_response(conn, 200) =~ "Show User"
-  end
+    test "create_user/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Accounts.create_user(@invalid_attrs)
+    end
 
-  test "does not create user and renders errors when data is invalid", %{conn: conn} do
-    conn = post conn, user_path(conn, :create), user: @invalid_attrs
-    assert html_response(conn, 200) =~ "New User"
-  end
+    test "update_user/2 with valid data updates the user" do
+      user = user_fixture()
+      assert {:ok, user} = Accounts.update_user(user, @update_attrs)
+      assert %User{} = user
+      assert user.email == "some updated email"
+      assert user.name == "some updated name"
+      assert user.password == "some updated password"
+    end
 
-  test "renders form for editing chosen user", %{conn: conn} do
-    user = fixture(:user)
-    conn = get conn, user_path(conn, :edit, user)
-    assert html_response(conn, 200) =~ "Edit User"
-  end
+    test "update_user/2 with invalid data returns error changeset" do
+      user = user_fixture()
+      assert {:error, %Ecto.Changeset{}} = Accounts.update_user(user, @invalid_attrs)
+      assert user == Accounts.get_user!(user.id)
+    end
 
-  test "updates chosen user and redirects when data is valid", %{conn: conn} do
-    user = fixture(:user)
-    conn = put conn, user_path(conn, :update, user), user: @update_attrs
-    assert redirected_to(conn) == user_path(conn, :show, user)
+    test "delete_user/1 deletes the user" do
+      user = user_fixture()
+      assert {:ok, %User{}} = Accounts.delete_user(user)
+      assert_raise Ecto.NoResultsError, fn -> Accounts.get_user!(user.id) end
+    end
 
-    conn = get conn, user_path(conn, :show, user)
-    assert html_response(conn, 200) =~ "some updated email"
-  end
-
-  test "does not update chosen user and renders errors when data is invalid", %{conn: conn} do
-    user = fixture(:user)
-    conn = put conn, user_path(conn, :update, user), user: @invalid_attrs
-    assert html_response(conn, 200) =~ "Edit User"
-  end
-
-  test "deletes chosen user", %{conn: conn} do
-    user = fixture(:user)
-    conn = delete conn, user_path(conn, :delete, user)
-    assert redirected_to(conn) == user_path(conn, :index)
-    assert_error_sent 404, fn ->
-      get conn, user_path(conn, :show, user)
+    test "change_user/1 returns a user changeset" do
+      user = user_fixture()
+      assert %Ecto.Changeset{} = Accounts.change_user(user)
     end
   end
 end

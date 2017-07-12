@@ -26,21 +26,13 @@ defmodule Reverso.Web.Router do
 
     resources "/projects", ProjectController
     resources "/translations", TranslationController
-    resources "/langauges", LanguageController
+    resources "/languages", LanguageController
   end  
 
-  scope "/register", Reverso.Web do
-    pipe_through [:browser, :registration_layout]
+  scope "/api", Reverso.Web do
+    pipe_through :api # Use the default browser stack
 
-    resources "/users", UserController, only: [:new, :create]
-  end  
-
-
-  scope "/", Reverso.Web do
-    pipe_through :browser # Use the default browser stack
-
-    get "/", PageController, :index
-    resources "/users", UserController, only: [:show, :edit, :index]
+    resources "/users", UserController
   end
 
   # Other scopes may use custom stacks.

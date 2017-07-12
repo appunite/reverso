@@ -26,13 +26,6 @@ defmodule Reverso.Accounts.User do
     |> put_change(:crypted_password, hashed_password(user.password))
     
   end
-
-  def login_changeset(%User{} = user, attrs) do
-    user
-    |> cast(attrs, [:email, :password])
-    |> validate_required([:email, :password])
-    |> validate_format(:email, ~r/@/)
-  end
   
   defp hashed_password(password) do
     Comeonin.Bcrypt.hashpwsalt(password)
