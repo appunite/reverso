@@ -12,6 +12,32 @@
 // If you no longer want to use a dependency, remember
 // to also remove its path from "config.paths.watched".
 import "phoenix_html"
+import VueRouter from 'vue-router'
+import Routes from './routes'
+import Main from "./main"
+
+Vue.use(VueRouter);
+
+const router = new VueRouter({
+    routes: Routes
+});
+
+
+import LogIn from './components/loggingIn/log-in.vue'
+//import SignIn from './components/signIn/sign-in.vue'
+
+
+// Vue.component('log-in', LogIn)
+// And create the top-level view model:
+const app = new Vue({
+  el: '#app',
+  router,
+  render: h => h(Main)
+});
+
+
+export {app}
+
 
 // Import local files
 //

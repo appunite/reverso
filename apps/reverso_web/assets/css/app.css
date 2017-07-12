@@ -1,8 +1,23 @@
 /* This file is for your main application css. */
 
+/* logged in */
 
 
+#menu {
+	background:  #040a42;
+	padding: 18px 16px;	
+}
 
+#menu ul {
+	list-style-type: none;
+	display: inline;
+}
+
+#menu li {
+	float: left;
+	color: white;
+    background:  #040a42;
+}
 
 #menu button {
 	border: 0px;
@@ -10,20 +25,35 @@
     background:  #040a42;
 }
 
-
-#menu div{
-	background:  #040a42; 
+.dropdown-menu {
+	border-radius: 0 !important; 
 }
 
-.menu-el {    
-	color: white;
-    background:  #040a42;
-    padding: 12px 16px;
-
+.dropdown-menu li {
+	background: white !important;
+	color: black;
+	padding: 10px;
 }
 
-#menu-el a {
-	   color: white;
 
+
+
+/* app */
+
+#login-box {
+	margin: 140px auto auto auto;
 }
+
+#reg-box {
+	background: white;
+	padding: 10px
+;}
+
+
+#box-container {
+	margin: 140px auto auto auto;
+	border: 3px solid green;
+    width: 30%;
+}
+
 
