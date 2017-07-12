@@ -26,7 +26,7 @@ defmodule Reverso.Web.Router do
 
     resources "/projects", ProjectController
     resources "/translations", TranslationController
-    resources "/langauges", LanguageController
+    resources "/languages", LanguageController
   end  
 
   scope "/api", Reverso.Web do
