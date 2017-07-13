@@ -7,6 +7,7 @@ defmodule Reverso.Projects.Project do
   schema "projects_projects" do
     field :platform, :string
     field :title, :string
+    field :code , :integer
     
 
     timestamps()
