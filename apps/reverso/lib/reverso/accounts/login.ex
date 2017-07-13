@@ -1,7 +1,7 @@
-defmodule Reverso.Session.User do
+defmodule Reverso.Accounts.Login do
   use Ecto.Schema
   import Ecto.Changeset
-  alias Reverso.Session.User
+  alias Reverso.Accounts.Login
 
 
   schema "accounts_users" do
@@ -13,8 +13,8 @@ defmodule Reverso.Session.User do
   end
 
 @doc false
-  def changeset(%User{} = user, attrs) do
-    user
+  def changeset(%Login{} = login, attrs) do
+    login
     |> cast(attrs, [:email, :password])
     |> validate_required([:email, :password])
     |> validate_format(:email, ~r/@/)

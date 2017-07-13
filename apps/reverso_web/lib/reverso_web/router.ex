@@ -16,13 +16,15 @@ defmodule Reverso.Web.Router do
   scope "/", Reverso.Web do
     pipe_through :browser
 
+
     get "/", PageController, :index
   end
 
   scope "/api", Reverso.Web do
     pipe_through :api
 
-    resources "/users", UserController
+    
+    resources "/accounts", UserController
     resources "/projects", ProjectController
     resources "/translations", TranslationController
     resources "/languages", LanguageController
