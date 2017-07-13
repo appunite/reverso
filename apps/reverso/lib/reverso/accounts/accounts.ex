@@ -36,6 +36,15 @@ defmodule Reverso.Accounts do
     User.changeset(user, %{})
   end
 
+  def fetch_by_token(token) do
+    Repo.get_by!(User, token)
+  end
+
+  def update_user_token(%User{} = user, token) do
+    user
+    |> User.user_token_changeset(token)
+    |> Repo.update()
+  end
   #def login_user(attrs \\ %{}) do
   #  %Login{}
   #  |> Reverso.Accounts.Login.changeset(attrs)

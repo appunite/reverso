@@ -2,7 +2,6 @@ defmodule Reverso.Web.SessionController do
   use Reverso.Web, :controller
 
   alias Reverso.Accounts
-  alias Reverso.Accounts.Login
   alias Reverso.Accounts.User
 
   def new(conn, _params) do
@@ -11,13 +10,18 @@ defmodule Reverso.Web.SessionController do
 
   def create(conn, %{"session" => session_params}) do
     with {:ok, %User{} = user } <- Accounts.login(session_params) do
-      {:ok, user} ->
+        token = Ecto.UUID.generate()
+        Accounts.update_user_token(user, token)
         conn
-        |> put_resp_header("authorization", #...)
-      :error ->
-        conn
-        #...
+        |> put_resp_header("authorization", token)
     end
+  end
+
+  def delete(conn, _params) do
+    conn
+    |> get_resp_header("authorization")
+    |> Accounts.fetch_by_token
+    |> Accounts.update_user_token(user, %{})
   end
   #action_fallback TestJson.Web.FallbackController
 
