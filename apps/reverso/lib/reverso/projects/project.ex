@@ -16,7 +16,7 @@ defmodule Reverso.Projects.Project do
   @doc false
   def changeset(%Project{} = project, attrs) do
     project
-    |> cast(attrs, [:title, :platform])
-    |> validate_required([:title, :platform])
+    |> cast(attrs, [:title, :platform, :code])
+    |> validate_required([:title, :platform, :code])
   end
 end
