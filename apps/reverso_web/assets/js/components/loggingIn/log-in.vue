@@ -13,13 +13,15 @@ import loginBox from './login-box.vue'
 
 export default {
   components: {
+    'loginBox': loginBox
+  },
 
-    'loginBox': loginBox,
-    'lostPass': lostPass,
+  data () {
     return {
     }
   }
 }
+
 </script>
 
 <style>
