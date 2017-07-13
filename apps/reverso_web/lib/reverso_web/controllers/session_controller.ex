@@ -10,16 +10,13 @@ defmodule Reverso.Web.SessionController do
   end
 
   def create(conn, %{"session" => session_params}) do
-    case Accounts.login(session_params) do
+    with {:ok, %User{} = user } <- Accounts.login(session_params) do
       {:ok, user} ->
         conn
-        |> put_session(:current_user, user)
-        |> put_flash(:info, "Logged in")
-        |> redirect(to: "/")
+        |> put_resp_header("authorization", #...)
       :error ->
         conn
-        |> put_flash(:info, "Wrong email or password")
-        |> render("new.html")
+        #...
     end
   end
   #action_fallback TestJson.Web.FallbackController
