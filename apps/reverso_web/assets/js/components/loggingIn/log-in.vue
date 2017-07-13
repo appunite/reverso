@@ -2,7 +2,6 @@
 
 	<div class="box-container">
     <center>Reverso.co</center>
-
     <loginBox></loginBox>
     
 	</div>
@@ -14,13 +13,15 @@ import loginBox from './login-box.vue'
 
 export default {
   components: {
+    'loginBox': loginBox
+  },
 
-    'loginBox': loginBox,
-    'lostPass': lostPass,
+  data () {
     return {
     }
   }
 }
+
 </script>
 
 <style>
