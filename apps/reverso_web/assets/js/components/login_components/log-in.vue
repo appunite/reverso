@@ -2,25 +2,26 @@
 
 	<div class="box-container">
     <center>Reverso.co</center>
-
-    <loginBox></loginBox>
-    
+    <!-- <loginBox></loginBox> -->
+    <router-view></router-view>    
 	</div>
 </template>
 
 <script>
-import loginBox from './login-box.vue'
+// import loginBox from './login-box.vue'
 
 
 export default {
-  components: {
+  // components: {
+  //   'loginBox': loginBox
+  // },
 
-    'loginBox': loginBox,
-    'lostPass': lostPass,
+  data () {
     return {
     }
   }
 }
+
 </script>
 
 <style>
