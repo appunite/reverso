@@ -22,8 +22,6 @@ const router = new VueRouter({
     routes: Routes
 });
 
-// Vue.component('log-in', LogIn)
-// And create the top-level view model:
 const app = new Vue({
   el: '#app',
   router,
