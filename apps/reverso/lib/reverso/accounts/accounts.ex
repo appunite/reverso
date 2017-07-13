@@ -53,7 +53,9 @@ defmodule Reverso.Accounts do
   def authenticate(user, password) do
     IO.inspect(user)
     case user do
-      nil -> false
+      nil -> 
+        Comeonin.Bcrypt.dummy_checkpw()
+        false
       _   -> Comeonin.Bcrypt.checkpw(password, user.crypted_password)
     end
   end

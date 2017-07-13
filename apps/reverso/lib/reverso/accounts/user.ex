@@ -10,6 +10,9 @@ defmodule Reverso.Accounts.User do
     field :password, :string, virtual: true, default: ""
     field :password_confirmation, :string, virtual: true, default: ""
     field :name, :string
+    field :activated, :binary, default: false
+    field :activation_token, :string, default: ""
+    field :pw_reset_token, :strign, default: ""
 
     timestamps()
   end
@@ -25,6 +28,8 @@ defmodule Reverso.Accounts.User do
     |> unique_constraint(:email)
     |> hash_password()
   end
+
+  def token_changeset(%)
 
   defp hash_password(changeset) do
     password = get_change(changeset, :password)

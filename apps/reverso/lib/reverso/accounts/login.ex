@@ -8,6 +8,7 @@ defmodule Reverso.Accounts.Login do
     field :email, :string
     field :crypted_password, :string
     field :password, :string, virtual: true, default: ""
+    field :user_token, :string, default: ""
 
     timestamps()
   end
