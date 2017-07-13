@@ -5,7 +5,8 @@ defmodule Reverso.Web.ProjectController do
   alias Reverso.Projects.Project
   
   def index(conn, _params) do
-    projects = Projects.list_projects()
+        
+    projects = Projects.list_projects(1)
     render(conn, "index.json", projects: projects)
   end
 

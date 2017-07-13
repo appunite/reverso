@@ -33,7 +33,11 @@ defmodule Reverso.Projects do
     Language.changeset(language, %{})
   end
 
-  def list_projects do
+  def list_projects(user_id) do
+    #Not working yet
+    #query = Ecto.Query.from project in Project, where project.user_id == user_id, select project 
+    # from Collaborator where colaborator_id == user_id, select project_id USE JOIN !
+    # Repo.get_by(Project, project_id)
     Repo.all(Project)
   end
 
