@@ -2,7 +2,8 @@
 	<div id="project-list"> 
 
 		<div id="add">
-			MY PROJECTS ({{ projects.length }}) ADD NEW PROJECT
+			MY PROJECTS ({{ projects.length }})
+			<newProject></newProject>
 		</div>
 		<ul>
 			<li v-for="project in projects">
@@ -10,15 +11,21 @@
 			</li>
 
 		</ul>
+
 	</div>
 </template>
 
 <script>
 import projectItem from './project-item.vue'
+import newProject from './new-project.vue'
+
 
 export default {
+	name: "projectList",
+
 	components: {
-		'projectItem': projectItem
+		'projectItem': projectItem,
+		'newProject': newProject
 	},
 
 	data () {
@@ -33,14 +40,25 @@ export default {
 		}
 
 	},
+
 	methods: {
-		fetchProjects: function (user_id) {
-			return this.dummy_projects;
+		fetchProjects(){
+
+			this.$http.get("/api/projects", {}).then(
+        (response) => {
+
+        	console.log(response.data.data);
+          this.projects = response.data.data;
+       	},
+     		(error) => {
+       		alert("Oops! Something went wrong!");
+       	}
+      )
 		}
 	},
 
 	created(){
-		this.projects = this.fetchProjects(1);
+		this.fetchProjects();
 	}
 
 }

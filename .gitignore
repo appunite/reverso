@@ -5,3 +5,4 @@ erl_crash.dump
 *.ez
 apps/reverso/config/dev.exs
 apps/reverso/config/test.exs
+.DS_Store

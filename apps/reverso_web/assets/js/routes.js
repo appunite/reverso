@@ -1,7 +1,3 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-
-
 import loginPanel from './components/panels/login-panel.vue';
 import sessionPanel from './components/panels/session-panel.vue';
 // import registrationPanel from './components/panels/registration-panel.vue';
