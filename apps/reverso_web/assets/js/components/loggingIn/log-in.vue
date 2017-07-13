@@ -13,11 +13,10 @@ import loginBox from './login-box.vue'
 
 export default {
   components: {
-    'loginBox': loginBox
-  },
-  data() {
-    return {
 
+    'loginBox': loginBox,
+    'lostPass': lostPass,
+    return {
     }
   }
 }

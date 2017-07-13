@@ -19,7 +19,6 @@ defmodule Reverso.Web.Router do
     get "/", PageController, :index
   end
 
-
   scope "/api", Reverso.Web do
     pipe_through :api
 
