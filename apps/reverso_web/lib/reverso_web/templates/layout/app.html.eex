@@ -18,13 +18,9 @@
 </head>
 
 <body style="background-color: #F7F9FA;">
-<<<<<<< HEAD
-   
-=======
 
 
 
->>>>>>> master
 
   <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
   <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
