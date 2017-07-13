@@ -24,7 +24,7 @@ export default {
 
 </script>
 
-<style>
+<style scoped>
 
 .box-container {
   margin: 140px auto auto auto;

@@ -13,8 +13,8 @@ defmodule Reverso.Web.ProjectView do
   def render("project.json", %{project: project}) do
     %{
       id: project.id,
-      project: project.platform,
-      title: project.title
+      title: project.title,
+      code: project.code
     }
   end
 end
