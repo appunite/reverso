@@ -2,7 +2,6 @@
 
 	<div class="box-container">
     <center>Reverso.co</center>
-
     <loginBox></loginBox>
     
 	</div>
