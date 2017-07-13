@@ -13,7 +13,7 @@ defmodule Reverso.Web.SessionController do
     case Accounts.login(session_params) do
       {:ok, user} ->
         conn
-        |> put_session(:current_user, user.id)
+        |> put_session(:current_user, user)
         |> put_flash(:info, "Logged in")
         |> redirect(to: "/")
       :error ->

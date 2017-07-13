@@ -16,7 +16,9 @@ defmodule Reverso.Web.Router do
   scope "/", Reverso.Web do
     pipe_through :browser
 
-
+    get "/login", SessionController, :new
+    post "/login", SessionController, :create
+    #delete "/logout" SessionController, :delete
     get "/", PageController, :index
   end
 

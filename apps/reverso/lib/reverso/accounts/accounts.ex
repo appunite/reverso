@@ -43,14 +43,15 @@ defmodule Reverso.Accounts do
   #end
 
   def login(attrs \\ %{}) do
-    user = Repo.get_by(User, email: String.downcase(attrs["email"]))
-    case authenticate(user, attrs["password"]) do
+    user = Repo.get_by!(User,email: attrs["email"])
+    case authenticate(user,attrs["password"]) do
       true -> {:ok, user}
       _    -> :error
     end
   end
 
-  defp authenticate(user, password) do
+  def authenticate(user, password) do
+    IO.inspect(user)
     case user do
       nil -> false
       _   -> Comeonin.Bcrypt.checkpw(password, user.crypted_password)
