@@ -8,6 +8,9 @@ defmodule Reverso.Projects.Translation do
     field :basic, :string
     field :translation, :string
     belongs_to :project, Reverso.Projects.Project
+    field :android_key, :string
+    field :ios_key, :string
+    field :pc_key, :string
 
     timestamps()
   end
