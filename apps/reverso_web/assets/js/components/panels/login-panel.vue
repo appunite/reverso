@@ -8,10 +8,9 @@
 
 <script>
 
-
 export default {
-  name: "loginPanel",
 
+  name: "loginPanel",
   data () {
     return {
     }
@@ -26,7 +25,7 @@ export default {
 .box-container {
   margin: 140px auto auto auto;
   border: 3px solid green;
-  width: 30%;
+  width: 250px;
   padding: 10px;
 }
 

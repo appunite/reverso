@@ -13,6 +13,7 @@
 // to also remove its path from "config.paths.watched".
 import "phoenix_html"
 import VueRouter from 'vue-router'
+
 import VueResource from 'vue-resource'
 import Routes from './routes'
 import Main from "./main"
