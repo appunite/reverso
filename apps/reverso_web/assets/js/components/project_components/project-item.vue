@@ -2,7 +2,7 @@
 	<div id="project-item"> 
 		<div class="dropdown" v-on:click="!translations_fetched ? project.transls = fetchTranslations(project.id) : null">
 			<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-			<span class="caret"></span>{{ project.name }}</button>
+			<span class="caret"></span>{{ project.title }}</button>
 			<ul class="dropdown-menu" style="position: relative;">
 				<li v-for="tran in project.transls">{{ tran.lang }}</li>
 				<li><a href="#">add new language</a></li>
