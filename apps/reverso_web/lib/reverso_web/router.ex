@@ -22,7 +22,10 @@ defmodule Reverso.Web.Router do
   scope "/api", Reverso.Web do
     pipe_through :api
 
-    resources "/users", UserController
+    get "/login", SessionController, :new
+    post "/login", SessionController, :create
+    #delete "/logout" SessionController, :delete
+    resources "/accounts", UserController
     resources "/projects", ProjectController
     resources "/translations", TranslationController
     resources "/languages", LanguageController

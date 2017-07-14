@@ -5,16 +5,16 @@ defmodule Reverso.Accounts do
 
   import Ecto.Query, warn: false
   alias Reverso.Repo
-  import Ecto.Changeset
 
   alias Reverso.Accounts.User
+  alias Reverso.Accounts.Login
 
 
   def list_users do
     Repo.all(User)
   end
 
-  def get_user!(email), do: Repo.get!(User, email)
+  def get_user!(id), do: Repo.get!(User, id)
 
   def create_user(attrs \\ %{}) do
     %User{}
@@ -36,8 +36,36 @@ defmodule Reverso.Accounts do
     User.changeset(user, %{})
   end
 
-  def login_user(%User{} = user, attrs) do
+  def fetch_by_token(token) do
+    Repo.get_by!(User, token)
+  end
+
+  def update_user_token(%User{} = user, token) do
     user
-    |> User.login_changeset(attrs)
+    |> User.user_token_changeset(token)
+    |> Repo.update()
+  end
+  #def login_user(attrs \\ %{}) do
+  #  %Login{}
+  #  |> Reverso.Accounts.Login.changeset(attrs)
+  #  |> (&Repo.get_by!(User,email: &1.changes.email)).()
+  #end
+
+  def login(attrs \\ %{}) do
+    user = Repo.get_by!(User,email: attrs["email"])
+    case authenticate(user,attrs["password"]) do
+      true -> {:ok, user}
+      _    -> :error
+    end
+  end
+
+  def authenticate(user, password) do
+    IO.inspect(user)
+    case user do
+      nil -> 
+        Comeonin.Bcrypt.dummy_checkpw()
+        false
+      _   -> Comeonin.Bcrypt.checkpw(password, user.crypted_password)
+    end
   end
 end
