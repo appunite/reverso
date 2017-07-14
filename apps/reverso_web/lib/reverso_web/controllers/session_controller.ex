@@ -23,6 +23,6 @@ defmodule Reverso.Web.SessionController do
     conn
     |> get_resp_header("authorization")
     |> Accounts.fetch_by_token
-    |> Accounts.delete_login_token(%{})
+    |> Accounts.delete_login_token()
   end
 end

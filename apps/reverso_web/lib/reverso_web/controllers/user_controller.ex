@@ -5,7 +5,7 @@ defmodule Reverso.Web.UserController do
   alias Reverso.Accounts.User
 
   action_fallback TestJson.Web.FallbackController
-  
+
   def index(conn, _params) do
     users = Accounts.list_users()
     render(conn, "index.json", users: users)
