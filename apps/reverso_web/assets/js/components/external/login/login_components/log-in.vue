@@ -2,28 +2,30 @@
 
 	<div class="box-container">
     <center>Reverso.co</center>
-		<!-- <router-view></router-view> -->
-    <!-- <newUserBox></newUserBox> -->
+    <!-- <loginBox></loginBox> -->
+    <router-view></router-view>    
 	</div>
 </template>
 
 <script>
-import newUserBox from './new-user-box.vue'
+// import loginBox from './login-box.vue'
 
 
 export default {
-  components: {
-    'newUserBox': newUserBox,
-  },
-  data() {
-    return {
+  // components: {
+  //   'loginBox': loginBox
+  // },
 
+  data () {
+    return {
     }
   }
 }
+
 </script>
 
-<style>
+<style scoped>
+/*
 .box-container {
   margin: 140px auto auto auto;
   border: 3px solid green;
@@ -49,4 +51,5 @@ input {
     text-align: center;
     font-weight: normal;
   }
+*/
 </style>

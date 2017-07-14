@@ -41,7 +41,7 @@ export default {
 	},
 
   mounted() { 
-		var address = "/api/users/" + this.userId;
+		var address = "/api/accounts/" + this.userId;
 		console.log(address);
       this.$http.get(address, {}).then(
         (response) => {

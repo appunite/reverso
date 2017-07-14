@@ -1,17 +1,18 @@
 
-import loginPanel from './components/panels/login-panel.vue';
-import sessionPanel from './components/panels/session-panel.vue';
-// import registrationPanel from './components/panels/registration-panel.vue';
+import loginPanel from './components/external/login/login-panel.vue';
+import loginBox from './components/external/login/login_components/login-box.vue';
+import lostPass from './components/external/login/login_components/lost-password.vue';
+
+import registrationPanel from './components/external/registration/registration-panel.vue';
 
 
-import loginBox from './components/login_components/login-box.vue';
-import lostPass from './components/login_components/lost-password.vue';
+import sessionPanel from './components/internal/session-panel.vue';
 
-import projectList from './components/project_components/project-list.vue';
+import projectList from './components/internal/project_components/project-list.vue';
 
-import seeProfile from './components/user_components/see-profile.vue';
-import editProfile from './components/user_components/edit-profile.vue';
-import changePass from './components/user_components/change-pass.vue';
+import seeProfile from './components/internal/user_components/see-profile.vue';
+import editProfile from './components/internal/user_components/edit-profile.vue';
+import changePass from './components/internal/user_components/change-pass.vue';
 
 export default [
 	{ path: '/', 
