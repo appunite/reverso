@@ -17,12 +17,12 @@ defmodule Reverso.Web.SessionController do
     end
   end
 
-  def delete(conn, _params) do
-    conn
-    |> get_resp_header("authorization")
-    |> Accounts.fetch_by_token
-    |> Accounts.update_user_token(user, %{})
-  end
+  #def delete(conn, _params) do
+   # conn
+   # |> get_resp_header("authorization")
+   # |> Accounts.fetch_by_token
+   # |> Accounts.update_user_token(user, %{})
+  #end
   #action_fallback TestJson.Web.FallbackController
 
 
