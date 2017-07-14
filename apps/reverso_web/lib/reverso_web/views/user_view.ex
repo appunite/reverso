@@ -13,7 +13,6 @@ defmodule Reverso.Web.UserView do
   def render("user.json", %{user: user}) do
     %{id: user.id,
       email: user.email,
-      crypted_password: user.crypted_password,
       name: user.name}
   end
 end
