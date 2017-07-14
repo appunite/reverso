@@ -36,7 +36,7 @@
 	</script>
 
 	<style scoped>
-		#menu {
+		/*#menu {
 			background:  #040a42;
 			padding: 18px 16px;	
 		}
@@ -67,5 +67,5 @@
 			color: black;
 			padding: 10px;
 		}
-
+*/
 	</style>

@@ -65,10 +65,10 @@ export default {
 </script>
 
 <style>
-	#project-list {
+/*	#project-list {
 		margin: 30px;
 		width: 100%;
 		border: solid;
-	}
+	}*/
 
 </style>

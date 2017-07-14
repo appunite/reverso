@@ -11,7 +11,7 @@ defmodule Reverso.Web.SessionController do
   end
 
   def create(conn, %{"session" => session_params}) do
-    with {:ok, %User{} = user } <- Accounts.login(session_params),
+    with {:ok, %User{} = user } <- Accounts.login(session_params),                    #to w jedno zrobic
          {:ok, %User{} = user_with_token} <- Accounts.create_login_token(user) do
           conn
           |> put_resp_header("authorization", user_with_token.user_token)
