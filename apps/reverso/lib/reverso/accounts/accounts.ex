@@ -7,7 +7,6 @@ defmodule Reverso.Accounts do
   alias Reverso.Repo
 
   alias Reverso.Accounts.User
-  alias Reverso.Accounts.Login
 
 
   def list_users do
@@ -40,16 +39,29 @@ defmodule Reverso.Accounts do
     Repo.get_by!(User, token)
   end
 
-  def update_user_token(%User{} = user, token) do
+  def create_login_token(%User{} = user) do
     user
-    |> User.user_token_changeset(token)
+    |> User.user_token_changeset(%{user_token: Ecto.UUID.generate()})
     |> Repo.update()
   end
-  #def login_user(attrs \\ %{}) do
-  #  %Login{}
-  #  |> Reverso.Accounts.Login.changeset(attrs)
-  #  |> (&Repo.get_by!(User,email: &1.changes.email)).()
-  #end
+
+  def create_activation_token(%User{} = user) do
+    user
+    |> User.user_token_changeset(%{activation_token: Ecto.UUID.generate()})
+    |> Repo.update()
+  end
+
+  def create_pw_token(%User{} = user) do
+    user
+    |> User.user_token_changeset(%{pw_reset_token: Ecto.UUID.generate()})
+    |> Repo.update()
+  end
+
+  def delete_login_token(%User{} = user) do
+    user
+    |> User.user_token_changeset(%{user_token: nil})
+    |> Repo.update()
+  end
 
   def login(attrs \\ %{}) do
     user = Repo.get_by!(User,email: attrs["email"])
