@@ -1,5 +1,13 @@
 <template>	
-	<div id="project-item"> 
+	<div id="project-item">
+		<div v-for="translation in translations">
+			{{ translation.lang }}
+		</div>
+
+	</div>
+
+
+	<!-- <div id="project-item"> 
 		<div class="dropdown" v-on:click="!translations_fetched ? project.transls = fetchTranslations(project.id) : null">
 			<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
 			<span class="caret"></span>{{ project.title }}</button>
@@ -8,7 +16,7 @@
 				<li><a href="#">add new language</a></li>
 			</ul>
 		</div>
-	</div>
+	</div> -->
 </template>
 
 <script>
@@ -19,9 +27,9 @@ export default {
 
 	data () {
 		return {
-			translations_fetched: false,
+			translations: [],
 
-			trans: [
+			dummy_trans: [
 				{
 					lang: "portugese",
 					str: "300/300",
@@ -41,15 +49,27 @@ export default {
 
 		}
 	},
-	methods: {
-		fetchTranslations: function (project_id) {
-			this.translations_fetched = true;
-			return this.trans;
-		}
-	}
 	
+	methods: {
 
+		fetchTranslations(project_id) {
+			// this.$http.get("/api/projects/" + project_id, {}).then(
+   //      (response) => {
+				
+			// 	},
+   //   		(error) => {
+   //     	}
+   //    )
+      this.translations = this.dummy_trans; 
+		}
+	},
+	
+	created(){
+		fetchTranslations(1);
+		console.log("eeeeeeeooooooo");
+	}
 }
+
 </script>
 <style>
 /*
