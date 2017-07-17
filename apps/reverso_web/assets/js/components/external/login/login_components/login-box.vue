@@ -4,12 +4,11 @@
     <div class="message">{{ message }}</div>
 
     <form v-on:submit.prevent="login">
-
       <label for="email">Email:</label>
-      <input type="text" v-model="params.user.email" placeholder="Email" id="email"><br>
+      <input type="text" v-model="params.email" placeholder="Email" id="email"><br>
       <br>
       <label for="password">Password:</label>
-      <input type="password" v-model="params.user.password" placeholder="Password" id="password"><br>
+      <input type="password" v-model="params.password" placeholder="Password" id="password"><br>
       <p v-if="wrong_pass" id="passAlert">Wrong password. <router-link to="/lost-password">Forgot password?</router-link></p>
       <br>
       <button type="submit" class="green-btn">Log in</button>
@@ -27,10 +26,8 @@ export default {
       message: "It's nice to see you again!",
       wrong_pass: false,
       params:{
-        user:{
-          email: "",
-          password: ""
-        }
+        email: "",
+        password: ""
       }
 		} 
 	},
