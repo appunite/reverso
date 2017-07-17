@@ -47,9 +47,8 @@ export default {
 </script>
 
 <style>
-
+/*
   #login-box {
-    /*margin: 140px auto auto auto;*/
     border: solid;
     margin-top: 20px;
   }
@@ -63,6 +62,6 @@ export default {
     color: red;
     text-align: left;
   }
-
+*/
 </style>
 

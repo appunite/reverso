@@ -48,12 +48,11 @@ export default {
 </script>
 
 <style>
-
+/*
   #new-user-box {
-    /*margin: 140px auto auto auto;*/
     border: solid;
     margin-top: 20px;
   }
-
+*/
 </style>
 

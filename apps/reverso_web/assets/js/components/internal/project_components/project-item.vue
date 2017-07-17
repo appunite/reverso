@@ -52,10 +52,11 @@ export default {
 }
 </script>
 <style>
+/*
 #project-item {
 	margin: 30px;
 	width: 100%;
 	border: solid;
 }
-
+*/
 </style>

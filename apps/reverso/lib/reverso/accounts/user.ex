@@ -10,6 +10,10 @@ defmodule Reverso.Accounts.User do
     field :password, :string, virtual: true, default: ""
     field :password_confirmation, :string, virtual: true, default: ""
     field :name, :string
+    field :user_token, :string, default: nil
+    field :activated, :binary
+    field :activation_token, :string, default: nil
+    field :pw_reset_token, :string, default: nil
 
     timestamps()
   end
@@ -23,8 +27,22 @@ defmodule Reverso.Accounts.User do
     |> validate_length(:password, min: 5)
     |> validate_confirmation(:password)
     |> unique_constraint(:email)
-    |> put_change(:crypted_password, hashed_password(user.password))
-    
+    |> hash_password()
+  end
+
+  def user_token_changeset(%User{} = user, attrs) do
+    user
+    |> cast(attrs, [:user_token, :activation_token, :pw_reset_token])
+  end
+
+  def activate_changeset(%User{} = user, attrs) do
+    user
+    |> cast(attrs, [:activated, :activation_token])
+  end
+
+  defp hash_password(changeset) do
+    password = get_change(changeset, :password)
+    put_change(changeset, :crypted_password, hashed_password(password))
   end
   
   defp hashed_password(password) do
