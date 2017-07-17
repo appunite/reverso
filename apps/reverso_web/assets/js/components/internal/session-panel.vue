@@ -22,11 +22,3 @@ export default {
 }
 
 </script>
-
-<style>
-/*	#add {
-		margin: 30px;
-		width: 100%;
-		border: solid;
-	}*/
-</style>
