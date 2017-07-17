@@ -18,6 +18,7 @@ defmodule Reverso.Web.Router do
   pipeline :api_user_auth do
     plug :accepts, ["json"]
     # plug AuthUser
+
   end
 
   scope "/", Reverso.Web do
