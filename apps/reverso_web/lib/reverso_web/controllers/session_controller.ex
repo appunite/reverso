@@ -6,16 +6,12 @@ defmodule Reverso.Web.SessionController do
 
   action_fallback Reverso.Web.FallbackController
 
-  def new(conn, _params) do
-    render conn, "new.html"
-  end
-
-  def create(conn, %{"session" => session_params}) do
-    with {:ok, %User{} = user } <- Accounts.login(session_params),                    #to w jedno zrobic
-         {:ok, %User{} = user_with_token} <- Accounts.create_login_token(user) do
+  def create(conn, %{"params" => session_params}) do
+    with {:ok, %User{} = user } <- Accounts.login(session_params) do
+          Reverso.Web.UserView.render("show.json", user: user)
           conn
-          |> put_resp_header("authorization", user_with_token.user_token)
-          |> render("token.json", user: user_with_token)
+          |> put_resp_header("authorization", user.user_token)
+          |> send_resp(200, "Logged In")
     end
   end
 

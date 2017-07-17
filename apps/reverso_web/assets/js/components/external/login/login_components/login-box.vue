@@ -1,20 +1,18 @@
 <template>
   <div id="login-box">
 
-    <h3>{{ message }}</h3>
+    <div class="message">{{ message }}</div>
 
-    <form>
-
-      Email:<br>
-      <input type="text" v-model="email" placeholder="Email"><br>
-
-      Password:<br>
-      <input type="password" v-model="password" placeholder="Password"><br>
-      
+    <form v-on:submit.prevent="login">
+      <label for="email">Email:</label>
+      <input type="text" v-model="params.email" placeholder="Email" id="email"><br>
+      <br>
+      <label for="password">Password:</label>
+      <input type="password" v-model="params.password" placeholder="Password" id="password"><br>
       <p v-if="wrong_pass" id="passAlert">Wrong password. <router-link to="/lost-password">Forgot password?</router-link></p>
-
-      <button v-on:click.prevent="login">Log in</button>
-      <p id="lostPassMild"><router-link to="/lost-password">Can't log in?</router-link></p>
+      <br>
+      <button type="submit" class="green-btn">Log in</button>
+      <router-link to="" class="white-btn">Can't log in?</router-link>
     </form>
  </div>
 </template>
@@ -27,19 +25,25 @@ export default {
 		return {
       message: "It's nice to see you again!",
       wrong_pass: false,
-
-      dummy_user: {
-        email: "foo@bar.com",
-        password: "abcdef"
-      },
-      email: "",
-      password: ""
+      params:{
+        email: "",
+        password: ""
+      }
 		} 
 	},
 
   methods: {
-    login: function(){
-
+    login(){
+      this.$http.post("/api/login/", {
+        params: this.params
+      }).then(
+        (response) => {
+          console.log(response);
+        },
+        (error) => {
+          alert("Oops! Something went wrong!");
+        }
+      )
     }
   }
 
@@ -47,21 +51,24 @@ export default {
 </script>
 
 <style>
-/*
-  #login-box {
-    border: solid;
-    margin-top: 20px;
-  }
-  
+  #login-box a.white-btn {
+    background: transparent;
+    color: #bbbbbb;
 
-  #lostPassMild {
-    color: lightgray;
+    display: block;
+    width: 100%;
+    height: 35px; 
+
+    margin: 5px 0 0 0;
+    border: 1px red solid;
+    border-radius: 2px;
+    
+    font-weight: 153;
+    font-size: 13px;
+    text-align: center;
+    text-decoration: none;
+    line-height: 33px;
   }
 
-  #passAlert {  
-    color: red;
-    text-align: left;
-  }
-*/
 </style>
 

@@ -51,7 +51,7 @@ defmodule Reverso.Accounts do
     |> Repo.update()
   end
 
-  def create_pw_token(%User{} = user) do
+  def create_password_token(%User{} = user) do
     user
     |> User.user_token_changeset(%{pw_reset_token: Ecto.UUID.generate()})
     |> Repo.update()
@@ -63,21 +63,28 @@ defmodule Reverso.Accounts do
     |> Repo.update()
   end
 
-  def login(attrs \\ %{}) do
-    user = Repo.get_by!(User,email: attrs["email"])
-    case authenticate(user,attrs["password"]) do
-      true -> {:ok, user}
+  def login(%{"email" => user_email, "password" => user_password} \\ %{}) do
+    user = Repo.get_by!(User,email: user_email)    
+    case authenticate(user,user_password) do
+      true -> 
+        {:ok, user_with_token} = create_login_token(user)
+        {:ok, user_with_token}
       _    -> :error
     end
   end
 
   def authenticate(user, password) do
-    IO.inspect(user)
     case user do
       nil -> 
         Comeonin.Bcrypt.dummy_checkpw()
         false
       _   -> Comeonin.Bcrypt.checkpw(password, user.crypted_password)
     end
+  end
+  
+  def reset_password(user, new_password) do
+    user
+    |> User.reset_password_changeset(%{password: new_password})
+    |> Repo.update()
   end
 end

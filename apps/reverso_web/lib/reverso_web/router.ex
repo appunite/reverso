@@ -17,7 +17,11 @@ defmodule Reverso.Web.Router do
 
   pipeline :api_user_auth do
     plug :accepts, ["json"]
+<<<<<<< HEAD
    # plug AuthUser
+=======
+    # plug AuthUser
+>>>>>>> master
   end
 
   scope "/", Reverso.Web do
@@ -29,14 +33,13 @@ defmodule Reverso.Web.Router do
   scope "/api", Reverso.Web do
     pipe_through :api_no_auth
 
-    get "/login", SessionController, :new
     post "/login", SessionController, :create
-    #delete "/logout" SessionController, :delete
   end
 
   scope "/api", Reverso.Web do
     pipe_through :api_user_auth
     
+    delete "/logout", SessionController, :delete
     resources "/accounts", UserController
     resources "/projects", ProjectController
     resources "/translations", TranslationController
