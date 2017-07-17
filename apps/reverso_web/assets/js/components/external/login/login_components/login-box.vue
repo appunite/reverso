@@ -5,16 +5,16 @@
 
     <form>
 
-      Email:<br>
-      <input type="text" v-model="email" placeholder="Email"><br>
+      <label for="email">Email:</label><br>
+      <input type="text" v-model="params.user.email" placeholder="Email" id="email"><br>
 
-      Password:<br>
-      <input type="password" v-model="password" placeholder="Password"><br>
+      <label for="password">Password:</label><br>
+      <input type="password" v-model="params.user.password" placeholder="Password" id="password"><br>
       
       <p v-if="wrong_pass" id="passAlert">Wrong password. <router-link to="/lost-password">Forgot password?</router-link></p>
 
       <button v-on:click.prevent="login">Log in</button>
-      <p id="lostPassMild"><router-link to="/lost-password">Can't log in?</router-link></p>
+      <button v-on:click.prevent="lostPass">Can't log in?</button>
     </form>
  </div>
 </template>
@@ -28,19 +28,33 @@ export default {
       message: "It's nice to see you again!",
       wrong_pass: false,
 
-      dummy_user: {
-        email: "foo@bar.com",
-        password: "abcdef"
-      },
-      email: "",
-      password: ""
+      params:{
+        user:{
+          email: "",
+          password: ""
+        }
+      }
 		} 
 	},
 
   methods: {
-    login: function(){
+    login(){
+      console.log(this.params.user);
 
+      this.$http.post('/api/login', {"email": "admin@admin.pl", "password": "admin"}).then(
+        (response) => {
+          console.log(response);
+        },
+        (error) => {
+          alert("Oops! Something went wrong!");
+        }
+      )
+    },
+
+    lostPass(){
+      this.$router.push("/lost-password");
     }
+    
   }
 
 }
