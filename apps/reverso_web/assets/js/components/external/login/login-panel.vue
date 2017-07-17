@@ -1,7 +1,7 @@
 <template>
   <div id="login-panel">
     <el-row type="flex" class="row-bg" justify="center">
-      <el-col class="main-col" :xs="16" :sm="18" :md="4" :lg="3">
+      <el-col class="main-col" :xs="16" :sm="9" :md="9" :lg="9">
         <div class="login-logo">
           <img src="/images/login-logo.png">
         </div>
