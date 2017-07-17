@@ -31,7 +31,6 @@ export default {
   }
 
   #login-panel .main-col{
-    background: red;
     margin-top: 100px;
     padding: 15px;
     box-sizing: border-box;
@@ -44,35 +43,54 @@ export default {
   }
 
   #login-panel input {
+    background: transparent;
     font-size: 20px;
+    width: 100%;  
     height: 35px;
-    width: 100%;
     margin: 5px 0 0 0;
     border: 0;
+    border-radius: 2px;
   }
 
   #login-panel button {
+    background: transparent;
     width: 100%;
+    height: 35px; 
     margin: 5px 0 0 0;
     border: 0;
+    border-radius: 2px;
+  }
+
+  #login-panel button.green-btn {
+    background: #38c885;
+    color: #ffffff;
+    font-weight: 153;
+    font-size: 13px;
+  }
+
+  #login-panel button.white-btn {
+    background: transparent;
+    color: #bbbbbb;
+    font-weight: 153;
+    font-size: 13px;
   }
 
   #login-panel ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
-      color:    #888;
+    color: #bbb;
   }
   #login-panel :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
-    color:    #888;
-    opacity:  1;
+    color: #bbb;
+    opacity: 1;
   }
   #login-panel ::-moz-placeholder { /* Mozilla Firefox 19+ */
-    color:    #888;
-    opacity:  1;
+    color: #bbb;
+    opacity: 1;
   }
   #login-panel :-ms-input-placeholder { /* Internet Explorer 10-11 */
-    color:    #888;
+    color: #bbb;
   }
   #login-panel ::-ms-input-placeholder { /* Microsoft Edge */
-    color:    #888;
+    color: #bbb;
   }
 
 </style>

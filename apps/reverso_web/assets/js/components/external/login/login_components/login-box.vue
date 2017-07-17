@@ -1,20 +1,19 @@
 <template>
   <div id="login-box">
 
-    <h3>{{ message }}</h3>
+    <div class="message">{{ message }}</div>
 
-    <form>
+    <form v-on:submit.prevent="login">
 
-      Email:<br>
-      <input type="text" v-model="params.user.email" placeholder="Email"><br>
-      {{params.user.email}}
-      Password:<br>
-      <input type="password" v-model="params.user.password" placeholder="Password"><br>
-      {{params.user.password}}
+      <label for="email">Email:</label>
+      <input type="text" v-model="params.user.email" placeholder="Email" id="email"><br>
+      <br>
+      <label for="password">Password:</label>
+      <input type="password" v-model="params.user.password" placeholder="Password" id="password"><br>
       <p v-if="wrong_pass" id="passAlert">Wrong password. <router-link to="/lost-password">Forgot password?</router-link></p>
-
-      <button v-on:click.prevent="login">Log in</button>
-      <button v-on:click.prevent="lostPass">Can't log in?</button>
+      <br>
+      <button type="submit" class="green-btn">Log in</button>
+      <router-link to="" class="white-btn">Can't log in?</router-link>
     </form>
  </div>
 </template>
@@ -48,33 +47,31 @@ export default {
           alert("Oops! Something went wrong!");
         }
       )
-    },
-
-    lostPass(){
-      this.$router.push("/lost-password");
     }
-    
   }
 
 }
 </script>
 
 <style>
-/*
-  #login-box {
-    border: solid;
-    margin-top: 20px;
-  }
-  
+  #login-box a.white-btn {
+    background: transparent;
+    color: #bbbbbb;
 
-  #lostPassMild {
-    color: lightgray;
+    display: block;
+    width: 100%;
+    height: 35px; 
+
+    margin: 5px 0 0 0;
+    border: 1px red solid;
+    border-radius: 2px;
+    
+    font-weight: 153;
+    font-size: 13px;
+    text-align: center;
+    text-decoration: none;
+    line-height: 33px;
   }
 
-  #passAlert {  
-    color: red;
-    text-align: left;
-  }
-*/
 </style>
 
