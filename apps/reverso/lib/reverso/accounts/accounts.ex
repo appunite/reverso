@@ -51,7 +51,7 @@ defmodule Reverso.Accounts do
     |> Repo.update()
   end
 
-  def create_pw_token(%User{} = user) do
+  def create_password_token(%User{} = user) do
     user
     |> User.user_token_changeset(%{pw_reset_token: Ecto.UUID.generate()})
     |> Repo.update()
