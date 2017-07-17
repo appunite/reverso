@@ -18,15 +18,10 @@ import VueResource from 'vue-resource'
 import Routes from './routes'
 
 import ElementUI from 'element-ui'
-// import 'element-ui/lib/theme-default/index.css'
-// import '../node_modules/element-ui/lib/theme-default/index'
 // import locale from '../node_modules/element-ui/lib/locale/lang/en'
-// import locale from 'element-ui/lib/locale/lang/en'
 
 import Main from './main'
 
-import ElementUI from 'element-ui'
-//import 'element-ui/lib/theme-default/index.css'
 
 Vue.use(VueRouter);
 Vue.use(VueResource);

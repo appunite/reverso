@@ -2,6 +2,7 @@
 	<div id="project-item">
 		<div v-for="translation in translations">
 			{{ translation.lang }}
+			
 		</div>
 
 	</div>
@@ -65,7 +66,7 @@ export default {
 	},
 	
 	created(){
-		fetchTranslations(1);
+		this.fetchTranslations(1);
 		console.log("eeeeeeeooooooo");
 	}
 }
