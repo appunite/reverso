@@ -55,4 +55,3 @@ defmodule Reverso.Accounts.User do
     Comeonin.Bcrypt.hashpwsalt(password)
   end
 end
-

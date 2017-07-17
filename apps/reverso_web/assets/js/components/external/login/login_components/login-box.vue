@@ -6,11 +6,9 @@
     <form>
 
       Email:<br>
-      <input type="text" v-model="params.user.email" placeholder="Email"><br>
-      {{params.user.email}}
+      <input type="text" v-model="params.email" placeholder="Email"><br>
       Password:<br>
-      <input type="password" v-model="params.user.password" placeholder="Password"><br>
-      {{params.user.password}}
+      <input type="password" v-model="params.password" placeholder="Password"><br>
       <p v-if="wrong_pass" id="passAlert">Wrong password. <router-link to="/lost-password">Forgot password?</router-link></p>
 
       <button v-on:click.prevent="login">Log in</button>
@@ -28,10 +26,8 @@ export default {
       message: "It's nice to see you again!",
       wrong_pass: false,
       params:{
-        user:{
-          email: "",
-          password: ""
-        }
+        email: "",
+        password: ""
       }
 		} 
 	},
