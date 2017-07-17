@@ -40,6 +40,12 @@ defmodule Reverso.Accounts.User do
     |> cast(attrs, [:activated, :activation_token])
   end
 
+  def reset_password_changeset(%User{} = user, attrs) do
+    user
+    |> cast(attrs, [:password])
+    |> hash_password()
+  end
+
   defp hash_password(changeset) do
     password = get_change(changeset, :password)
     put_change(changeset, :crypted_password, hashed_password(password))

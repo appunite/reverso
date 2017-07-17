@@ -80,4 +80,10 @@ defmodule Reverso.Accounts do
       _   -> Comeonin.Bcrypt.checkpw(password, user.crypted_password)
     end
   end
+  
+  def reset_password(user, new_password) do
+    user
+    |> User.reset_password_changeset(%{password: new_password})
+    |> Repo.update()
+  end
 end

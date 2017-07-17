@@ -6,10 +6,6 @@ defmodule Reverso.Web.SessionController do
 
   action_fallback Reverso.Web.FallbackController
 
-  def new(conn, _params) do
-    render conn, "new.html"
-  end
-
   def create(conn, %{"session" => session_params}) do
     with {:ok, %User{} = user } <- Accounts.login(session_params),                    #to w jedno zrobic
          {:ok, %User{} = user_with_token} <- Accounts.create_login_token(user) do
@@ -24,5 +20,6 @@ defmodule Reverso.Web.SessionController do
     |> get_resp_header("authorization")
     |> Accounts.fetch_by_token
     |> Accounts.delete_login_token()
+    delete_resp_header(conn, "authorization") 
   end
 end
