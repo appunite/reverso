@@ -10,7 +10,8 @@ defmodule Reverso.Web.SessionController do
     render conn, "new.html"
   end
 
-  def create(conn, %{"session" => session_params}) do
+  def create(conn,%{"email" => user_email, "password" => user_password} = session_params) do
+    IO.inspect session_params
     with {:ok, %User{} = user } <- Accounts.login(session_params),                    #to w jedno zrobic
          {:ok, %User{} = user_with_token} <- Accounts.create_login_token(user) do
           conn
