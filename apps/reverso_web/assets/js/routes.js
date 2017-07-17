@@ -20,20 +20,19 @@ export default [
 		redirect: '/log-in',
 		children: [
 			{ path: '/log-in', component: loginBox },
-			{ path: '/lost-password', component: lostPass },
-
-			{ path: '/profile', component: seeProfile },
-			{ path: '/edit-profile', component: editProfile },
-			{ path: '/edit-pass', component: changePass },
+			{ path: '/lost-password', component: lostPass }
 		]
 	},
 	{ path: '/session',
 		component: sessionPanel,
 		children: [
-			{ path: '/projects', component: projectList }
+			{ path: '/projects', component: projectList },
 			// lista projektow,
 			// tłumaczenie,
 			// użytkownik
+			{ path: '/profile', component: seeProfile },
+			{ path: '/edit-profile', component: editProfile },
+			{ path: '/edit-pass', component: changePass }
 		]
 	}//,
 	// { path: '/register', component: registrationPanel }
