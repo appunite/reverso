@@ -19,14 +19,15 @@
 <script>
 import projectItem from './project-item.vue'
 import newProject from './new-project.vue'
-
+import editProject from './edit-project.vue'
 
 export default {
 	name: "projectList",
 
 	components: {
 		'projectItem': projectItem,
-		'newProject': newProject
+		'newProject': newProject,
+		'editProject': editProject
 	},
 
 	data () {

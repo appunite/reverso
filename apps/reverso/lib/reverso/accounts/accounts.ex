@@ -64,13 +64,13 @@ defmodule Reverso.Accounts do
   end
 
   def login(%{"email" => user_email, "password" => user_password} \\ %{}) do
-    user = Repo.get_by!(User,email: user_email)    
-    case authenticate(user,user_password) do
-      true -> 
-        {:ok, user_with_token} = create_login_token(user)
-        {:ok, user_with_token}
-      _    -> :error
-    end
+    user = Repo.get_by(User,email: user_email)  
+      case authenticate(user,user_password) do
+        true -> 
+          {:ok, user_with_token} = create_login_token(user)
+          {:ok, user_with_token}
+        _    -> {:invalid_credentials}
+      end
   end
 
   def authenticate(user, password) do
