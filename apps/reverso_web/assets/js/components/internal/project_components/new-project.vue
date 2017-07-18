@@ -1,6 +1,6 @@
 <template>
 <span>
-    <button id="dialogVisable" class="add_sth_btn" @click="dialogData.visable = true">Add new project</button>
+    <el-button type="text" id="dialogVisable"  @click="dialogData.visable = true">Add new project</el-button>
     <projectDialog v-bind:dialogData="dialogData" v-if="dialogData.visable" @close="dialogData.visable = false">
         
     </projectDialog>
