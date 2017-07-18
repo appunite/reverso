@@ -1,4 +1,4 @@
-defmodule Reverso.Web.Plugs.Authenticate do
+defmodule Reverso.Web.Plugs.AuthUser do
   import Plug.Conn
 
   def init(_), do: []
@@ -13,7 +13,7 @@ defmodule Reverso.Web.Plugs.Authenticate do
       _ ->
         conn
         |> put_status(:unauthorized)
-        |> Phoenix.Controller.render(Web.ErrorView, "401.json")
+        |> Phoenix.Controller.render(Reverso.Web.ErrorView, "401.json")
         |> halt()
     end
   end

@@ -27,3 +27,4 @@ npm-debug.log
 /config/*.secret.exs
 /config/test.exs
 /config/dev.exs
+.DS_Store

@@ -5,13 +5,14 @@
 			MY PROJECTS ({{ projects.length }})
 			<newProject></newProject>
 		</div>
-		<ul>
-			<li v-for="project in projects">
+		
+
+		<el-collapse v-model="activeNames" @change="handleChange">
+			<el-collapse-item v-for="(project, key) in projects" :title="project.title" :name="key">
 				<projectItem v-bind:project="project"></projectItem>
-			</li>
-
-		</ul>
-
+		  </el-collapse-item>
+		</el-collapse>
+		
 	</div>
 </template>
 
@@ -30,6 +31,7 @@ export default {
 
 	data () {
 		return {
+			activeNames: ['1'],
 			projects: [],
 			dummy_projects: [
 				{ id: 1, name: "Super Wooper App", transls: [] },
@@ -63,12 +65,3 @@ export default {
 
 }
 </script>
-
-<style>
-	#project-list {
-		margin: 30px;
-		width: 100%;
-		border: solid;
-	}
-
-</style>

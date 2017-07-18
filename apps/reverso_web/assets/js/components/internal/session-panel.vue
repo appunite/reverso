@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import navPanel from '../session_components/nav-panel'
+import navPanel from './session_components/nav-panel'
 
 export default {
 	name: "sessionPanel",
@@ -22,11 +22,3 @@ export default {
 }
 
 </script>
-
-<style>
-	#add {
-		margin: 30px;
-		width: 100%;
-		border: solid;
-	}
-</style>
