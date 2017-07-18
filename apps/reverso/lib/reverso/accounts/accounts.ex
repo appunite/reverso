@@ -17,7 +17,7 @@ defmodule Reverso.Accounts do
 
   def create_user(attrs \\ %{}) do
     %User{}
-    |> User.changeset(attrs)
+    |> User.changeset(Map.put(attrs, :activation_token, Ecto.UUID.generate()))
     |> Repo.insert()
   end
 
@@ -53,13 +53,25 @@ defmodule Reverso.Accounts do
 
   def create_password_token(%User{} = user) do
     user
-    |> User.user_token_changeset(%{pw_reset_token: Ecto.UUID.generate()})
+    |> User.user_token_changeset(%{password_reset_token: Ecto.UUID.generate()})
     |> Repo.update()
   end
-
+  
   def delete_login_token(%User{} = user) do
     user
     |> User.user_token_changeset(%{user_token: nil})
+    |> Repo.update()
+  end
+
+  def delete_activation_token(%User{} = user) do
+    user
+    |> User.user_token_changeset(%{activation_token: nil})
+    |> Repo.update()
+  end
+
+  def delete_password_token(%User{} = user) do
+    user
+    |> User.user_token_changeset(%{password_reset_token: nil})
     |> Repo.update()
   end
 
@@ -78,13 +90,28 @@ defmodule Reverso.Accounts do
       nil -> 
         Comeonin.Bcrypt.dummy_checkpw()
         false
-      _   -> Comeonin.Bcrypt.checkpw(password, user.crypted_password)
+      _ -> Comeonin.Bcrypt.checkpw(password, user.crypted_password)
     end
   end
   
-  def reset_password(user, new_password) do
-    user
-    |> User.reset_password_changeset(%{password: new_password})
-    |> Repo.update()
+  def reset_password(token, new_password) do
+    case Repo.get_by(User, password_reset_token: token) do
+      %User{} = user ->
+        user
+        |> User.reset_password_changeset(%{password: new_password})
+        |> Repo.update()
+      _ ->
+        {:user_not_found, "User with specified token not found!"}
+    end
+  end
+
+  def activate(token) do
+    case Repo.get_by(User, activation_token: token) do
+      %User{} = user ->
+        User.activate_changeset(user)
+        |> Repo.update()
+      _ ->
+        {:user_not_found, "User with specified token not found!"}
+    end
   end
 end
