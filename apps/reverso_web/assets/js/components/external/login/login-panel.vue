@@ -1,8 +1,8 @@
 <template>
-  <div id="login-panel">
-    <el-row type="flex" class="row-bg" justify="center">
-      <el-col class="main-col" :xs="16" :sm="9" :md="9" :lg="9">
-        <div class="login-logo">
+  <div id="login-panel" class="loginPanel">
+    <el-row type="flex" class="row-bg loginPanel__row" justify="center">
+      <el-col class="main-col loginPanel__main-col" :xs="16" :sm="9" :md="9" :lg="9">
+        <div class="login-logo loginPanel__logo">
           <a href="/"><img src="/images/logo-blue.svg"></a>
         </div>
         <router-view></router-view>  
@@ -27,6 +27,21 @@ export default {
 
 <style lang="scss">
   $main-bg-color: #f7f9fa;
+
+  .loginPanel {
+
+    &__logo {
+
+    }
+
+    &__row {
+
+    }
+
+    &__main-col {
+      
+    }
+  }
 
   #login-panel{
     .login-logo {
