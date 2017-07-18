@@ -126,4 +126,13 @@ defmodule Reverso.Projects do
   def change_language(%Language{} = language) do
     Language.changeset(language, %{})
   end
+
+  def get_languages_by_project(project_id) do
+
+    query = Ecto.Query.from u in "projects_languages",
+    where: u.project_id == ^project_id,
+    select: u.language_name
+    Repo.all(query)
+
+  end
 end

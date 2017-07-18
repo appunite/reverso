@@ -20,9 +20,9 @@ defmodule Reverso.Web.ProjectController do
     end
   end
 
-  def show(conn, %{"id" => id}) do
-    project = Projects.get_project!(id)
-    render(conn, "show.json", project: project)
+  def show(conn, %{"id" => id}) do  #Lista jezykow danego projektu 
+    languages = Projects.get_languages_by_project(id)
+    render(conn, "show.json", languages: languages)
   end
 
   def update(conn, %{"id" => id, "project" => project_params}) do
