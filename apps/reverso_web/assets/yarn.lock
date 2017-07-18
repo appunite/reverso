@@ -4054,7 +4054,7 @@ vue-style-loader@^3.0.0:
     hash-sum "^1.0.2"
     loader-utils "^1.0.2"
 
-vue-template-compiler@^2.0.0-alpha.8, vue-template-compiler@^2.4.1:
+vue-template-compiler@^2.0.0-alpha.8, vue-template-compiler@^2.3.4:
   version "2.4.1"
   resolved "https://registry.yarnpkg.com/vue-template-compiler/-/vue-template-compiler-2.4.1.tgz#20115cf8714f222f9be4111ec75b079a1c9b8197"
   dependencies:

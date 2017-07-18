@@ -9,12 +9,11 @@ defmodule Reverso.Web.TranslationView do
   def render("show.json", %{translation: translation}) do
     %{data: render_one(translation, TranslationView, "translation.json")}
   end
-  
+
   def render("translation.json", %{translation: translation}) do
-    %{
-      id: translation.id,
-      translation: translation.basic,
-      title: translation.translation
-    }
+    %{id: translation.id,
+      basic: translation.basic,
+      translation: translation.translation,
+      platform_key: translation.platform_key}
   end
 end
