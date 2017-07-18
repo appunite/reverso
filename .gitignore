@@ -7,3 +7,4 @@ apps/reverso/config/dev.exs
 apps/reverso/config/test.exs
 .DS_Store
 */.DS_Store
+apps/reverso_web/assets/yarn-error.log

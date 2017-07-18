@@ -18,14 +18,12 @@ import VueResource from 'vue-resource'
 import Routes from './routes'
 
 import ElementUI from 'element-ui'
-// import locale from '../node_modules/element-ui/lib/locale/lang/en'
 
 import Main from './main'
 
 
 Vue.use(VueRouter);
 Vue.use(VueResource);
-// Vue.use(ElementUI, { locale });
 Vue.use(ElementUI);
 
 const router = new VueRouter({

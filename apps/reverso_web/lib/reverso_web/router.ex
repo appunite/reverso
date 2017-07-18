@@ -42,9 +42,5 @@ defmodule Reverso.Web.Router do
     resources "/translations", TranslationController
     resources "/languages", LanguageController
   end
-
-  # Other scopes may use custom stacks.
-  # scope "/api", Reverso.Web do
-  #   pipe_through :api
-  # end
+  
 end

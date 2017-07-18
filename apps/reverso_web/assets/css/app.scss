@@ -1,63 +1,11 @@
-/* This file is for your main application css. */
-
-/* logged in */
-
 @import '../node_modules/element-ui/lib/theme-default/index';
 
 $menu-color: #040a42;
 
-
-/*#menu {
-	background:  #040a42;
-	padding: 18px 16px;	
+.add_sth_btn {
+	border: none;
+	background: transparent;
+	color: blue;
 }
-
-#menu ul {
-	list-style-type: none;
-	display: inline;
-}
-
-#menu li {
-	float: left;
-	color: white;
-    background:  #040a42;
-}
-
-#menu button {
-	border: 0px;
-	color: white;
-    background:  #040a42;
-}
-
-.dropdown-menu {
-	border-radius: 0 !important; 
-}
-
-.dropdown-menu li {
-	background: white !important;
-	color: black;
-	padding: 10px;
-}*/
-
-
-
-
-/* app */
-
-/*#login-box {
-	margin: 140px auto auto auto;
-}
-
-#reg-box {
-	background: white;
-	padding: 10px
-;}
-
-
-#box-container {
-	margin: 140px auto auto auto;
-	border: 3px solid green;
-    width: 30%;
-}*/
 
 

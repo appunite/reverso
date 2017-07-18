@@ -65,12 +65,3 @@ export default {
 
 }
 </script>
-
-<style>
-/*	#project-list {
-		margin: 30px;
-		width: 100%;
-		border: solid;
-	}*/
-
-</style>

@@ -1,6 +1,5 @@
 <template>	
 	<div>
-	<!-- <div id="menu" style="width: 100%;"> -->
 	
 <el-menu theme="dark" :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
   <el-menu-item index="1">Reverso.co</el-menu-item>
