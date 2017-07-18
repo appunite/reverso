@@ -5,10 +5,9 @@ defmodule Reverso.Projects.Project do
 
 
   schema "projects_projects" do
-    field :platform, :string
-    field :title, :string
-    field :code , :integer
-    
+    field :basic_language, :string
+    field :project_name, :string
+    field :owner_id, :integer
 
     timestamps()
   end
@@ -16,7 +15,7 @@ defmodule Reverso.Projects.Project do
   @doc false
   def changeset(%Project{} = project, attrs) do
     project
-    |> cast(attrs, [:title, :platform])
-    |> validate_required([:title, :platform])
+    |> cast(attrs, [:project_name, :basic_language, :owner_id])
+    |> validate_required([:project_name, :basic_language, :owner_id])
   end
 end

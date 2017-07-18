@@ -6,19 +6,20 @@ defmodule Reverso.Projects.Translation do
 
   schema "projects_translations" do
     field :basic, :string
+    field :platform_key, :string
     field :translation, :string
-    belongs_to :project, Reverso.Projects.Project
-    field :android_key, :string
-    field :ios_key, :string
-    field :pc_key, :string
 
+    field :platform_id, :integer
+    field :language_id, :integer
+    field :user_id, :integer
+    field :project_id, :integer
     timestamps()
   end
 
   @doc false
   def changeset(%Translation{} = translation, attrs) do
     translation
-    |> cast(attrs, [:basic, :translation])
-    |> validate_required([:basic, :translation])
+    |> cast(attrs, [:basic, :translation, :platform_key, :platform_id, :language_id, :user_id, :project_id])
+    |> validate_required([:basic, :translation, :platform_key, :platform_id, :language_id, :user_id, :project_id])
   end
 end
