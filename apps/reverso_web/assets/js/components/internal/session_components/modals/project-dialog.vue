@@ -22,10 +22,13 @@
       </el-form-item>
 
       <el-form-item label="Select Platforms">
-        <el-checkbox-group v-model="dialogData.project.platforms">
-          <el-checkbox label="Android" name="Android"></el-checkbox>
-          <el-checkbox label="iOS" name="iOS"></el-checkbox>
-          <el-checkbox label="Desktop" name="Desktop"></el-checkbox>
+        <el-checkbox-group v-model="dialogData.project.platforms" fill="#ffffff">
+          <el-checkbox-button v-for="platform in platforms" :label="platform.name" :name="platform.name" >
+            <div @click="platform.sel = !platform.sel">
+              <img :src="platform.img_sel" v-if="platform.sel">
+              <img :src="platform.img_unsel" v-else>
+            </div>
+          </el-checkbox-button>
         </el-checkbox-group>
       </el-form-item>
       
@@ -49,10 +52,29 @@ export default {
   ],
 
   data () {
-    return {      
-
+    return {
+      platforms: [
+        {
+        name: "Android",
+        img_sel: "/images/platforms/ic-Android-selected.svg",
+        img_unsel: "/images/platforms/ic-Android-unselected.svg",
+        sel: false
+        },
+        {
+        name: "iOS",
+        img_sel: "/images/platforms/ic-apple-selected.svg",
+        img_unsel: "/images/platforms/ic-apple-unselected.svg",
+        sel: false
+        },
+        {
+        name: "Desktop",
+        img_sel: "/images/platforms/ic-desktop-selected.svg",
+        img_unsel: "/images/platforms/ic-desktop-unselected.svg",
+        sel: false
+        }
+      ]
     }
-  },
+  }
 }
 </script>
 
