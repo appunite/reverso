@@ -11,9 +11,9 @@ defmodule Reverso.Accounts.User do
     field :password_confirmation, :string, virtual: true, default: ""
     field :name, :string
     field :user_token, :string, default: nil
-    field :activated, :binary
+    field :activated, :boolean, default: false
     field :activation_token, :string, default: nil
-    field :pw_reset_token, :string, default: nil
+    field :password_reset_token, :string, default: nil
 
     timestamps()
   end
@@ -21,8 +21,8 @@ defmodule Reverso.Accounts.User do
   @doc false
   def changeset(%User{} = user, attrs) do
     user
-    |> cast(attrs, [:email, :name, :password])
-    |> validate_required([:email, :name, :password])
+    |> cast(attrs, [:email, :name, :password, :activation_token])
+    |> validate_required([:email, :name, :password, :activation_token])
     |> validate_format(:email, ~r/@/)
     |> validate_length(:password, min: 5)
     |> validate_confirmation(:password)
@@ -32,12 +32,12 @@ defmodule Reverso.Accounts.User do
 
   def user_token_changeset(%User{} = user, attrs) do
     user
-    |> cast(attrs, [:user_token, :activation_token, :pw_reset_token])
+    |> cast(attrs, [:user_token, :activation_token, :password_reset_token])
   end
 
-  def activate_changeset(%User{} = user, attrs) do
+  def activate_changeset(%User{} = user) do
     user
-    |> cast(attrs, [:activated, :activation_token])
+    |> cast(%{activated: true, activation_token: nil}, [:activated, :activation_token])
   end
 
   def reset_password_changeset(%User{} = user, attrs) do

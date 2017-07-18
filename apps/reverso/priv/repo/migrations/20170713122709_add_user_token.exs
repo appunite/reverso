@@ -4,7 +4,7 @@ defmodule Reverso.Repo.Migrations.AddUserToken do
   def change do
     alter table(:accounts_users) do
       add :user_token, :string
-      add :activated, :binary
+      add :activated, :boolean
       add :activation_token, :string
       add :pw_reset_token, :string
     end
