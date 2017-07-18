@@ -26,6 +26,8 @@ export default {
 </script>
 
 <style lang="scss">
+  $main-bg-color: #f7f9fa;
+
   #login-panel{
     .login-logo {
       text-align: center;
@@ -80,6 +82,10 @@ export default {
       font-weight: 1;
       text-align: center;
       margin: 25px 0;
+    }
+
+    input:-webkit-autofill { // autocomplete color
+      -webkit-box-shadow: 0 0 0 30px $main-bg-color inset;
     }
   }
 </style>
