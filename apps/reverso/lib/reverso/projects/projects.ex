@@ -3,41 +3,10 @@ defmodule Reverso.Projects do
   import Ecto.Query, warn: false
   alias Reverso.Repo
 
-  alias Reverso.Projects.Language
-  alias Reverso.Projects.Translation
   alias Reverso.Projects.Project
+  alias Reverso.Accounts.ProjectCollaborator
 
-  def list_languages do
-    Repo.all(Language)
-  end
-
-  def get_language!(id), do: Repo.get!(Language, id)
-
-  def create_language(attrs \\ %{}) do
-    %Language{}
-    |> Language.changeset(attrs)
-    |> Repo.insert()
-  end
-
-  def update_language(%Language{} = language, attrs) do
-    language
-    |> Language.changeset(attrs)
-    |> Repo.update()
-  end
-
-  def delete_language(%Language{} = language) do
-    Repo.delete(language)
-  end
-
-  def change_language(%Language{} = language) do
-    Language.changeset(language, %{})
-  end
-
-  def list_projects(user_id) do
-    #Not working yet
-    #query = Ecto.Query.from project in Project, where project.user_id == user_id, select project 
-    # from Collaborator where colaborator_id == user_id, select project_id USE JOIN !
-    # Repo.get_by(Project, project_id)
+  def list_project do
     Repo.all(Project)
   end
 
@@ -47,6 +16,12 @@ defmodule Reverso.Projects do
     %Project{}
     |> Project.changeset(attrs)
     |> Repo.insert()
+  end
+  
+  def associate_with_project(user_id,project_id) do
+     %ProjectCollaborator{}
+     |> ProjectCollaborator.changeset(%{user_id: user_id, project_id: project_id})
+     |> Repo.insert()
   end
 
   def update_project(%Project{} = project, attrs) do
@@ -59,9 +34,44 @@ defmodule Reverso.Projects do
     Repo.delete(project)
   end
 
+  def delete_association_with_project(user_id,project_id) do
+    Repo.get_by(ProjectCollaborator, project_id: project_id, user_id: user_id)
+    |> Repo.delete()
+  end
+
   def change_project(%Project{} = project) do
     Project.changeset(project, %{})
   end
+
+  alias Reverso.Projects.Platform
+
+  def list_platforms do
+    Repo.all(Platform)
+  end
+
+  def get_platform!(id), do: Repo.get!(Platform, id)
+
+  def create_platform(attrs \\ %{}) do
+    %Platform{}
+    |> Platform.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  def update_platform(%Platform{} = platform, attrs) do
+    platform
+    |> Platform.changeset(attrs)
+    |> Repo.update()
+  end
+
+  def delete_platform(%Platform{} = platform) do
+    Repo.delete(platform)
+  end
+
+  def change_platform(%Platform{} = platform) do
+    Platform.changeset(platform, %{})
+  end
+
+  alias Reverso.Projects.Translation
 
   def list_translations do
     Repo.all(Translation)
@@ -87,5 +97,33 @@ defmodule Reverso.Projects do
 
   def change_translation(%Translation{} = translation) do
     Translation.changeset(translation, %{})
+  end
+
+  alias Reverso.Projects.Language
+
+  def list_languages do
+    Repo.all(Language)
+  end
+
+  def get_language!(id), do: Repo.get!(Language, id)
+
+  def create_language(attrs \\ %{}) do
+    %Language{}
+    |> Language.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  def update_language(%Language{} = language, attrs) do
+    language
+    |> Language.changeset(attrs)
+    |> Repo.update()
+  end
+
+  def delete_language(%Language{} = language) do
+    Repo.delete(language)
+  end
+
+  def change_language(%Language{} = language) do
+    Language.changeset(language, %{})
   end
 end
