@@ -1,25 +1,37 @@
 <template>
 <span>
-    <button id="show-modal" @click="showModal = true">Add new project</button>
-    <modalBox v-if="showModal" @close="showModal = false">
+    <button id="dialogVisable" class="add_sth_btn" @click="dialog_data.visable = true">Add new project</button>
+    <projectDialog v-if="dialog_data.visable" @close="dialog_data.visable = false">
         
-    </modalBox>
+    </projectDialog>
 </span>
 </template>
 
 <script>
-import modalBox from '../session_components/modals/modal-box.vue'
+import projectDialog from '../session_components/modals/project-dialog.vue'
 
 export default {
   name: "newProject",
 
   components: {
-    'modalBox': modalBox
+    'projectDialog': projectDialog
   },
 
   data () {
     return {
-      showModal: false
+
+      dialog_data: {
+        visable: false,
+        d_header: "new project",
+        delete_btn: true,
+
+        project: {
+          title: "",
+          ref_lang: "",
+          platforms: []
+        }
+      }
+
     }
   }
 }

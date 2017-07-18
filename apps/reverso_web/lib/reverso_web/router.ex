@@ -18,6 +18,7 @@ defmodule Reverso.Web.Router do
   pipeline :api_user_auth do
     plug :accepts, ["json"]
     # plug AuthUser
+
   end
 
   scope "/", Reverso.Web do
@@ -41,9 +42,5 @@ defmodule Reverso.Web.Router do
     resources "/translations", TranslationController
     resources "/languages", LanguageController
   end
-
-  # Other scopes may use custom stacks.
-  # scope "/api", Reverso.Web do
-  #   pipe_through :api
-  # end
+  
 end
