@@ -5,8 +5,8 @@ defmodule Reverso.Projects.Language do
 
 
   schema "projects_languages" do
-    field :language, :string
-    has_many :projects, Reverso.Projects.Project
+    field :language_name, :string
+    field :project_id, :integer
 
     timestamps()
   end
@@ -14,7 +14,7 @@ defmodule Reverso.Projects.Language do
   @doc false
   def changeset(%Language{} = language, attrs) do
     language
-    |> cast(attrs, [:language])
-    |> validate_required([:language])
+    |> cast(attrs, [:language_name,:project_id])
+    |> validate_required([:language_name, :project_id])
   end
 end
