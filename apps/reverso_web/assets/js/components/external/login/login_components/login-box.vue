@@ -18,6 +18,8 @@
 </template>
 
 <script>
+import authService from "../../../../services/auth-service.js";
+
 export default {
 	name: "LoginBox",
   
@@ -32,18 +34,18 @@ export default {
 		} 
 	},
 
+  computed: {
+    credentials() {
+      return {
+        email: this.params.email,
+        password: this.params.password
+      }
+    }
+  },
+
   methods: {
     login(){
-      this.$http.post("/api/login/", {
-        params: this.params
-      }).then(
-        (response) => {
-          console.log(response);
-        },
-        (error) => {
-          alert("Oops! Something went wrong!");
-        }
-      )
+      authService.login(this, this.credentials, "/");
     }
   }
 
@@ -71,4 +73,3 @@ export default {
     }
   }
 </style>
-
