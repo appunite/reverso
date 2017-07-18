@@ -1,6 +1,6 @@
 <template>
 <span>
-    <button id="dialogVisable" class="add_sth_btn" @click="dialogData.visable = true">Add new project</button>
+    <button id="dialogVisable" @click="dialogData.visable = true">Edit project</button>
     <projectDialog v-bind:dialogData="dialogData" v-if="dialogData.visable" @close="dialogData.visable = false">
         
     </projectDialog>
@@ -11,7 +11,7 @@
 import projectDialog from '../session_components/modals/project-dialog.vue'
 
 export default {
-  name: "newProject",
+  name: "editProject",
 
   components: {
     'projectDialog': projectDialog
@@ -22,14 +22,14 @@ export default {
 
       dialogData: {
         visable: false,
-        header: "new project",
-        icon: "/images/ic-add.svg",
-        delete_btn: false,
+        header: "project settings",
+        icon: "/images/ic-settings.svg",
+        delete_btn: true,
 
         project: {
-          title: "",
-          ref_lang: "",
-          platforms: []
+          title: "elo",
+          ref_lang: "English",
+          platforms: ["Android"]
         }
       }
 
