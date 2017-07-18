@@ -7,11 +7,13 @@ defmodule Reverso.Web.SessionController do
   action_fallback Reverso.Web.FallbackController
 
   def create(conn, %{"params" => session_params}) do
-    with {:ok, %User{} = user } <- Accounts.login(session_params) do
-          Reverso.Web.UserView.render("show.json", user: user)
-          conn
-          |> put_resp_header("authorization", user.user_token)
-          |> send_resp(200, "Logged In")
+    case Accounts.login(session_params) do
+      {:ok, %User{} = user } ->
+        conn
+        |> put_resp_header("authorization", user.user_token)
+        |> render("user.json", user: user)
+      {:invalid_credentials} ->
+        render conn, "invalid_creds.json", %{error: "Invalid credentials!"}
     end
   end
 
