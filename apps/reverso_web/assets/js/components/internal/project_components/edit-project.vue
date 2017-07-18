@@ -1,9 +1,11 @@
 <template>
-<span>
-    <button id="dialogVisable" @click="dialogData.visable = true">Edit project</button>
-    <projectDialog v-bind:dialogData="dialogData" v-if="dialogData.visable" @close="dialogData.visable = false">
-        
-    </projectDialog>
+<span @click.stop>
+  <el-button type="text" id="dialogVisable" @click="dialogData.visable = true">
+    <img :src="dialogData.icon">
+  </el-button>
+  <projectDialog v-bind:dialogData="dialogData" v-if="dialogData.visable" @close="dialogData.visable = false">
+      
+  </projectDialog>
 </span>
 </template>
 
@@ -12,6 +14,10 @@ import projectDialog from '../session_components/modals/project-dialog.vue'
 
 export default {
   name: "editProject",
+
+  props: [
+    'project'
+  ],
 
   components: {
     'projectDialog': projectDialog
