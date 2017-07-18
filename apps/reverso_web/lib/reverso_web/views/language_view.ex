@@ -9,11 +9,9 @@ defmodule Reverso.Web.LanguageView do
   def render("show.json", %{language: language}) do
     %{data: render_one(language, LanguageView, "language.json")}
   end
-  
+
   def render("language.json", %{language: language}) do
-    %{
-      id: language.id,
-      language: language.language
-    }
+    %{id: language.id,
+      language_name: language.language_name}
   end
 end

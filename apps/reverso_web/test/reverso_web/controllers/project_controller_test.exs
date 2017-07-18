@@ -2,66 +2,64 @@ defmodule Reverso.Web.ProjectControllerTest do
   use Reverso.Web.ConnCase
 
   alias Reverso.Projects
+  alias Reverso.Projects.Project
 
-  @create_attrs %{platform: "some platform", title: "some title"}
-  @update_attrs %{platform: "some updated platform", title: "some updated title"}
-  @invalid_attrs %{platform: nil, title: nil}
+  @create_attrs %{basic_language: "some basic_language", project_name: "some project_name"}
+  @update_attrs %{basic_language: "some updated basic_language", project_name: "some updated project_name"}
+  @invalid_attrs %{basic_language: nil, project_name: nil}
 
   def fixture(:project) do
     {:ok, project} = Projects.create_project(@create_attrs)
     project
   end
 
+  setup %{conn: conn} do
+    {:ok, conn: put_req_header(conn, "accept", "application/json")}
+  end
+
   test "lists all entries on index", %{conn: conn} do
     conn = get conn, project_path(conn, :index)
-    assert html_response(conn, 200) =~ "Listing Projects"
+    assert json_response(conn, 200)["data"] == []
   end
 
-  test "renders form for new projects", %{conn: conn} do
-    conn = get conn, project_path(conn, :new)
-    assert html_response(conn, 200) =~ "New Project"
-  end
-
-  test "creates project and redirects to show when data is valid", %{conn: conn} do
+  test "creates project and renders project when data is valid", %{conn: conn} do
     conn = post conn, project_path(conn, :create), project: @create_attrs
-
-    assert %{id: id} = redirected_params(conn)
-    assert redirected_to(conn) == project_path(conn, :show, id)
+    assert %{"id" => id} = json_response(conn, 201)["data"]
 
     conn = get conn, project_path(conn, :show, id)
-    assert html_response(conn, 200) =~ "Show Project"
+    assert json_response(conn, 200)["data"] == %{
+      "id" => id,
+      "basic_language" => "some basic_language",
+      "project_name" => "some project_name"}
   end
 
   test "does not create project and renders errors when data is invalid", %{conn: conn} do
     conn = post conn, project_path(conn, :create), project: @invalid_attrs
-    assert html_response(conn, 200) =~ "New Project"
+    assert json_response(conn, 422)["errors"] != %{}
   end
 
-  test "renders form for editing chosen project", %{conn: conn} do
-    project = fixture(:project)
-    conn = get conn, project_path(conn, :edit, project)
-    assert html_response(conn, 200) =~ "Edit Project"
-  end
-
-  test "updates chosen project and redirects when data is valid", %{conn: conn} do
-    project = fixture(:project)
+  test "updates chosen project and renders project when data is valid", %{conn: conn} do
+    %Project{id: id} = project = fixture(:project)
     conn = put conn, project_path(conn, :update, project), project: @update_attrs
-    assert redirected_to(conn) == project_path(conn, :show, project)
+    assert %{"id" => ^id} = json_response(conn, 200)["data"]
 
-    conn = get conn, project_path(conn, :show, project)
-    assert html_response(conn, 200) =~ "some updated platform"
+    conn = get conn, project_path(conn, :show, id)
+    assert json_response(conn, 200)["data"] == %{
+      "id" => id,
+      "basic_language" => "some updated basic_language",
+      "project_name" => "some updated project_name"}
   end
 
   test "does not update chosen project and renders errors when data is invalid", %{conn: conn} do
     project = fixture(:project)
     conn = put conn, project_path(conn, :update, project), project: @invalid_attrs
-    assert html_response(conn, 200) =~ "Edit Project"
+    assert json_response(conn, 422)["errors"] != %{}
   end
 
   test "deletes chosen project", %{conn: conn} do
     project = fixture(:project)
     conn = delete conn, project_path(conn, :delete, project)
-    assert redirected_to(conn) == project_path(conn, :index)
+    assert response(conn, 204)
     assert_error_sent 404, fn ->
       get conn, project_path(conn, :show, project)
     end
