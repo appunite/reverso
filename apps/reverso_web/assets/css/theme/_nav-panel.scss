@@ -1,8 +1,11 @@
 @mixin hover-change {
-	.el-menu--horizontal.el-menu--dark .el-menu-item:hover,
 	.el-menu--horizontal.el-menu--dark .el-submenu__title:hover {
 		background-color: transparent;
 	}
+	.el-menu--horizontal.el-menu--dark .el-menu-item:hover{
+		background-color: rgba(4, 10, 66, 0.05);
+	}
+	
 }
 
 .el-menu {
