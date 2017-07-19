@@ -9,7 +9,7 @@ defmodule Reverso.Web.TokenController do
       {:ok, struct} ->
         conn
         |> send_resp(200, "Password changed!")
-      {:user_not_found, _} ->
+      {:error, :user_not_found} ->
         conn
         |> send_resp(401, "User not found!")
     end
@@ -20,7 +20,7 @@ defmodule Reverso.Web.TokenController do
       {:ok, struct} ->
         conn
         |> send_resp(200, "User activated!")
-      {:user_not_found, _} ->
+      {:error, :user_not_found} ->
         conn
         |> send_resp(401, "User not found!")
     end
