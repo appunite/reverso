@@ -6,8 +6,8 @@ defmodule Reverso.Web.TranslationController do
 
   action_fallback Reverso.Web.FallbackController
 
-  def index(conn, _params) do
-    translations = Projects.list_translations()
+  def index(conn, %{"project_id" => project_id, "language_id" => langauge_id}) do
+    translations = Projects.get_translation_for_project(project_id,langauge_id)
     render(conn, "index.json", translations: translations)
   end
 
