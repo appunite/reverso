@@ -13,7 +13,9 @@ defmodule Reverso.Web.SessionController do
         |> put_resp_header("authorization", user.user_token)
         |> render("user.json", user: user)
       {:invalid_credentials} ->
-        render conn, "invalid_creds.json", %{error: "Invalid credentials!"}
+        conn
+        |> put_status(401)
+        |> render("invalid_creds.json", %{error: "Invalid credentials!"})
     end
   end
 

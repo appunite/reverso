@@ -6,7 +6,7 @@
   <el-submenu index="2" style="float: right;">
     <template slot="title">User</template>
     <el-menu-item index="2-1">Account</el-menu-item>
-    <el-menu-item index="2-2">Log out</el-menu-item>
+    <el-menu-item index="2-2" @click="logout">Log out</el-menu-item>
   </el-submenu>
 </el-menu>
 
@@ -14,18 +14,19 @@
 </template>
 
 <script>
+import authService from "../../../services/auth-service"
 
 export default {
 	name: "navPanel",
-
 	data () {
 		return {
-			
 		}
-
+	},
+	methods: {
+		logout() {
+			authService.logout();
+		}
 	}
-	
-
 }
 	
 </script>

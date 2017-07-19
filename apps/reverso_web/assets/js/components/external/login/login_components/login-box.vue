@@ -9,7 +9,7 @@
       <br>
       <label for="password">Password:</label>
       <input type="password" v-model="params.password" placeholder="Password" id="password"><br>
-      <p v-if="wrong_pass" id="passAlert">Wrong password. <router-link to="/lost-password">Forgot password?</router-link></p>
+      <p v-if="has_error" id="passAlert">{{error_message}}</p>
       <br>
       <button type="submit" class="green-btn">Log in</button>
       <router-link to="/lost-password" class="white-btn">Can't log in?</router-link>
@@ -18,7 +18,8 @@
 </template>
 
 <script>
-import authService from "../../../../services/auth-service.js";
+import authService from "../../../../services/auth-service.js"
+import profileService from "../../../../services/profile-service"
 
 export default {
 	name: "LoginBox",
@@ -26,7 +27,8 @@ export default {
 	data() {
 		return {
       message: "It's nice to see you again!",
-      wrong_pass: false,
+      errorMessage: "AAA",
+      hasError: false,
       params:{
         email: "",
         password: ""
@@ -45,7 +47,15 @@ export default {
 
   methods: {
     login(){
-      authService.login(this, this.credentials, "/");
+      authService.login(this.credentials).then(
+        (response) => {
+          authService.onLoginSuccess(response);
+        },
+        (error) => {
+          this.errorMessage = response.body.error;
+          this.hasError = true;
+        }
+      );
     }
   }
 
@@ -53,8 +63,9 @@ export default {
 </script>
 
 <style lang="scss">
+  // do stylowania tworzy sie klasy. ID to id :P
   #login-box { 
-    a.white-btn {
+    .white-btn {
       background: transparent;
       color: #bbbbbb;
 

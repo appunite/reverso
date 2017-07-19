@@ -12,29 +12,32 @@
 // If you no longer want to use a dependency, remember
 // to also remove its path from "config.paths.watched".
 import "phoenix_html"
-import VueRouter from 'vue-router'
 
 import VueResource from 'vue-resource'
-import Routes from './routes'
+import router from './routes'
 
 import ElementUI from 'element-ui'
 
 import Main from './main'
 
+import authService from "./services/auth-service"
 
-Vue.use(VueRouter);
 Vue.use(VueResource);
 Vue.use(ElementUI);
-
-const router = new VueRouter({
-    routes: Routes
-});
 
 const app = new Vue({
   el: '#app',
   router,
   render: h => h(Main)
 });
+
+Vue.http.interceptors.push((request, next) => {
+  if (sessionStorage.getItem('auth_token')) {
+    request.headers['Authorization'] = JSON.parse(localStorage.getItem('auth'));
+  }
+
+  next();
+})
 
 
 export {app}
