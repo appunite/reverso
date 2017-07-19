@@ -24,7 +24,7 @@ export default {
 	},
 	methods: {
 		logout() {
-			authService.logout(this);
+			authService.logout();
 		}
 	}
 }
