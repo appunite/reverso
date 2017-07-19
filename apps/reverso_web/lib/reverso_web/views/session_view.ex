@@ -14,7 +14,8 @@ defmodule Reverso.Web.SessionView do
     %{
       id: user.id,
       email: user.email,
-      name: user.name
+      name: user.name,
+      user_token: user.user_token
     }
   end
 

@@ -10,8 +10,8 @@ defmodule Reverso.Web.SessionController do
     case Accounts.login(session_params) do
       {:ok, %User{} = user } ->
         conn
-        |> put_resp_header("authorization", user.user_token)
-        |> render("user.json", user: user)
+        |> put_status(200)
+        |> render("show.json", user: user)
       {:error, :invalid_credentials} ->
         conn
         |> put_status(401)
