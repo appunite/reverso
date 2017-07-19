@@ -25,8 +25,10 @@ defmodule Reverso.Web.SessionController do
 
   def delete(conn, _params) do
     conn
-    |> get_resp_header("authorization")
+    |> get_req_header("authorization")
     |> Accounts.fetch_by_token
     |> Accounts.delete_login_token()
+
+    send_resp(conn, 200, "")
   end
 end
