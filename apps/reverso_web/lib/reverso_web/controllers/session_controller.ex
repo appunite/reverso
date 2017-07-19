@@ -11,7 +11,7 @@ defmodule Reverso.Web.SessionController do
       {:ok, %User{} = user } ->
         conn
         |> put_status(200)
-        |> render("show.json", user: user)
+        |> render("session.json", user: user)
       {:error, :invalid_credentials} ->
         conn
         |> put_status(401)
