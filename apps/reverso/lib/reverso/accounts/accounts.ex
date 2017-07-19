@@ -80,46 +80,32 @@ defmodule Reverso.Accounts do
   end
 
   def login(%{"email" => user_email, "password" => user_password}) do
-    user_email
-    |> fetch_by_email
-    |> authenticate(user_password)
-    |> activated?
-    |> login_token
-  end
-
-  def login_token(params) do
-    case params do
-      {:ok, %User{} = user} ->
-        create_login_token(user)
-      {:error, _} ->
-        params
-    end
-  end
-
-  def activated?({:ok, %User{} = user}) do
-    if user.activated do
-      {:ok, user}
+    with {:ok, %User = user} <- fetch_by_email(user_email), true <- authenticate(user, user_password) do
+      if activated?(user) do
+        {:ok, user}
+      else
+        {:error, :user_not_activated}
+      end
     else
-      {:error, :user_not_activated}
+      {:error, :invalid_credentials}
     end
   end
 
-  def activated?(params) do
-    params
+  def activated?(%User{} = user) do
+    user.activated
   end
 
-  def authenticate(user, password) do
-    case user do
-      nil ->
-        Comeonin.Bcrypt.dummy_checkpw()
-        {:error, :invalid_credentials}
-      _ ->
-        if Comeonin.Bcrypt.checkpw(password, user.crypted_password) do
-          {:ok, user}
-        else
-          {:error, :invalid_credentials}
-        end
-    end
+  def activated?(_) do
+    false
+  end
+
+  def authenticate(nil, _password) do
+    Comeonin.Bcrypt.dummy_checkpw()
+    false
+  end
+
+  def authenticate(%User = user, password) do
+    Comeonin.Bcrypt.checkpw(password, user.crypted_password)
   end
 
   def reset_password(token, new_password) do
