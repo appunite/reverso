@@ -16,12 +16,13 @@ defmodule Reverso.Web.ProjectController do
       conn
       |> put_status(:created)
       |> put_resp_header("location", project_path(conn, :show, project))
-      |> render("show.json", project: project)
+      |> render("index.json", project: project)
     end
   end
 
-  def show(conn, %{"id" => id}) do  #Lista jezykow danego projektu 
-    languages = Projects.get_languages_by_project(id)
+  def show(conn, %{"id" => id}) do  
+    languages = Projects.get_languages_by_project(String.to_integer(id))
+    IO.inspect(languages)
     render(conn, "show.json", languages: languages)
   end
 
@@ -29,7 +30,7 @@ defmodule Reverso.Web.ProjectController do
     project = Projects.get_project!(id)
 
     with {:ok, %Project{} = project} <- Projects.update_project(project, project_params) do
-      render(conn, "show.json", project: project)
+      render(conn, "index.json", project: project)
     end
   end
 

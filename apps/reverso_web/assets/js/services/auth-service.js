@@ -2,22 +2,16 @@ import router from '../routes.js'
 import profileService from "../services/profile-service"
 
 export default {
-//     login(context, creds, redirect) {
-//         context.$http.post("/api/login", {
-//         params: creds
-//     }).then(
-//         (response) => {
-//             localStorage.setItem("currentUser", JSON.stringify(response));
-//         },
-//         (error) => {
-//             alert("Oops! Something went wrong!");
-//         }
-//     );
-// },
   logout(context) {
-    localStorage.removeItem('currentUser');
-    sessionStorage.removeItem('auth_token');
-    router.push('/log-in')
+    // context.$http.delete('/logout')
+    // .success(function(response) {
+      localStorage.removeItem('currentUser');
+      sessionStorage.removeItem('auth_token');
+      router.push('/log-in')
+    // }) 
+    // .error(function(errors) {
+    //   alert("Oops! Something went wrong!");
+    // });
   },
 
   login(creds) {
@@ -29,7 +23,9 @@ export default {
   },
 
   onLoginSuccess(response) {
-      let token = response.headers.map.authorization[0];
+    console.log(response);
+      debugger;
+      let token = response.headers.map.Authorization[0];
       let profile = response.data;
 
       profileService.setProfile(profile);

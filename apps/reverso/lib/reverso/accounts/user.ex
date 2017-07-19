@@ -42,7 +42,7 @@ defmodule Reverso.Accounts.User do
 
   def reset_password_changeset(%User{} = user, attrs) do
     user
-    |> cast(attrs, [:password])
+    |> cast(attrs, [:password, :password_reset_token])
     |> hash_password()
   end
 
@@ -50,7 +50,7 @@ defmodule Reverso.Accounts.User do
     password = get_change(changeset, :password)
     put_change(changeset, :crypted_password, hashed_password(password))
   end
-  
+
   defp hashed_password(password) do
     Comeonin.Bcrypt.hashpwsalt(password)
   end

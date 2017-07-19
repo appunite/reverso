@@ -6,18 +6,13 @@ import authService from "./services/auth-service.js";
 import loginPanel from './components/external/login/login-panel.vue';
 import loginBox from './components/external/login/login_components/login-box.vue';
 import lostPass from './components/external/login/login_components/lost-password.vue';
-
 import registrationPanel from './components/external/registration/registration-panel.vue';
 
-
 import sessionPanel from './components/internal/session-panel.vue';
-
 import projectList from './components/internal/project_components/project-list.vue';
-
 import seeProfile from './components/internal/user_components/see-profile.vue';
 import editProfile from './components/internal/user_components/edit-profile.vue';
 import changePass from './components/internal/user_components/change-pass.vue';
-
 
 const router = new VueRouter({
     routes: [
@@ -38,7 +33,7 @@ const router = new VueRouter({
 					// tłumaczenie,
 					{ path: '/profile', component: seeProfile },
 					{ path: '/edit-profile', component: editProfile },
-					{ path: '/edit-pass', component: changePass }
+					{ path: '/edit-pass', component: changePass },
 				]
 			}//,
 			// { path: '/register', component: registrationPanel }
