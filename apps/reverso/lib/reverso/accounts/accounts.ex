@@ -39,6 +39,10 @@ defmodule Reverso.Accounts do
     Repo.get_by!(User, token)
   end
 
+  def fetch_by_email(email)do
+    Repo.get_by(User,email: email)
+  end
+
   def create_login_token(%User{} = user) do
     user
     |> User.user_token_changeset(%{user_token: Ecto.UUID.generate()})

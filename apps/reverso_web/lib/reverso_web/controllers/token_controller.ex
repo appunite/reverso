@@ -4,8 +4,15 @@ defmodule Reverso.Web.TokenController do
   alias Reverso.Accounts
   alias Reverso.Accounts.User
 
-  def resetpassword(conn, %{"token" => token} = params) do
-
+  def password_reset(conn, %{"token" => token, "new_password" => new_password} = params) do
+    case Accounts.reset_password(token, new_password) do
+      {:ok, struct} ->
+        conn
+        |> send_resp(200, "Password changed!")
+      {:user_not_found, _} ->
+        conn
+        |> send_resp(401, "User not found!")
+    end
   end
 
   def activate_account(conn, %{"token" => token} = params) do
