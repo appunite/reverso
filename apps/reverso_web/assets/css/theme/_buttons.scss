@@ -3,3 +3,26 @@
 	background: transparent;
 	color: blue;
 }
+
+.green-btn, .white-btn {
+	color: #ffffff;
+	font-weight: 153;
+	font-size: 13px;
+}
+
+.green-btn {
+	background: #38c885 !important;
+}
+
+.white-btn {
+	background: transparent !important;
+}
+
+::input-placeholder {
+	color: #bbb;
+	opacity: 1;
+}
+
+input:-webkit-autofill {
+	-webkit-box-shadow: 0 0 0 30px $main-bg-color inset;
+}
