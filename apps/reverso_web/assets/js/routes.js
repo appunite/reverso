@@ -31,7 +31,6 @@ const router = new VueRouter({
 					{ path: '/projects', component: projectList },
 					// lista projektow,
 					// tłumaczenie,
-					// użytkownik
 					{ path: '/profile', component: seeProfile },
 					{ path: '/edit-profile', component: editProfile },
 					{ path: '/edit-pass', component: changePass },

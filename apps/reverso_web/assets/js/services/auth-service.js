@@ -31,7 +31,7 @@ export default {
       profileService.setProfile(profile);
       sessionStorage.setItem("auth_token", token);
 
-      router.push("/session");
+      router.push("/projects");
   },
 
   loggedIn() {

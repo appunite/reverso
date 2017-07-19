@@ -1,0 +1,28 @@
+@mixin hover-change {
+	.el-menu--horizontal.el-menu--dark .el-menu-item:hover,
+	.el-menu--horizontal.el-menu--dark .el-submenu__title:hover {
+		background-color: transparent;
+	}
+}
+
+.el-menu {
+	background: $menu-color;
+
+	.el-submenu {		
+		float: right;
+		padding-left: 80px;
+		margin-right: 20px; 
+
+		.el-menu-item {
+			margin: 8px;
+
+			img {
+				margin-right: 10px;
+			}
+		}
+	}
+}
+
+#nav-panel {
+	@include hover-change
+}

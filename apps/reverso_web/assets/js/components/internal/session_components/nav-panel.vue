@@ -1,14 +1,14 @@
 <template>	
-	<div>
+	<div id="nav-panel">
 	
-<el-menu theme="dark" :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
-  <el-menu-item index="1">Reverso.co</el-menu-item>
-  <el-submenu index="2" style="float: right;">
-    <template slot="title">User</template>
-    <el-menu-item index="2-1">Account</el-menu-item>
-    <el-menu-item index="2-2" @click="logout">Log out</el-menu-item>
-  </el-submenu>
-</el-menu>
+		<el-menu theme="dark" :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
+		  <el-menu-item index="1"><img src="/images/logo-white.svg"></el-menu-item>
+		  <el-submenu index="2">
+		    <template slot="title">User</template>
+		    <el-menu-item index="2-1"><img src="/images/ic-account.svg">Account</el-menu-item>
+		    <el-menu-item index="2-2" style="color: red;" @click="logout"><img src="/images/ic-logout.svg">Log out</el-menu-item>
+		  </el-submenu>
+		</el-menu>
 
 	</div>
 </template>
@@ -32,7 +32,7 @@ export default {
 </script>
 
 <style scoped>
-	#menu {
+/*	#menu {
 		background:  #040a42;
 		padding: 18px 16px;	
 	}
@@ -62,6 +62,6 @@ export default {
 		background: white !important;
 		color: black;
 		padding: 10px;
-	}
+	}*/
 
 </style>

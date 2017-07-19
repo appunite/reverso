@@ -1,7 +1,13 @@
 <template>	
 	<div id="project-item">
+	
 		<div v-for="translation in translations">
 			{{ translation.lang }}
+
+			<exportSettings></exportSettings>
+		</div>
+		<div>
+			<newLanguage></newLanguage>
 
 		</div>
 
@@ -9,12 +15,20 @@
 </template>
 
 <script>
+import newLanguage from './new-language.vue'
+import exportSettings from './export-settings.vue'
+
 export default {
 	name: "project-item",
 
 	props: [
 		'project'
 	],
+
+	components: {
+		'newLanguage': newLanguage,
+		'exportSettings': exportSettings
+	},
 
 	data () {
 		return {
