@@ -8,7 +8,17 @@
 		
 
 		<el-collapse v-model="activeNames" @change="handleChange">
-			<el-collapse-item v-for="(project, key) in projects" :title="project.title" :name="key">
+			<el-collapse-item v-for="(project, key) in projects" :name="key">
+				<template slot="title">
+    	  	{{ project.title }}
+    	  	Languages
+    	  	Strings
+    	  	Contributors
+    	  	
+    	  	<img src="/images/ic-add-contributor.svg">
+    	  	<img src="/images/ic-export.svg">
+    	  	<editProject></editProject>
+   		  </template>
 				<projectItem v-bind:project="project"></projectItem>
 		  </el-collapse-item>
 		</el-collapse>

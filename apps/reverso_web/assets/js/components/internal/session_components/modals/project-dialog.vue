@@ -34,7 +34,7 @@
       
         
         <el-button type="primary" @click="onSubmit">Save</el-button>
-        <el-button>Cancel</el-button>
+        <el-button @click="dialogData.visable = false">Cancel</el-button>
         <el-button v-if="dialogData.delete_btn">Delete</el-button>        
 
     </el-form>

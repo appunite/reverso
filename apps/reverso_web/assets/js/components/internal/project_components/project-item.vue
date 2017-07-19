@@ -1,7 +1,9 @@
 <template>	
 	<div id="project-item">
+	
 		<div v-for="translation in translations">
 			{{ translation.lang }}
+    	  	<img src="/images/ic-export.svg">
 
 		</div>
 
