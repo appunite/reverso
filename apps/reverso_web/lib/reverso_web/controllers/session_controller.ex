@@ -24,10 +24,6 @@ defmodule Reverso.Web.SessionController do
   end
 
   def delete(conn, _params) do
-    require IEx
-    IEx.pry
-
-
     conn
     |> get_req_header("authorization")
     |> Accounts.fetch_by_token
