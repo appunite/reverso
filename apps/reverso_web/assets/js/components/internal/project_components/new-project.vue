@@ -1,10 +1,12 @@
 <template>
-<span>
-    <el-button type="text" id="dialogVisable"  @click="dialogData.visable = true">Add new project</el-button>
+  <span>
+    <el-button type="text" id="dialogVisable"  @click="dialogData.visable = true">
+      <img :src="dialogData.icon">Add new project
+    </el-button>
     <projectDialog v-bind:dialogData="dialogData" v-if="dialogData.visable" @close="dialogData.visable = false">
         
     </projectDialog>
-</span>
+  </span>
 </template>
 
 <script>
@@ -25,10 +27,11 @@ export default {
         header: "new project",
         icon: "/images/ic-add.svg",
         delete_btn: false,
+        url: "api/projects/create",
 
         project: {
-          title: "",
-          ref_lang: "",
+          project_name: "",
+          basic_language: "",
           platforms: []
         }
       }

@@ -7,8 +7,18 @@
 		</div>
 		
 
-		<el-collapse v-model="activeNames" @change="handleChange">
-			<el-collapse-item v-for="(project, key) in projects" :title="project.title" :name="key">
+		<el-collapse v-model="activeNames">
+			<el-collapse-item v-for="(project, key) in projects" :name="key">
+				<template slot="title">
+    	  	{{ project.project_name }}
+    	  	Languages
+    	  	Strings
+    	  	Contributors
+    	  	
+    	  	<newContributor></newContributor>
+    	  	<exportSettings></exportSettings>
+    	  	<editProject v-bind:project="project"></editProject>
+   		  </template>
 				<projectItem v-bind:project="project"></projectItem>
 		  </el-collapse-item>
 		</el-collapse>
@@ -19,7 +29,10 @@
 <script>
 import projectItem from './project-item.vue'
 import newProject from './new-project.vue'
+import newContributor from './new-contributor.vue'
+import exportSettings from './export-settings.vue'
 import editProject from './edit-project.vue'
+
 
 export default {
 	name: "projectList",
@@ -27,6 +40,8 @@ export default {
 	components: {
 		'projectItem': projectItem,
 		'newProject': newProject,
+		'newContributor': newContributor,
+		'exportSettings': exportSettings,
 		'editProject': editProject
 	},
 
