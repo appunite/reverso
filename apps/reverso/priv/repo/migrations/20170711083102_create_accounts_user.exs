@@ -1,16 +1,16 @@
 defmodule Reverso.Repo.Migrations.CreateReverso.Accounts.User do
   use Ecto.Migration
 
- def change do
+  def change do
     create table(:accounts_users) do
       add :email, :string
       add :name, :string
       add :crypted_password, :string
 
-     timestamps()
+      timestamps()
     end
 
-   create unique_index(:accounts_users, [:email])
+    create unique_index(:accounts_users, [:email])
 
- end
+  end
 end s
