@@ -13,4 +13,4 @@ defmodule Reverso.Repo.Migrations.CreateReverso.Accounts.User do
     create unique_index(:accounts_users, [:email])
 
   end
-end s
+end
