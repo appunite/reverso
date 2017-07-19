@@ -13,4 +13,8 @@ defmodule Reverso.Web.UserView do
       name: user.name
     }
   end
+
+  def render("show.json", %{user: user}) do
+    %{data: render_one(user, UserView, "user.json")}
+  end
 end

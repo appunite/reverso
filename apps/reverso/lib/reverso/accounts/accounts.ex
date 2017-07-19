@@ -39,6 +39,10 @@ defmodule Reverso.Accounts do
     Repo.get_by!(User, token)
   end
 
+  def fetch_by_email(email)do
+    Repo.get_by(User,email: email)
+  end
+
   def create_login_token(%User{} = user) do
     user
     |> User.user_token_changeset(%{user_token: Ecto.UUID.generate()})
@@ -76,29 +80,34 @@ defmodule Reverso.Accounts do
   end
 
   def login(%{"email" => user_email, "password" => user_password} \\ %{}) do
-    user = Repo.get_by(User,email: user_email)  
+    user = Repo.get_by(User,email: user_email)
       case authenticate(user,user_password) do
-        true -> 
-          {:ok, user_with_token} = create_login_token(user)
-          {:ok, user_with_token}
-        _    -> {:invalid_credentials}
+        true ->
+          case user.activated do
+            true ->
+              {:ok, user_with_token} = create_login_token(user)
+              {:ok, user_with_token}
+            _    ->
+              {:error, :user_not_activated}
+          end
+        _    -> {:error, :invalid_credentials}
       end
   end
 
   def authenticate(user, password) do
     case user do
-      nil -> 
+      nil ->
         Comeonin.Bcrypt.dummy_checkpw()
         false
       _ -> Comeonin.Bcrypt.checkpw(password, user.crypted_password)
     end
   end
-  
+
   def reset_password(token, new_password) do
     case Repo.get_by(User, password_reset_token: token) do
       %User{} = user ->
         user
-        |> User.reset_password_changeset(%{password: new_password})
+        |> User.reset_password_changeset(%{password: new_password, password_reset_token: nil})
         |> Repo.update()
       _ ->
         {:user_not_found, "User with specified token not found!"}
@@ -113,5 +122,19 @@ defmodule Reverso.Accounts do
       _ ->
         {:user_not_found, "User with specified token not found!"}
     end
+  end
+
+  def generate_activation_url(%User{} = user) do
+    ["localhost:4000/api/activate/?token=", user.activation_token]
+    |> Enum.join
+  end
+
+  def generate_password_reset_url(%User{} = user) do
+    ["localhost:4000/api/resetpassword/?token=", user.password_reset_token]
+    |> Enum.join
+  end
+
+  def send_message(mail) do
+
   end
 end
