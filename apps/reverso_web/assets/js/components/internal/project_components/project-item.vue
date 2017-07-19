@@ -1,11 +1,14 @@
 <template>	
 	<div id="project-item">
+	
 		<div v-for="translation in translations">
 			{{ translation.lang }}
+
 			<exportSettings></exportSettings>
 		</div>
 		<div>
 			<newLanguage></newLanguage>
+
 		</div>
 
 	</div>

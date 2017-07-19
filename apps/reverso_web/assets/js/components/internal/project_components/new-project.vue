@@ -2,6 +2,7 @@
   <span>
     <el-button type="text" id="dialogVisable"  @click="dialogData.visable = true">
       <img :src="dialogData.icon">Add new project
+
     </el-button>
     <projectDialog v-bind:dialogData="dialogData" v-if="dialogData.visable" @close="dialogData.visable = false">
         

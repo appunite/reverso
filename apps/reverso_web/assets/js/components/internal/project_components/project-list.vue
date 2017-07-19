@@ -11,10 +11,7 @@
 			<el-collapse-item v-for="(project, key) in projects" :name="key">
 				<template slot="title">
     	  	{{ project.project_name }}
-    	  	Languages
-    	  	Strings
-    	  	Contributors
-    	  	
+
     	  	<newContributor></newContributor>
     	  	<exportSettings></exportSettings>
     	  	<editProject v-bind:project="project"></editProject>
