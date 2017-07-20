@@ -148,9 +148,19 @@ defmodule Reverso.Projects do
     where: l.project_id == ^project_id,
     group_by: l.id,
     select: %{language_id: l.id, language_name: l.language_name, count: count(t.id), last_edit: max(t.updated_at)}
-    Repo.all(query)
-
-
+    summary = Repo.all(query)
+    
+    Enum.map(summary, fn s -> 
+      if(s.last_edit != nil) do
+        subquery = Ecto.Query.from t in Translation,
+        join: u in User,
+        on: t.user_id == u.id,
+        where: not(is_nil(t.updated_at)) and t.updated_at == ^s.last_edit,
+        select: u.name
+        person = Repo.one(subquery)
+        %{language_id: s.language_id, language_name: s.language_name, count: s.count, last_edit: s.last_edit, editor: person }
+      end 
+    end)
   end
 
   def count_strings(project_id) do

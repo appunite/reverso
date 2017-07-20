@@ -14,7 +14,8 @@ defmodule Reverso.Web.LanguageView do
     %{language_id: language.language_id,
       language_name: language.language_name,
       last_edit: language.last_edit,
-      count: language.count
+      count: language.count,
+      editor: language.editor
   }
   end
 end
