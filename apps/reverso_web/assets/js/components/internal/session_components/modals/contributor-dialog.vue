@@ -15,7 +15,7 @@
       <el-input v-model="filter" placeholder="Search"></el-input>
 
       <el-checkbox-group v-model="invitations.invited">
-        <el-checkbox-button v-for="contributor in filtered" :label="contributor.name" :name="contributor.email" style="width: 100%;">
+        <el-checkbox-button v-for="contributor in filtered" :label="contributor.email" :name="contributor.email" style="width: 100%;">
         {{contributor.email}}<br />
         {{contributor.name}}
         </el-checkbox-button>
@@ -44,11 +44,7 @@ export default {
 
   data () {
     return {
-      contributors: [
-        {name: "Uzumaki Naruto", email: "uzumaki@elo.pl"},
-        {name: "Uchiha Sasuke", email: "uchiha@elo.pl"},
-        {name: "Sakura Chan", email: "sakurka@elo.pl"}
-      ],
+      contributors: [],
       filter: "",
       invitations: {
         invited: [],
@@ -58,8 +54,19 @@ export default {
   },
   methods: {
     onSubmit(){
+    },
 
-    } 
+    fetch_users(){
+      this.$http.get("/api/accounts", {}).then(
+        (response) => {
+          this.contributors = response.data.data;
+        },
+        (error) => {
+          alert("Oops! Something went wrong!");
+        }
+      )
+    }
+
   },
   computed: {
     filtered(){
@@ -73,6 +80,9 @@ export default {
 
       return filtered_tab;
     }
+  },
+  created(){
+    this.fetch_users();
   }
   
 }
