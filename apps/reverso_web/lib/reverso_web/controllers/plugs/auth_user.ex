@@ -1,10 +1,13 @@
 defmodule Reverso.Web.Plugs.AuthUser do
   import Plug.Conn
+  import Ecto.Query, warn: false
+  alias Reverso.Accounts.User
+  alias Reverso.Accounts
 
   def init(_), do: []
 
   def call(conn, _opts) do
-    with token <- get_req_header(conn, "authorization"),
+    with [token] <- get_req_header(conn, "authorization"),
          {:ok, user} <- Reverso.Accounts.fetch_by_token(token) do
           conn
           |> assign(:current_user, user)
