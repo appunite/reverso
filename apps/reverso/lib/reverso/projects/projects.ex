@@ -131,12 +131,15 @@ defmodule Reverso.Projects do
 
   def get_languages_by_project(project_id) do
 
-    query = Ecto.Query.from u in Language,
-    where: u.project_id == ^project_id,
-    select: u
-    #select: %{language_id: u.id, language_name: u.language_name} 
+    query = 
+    Ecto.Query.from t in Translation,
+    join: l in Language,
+    join: u in User,
+    where: t.project_id==^project_id and t.language_id == l.id,
+    group_by: l.id,
+    select: %{count: count(t.id), language_name: l.language_name, last_edit: max(t.updated_at)}
+
     Repo.all(query)
-    
   end
 
   def count_strings(project_id) do
@@ -144,26 +147,11 @@ defmodule Reverso.Projects do
     query = Ecto.Query.from u in Translation,
     join: x in Language,
     where: u.project_id==^project_id and u.language_id == x.id,
-    select: {x.language_name, count(u.id)},
+    select: %{language_name: x.language_name, count: count(u.id)},
     group_by: x.id
     Repo.all(query)
-    
 
-  end
-
-  def last_editor(project_id, language_id) do
-    subquery = Ecto.Query.from u in Translation,
-    where: u.project_id == ^project_id and u.language_id == ^language_id,
-    select: max(u.updated_at)
-    [last_change] = Repo.all(subquery)
-
-    query = Ecto.Query.from u in Translation,
-    join: x in User, on: x.id == u.user_id,
-    where: u.updated_at == ^last_change,
-    select: {x.name,u.updated_at}
-    Repo.all(query)
-
-  end
+    end
 
   def get_translation_for_project(project_id, language_id) do
     query = Ecto.Query.from u in Translation, 
