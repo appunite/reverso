@@ -80,7 +80,7 @@ defmodule Reverso.Accounts do
   end
 
   def login(%{"email" => user_email, "password" => user_password}) do
-    with {:ok, %User = user} <- fetch_by_email(user_email),
+    with {:ok, %User{} = user} <- fetch_by_email(user_email),
          {:ok, _} <- authenticate(user, user_password),
          {:ok, _} <- activated?(user) do
       {:ok, user}
@@ -98,7 +98,7 @@ defmodule Reverso.Accounts do
     end
   end
 
-  def authenticate(%User = user, password) do
+  def authenticate(%User{} = user, password) do
     case Comeonin.Bcrypt.checkpw(password, user.crypted_password) do
       true -> {:ok, :auth_ok}
       _ -> {:error, :auth_error}
