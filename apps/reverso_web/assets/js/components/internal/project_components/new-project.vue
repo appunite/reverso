@@ -28,7 +28,7 @@ export default {
         header: "new project",
         icon: "/images/ic-add.svg",
         delete_btn: false,
-        url: "api/projects/create",
+        url: "api/projects",
 
         project: {
           project_name: "",
