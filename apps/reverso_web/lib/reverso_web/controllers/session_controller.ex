@@ -31,4 +31,15 @@ defmodule Reverso.Web.SessionController do
 
     send_resp(conn, 200, "")
   end
+
+  # THIS WILL BE CHANGED
+  def generate_activation_url(%User{} = user) do
+    ["localhost:4000/api/activate/?token=", user.activation_token]
+    |> Enum.join
+  end
+
+  def generate_password_reset_url(%User{} = user) do
+    ["localhost:4000/api/resetpassword/?token=", user.password_reset_token]
+    |> Enum.join
+  end
 end

@@ -60,7 +60,7 @@ defmodule Reverso.Accounts do
     |> User.user_token_changeset(%{password_reset_token: Ecto.UUID.generate()})
     |> Repo.update()
   end
-  
+
   def delete_login_token(%User{} = user) do
     user
     |> User.user_token_changeset(%{user_token: nil})
@@ -79,28 +79,35 @@ defmodule Reverso.Accounts do
     |> Repo.update()
   end
 
-  def login(%{"email" => user_email, "password" => user_password} \\ %{}) do
-    user = Repo.get_by(User,email: user_email)
-      case authenticate(user,user_password) do
-        true ->
-          case user.activated do
-            true ->
-              {:ok, user_with_token} = create_login_token(user)
-              {:ok, user_with_token}
-            _    ->
-              {:error, :user_not_activated}
-          end
-        _    -> {:error, :invalid_credentials}
-      end
+  def login(%{"email" => user_email, "password" => user_password}) do
+    with {:ok, %User = user} <- fetch_by_email(user_email),
+         {:ok, _} <- authenticate(user, user_password),
+         {:ok, _} <- activated?(user) do
+      {:ok, user}
+    else
+      {:error, nil} -> {:error, :invalid_credentials}
+      {:error, :auth_error} -> {:error, :invalid_credentials}
+      {:error, :user_not_activated} -> {:error, :user_not_activated}
+    end
   end
 
-  def authenticate(user, password) do
-    case user do
-      nil ->
-        Comeonin.Bcrypt.dummy_checkpw()
-        false
-      _ -> Comeonin.Bcrypt.checkpw(password, user.crypted_password)
+  def activated?(%User{} = user) do
+    case user.activated do
+      true -> {:ok, :user_activated}
+      false -> {:error, :user_not_activated}
     end
+  end
+
+  def authenticate(%User = user, password) do
+    case Comeonin.Bcrypt.checkpw(password, user.crypted_password) do
+      true -> {:ok, :auth_ok}
+      _ -> {:error, :auth_error}
+    end
+  end
+
+  def authenticate(_, _) do
+    Comeonin.Bcrypt.dummy_checkpw()
+    {:error, :auth_error}
   end
 
   def reset_password(token, new_password) do
@@ -110,7 +117,7 @@ defmodule Reverso.Accounts do
         |> User.reset_password_changeset(%{password: new_password, password_reset_token: nil})
         |> Repo.update()
       _ ->
-        {:user_not_found, "User with specified token not found!"}
+        {:error, :user_not_found}
     end
   end
 
@@ -120,21 +127,7 @@ defmodule Reverso.Accounts do
         User.activate_changeset(user)
         |> Repo.update()
       _ ->
-        {:user_not_found, "User with specified token not found!"}
+        {:error, :user_not_found} 
     end
-  end
-
-  def generate_activation_url(%User{} = user) do
-    ["localhost:4000/api/activate/?token=", user.activation_token]
-    |> Enum.join
-  end
-
-  def generate_password_reset_url(%User{} = user) do
-    ["localhost:4000/api/resetpassword/?token=", user.password_reset_token]
-    |> Enum.join
-  end
-
-  def send_message(mail) do
-
   end
 end
