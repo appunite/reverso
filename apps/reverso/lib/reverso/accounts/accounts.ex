@@ -95,7 +95,7 @@ defmodule Reverso.Accounts do
     case fetch_by_email(email) do
       %User{} = user ->
         {:ok, user}
-      nil ->
+      _ ->
         {:error, :invalid_credentials}
     end
   end
