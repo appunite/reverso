@@ -83,7 +83,7 @@ defmodule Reverso.Accounts do
     with {:ok, %User{} = user} <- email?(user_email),
          {:ok, _} <- authenticate(user, user_password),
          {:ok, _} <- activated?(user) do
-      {:ok, user}
+      create_login_token(user)
     else
       {:error, :invalid_credentials} -> {:error, :invalid_credentials}
       {:error, :auth_error} -> {:error, :invalid_credentials}
