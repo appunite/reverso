@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import projectDialog from '../session_components/modals/project-dialog.vue'
+import projectDialog from '../dialogs/project-dialog.vue'
 
 export default {
   name: "newProject",

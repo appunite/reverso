@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import newLanguage from './new-language.vue'
+import newLanguage from './actions/new-language.vue'
 import exportSettings from './export-settings.vue'
 
 export default {
