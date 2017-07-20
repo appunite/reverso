@@ -11,7 +11,8 @@ defmodule Reverso.Web.LanguageView do
   end
 
   def render("language.json", %{language: language}) do
-    %{language_name: language.language_name,
+    %{language_id: language.language_id,
+      language_name: language.language_name,
       last_edit: language.last_edit,
       count: language.count
   }
