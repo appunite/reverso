@@ -29,7 +29,7 @@ import newProject from './actions/new-project.vue'
 import newContributor from './actions/new-contributor.vue'
 import exportSettings from './export-settings.vue'
 import editProject from './actions/edit-project.vue'
-
+import { bus } from '../../../app';
 
 export default {
 	name: "projectList",
@@ -72,7 +72,12 @@ export default {
 
 	created(){
 		this.fetchProjects();
-	}
+
+    bus.$on('update', (data) => {
+   		this.fetchProjects();
+   		console.log("xdxd");
+    });
+  }
 
 }
 </script>

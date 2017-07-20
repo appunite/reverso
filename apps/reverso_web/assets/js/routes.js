@@ -36,6 +36,7 @@ const router = new VueRouter({
 					{ path: '/edit-pass', component: changePass },
 
 					{ path: '/translation', component: translationPanel}
+
 				]
 			}//,
 			// { path: '/register', component: registrationPanel }

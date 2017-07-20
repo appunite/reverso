@@ -22,6 +22,8 @@ import Main from './main'
 
 import authService from "./services/auth-service"
 
+export const bus = new Vue();
+
 Vue.use(VueResource);
 Vue.use(ElementUI);
 

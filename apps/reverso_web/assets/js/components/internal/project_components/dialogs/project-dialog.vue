@@ -44,6 +44,8 @@
 </template>
 
 <script>
+import { bus } from '../../../../app';
+
 export default {
   name: "projectDialog",
 
@@ -83,6 +85,7 @@ export default {
 
       this.dialogData.visable = false;
       this.dialogData.project = {project_name: "", basic_language: "", platforms: []};
+      bus.$emit('update', []);
     }
   }
   
