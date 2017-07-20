@@ -14,13 +14,19 @@ defmodule Reverso.Projects do
 
   def get_project!(id), do: Repo.get!(Project, id)
 
-  def create_project(attrs) do
-    %Project{}
+  def create_project(attrs, platforms) do
+
+   {:ok, project} =  %Project{}
     |> Project.changeset(attrs)
     |> Repo.insert()
+    
+    Enum.map(platforms, fn p ->
+      %{platform_name: p , project_id: project.id}
+      |> Projects.create_platform()    
+      end)
 
-    inserted_project = Repo.get_by(Project,project_name: attrs.project_name)
-    Projects.associate_with_project(inserted_project.owner_id, inserted_project.id)
+    Projects.associate_with_project(project.owner_id, project.id)
+
 
   end
   
@@ -136,14 +142,15 @@ defmodule Reverso.Projects do
   def get_languages_by_project(project_id) do
 
     query = 
-    Ecto.Query.from t in Translation,
-    join: l in Language,
-    join: u in User,
-    where: t.project_id==^project_id and t.language_id == l.id,
+    Ecto.Query.from l in Language,
+    left_join: t in Translation,
+    on: t.language_id == l.id,
+    where: l.project_id == ^project_id,
     group_by: l.id,
-    select: %{count: count(t.id), language_name: l.language_name, last_edit: max(t.updated_at)}
-
+    select: %{language_id: l.id, language_name: l.language_name, count: count(t.id), last_edit: max(t.updated_at)}
     Repo.all(query)
+
+
   end
 
   def count_strings(project_id) do

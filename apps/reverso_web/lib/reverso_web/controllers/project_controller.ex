@@ -13,8 +13,9 @@ defmodule Reverso.Web.ProjectController do
   end
 
   def create(conn, %{"basic_language" => basic_language, "project_name" => project_name, "platforms" => platforms}) do
+    IO.inspect(platforms)
     project_params = %{project_name: project_name, basic_language: basic_language, owner_id: 1}
-    case  Projects.create_project(project_params) do
+    case  Projects.create_project(project_params,platforms) do
       {:ok, %ProjectCollaborator{}} -> 
         project = Projects.list_project()
         conn

@@ -36,7 +36,7 @@ defmodule Reverso.Accounts do
   end
 
   def fetch_by_token(token) do
-    Repo.get_by!(User, token)
+    Repo.get_by(User, token)
   end
 
   def fetch_by_email(email)do
@@ -80,14 +80,23 @@ defmodule Reverso.Accounts do
   end
 
   def login(%{"email" => user_email, "password" => user_password}) do
-    with {:ok, %User{} = user} <- fetch_by_email(user_email),
+    with {:ok, %User{} = user} <- email?(user_email),
          {:ok, _} <- authenticate(user, user_password),
          {:ok, _} <- activated?(user) do
-      {:ok, user}
+      create_login_token(user)
     else
-      {:error, nil} -> {:error, :invalid_credentials}
+      {:error, :invalid_credentials} -> {:error, :invalid_credentials}
       {:error, :auth_error} -> {:error, :invalid_credentials}
       {:error, :user_not_activated} -> {:error, :user_not_activated}
+    end
+  end
+
+  def email?(email) do
+    case fetch_by_email(email) do
+      %User{} = user ->
+        {:ok, user}
+      _ ->
+        {:error, :invalid_credentials}
     end
   end
 
@@ -128,6 +137,15 @@ defmodule Reverso.Accounts do
         |> Repo.update()
       _ ->
         {:error, :user_not_found} 
+    end
+  end
+
+  def token?(token) do
+    case fetch_by_token(token) do
+      %User{} = user ->
+        {:ok, user}
+      _ ->
+        {:error, :user_not_found}
     end
   end
 end
