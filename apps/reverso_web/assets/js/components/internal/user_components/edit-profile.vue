@@ -80,6 +80,7 @@ export default {
 
     mounted() {
         var address = "/api/accounts/" + this.userId;
+
         this.$http.get(address, {}).then(
             (response) => {
                 this.name = response.data.data.name;
