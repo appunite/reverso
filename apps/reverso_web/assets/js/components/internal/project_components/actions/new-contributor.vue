@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import contributorDialog from '../session_components/modals/contributor-dialog.vue'
+import contributorDialog from '../dialogs/contributor-dialog.vue'
 
 export default {
   name: "newContributor",

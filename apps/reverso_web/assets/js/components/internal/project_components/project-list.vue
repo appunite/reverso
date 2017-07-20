@@ -25,10 +25,10 @@
 
 <script>
 import projectItem from './project-item.vue'
-import newProject from './new-project.vue'
-import newContributor from './new-contributor.vue'
+import newProject from './actions/new-project.vue'
+import newContributor from './actions/new-contributor.vue'
 import exportSettings from './export-settings.vue'
-import editProject from './edit-project.vue'
+import editProject from './actions/edit-project.vue'
 
 
 export default {

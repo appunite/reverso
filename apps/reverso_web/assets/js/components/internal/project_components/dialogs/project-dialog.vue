@@ -17,7 +17,7 @@
 
       <el-form-item label="Reference Language">
         <el-select v-model="dialogData.project.basic_language" placeholder="Select Language">
-          <el-option label="English" value="en"></el-option>
+          <el-option label="English" value="English"></el-option>
         </el-select>
       </el-form-item>
 

@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import navPanel from './session_components/nav-panel'
+import navPanel from './nav-panel'
 
 export default {
 	name: "sessionPanel",

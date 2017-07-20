@@ -12,7 +12,7 @@
       <p v-if="hasError" class="loginBox__error">{{errorMessage}}</p>
       <br>
       <button type="submit" class="green-btn loginPanel__button">Log in</button>
-      <router-link to="/lost-password" class="loginBox__white-btn">Can't log in?</router-link>
+      <router-link to="/lost-password" class="loginBox__transparent-btn">Can't log in?</router-link>
     </form>
  </div>
 </template>
@@ -64,7 +64,7 @@ export default {
 
 <style lang="scss">
   .loginBox { 
-    &__white-btn {
+    &__transparent-btn {
       background: transparent;
       color: #bbbbbb;
 
@@ -82,7 +82,7 @@ export default {
       line-height: 33px;
     }
 
-    &__white-btn, &__white-btn:link, &__white-btn:visited, &__white-btn:hover, &__white-btn:active {
+    &__transparent-btn, &__transparent-btn:link, &__transparent-btn:visited, &__transparent-btn:hover, &__transparent-btn:active {
       background: transparent;
       color: #bbbbbb;
 

@@ -33,7 +33,7 @@ const router = new VueRouter({
 					// tłumaczenie,
 					{ path: '/profile', component: seeProfile },
 					{ path: '/edit-profile', component: editProfile },
-					{ path: '/edit-pass', component: changePass },
+					{ path: '/edit-pass', component: changePass }
 				]
 			}//,
 			// { path: '/register', component: registrationPanel }
