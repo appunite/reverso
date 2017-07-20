@@ -15,7 +15,7 @@
 
 <script>
 import authService from "../../services/auth-service"
-import router from "../../../routes.js"; // for router.push()
+import router from "../../routes.js"; // for router.push()
 
 export default {
 	name: "navPanel",
