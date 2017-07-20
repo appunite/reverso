@@ -58,13 +58,13 @@ export default {
 	methods: {
 
 		fetchTranslations(project_id) {
-			// this.$http.get("/api/projects/" + project_id, {}).then(
-   //      (response) => {
-				
-			// 	},
-   //   		(error) => {
-   //     	}
-   //    )
+			this.$http.get("/api/projects/" + project_id + "/languages", {}).then(
+        (response) => {
+					console.log(response.body.data);
+				},
+     		(error) => {
+       	}
+      )
       this.translations = this.dummy_trans; 
 		}
 	},
