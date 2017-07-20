@@ -3,6 +3,7 @@ defmodule Reverso.Web.ProjectController do
 
   alias Reverso.Projects
   alias Reverso.Projects.Project
+  alias Reverso.Accounts.ProjectCollaborator
 
   action_fallback Reverso.Web.FallbackController
 
@@ -11,12 +12,14 @@ defmodule Reverso.Web.ProjectController do
     render(conn, "index.json", project: project)
   end
 
-  def create(conn, %{"project" => project_params}) do
-    with {:ok, %Project{} = project} <- Projects.create_project(project_params) do
-      conn
-      |> put_status(:created)
-      |> put_resp_header("location", project_path(conn, :show, project))
-      |> render("index.json", project: project)
+  def create(conn, %{"basic_language" => basic_language, "project_name" => project_name, "platforms" => platforms}) do
+    project_params = %{project_name: project_name, basic_language: basic_language, owner_id: 1}
+    case  Projects.create_project(project_params) do
+      {:ok, %ProjectCollaborator{}} -> 
+        project = Projects.list_project()
+        conn
+        |> put_status(:created)
+        |> render("index.json", project: project)
     end
   end
 

@@ -14,10 +14,14 @@ defmodule Reverso.Projects do
 
   def get_project!(id), do: Repo.get!(Project, id)
 
-  def create_project(attrs \\ %{}) do
+  def create_project(attrs) do
     %Project{}
     |> Project.changeset(attrs)
     |> Repo.insert()
+
+    inserted_project = Repo.get_by(Project,project_name: attrs.project_name)
+    Projects.associate_with_project(inserted_project.owner_id, inserted_project.id)
+
   end
   
   def associate_with_project(user_id,project_id) do
