@@ -1,4 +1,4 @@
-<template>
+  <template>
   <span>
     <el-button type="text" id="dialogVisable"  @click="dialogData.visable = true">
       <img :src="dialogData.icon">Add new project
@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import projectDialog from '../session_components/modals/project-dialog.vue'
+import projectDialog from '../dialogs/project-dialog.vue'
 
 export default {
   name: "newProject",
@@ -28,7 +28,7 @@ export default {
         header: "new project",
         icon: "/images/ic-add.svg",
         delete_btn: false,
-        url: "api/projects/create",
+        url: "api/projects",
 
         project: {
           project_name: "",
