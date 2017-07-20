@@ -31,10 +31,6 @@ export default {
       text-align: center;
     }
 
-    &__row {
-
-    }
-
     &__main-col {
       margin-top: 100px;
       padding: 15px;

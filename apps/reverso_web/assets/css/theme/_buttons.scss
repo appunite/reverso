@@ -4,7 +4,10 @@
 	color: blue;
 }
 
-.green-btn, .white-btn {
+.green-btn,
+.transparent-btn,
+.white-btn,
+.purple-btn {
 	color: #ffffff;
 	font-weight: 153;
 	font-size: 13px;
@@ -14,8 +17,18 @@
 	background: #38c885 !important;
 }
 
-.white-btn {
+.transparent-btn {
 	background: transparent !important;
+}
+
+.white-btn {
+	color: #e7e7e7;
+	background: #fff !important;
+	border: 1px solid #e7e7e7;
+	border-radius: 3px;
+}
+.purple-btn {
+	background: #5861e6 !important;
 }
 
 ::input-placeholder {
