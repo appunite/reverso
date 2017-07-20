@@ -10,14 +10,14 @@
 		<el-collapse v-model="activeNames">
 			<el-collapse-item v-for="(project, key) in projects" :name="key">
 				<template slot="title">
-    	  	{{ project.project_name }}
+					{{ project.project_name }}
 
-    	  	<newContributor></newContributor>
-    	  	<exportSettings></exportSettings>
-    	  	<editProject v-bind:project="project"></editProject>
-   		  </template>
+					<newContributor></newContributor>
+					<exportSettings></exportSettings>
+					<editProject v-bind:project="project"></editProject>
+				</template>
 				<projectItem v-bind:project="project"></projectItem>
-		  </el-collapse-item>
+			</el-collapse-item>
 		</el-collapse>
 		
 	</div>
@@ -60,15 +60,13 @@ export default {
 		fetchProjects(){
 
 			this.$http.get("/api/projects", {}).then(
-        (response) => {
-
-        	console.log(response.data.data);
-          this.projects = response.data.data;
-       	},
-     		(error) => {
-       		alert("Oops! Something went wrong!");
-       	}
-      )
+				(response) => {
+					this.projects = response.data.data;
+				},
+				(error) => {
+					alert("Oops! Something went wrong!");
+				}
+			)
 		}
 	},
 
