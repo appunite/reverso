@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import exportDialog from '../session_components/modals/export-dialog.vue'
+import exportDialog from './dialogs/export-dialog.vue'
 
 export default {
   name: "exportSettings",

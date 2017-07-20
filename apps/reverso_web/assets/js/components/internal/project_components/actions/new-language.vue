@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import languageDialog from '../session_components/modals/language-dialog.vue'
+import languageDialog from '../dialogs/language-dialog.vue'
 
 export default {
   name: "newLanguage",
