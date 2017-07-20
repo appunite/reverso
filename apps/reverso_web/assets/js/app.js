@@ -33,7 +33,7 @@ const app = new Vue({
 
 Vue.http.interceptors.push((request, next) => {
   if (sessionStorage.getItem('auth_token')) {
-    request.headers['Authorization'] = JSON.parse(localStorage.getItem('auth'));
+    request.headers.set('authorization', sessionStorage.getItem('auth_token'))
   }
 
   next();
