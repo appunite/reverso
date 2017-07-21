@@ -26,7 +26,7 @@
     <div class="input-wrapper platform">
       <label>Select Platforms</label><br>
       <el-checkbox-group v-model="tempProject.platforms" fill="#ffffff" >
-        <el-checkbox-button v-for="platform in platforms" :name="platform.name" class="platform-checkbox">
+        <el-checkbox-button v-for="platform in platforms" :label="platform.name" :name="platform.name" class="platform-checkbox">
           <div @click="platform.sel = !platform.sel">
             <img :src="platform.img_sel" v-if="platform.sel">
             <img :src="platform.img_unsel" v-else>
@@ -87,16 +87,18 @@
           console.log(data);
         });
 
-        bus.$emit(this.dialogData.bus_event, this.dialogData.project); 
+        bus.$emit(this.dialogData.bus_event, this.tempProject); 
        },
     },
 
     created(){
+ 
       this.tempProject = {
         project_name: this.dialogData.project.project_name,
         basic_language: this.dialogData.project.basic_language,
-        platforms: this.dialogData.project.Platforms
+        platforms: this.dialogData.project.platforms
       };
+    
     }
   }
 
