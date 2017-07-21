@@ -21,9 +21,9 @@
 
 <script>
 export default {
-	name: "NewUserBox",
-	data() {
-		return {
+  name: "NewUserBox",
+  data() {
+    return {
       message: "It's nice to see you again!",
       error: false,
 
@@ -35,8 +35,8 @@ export default {
       email: "",
       password: "",
       name: ""
-		} 
-	},
+    } 
+  },
 
   methods: {
     signIn: function(){

@@ -22,10 +22,10 @@ import authService from "../../../../services/auth-service.js"
 import profileService from "../../../../services/profile-service"
 
 export default {
-	name: "LoginBox",
+  name: "LoginBox",
   
-	data() {
-		return {
+  data() {
+    return {
       message: "It's nice to see you again!",
       errorMessage: "",
       hasError: false,
@@ -33,8 +33,8 @@ export default {
         email: "",
         password: ""
       }
-		} 
-	},
+    } 
+  },
 
   computed: {
     credentials() {

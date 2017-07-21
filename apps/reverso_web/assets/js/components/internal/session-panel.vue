@@ -1,24 +1,24 @@
 <template>
-	<div>
-		<navPanel></navPanel>
-		<router-view></router-view>
-	</div>
+  <div>
+    <navPanel></navPanel>
+    <router-view></router-view>
+  </div>
 </template>
 
 <script>
 import navPanel from './nav-panel'
 
 export default {
-	name: "sessionPanel",
+  name: "sessionPanel",
 
-	components: {
-		'navPanel': navPanel			
-	},
+  components: {
+    'navPanel': navPanel      
+  },
 
-	data () {
-		return {
-		}
-	}
+  data () {
+    return {
+    }
+  }
 }
 
 </script>
