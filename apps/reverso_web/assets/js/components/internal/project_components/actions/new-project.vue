@@ -4,8 +4,10 @@
       <img :src="dialogData.icon">Add new project
 
     </el-button>
-    <projectDialog v-bind:dialogData="dialogData" v-if="dialogData.visable" @close="dialogData.visable = false">
-        
+    <projectDialog
+    v-bind:dialogData="dialogData"
+    v-if="dialogData.visable" 
+    @close="dialogData.visable = false;">        
     </projectDialog>
   </span>
 </template>
