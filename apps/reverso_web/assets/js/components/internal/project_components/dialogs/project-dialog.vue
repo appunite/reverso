@@ -4,28 +4,28 @@
   :visible.sync="dialogData.visable"
   :before-close="handleClose"
   :show-close="false"
-  size="tiny" class="project-dialog">
+  size="tiny" class="dialog">
   <span slot="title">
     <img :src="dialogData.icon">
     {{ dialogData.header }}
   </span>
 
-  <el-form ref="form" :model="dialogData.project" label-position="top">
+  <el-form ref="form" :model="tempProject" label-position="top">
     <div class="input-wrapper">
       <label>Project Name</label><br>
-      <input type="text" placeholder="Name Your Project">
+      <input type="text" placeholder="Name Your Project" v-model="tempProject.project_name">
     </div>
     
     <div class="input-wrapper">
       <label>Reference Language</label>
-      <el-select v-model="dialogData.project.basic_language" placeholder="Select Language">
+      <el-select v-model="tempProject.basic_language" placeholder="Select Language">
         <el-option label="English" value="English"></el-option>
       </el-select>
     </div>
     
     <div class="input-wrapper platform">
       <label>Select Platforms</label><br>
-      <el-checkbox-group v-model="dialogData.project.platforms" fill="#ffffff" >
+      <el-checkbox-group v-model="tempProject.platforms" fill="#ffffff" >
         <el-checkbox-button v-for="platform in platforms" :name="platform.name" class="platform-checkbox">
           <div @click="platform.sel = !platform.sel">
             <img :src="platform.img_sel" v-if="platform.sel">
@@ -36,9 +36,9 @@
     </div>
 
     <div class="dialog-footer">
-      <el-button type="primary" @click="onSubmit">Save</el-button>
-      <el-button class="cancel-btn" @click="cleanup">Cancel</el-button>
-      <el-button v-if="dialogData.delete_btn">Delete</el-button> 
+      <el-button type="primary" class="primary-btn" @click="onSubmit">Save</el-button>
+      <el-button class="cancel-btn" @click="dialogData.visable = false">Cancel</el-button>
+      <el-button v-if="dialogData.delete_btn" class="delete-btn">Delete</el-button> 
     </div>
 
   </el-form>
@@ -57,6 +57,8 @@
 
     data () {
       return {
+        tempProject: {},
+
         platforms: [
         {
           name: "Android",
@@ -81,109 +83,21 @@
     },
     methods: {
       onSubmit(){
-        this.$http.post(this.dialogData.url, this.dialogData.project).then(function(data){
+        this.$http.post(this.dialogData.url, this.tempProject).then(function(data){
           console.log(data);
         });
 
         bus.$emit(this.dialogData.bus_event, this.dialogData.project); 
-        this.cleanup();
-      },
-
-      cleanup(){
-        this.dialogData.visable = false;
-        this.dialogData.project = {project_name: "", basic_language: "", platforms: []};
-      }
+       },
     },
-    created(){
 
+    created(){
+      this.tempProject = {
+        project_name: this.dialogData.project.project_name,
+        basic_language: this.dialogData.project.basic_language,
+        platforms: this.dialogData.project.Platforms
+      };
     }
   }
 
 </script>
-
-<style lang="scss">
-  .el-dialog--tiny {
-    width: 470px;
-  }
-
-  .el-dialog__header {
-    text-transform: uppercase;
-    color: blue;
-    font-size: small;
-    margin: 12px 0px 10px 10px;
-
-    img{
-      margin-bottom: 3px;
-    }
-  }
-  .el-dialog__body {
-    padding: 25px 16px;
-  }
-
-  .dialog-footer {
-    .el-button{
-      width: 70px;
-    }
-  }
-
-  .input-wrapper {
-    border: 1px solid lightgray;
-    margin-bottom: 16px;
-    border-radius: 5px;
-    padding: 10px;
-
-    label {
-      color: slategray;
-    }
-
-    .el-select {
-      width: 100%;
-    }
-
-    input {
-      border: none;
-      width: 100%;
-      background: transparent;
-      font-size: large;   
-      padding: 0;
-
-      &:focus {
-        outline: 0;
-      }
-
-      &::placeholder {
-        color: lightgray;
-      }
-    }
-
-
-
-  }
-
-  .platform {
-    border: none;
-
-    .el-checkbox-group {
-      margin-left: 58px;
-    }
-
-    span {
-      border: none;
-      border-left: none !important;
-    }
-  }
-  .el-button--primary {
-    background-color: green;
-    border: none;
-  }
-
-  .cancel-btn {
-    border: none;
-    width: 100px;
-    text-transform: uppercase;
-    font-size: smaller;
-    color: slategray;
-  }
-
-
-</style>
