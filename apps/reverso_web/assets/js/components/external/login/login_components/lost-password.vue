@@ -13,14 +13,14 @@
 
 <script>
 export default {
-	name: "lostPass",
+  name: "lostPass",
   
-	data() {
-		return {
+  data() {
+    return {
 
 
-		} 
-	}
+    } 
+  }
 
 }
 </script>

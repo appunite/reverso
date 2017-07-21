@@ -6,17 +6,17 @@
 
 <script>
 export default {
-	name: "changePass",
+  name: "changePass",
   
-	data() {
-		return {
+  data() {
+    return {
 
-		} 
-	},
+    } 
+  },
 
-	methods: {
+  methods: {
 
-	},
+  },
 
   mounted() { 
 
