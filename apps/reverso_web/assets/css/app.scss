@@ -1,11 +1,4 @@
 @import '../node_modules/element-ui/lib/theme-default/index';
-
-$menu-color: #040a42;
-
-.add_sth_btn {
-	border: none;
-	background: transparent;
-	color: blue;
-}
-
-
+@import "./variables";
+@import "./theme/buttons";
+@import "./theme/nav-panel";

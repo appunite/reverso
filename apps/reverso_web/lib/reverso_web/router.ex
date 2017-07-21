@@ -17,7 +17,7 @@ defmodule Reverso.Web.Router do
 
   pipeline :api_user_auth do
     plug :accepts, ["json"]
-    # plug AuthUser
+    plug AuthUser
 
   end
 
@@ -41,9 +41,11 @@ defmodule Reverso.Web.Router do
     delete "/logout", SessionController, :delete
     resources "/accounts", UserController
     resources "/projects", ProjectController
+    get "/projects/:id/languages", LanguageController, :index
     resources "/platforms", PlatformController
     resources "/translations", TranslationController
     resources "/languages", LanguageController
+    get "/projects/:project_id/languages/:language_id", TranslationController, :index
 
   end
 end

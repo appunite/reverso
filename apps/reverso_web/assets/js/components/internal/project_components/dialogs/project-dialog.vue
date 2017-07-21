@@ -12,12 +12,12 @@
 
     <el-form ref="form" :model="dialogData.project" label-position="top">
       <el-form-item label="Project Name">
-        <el-input v-model="dialogData.project.title" placeholder="Name Your Project"></el-input>
+        <el-input v-model="dialogData.project.project_name" placeholder="Name Your Project"></el-input>
       </el-form-item>
 
       <el-form-item label="Reference Language">
-        <el-select v-model="dialogData.project.ref_lang" placeholder="Select Language">
-          <el-option label="English" value="en"></el-option>
+        <el-select v-model="dialogData.project.basic_language" placeholder="Select Language">
+          <el-option label="English" value="English"></el-option>
         </el-select>
       </el-form-item>
 
@@ -34,7 +34,7 @@
       
         
         <el-button type="primary" @click="onSubmit">Save</el-button>
-        <el-button>Cancel</el-button>
+        <el-button @click="cleanup">Cancel</el-button>
         <el-button v-if="dialogData.delete_btn">Delete</el-button>        
 
     </el-form>
@@ -44,6 +44,8 @@
 </template>
 
 <script>
+import { bus } from '../../../../app';
+
 export default {
   name: "projectDialog",
 
@@ -74,8 +76,23 @@ export default {
         }
       ]
     }
-  }
+  },
+  methods: {
+    onSubmit(){
+      this.$http.post(this.dialogData.url, this.dialogData.project).then(function(data){
+        console.log(data);
+      });
+      this.cleanup();
+    },
+
+    cleanup(){
+      this.dialogData.visable = false;
+      this.dialogData.project = {project_name: "", basic_language: "", platforms: []};
+      bus.$emit('update', []);    
+    }
+  }  
 }
+
 </script>
 
 <style scoped>

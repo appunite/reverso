@@ -6,9 +6,9 @@ defmodule Reverso.Web.LanguageController do
 
   action_fallback Reverso.Web.FallbackController
 
-  def index(conn, _params) do
-    languages = Projects.list_languages()
-    render(conn, "index.json", languages: languages)
+  def index(conn, %{"id"=> project_id}) do
+    languages= Projects.get_languages_by_project(String.to_integer(project_id))
+    render(conn, "index.json", language: languages)
   end
 
   def create(conn, %{"language" => language_params}) do

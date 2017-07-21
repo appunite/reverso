@@ -11,7 +11,7 @@ defmodule Reverso.Web.SessionController do
       {:ok, %User{} = user } ->
         conn
         |> put_status(200)
-        |> render("show.json", user: user)
+        |> render("session.json", user: user)
       {:error, :invalid_credentials} ->
         conn
         |> put_status(401)
@@ -24,9 +24,22 @@ defmodule Reverso.Web.SessionController do
   end
 
   def delete(conn, _params) do
-    conn
-    |> get_resp_header("authorization")
-    |> Accounts.fetch_by_token
-    |> Accounts.delete_login_token()
+    with {:ok, _} <- Accounts.delete_login_token(conn.assigns[:current_user]) do
+      send_resp(conn, 200, "Logged out!")
+    else
+      _ -> send_resp(conn, 401, "User with specified token not found!")
+    end
+
+  end
+
+  # THIS WILL BE CHANGED
+  def generate_activation_url(%User{} = user) do
+    ["localhost:4000/api/activate/?token=", user.activation_token]
+    |> Enum.join
+  end
+
+  def generate_password_reset_url(%User{} = user) do
+    ["localhost:4000/api/resetpassword/?token=", user.password_reset_token]
+    |> Enum.join
   end
 end

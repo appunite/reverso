@@ -1,30 +1,46 @@
 import router from '../routes.js'
+import profileService from "../services/profile-service"
 
 export default {
-  login(context, creds, redirect) {
-    context.$http.post("/api/login/", {
-        params: creds
-    }).then(
-        (response) => {
-            console.log("Logged in");
-            console.log(response);
-            console.log(context.$http.headers);
-
-            localStorage.setItem("currentUser", creds);
-            router.push(redirect)
-        },
-        (error) => {
-            alert("Oops! Something went wrong!");
-        }
-    )
+  logout() {
+    // console.log(sessionStorage.getItem("auth_token"));
+    // Vue.http.delete('/api/logout', {
+    //   headers: {
+    //     "authorization": sessionStorage.getItem("auth_token")
+    //   }
+    // }).then(
+    //   (response) => {
+        localStorage.removeItem('currentUser');
+        sessionStorage.removeItem('auth_token');
+        router.push('/log-in')
+    //   },
+    //   (error) =>{
+    //     alert("Oops! Something went wrong!");
+    //   }
+    // )
   },
 
-  logout(context) {
-    localStorage.removeItem('currentUser');
-    router.push('/auth/login')
+  login(creds) {
+    let promise = Vue.http.post("/api/login", {
+        params: creds
+    })
+
+    return promise;
+  },
+
+  onLoginSuccess(response) {
+      let token = response.data.user_token;
+
+      let tempProfile = response.data;
+      let profile = {"email" : tempProfile.email, "id": tempProfile.id, "name": tempProfile.name};
+
+      profileService.setProfile(profile);
+      sessionStorage.setItem("auth_token", token);
+
+      router.push("/projects");
   },
 
   loggedIn() {
-    return !!localStorage.getItem("currentUser");
+    return !!sessionStorage.getItem("auth_token");
   }
 }

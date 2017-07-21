@@ -3,8 +3,10 @@ defmodule Reverso.Projects do
   import Ecto.Query, warn: false
   alias Reverso.Repo
 
+  alias Reverso.Projects
   alias Reverso.Projects.Project
   alias Reverso.Accounts.ProjectCollaborator
+  alias Reverso.Accounts.User
 
   def list_project do
     Repo.all(Project)
@@ -12,10 +14,20 @@ defmodule Reverso.Projects do
 
   def get_project!(id), do: Repo.get!(Project, id)
 
-  def create_project(attrs \\ %{}) do
-    %Project{}
+  def create_project(attrs, platforms) do
+
+   {:ok, project} =  %Project{}
     |> Project.changeset(attrs)
     |> Repo.insert()
+    
+    Enum.map(platforms, fn p ->
+      %{platform_name: p , project_id: project.id}
+      |> Projects.create_platform()    
+      end)
+
+    Projects.associate_with_project(project.owner_id, project.id)
+
+
   end
   
   def associate_with_project(user_id,project_id) do
@@ -129,10 +141,45 @@ defmodule Reverso.Projects do
 
   def get_languages_by_project(project_id) do
 
-    query = Ecto.Query.from u in "projects_languages",
-    where: u.project_id == ^project_id,
-    select: u.language_name
+    query = 
+    Ecto.Query.from l in Language,
+    left_join: t in Translation,
+    on: t.language_id == l.id,
+    where: l.project_id == ^project_id,
+    group_by: l.id,
+    select: %{language_id: l.id, language_name: l.language_name, count: count(t.id), last_edit: max(t.updated_at)}
+    summary = Repo.all(query)
+    
+    Enum.map(summary, fn s -> 
+      if(s.last_edit != nil) do
+        subquery = Ecto.Query.from t in Translation,
+        join: u in User,
+        on: t.user_id == u.id,
+        where: not(is_nil(t.updated_at)) and t.updated_at == ^s.last_edit,
+        select: u.name
+        person = Repo.one(subquery)
+        %{language_id: s.language_id, language_name: s.language_name, count: s.count, last_edit: s.last_edit, editor: person }
+      end 
+    end)
+  end
+
+  def count_strings(project_id) do
+
+    query = Ecto.Query.from u in Translation,
+    join: x in Language,
+    where: u.project_id==^project_id and u.language_id == x.id,
+    select: %{language_name: x.language_name, count: count(u.id)},
+    group_by: x.id
     Repo.all(query)
 
+    end
+
+  def get_translation_for_project(project_id, language_id) do
+    query = Ecto.Query.from u in Translation, 
+    where: u.project_id == ^project_id and u.language_id == ^language_id,
+    select: u
+    Repo.all(query)
   end
+
+
 end
