@@ -35,12 +35,28 @@ defmodule Reverso.Accounts do
     User.changeset(user, %{})
   end
 
+  def fetch_by_id(id) do
+    with %User{} = user <- Repo.get_by(User,id: id) do
+      {:ok, user}
+    else
+      _ -> {:error, :user_not_found}
+    end
+  end
+
   def fetch_by_token(token) do
-    Repo.get_by(User, token)
+    with %User{} = user <- Repo.get_by(User,user_token: token) do
+      {:ok, user}
+    else
+      _ -> {:error, :unauthorized}
+    end
   end
 
   def fetch_by_email(email)do
-    Repo.get_by(User,email: email)
+    with %User{} = user <- Repo.get_by(User,email: email) do
+      {:ok, user}
+    else
+      _ -> {:error, :invalid_credentials}
+    end
   end
 
   def create_login_token(%User{} = user) do
@@ -80,10 +96,11 @@ defmodule Reverso.Accounts do
   end
 
   def login(%{"email" => user_email, "password" => user_password}) do
-    with {:ok, %User{} = user} <- email?(user_email),
+    with {:ok, %User{} = user} <- fetch_by_email(user_email),
          {:ok, _} <- authenticate(user, user_password),
-         {:ok, _} <- activated?(user) do
-      create_login_token(user)
+         {:ok, _} <- activated?(user),
+         {:ok, user_with_token} <- create_login_token(user) do
+      {:ok, user_with_token}
     else
       {:error, :invalid_credentials} -> {:error, :invalid_credentials}
       {:error, :auth_error} -> {:error, :invalid_credentials}
@@ -91,21 +108,8 @@ defmodule Reverso.Accounts do
     end
   end
 
-  def email?(email) do
-    case fetch_by_email(email) do
-      %User{} = user ->
-        {:ok, user}
-      _ ->
-        {:error, :invalid_credentials}
-    end
-  end
-
-  def activated?(%User{} = user) do
-    case user.activated do
-      true -> {:ok, :user_activated}
-      false -> {:error, :user_not_activated}
-    end
-  end
+  def activated?(%User{activated: true}) do {:ok, :user_activated} end
+  def activated?(_) do {:error, :user_not_activated} end
 
   def authenticate(%User{} = user, password) do
     case Comeonin.Bcrypt.checkpw(password, user.crypted_password) do
@@ -137,15 +141,6 @@ defmodule Reverso.Accounts do
         |> Repo.update()
       _ ->
         {:error, :user_not_found} 
-    end
-  end
-
-  def token?(token) do
-    case fetch_by_token(token) do
-      %User{} = user ->
-        {:ok, user}
-      _ ->
-        {:error, :user_not_found}
     end
   end
 end
