@@ -42,16 +42,16 @@ export default {
     }
 
     &__input, &__button {
-      background: transparent;
       width: 100%;       
       height: 35px;
       margin: 5px 0 0 0;
-      border: 0;
       border-radius: 2px;
     }
 
     &__input {
+      background: transparent;      
       font-size: 20px;
+      border: 0;      
     }
 
     &__message {

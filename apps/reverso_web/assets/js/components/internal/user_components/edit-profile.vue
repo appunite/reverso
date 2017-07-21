@@ -20,6 +20,7 @@
 </template>
 
 <script>
+import profileService from "../../../services/profile-service.js"
 export default {
     name: "editProfile",
 
@@ -46,39 +47,14 @@ export default {
             this.data.crypted_password = this.password;
     },
 
-    methods: {
-        saveEdit() {
-            console.log("Zapis");
-
-            //{"data":[{"name":"admin1","id":1,"email":"admin@admin.pl",
-            //"crypted_password":"$2b$12$c4W9bjaWF228cu4JL1iCW.7w0ooX37lnHptqLh8OhBv5UUNJm.GS6"}]}
-
-            /*this.$http.put('/api/accounts', jsondata).then(
-                
-                (response) => {
-                    console.log("OK!");
-                },
-                (error) => {
-                    alert("Oops! Something went wrong!");
-                }
-
-                /*res => {
-                expect(res.ok).toBe(true);
-                expect(res.status).toBe(200);
-                expect(typeof res.body).toBe('string');
-                expect(res.body).toBe('text');
-            }*/
-            
-            //);
-            
-            //this.$router.push("/edit-profile");
-        },
-        cancelEdit() {
-            this.$router.push("/profile");
-        }
-    },
+    methods: {},
 
     mounted() {
+        var user = profileService.getProfile();
+       // debugger;
+        console.log(user);
+        this.userId = user.id;
+
         var address = "/api/accounts/" + this.userId;
 
         this.$http.get(address, {}).then(
