@@ -8,8 +8,8 @@ defmodule Reverso.Web.ProjectController do
   action_fallback Reverso.Web.FallbackController
 
   def index(conn, _params) do
-    project = Projects.list_project(conn.assigns[:current_user_id])
-    render(conn, "index.json", project: project)
+    projects = Projects.list_project(conn.assigns[:current_user_id])
+    render(conn, "index.json", projects: projects)
   end
 
   def create(conn, %{

@@ -149,7 +149,7 @@ defmodule Reverso.Projects do
     Ecto.Query.from l in Language,
     left_join: t in Translation,
     on: t.language_id == l.id,
-    join: u in User,
+    left_join: u in User,
     on: t.user_id == u.id,
     where: l.project_id == ^project_id,
     group_by: l.id,
