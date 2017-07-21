@@ -31,7 +31,7 @@ defmodule Reverso.Projects do
       end)
 
     Projects.associate_with_project(project.owner_id, project.id)
-
+    {:ok, project}
   end
   
   def associate_with_project(user_id,project_id) do

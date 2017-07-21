@@ -24,11 +24,10 @@ defmodule Reverso.Web.ProjectController do
 
 
     case  Projects.create_project(project_params,platforms) do
-      {:ok, %ProjectCollaborator{}} -> 
-        project = Projects.list_project()
+      {:ok, %Project{} = project} -> 
         conn
         |> put_status(:created)
-        |> render("index.json", project: project)
+        |> render("show.json", project: project)
     end
   end
 
