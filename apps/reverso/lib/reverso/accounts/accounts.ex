@@ -13,8 +13,6 @@ defmodule Reverso.Accounts do
     Repo.all(User)
   end
 
-  def get_user!(id), do: Repo.get!(User, id)
-
   def create_user(attrs) do
     %User{}
     |> User.changeset(Map.put(attrs, :activation_token, Ecto.UUID.generate()))
@@ -47,7 +45,7 @@ defmodule Reverso.Accounts do
     with %User{} = user <- Repo.get_by(User,user_token: token) do
       {:ok, user}
     else
-      _ -> {:error, :unauthorized}
+      _ -> {:error, :user_not_found}
     end
   end
 
@@ -55,7 +53,7 @@ defmodule Reverso.Accounts do
     with %User{} = user <- Repo.get_by(User,email: email) do
       {:ok, user}
     else
-      _ -> {:error, :invalid_credentials}
+      _ -> {:error, :user_not_found}
     end
   end
 

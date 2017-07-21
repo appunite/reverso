@@ -16,7 +16,7 @@ defmodule Reverso.Web.UserController do
     end
   end
 
-  def update(conn, %{"user" => user_params}) do
+  def edit(conn, %{"user" => user_params}) do
     with  {:ok, _user} <- Accounts.update_user(conn.assigns[:current_user], user_params) do
       send_resp(conn, 200, "User updated!")
     else
