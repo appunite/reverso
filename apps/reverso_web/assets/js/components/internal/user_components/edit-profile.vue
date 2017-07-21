@@ -87,11 +87,14 @@ export default {
     },
 
     saveEdit() {
-      if(this.wasChanged())
-      {
+      if (this.wasChanged()) {
+        //var address = "/api/accounts/" + this.data.id;
         var address = "/api/accounts";
         this.$http.patch(address, {
-          "data" : this.data 
+          "user":
+          {
+            "name": this.data.name
+          }
         }).then(
           (response) => {
             alert("ok");
@@ -99,7 +102,7 @@ export default {
           (error) => {
             alert("Oops! Something went wrong!");
           }
-        )
+          )
 
       }
       //debugger;
