@@ -27,7 +27,7 @@ defmodule Reverso.Web.SessionController do
     with {:ok, _} <- Accounts.delete_login_token(conn.assigns[:current_user]) do
       send_resp(conn, 200, "Logged out!")
     else
-      _ -> send_resp(conn, 401, "User with specified token not found!")
+      _ -> send_resp(conn, 404, "User with specified token not found!")
     end
 
   end
