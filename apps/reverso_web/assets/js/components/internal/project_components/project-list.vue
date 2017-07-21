@@ -45,13 +45,7 @@ export default {
 	data () {
 		return {
 			activeNames: ['1'],
-			projects: [],
-			dummy_projects: [
-				{ id: 1, name: "Super Wooper App", transls: [] },
-				{ id: 2, name: "Scooby Dooby Do App", transls: [] },
-				{ id: 3, name: "Pika Pika App", transls: [] }
-			]
-
+			projects: []
 		}
 
 	},
@@ -73,9 +67,8 @@ export default {
 	created(){
 		this.fetchProjects();
 
-    bus.$on('update', (data) => {
-   		this.fetchProjects();
-   		console.log("xdxd");
+    bus.$on('project_added', (project) => {
+   		this.projects.push(project);
     });
   }
 
