@@ -53,7 +53,7 @@ defmodule Reverso.Web.Router do
     pipe_through :api_user_auth
 
     get "/", UserController, :index
-    patch "/edit", UserController, :edit
+    patch "/", UserController, :edit
     post "/", UserController, :create
     delete "/delete", UserController, :delete
   end
