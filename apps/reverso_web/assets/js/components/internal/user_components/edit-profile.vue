@@ -2,14 +2,14 @@
 	<div id="edit-profile" class="account">
 		<el-row type="flex" class="row-bg loginPanel__row" justify="center">
 			<el-col class="main-col loginPanel__main-col" :xs="16" :sm="9" :md="9" :lg="9">
-				<form>
+				<form v-on:submit.prevent="saveEdit">
 					<div class="editProfile__inputText">
 						<label for="name">Name</label>
-						<input type="text" v-model="name" id="name" class="account__input">
+						<input type="text" v-model="data.name" id="name" class="account__input">
 					</div>
 					<div class="editProfile__inputText">
 						<label for="email">Email Address</label>
-						<input type="text" v-model="email" id="email" class="account__input">
+						<input type="text" v-model="data.email" id="email" class="account__input">
 					</div>
 					</label>
 	
@@ -20,7 +20,7 @@
 					</div>
 	
 					<div class="account__buttonsContainer">
-						<button v-on:click.prevent="saveEdit" class="green-btn account__button editProfile__save">Save</button>
+						<button type="submit" class="green-btn account__button editProfile__save">Save</button>
 						<router-link to="/profile" class="white-btn account__button editProfile__cancel">Cancel</router-link>
 					</div>
 				</form>
@@ -36,48 +36,78 @@ export default {
 
 	data() {
 		return {
-			userId: -1,
-			name: '',
-			email: '',
-			password: '',
-
 			data: {
+				id: -1,
 				name: '',
-				id: '',
-				email: '',
-				crypted_password: ''
+				email: ''
+			},
+
+			oldData: {
+				name: '',
+				email: ''
 			}
 		}
 	},
 
-	watch() {
-		this.data.name = this.name;
-		this.data.id = this.userId;
-		this.data.email = this.email;
-		this.data.crypted_password = this.password;
+	watch: {
+    name(val) {
+      this.name = val;
+      this.data.name = val;
+    },
+    email(val) {
+      this.email = val;      
+      this.data.email = val;
+    }
 	},
 
 	methods: {
-		saveEdit() { }
+		loadSessionData() {
+			var user = profileService.getProfile();
+			this.data.id = user.id;
+			this.data.name = user.name;
+			this.data.email = user.email;
+
+			this.oldData.name = user.name;
+			this.oldData.email = user.email;
+
+			// var address = "/api/accounts/" + this.id;
+			// this.$http.get(address, {}).then(
+			// (response) => {
+			// this.name = response.data.data.name;
+			// this.email = response.data.data.email;
+			// },
+			// (error) => {
+			// alert("Oops! Something went wrong!");
+			// }
+			// )
+		},
+
+    wasChanged() {
+      return (this.data.name != this.oldData.name) || (this.data.email != this.oldData.email);
+    },
+
+		saveEdit() {
+      if(this.wasChanged())
+      {
+        var address = "/api/accounts";
+        this.$http.patch(address, {
+          "data" : this.data 
+        }).then(
+          (response) => {
+            alert("ok");
+          },
+          (error) => {
+            alert("Oops! Something went wrong!");
+          }
+        )
+
+      }
+      //debugger;
+    }
 	},
 
 	mounted() {
-		var user = profileService.getProfile();
-		this.userId = user.id;
-		this.name = user.name;
-		this.email = user.email;
-
-		// var address = "/api/accounts/" + this.userId;
-
-		// this.$http.get(address, {}).then(
-		// (response) => {
-		// this.name = response.data.data.name;
-		// this.email = response.data.data.email;
-		// },
-		// (error) => {
-		// alert("Oops! Something went wrong!");
-		// }
-		// )
+		this.loadSessionData();	
 	}
 
 }
