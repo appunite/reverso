@@ -118,7 +118,10 @@ defmodule Reverso.Projects do
   alias Reverso.Projects.Language
 
   def list_languages do
-    Repo.all(Language)
+    query = Ecto.Query.from l in Language,
+    distinct: true,
+    select: %{language_name: l.language_name}
+    Repo.all(query)
   end
 
   def get_language!(id), do: Repo.get!(Language, id)
