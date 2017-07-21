@@ -8,13 +8,20 @@ defmodule Reverso.Web.ProjectController do
   action_fallback Reverso.Web.FallbackController
 
   def index(conn, _params) do
-    project = Projects.list_project()
-    render(conn, "index.json", project: project)
+    projects = Projects.list_project(conn.assigns[:current_user_id])
+    render(conn, "index.json", projects: projects)
   end
 
-  def create(conn, %{"basic_language" => basic_language, "project_name" => project_name, "platforms" => platforms}) do
-    IO.inspect(platforms)
-    project_params = %{project_name: project_name, basic_language: basic_language, owner_id: 1}
+  def create(conn, %{
+    "basic_language" => basic_language,
+    "project_name" => project_name,
+    "platforms" => platforms}) do 
+
+    project_params = %{
+      project_name: project_name,
+      basic_language: basic_language,
+      owner_id: conn.assigns[:current_user_id]}
+
     case  Projects.create_project(project_params,platforms) do
       {:ok, %ProjectCollaborator{}} -> 
         project = Projects.list_project()
@@ -22,12 +29,6 @@ defmodule Reverso.Web.ProjectController do
         |> put_status(:created)
         |> render("index.json", project: project)
     end
-  end
-
-  def show(conn, %{"id" => id}) do  
-    languages = Projects.get_languages_by_project(String.to_integer(id))
-    IO.inspect(languages)
-    render(conn, "show.json", languages: languages)
   end
 
   def update(conn, %{"id" => id, "project" => project_params}) do

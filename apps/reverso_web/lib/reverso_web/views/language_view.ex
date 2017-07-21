@@ -2,8 +2,9 @@ defmodule Reverso.Web.LanguageView do
   use Reverso.Web, :view
   alias Reverso.Web.LanguageView
 
-  def render("index.json", %{language: language}) do
-    %{data: render_many(language, LanguageView, "language.json")}
+  def render("index.json", %{languages: languages}) do
+    IO.inspect(languages)
+    %{data: render_many(languages, LanguageView, "language.json")}
   end
 
   def render("show.json", %{language: language}) do
