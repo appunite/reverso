@@ -3,7 +3,6 @@ defmodule Reverso.Web.LanguageView do
   alias Reverso.Web.LanguageView
 
   def render("index.json", %{languages: languages}) do
-    IO.inspect(languages)
     %{data: render_many(languages, LanguageView, "language.json")}
   end
 
@@ -11,7 +10,15 @@ defmodule Reverso.Web.LanguageView do
     %{data: render_one(language, LanguageView, "language.json")}
   end
 
-  def render("language.json", %{language: language}) do
+  def render("list.json", %{languages: languages}) do
+    %{data: render_many(languages, LanguageView, "language_list.json")}
+  end
+
+  def render("language.json", %{language: langauge}) do
+    %{language_name: langauge.language_name}
+  end
+
+  def render("language_list.json", %{language: language}) do
     %{language_id: language.language_id,
       language_name: language.language_name,
       last_edit: language.last_edit,

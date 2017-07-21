@@ -22,6 +22,7 @@ defmodule Reverso.Web.ProjectController do
       basic_language: basic_language,
       owner_id: conn.assigns[:current_user_id]}
 
+
     case  Projects.create_project(project_params,platforms) do
       {:ok, %ProjectCollaborator{}} -> 
         project = Projects.list_project()
