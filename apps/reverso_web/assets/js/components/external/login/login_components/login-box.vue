@@ -82,22 +82,24 @@ export default {
       line-height: 33px;
     }
 
-    &__transparent-btn, &__transparent-btn:link, &__transparent-btn:visited, &__transparent-btn:hover, &__transparent-btn:active {
-      background: transparent;
-      color: #bbbbbb;
+    &__transparent-btn {
+      &, &:link, &:visited, &:hover, &:active {
+        background: transparent;
+        color: #bbbbbb;
 
-      display: block;
-      width: 50%;
-      height: 35px; 
+        display: block;
+        width: 50%;
+        height: 35px; 
 
-      margin: 5px auto 0 auto;
-      border-radius: 2px;
-      
-      font-weight: 153;
-      font-size: 13px;
-      text-align: center;
-      text-decoration: none;
-      line-height: 33px;
+        margin: 5px auto 0 auto;
+        border-radius: 2px;
+        
+        font-weight: 153;
+        font-size: 13px;
+        text-align: center;
+        text-decoration: none;
+        line-height: 33px;
+      }
     }
 
     &__error {
