@@ -63,23 +63,8 @@ export default {
   methods: {
     loadSessionData() {
       var user = profileService.getProfile();
-      this.data.id = user.id;
-      this.data.name = user.name;
-      this.data.email = user.email;
-
-      this.oldData.name = user.name;
-      this.oldData.email = user.email;
-
-      // var address = "/api/accounts/" + this.id;
-      // this.$http.get(address, {}).then(
-      // (response) => {
-      // this.name = response.data.data.name;
-      // this.email = response.data.data.email;
-      // },
-      // (error) => {
-      // alert("Oops! Something went wrong!");
-      // }
-      // )
+      this.data = _.cloneDeep(user);
+      this.oldData = _.cloneDeep(user);
     },
 
     wasChanged() {
@@ -87,25 +72,23 @@ export default {
     },
 
     saveEdit() {
-      if (this.wasChanged()) {
-        //var address = "/api/accounts/" + this.data.id;
-        var address = "/api/accounts";
-        this.$http.patch(address, {
-          "user":
-          {
-            "name": this.data.name
-          }
-        }).then(
-          (response) => {
-            alert("ok");
-          },
-          (error) => {
-            alert("Oops! Something went wrong!");
-          }
-          )
-
-      }
-      //debugger;
+      // if (this.wasChanged()) {
+      //   var address = "/api/accounts";
+      //   this.$http.patch(address, {
+      //     "user":
+      //     {
+      //       "name": this.data.name
+      //     }
+      //   }).then(
+      //     (response) => {
+      //       alert("ok");
+      //     },
+      //     (error) => {
+      //       alert("Oops! Something went wrong!");
+      //     }
+      //   )
+      // }
+      debugger;
     }
   },
 
