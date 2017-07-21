@@ -143,13 +143,4 @@ defmodule Reverso.Accounts do
         {:error, :user_not_found} 
     end
   end
-
-  def logout(id) do
-    with {:ok, %User{} = user} <- fetch_by_id(id),
-         {:ok, _} <- delete_login_token(user) do
-      {:ok, :logged_out}
-    else
-      {:error, _} -> {:error, :user_not_found}
-    end
-  end
 end
