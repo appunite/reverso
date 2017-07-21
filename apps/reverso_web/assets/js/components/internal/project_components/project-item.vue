@@ -2,7 +2,7 @@
 	<div id="project-item">
 	
 		<div v-for="translation in translations">
-			{{ translation.lang }}
+			{{ translation.language_name }}
 
 			<exportSettings></exportSettings>
 		</div>
@@ -59,18 +59,17 @@ export default {
 
 		fetchLanguages(project_id) {
 			this.$http.get("/api/projects/" + project_id + "/languages", {}).then(
-        (response) => {
-					console.log(response.body.data);
+				(response) => {
+					this.translations = response.body.data;
 				},
-     		(error) => {
-       	}
-      )
-      this.translations = this.dummy_trans; 
+				(error) => {
+				}
+			)
 		}
 	},
 	
 	created(){
-		this.fetchLanguages(1);
+		this.fetchLanguages(this.project.id);
 	}
 }
 
