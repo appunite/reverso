@@ -31,6 +31,7 @@ export default {
         icon: "/images/ic-add.svg",
         delete_btn: false,
         url: "api/projects",
+        bus_event: 'project_added',
 
         project: {
           project_name: "",
