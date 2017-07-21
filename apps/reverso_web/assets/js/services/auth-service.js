@@ -3,21 +3,16 @@ import profileService from "../services/profile-service"
 
 export default {
   logout() {
-    // console.log(sessionStorage.getItem("auth_token"));
-    // Vue.http.delete('/api/logout', {
-    //   headers: {
-    //     "authorization": sessionStorage.getItem("auth_token")
-    //   }
-    // }).then(
-    //   (response) => {
+    Vue.http.delete('/api/logout', {}).then(
+      (response) => {
         localStorage.removeItem('currentUser');
         sessionStorage.removeItem('auth_token');
         router.push('/log-in')
-    //   },
-    //   (error) =>{
-    //     alert("Oops! Something went wrong!");
-    //   }
-    // )
+      },
+      (error) =>{
+        alert("Logout: Oops! Something went wrong!");
+      }
+    )
   },
 
   login(creds) {

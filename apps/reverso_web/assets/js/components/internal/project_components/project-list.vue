@@ -10,14 +10,14 @@
 		<el-collapse v-model="activeNames">
 			<el-collapse-item v-for="(project, key) in projects" :name="key">
 				<template slot="title">
-    	  	{{ project.project_name }}
+					{{ project.project_name }}
 
-    	  	<newContributor></newContributor>
-    	  	<exportSettings></exportSettings>
-    	  	<editProject v-bind:project="project"></editProject>
-   		  </template>
+					<newContributor></newContributor>
+					<exportSettings></exportSettings>
+					<editProject v-bind:project="project"></editProject>
+				</template>
 				<projectItem v-bind:project="project"></projectItem>
-		  </el-collapse-item>
+			</el-collapse-item>
 		</el-collapse>
 		
 	</div>
@@ -29,7 +29,7 @@ import newProject from './actions/new-project.vue'
 import newContributor from './actions/new-contributor.vue'
 import exportSettings from './export-settings.vue'
 import editProject from './actions/edit-project.vue'
-
+import { bus } from '../../../app';
 
 export default {
 	name: "projectList",
@@ -60,21 +60,24 @@ export default {
 		fetchProjects(){
 
 			this.$http.get("/api/projects", {}).then(
-        (response) => {
-
-        	console.log(response.data.data);
-          this.projects = response.data.data;
-       	},
-     		(error) => {
-       		alert("Oops! Something went wrong!");
-       	}
-      )
+				(response) => {
+					this.projects = response.data.data;
+				},
+				(error) => {
+					alert("Oops! Something went wrong!");
+				}
+			)
 		}
 	},
 
 	created(){
 		this.fetchProjects();
-	}
+
+    bus.$on('update', (data) => {
+   		this.fetchProjects();
+   		console.log("xdxd");
+    });
+  }
 
 }
 </script>

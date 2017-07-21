@@ -34,7 +34,7 @@
       
         
         <el-button type="primary" @click="onSubmit">Save</el-button>
-        <el-button @click="dialogData.visable = false">Cancel</el-button>
+        <el-button @click="cleanup">Cancel</el-button>
         <el-button v-if="dialogData.delete_btn">Delete</el-button>        
 
     </el-form>
@@ -44,6 +44,8 @@
 </template>
 
 <script>
+import { bus } from '../../../../app';
+
 export default {
   name: "projectDialog",
 
@@ -80,13 +82,17 @@ export default {
       this.$http.post(this.dialogData.url, this.dialogData.project).then(function(data){
         console.log(data);
       });
+      this.cleanup();
+    },
 
+    cleanup(){
       this.dialogData.visable = false;
       this.dialogData.project = {project_name: "", basic_language: "", platforms: []};
+      bus.$emit('update', []);    
     }
-  }
-  
+  }  
 }
+
 </script>
 
 <style scoped>
