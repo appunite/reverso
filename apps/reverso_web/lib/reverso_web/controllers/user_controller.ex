@@ -24,7 +24,8 @@ defmodule Reverso.Web.UserController do
     with {:ok, %User{} = user} <- Accounts.fetch_by_id(id) do
       render(conn, "show.json", user: user)
     else
-      {:error, _} -> send_resp(conn, 404, "User does not exist!")
+      _ -> send_resp(conn, 404, "User does not exist!")
+    end
   end
 
   def update(conn, %{"id" => id, "user" => user_params}) do
@@ -39,8 +40,7 @@ defmodule Reverso.Web.UserController do
          {:ok, _} <- Accounts.delete_user(user) do
       send_resp(conn,200, "")
     else
-      {:error, :user_not_found} -> send_resp(conn, 404, "User does not exist!")
-      _ -> send_resp(conn, 400, "Can't delete user!")
+      _ -> send_resp(conn, 404, "User does not exist!")
     end
   end
 end

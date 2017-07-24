@@ -46,6 +46,5 @@ defmodule Reverso.Web.Router do
     resources "/translations", TranslationController
     resources "/languages", LanguageController
     get "/projects/:project_id/languages/:language_id", TranslationController, :index
-
   end
 end
