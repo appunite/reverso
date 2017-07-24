@@ -2,6 +2,7 @@ defmodule Reverso.Web.UserController do
   use Reverso.Web, :controller
 
   alias Reverso.Accounts
+  alias Reverso.Accounts.User
 
   action_fallback TestJson.Web.FallbackController
 
@@ -11,23 +12,32 @@ defmodule Reverso.Web.UserController do
   end
 
   def create(conn, %{"user" => user_params}) do
-    with {:ok, _user} <- Accounts.create_user(user_params) do
-      send_resp(conn, 200, "User created!")
+    with {:ok, %User{} = user} <- Accounts.create_user(user_params) do
+      conn
+      |> put_status(:created)
+      |> put_resp_header("location", user_path(conn, :show, user))
+      |> render("show.json", user: user)
     end
   end
 
-  def edit(conn, %{"user" => user_params}) do
-    with  {:ok, _user} <- Accounts.update_user(conn.assigns[:current_user], user_params) do
-      send_resp(conn, 200, "User updated!")
+  def show(conn, %{"id" => id}) do
+    with {:ok, %User{} = user} <- Accounts.fetch_by_id(id) do
+      render(conn, "show.json", user: user)
     else
-      _ -> send_resp(conn, 404, "User does not exist!")
+      {:error, _} -> send_resp(conn, 404, "User does not exist!")
+  end
+
+  def update(conn, %{"id" => id, "user" => user_params}) do
+    with {:ok, %User{} = user} <- Accounts.fetch_by_id(id),
+         {:ok, %User{} = user} <- Accounts.update_user(user, user_params) do
+      render(conn, "show.json", user: user)
     end
   end
 
   def delete(conn, %{"id" => id}) do
     with {:ok, user} <- Accounts.fetch_by_id(id),
          {:ok, _} <- Accounts.delete_user(user) do
-      send_resp(conn, 200, "User removed!")
+      send_resp(conn,200, "")
     else
       {:error, :user_not_found} -> send_resp(conn, 404, "User does not exist!")
       _ -> send_resp(conn, 400, "Can't delete user!")
