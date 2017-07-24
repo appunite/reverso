@@ -1,4 +1,4 @@
-<template>  
+a<template>  
   <span class="summary">
     <span class="summary-col-1">
               {{ project_name }}
