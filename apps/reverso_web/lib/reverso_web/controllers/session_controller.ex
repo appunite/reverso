@@ -33,7 +33,7 @@ defmodule Reverso.Web.SessionController do
   end
 
   # THIS WILL BE CHANGED
-  def generate_activation_url(%User{} = user) do
+  def generate_activation_url(conn, %User{} = user) do
     Reverso.Web.Router.token_url(conn, :activate_account, token: user.activation_token)
   end
 
