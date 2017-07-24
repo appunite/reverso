@@ -11,7 +11,6 @@
             <label for="email">Email Address</label>
             <input type="text" v-model="data.email" id="email" class="account__input">
           </div>
-          </label>
   
           <div class="editProfile__inputText editProfile_confirmInfo">
             <label>Email address confirmation</label>
@@ -72,23 +71,23 @@ export default {
     },
 
     saveEdit() {
-      // if (this.wasChanged()) {
-      //   var address = "/api/accounts";
-      //   this.$http.patch(address, {
-      //     "user":
-      //     {
-      //       "name": this.data.name
-      //     }
-      //   }).then(
-      //     (response) => {
-      //       alert("ok");
-      //     },
-      //     (error) => {
-      //       alert("Oops! Something went wrong!");
-      //     }
-      //   )
-      // }
-      debugger;
+      if (this.wasChanged()) {
+        var address = "/api/accounts";
+        this.$http.patch(address, {
+          "user":
+          {
+            "name": this.data.name
+          }
+        }).then(
+          (response) => {
+            alert("ok");
+          },
+          (error) => {
+            alert("Oops! Something went wrong!");
+          }
+        )
+      }
+      // debugger;
     }
   },
 
