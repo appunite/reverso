@@ -2,6 +2,7 @@ defmodule Reverso.Web.UserController do
   use Reverso.Web, :controller
 
   alias Reverso.Accounts
+  alias Reverso.Accounts.User
 
   action_fallback TestJson.Web.FallbackController
 
