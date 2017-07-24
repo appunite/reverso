@@ -6,7 +6,7 @@
 } 
 
 .cancel-btn {
-	@include btn
+	@include btn;
 
   color: slategray;
 	text-transform: uppercase;
@@ -14,7 +14,7 @@
 }
 
 .primary-btn {
-	@include btn
+	@include btn;
 
 	color: white;
 	background-color: $primary-btn-color;
@@ -37,13 +37,13 @@
 
 
 .green-btn {
-	@include btn
+	@include btn;
 	color: white;
 	background: $primary-btn-color;
 }
 
 .transparent-btn {
-	@include btn
+	@include btn;
 	background: transparent;
 }
 
@@ -54,7 +54,8 @@
 	border-radius: 2px;
 }
 .purple-btn {
-	@include btn
+	@include btn;
+	color: #fff;
 	background: #5861e6;
 }
 
