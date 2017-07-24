@@ -22,7 +22,6 @@ defmodule Reverso.Web.ProjectController do
       basic_language: basic_language,
       owner_id: conn.assigns[:current_user_id]}
 
-
     case  Projects.create_project(project_params,platforms) do
       {:ok, %Project{} = project} -> 
         conn
@@ -40,9 +39,9 @@ defmodule Reverso.Web.ProjectController do
   end
 
   def delete(conn, %{"id" => id}) do
-    project = Projects.get_project!(id)
-    with {:ok, %Project{}} <- Projects.delete_project(project) do
+    with {:ok, %Project{}} <- Projects.delete_project(id) do
       send_resp(conn, :no_content, "")
     end
   end
+
 end
