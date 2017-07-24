@@ -1,7 +1,7 @@
 <template>  
   <div id="nav-panel">
   
-    <el-menu theme="dark" :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
+    <el-menu theme="dark" :default-active="activeIndex" class="el-menu-demo" mode="horizontal">
       <router-link to="/projects"><img src="/images/logo-white.svg" style="margin: 16px 10px;n"></router-link>
       <el-submenu index="2">
         <template slot="title">User</template>

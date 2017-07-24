@@ -36,9 +36,13 @@
     </div>
 
     <div class="dialog-footer">
-      <el-button type="primary" class="primary-btn" :disabled="!formReady" @click="onSubmit">Save</el-button>
-      <el-button class="cancel-btn" @click="close">Cancel</el-button>
-      <el-button v-if="dialogData.delete_btn" class="delete-btn">Delete</el-button> 
+      <span>
+        <el-button type="primary" class="primary-btn" :disabled="!formReady" @click="onSubmit">Save</el-button>
+        <el-button class="cancel-btn" @click="close">Cancel</el-button>
+      </span>
+      <div>
+        <el-button v-if="dialogData.delete_btn" class="delete-btn">Delete</el-button> 
+      </div>
     </div>
 
   </el-form>
@@ -46,7 +50,7 @@
 </template>
 
 <script>
-  import { bus } from '../../../../app';
+  import projectService from '../../../../services/project-service.js'
 
   export default {
     name: "projectDialog",
@@ -83,13 +87,16 @@
     },
     methods: {
       onSubmit(){
-        console.log(this.tempProject.platforms);
+        this.$http.post(this.dialogData.url, this.tempProject).then(
+          (response) => {
+            let resp_project = projectService.process(response);
+            this.$bus.$emit(this.dialogData.bus_event, resp_project);
+          },
+          (error) => {
 
-        this.$http.post(this.dialogData.url, this.tempProject).then(function(data){
-          console.log(data);
-        });
+          }
+        )
 
-        bus.$emit(this.dialogData.bus_event, this.tempProject); 
         this.close();
       },
       
@@ -100,11 +107,7 @@
 
     computed: {
       formReady: function () {
-        if(this.tempProject.project_name === "") return false;
-        if(this.tempProject.basic_language === "") return false;
-        if(this.tempProject.platforms.length < 1) return false;
-
-        return true;
+        return projectService.formReady(this.tempProject);
       }
     },
 

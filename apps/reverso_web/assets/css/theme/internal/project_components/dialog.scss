@@ -19,6 +19,12 @@
     padding: 25px 16px;
   }
 
+  .dialog-footer {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+  }
+
   .input-wrapper {
     border: 1px solid lightgray;
     margin-bottom: 16px;
@@ -57,7 +63,10 @@
     border: none;
 
     .el-checkbox-group {
-      margin-left: 58px;
+      display: flex;
+      width: 100%;
+      justify-content: space-around;
+      margin-top: 15px;
     }
 
     span {
