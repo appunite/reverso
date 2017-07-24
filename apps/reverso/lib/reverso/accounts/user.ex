@@ -30,6 +30,12 @@ defmodule Reverso.Accounts.User do
     |> hash_password()
   end
 
+  def update_changeset(%User{} = user, attrs) do
+    user
+    |> cast(attrs, [:email, :name])
+    |> validate_format(:email, ~r/@/)
+  end
+
   def user_token_changeset(%User{} = user, attrs) do
     user
     |> cast(attrs, [:user_token, :activation_token, :password_reset_token])

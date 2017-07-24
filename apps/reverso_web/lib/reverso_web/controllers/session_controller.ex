@@ -34,8 +34,7 @@ defmodule Reverso.Web.SessionController do
 
   # THIS WILL BE CHANGED
   def generate_activation_url(%User{} = user) do
-    ["localhost:4000/api/activate/?token=", user.activation_token]
-    |> Enum.join
+    Reverso.Web.Router.token_url(conn, :activate_account, token: user.activation_token
   end
 
   def generate_password_reset_url(%User{} = user) do
