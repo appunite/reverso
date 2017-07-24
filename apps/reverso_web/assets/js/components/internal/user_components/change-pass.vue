@@ -51,7 +51,9 @@ export default {
     saveEdit() {
         var address = "/api/accounts/" + this.data.id;
         this.$http.patch(address, {
-          "user": this.data
+          "user": {
+            
+          }
         }).then(
           (response) => {
             alert('ok');
