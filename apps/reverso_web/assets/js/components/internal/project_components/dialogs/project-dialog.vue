@@ -11,8 +11,9 @@
   </span>
 
   <el-form ref="form" :model="tempProject" label-position="top">
+
     <div class="input-wrapper">
-      <label>Project Name</label><br>
+      <label>Project Name</label>
       <input type="text" placeholder="Name Your Project" v-model="tempProject.project_name" maxlength="35">
     </div>
     

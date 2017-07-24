@@ -4,30 +4,35 @@
   :visible.sync="dialogData.visable"
   size="tiny"
   :before-close="handleClose"
-  :show-close="false">
-    <span slot="title" class="dialog-title">
+  :show-close="false" class="dialog">
+    <span slot="title">
       <img :src="dialogData.icon">
       {{ dialogData.header }}
     </span>
 
     <el-form ref="form" :model="invitations" label-position="top">
 
-      <el-input v-model="filter" placeholder="Search"></el-input>
+      <div class="input-wrapper">
+        <input v-model="filter" placeholder="Search">
+      </div>
 
-      <el-checkbox-group v-model="invitations.invited">
-        <el-checkbox-button v-for="contributor in filtered" :label="contributor.email" :name="contributor.email" style="width: 100%;">
-        {{contributor.email}}<br />
-        {{contributor.name}}
-        </el-checkbox-button>
-      </el-checkbox-group>
+      <div class="invite-list">
+        <el-checkbox-group v-model="invitations.invited">
+          <el-checkbox-button v-for="contributor in filtered" :label="contributor.email" :name="contributor.email">
+            <h4>{{contributor.email}}</h4>
+            <p>{{contributor.name}}</p>
+          </el-checkbox-button>
+        </el-checkbox-group>
+      </div>
 
-      <el-form-item label="Send Invitation">
-        <el-input v-model="invitations.inv_email" placeholder="Not listed? Invite by email address..."></el-input>
-      </el-form-item>
+      <div class="input-wrapper">
+        <label>Send Invitation</label>
+        <input type="text" v-model="invitations.inv_email" placeholder="Not listed? Invite by email address...">
+      </div>
 
-      <el-button type="primary" @click="onSubmit">save</el-button>
-      <el-button @click="dialogData.visable = false">cancel</el-button>  
-
+      <el-button type="primary" class="primary-btn" @click="onSubmit">save</el-button>
+      <el-button class="cancel-btn" @click="dialogData.visable = false">cancel</el-button>  
+    
     </el-form>
  
   </el-dialog>
@@ -88,4 +93,21 @@ export default {
 }
 </script>
 
+<style scoped lang="scss">
+  .invite-list {
 
+  .el-checkbox-group {
+    height: 300px;
+    overflow: scroll;
+    margin: 25px 0px 40px;
+
+    .el-checkbox-button {
+      width: 100%;
+    }
+
+
+  }
+
+}
+
+</style>

@@ -1,12 +1,27 @@
 <template>	
-	<div id="project-item">
+	<div class="project-item">
 	
 		<div v-for="translation in translations">
-			{{ translation.language_name }}
+			<span class="summary">
+				<span class="summary-col-1">
+					{{ translation.language_name }}
+				</span>
 
-			<exportSettings></exportSettings>
+				<span class="summary-col-2">
+					{{ translation.count }} strings translated
+				</span>
+
+				<span class="summary-col-3" v-if="translation.last_edit">
+					{{ translation.last_edit }} last edit by {{ translation.editor }}
+				</span>
+		
+				<span class="summary-col-4">
+					<exportSettings></exportSettings>
+				</span>
+			</span>
+
 		</div>
-		<div>
+		<div class="add-language">
 			<newLanguage></newLanguage>
 
 		</div>
@@ -33,25 +48,6 @@ export default {
 	data () {
 		return {
 			translations: [],
-
-			dummy_trans: [
-				{
-					lang: "portugese",
-					str: "300/300",
-					last_edit: "Mickey Mouse"
-				},
-				{
-					lang: "french",
-					str: "136/300",
-					last_edit: "Whatever"
-				},
-				{
-					lang: "italian",
-					str: "13/300",
-					last_edit: "Donkey Kong"
-				}
-			]
-
 		}
 	},
 	
@@ -70,6 +66,7 @@ export default {
 	
 	mounted(){
 		this.fetchLanguages(this.project.id);
+
 	}
 }
 
