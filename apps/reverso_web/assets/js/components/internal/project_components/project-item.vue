@@ -57,6 +57,8 @@ export default {
 			this.$http.get("/api/projects/" + project_id + "/languages", {}).then(
 				(response) => {
 					this.translations = response.body.data;
+
+
 				},
 				(error) => {
 				}
@@ -66,6 +68,14 @@ export default {
 	
 	mounted(){
 		this.fetchLanguages(this.project.id);
+
+		
+
+		var obj = this.translations.filter(function ( obj ) {
+    	return obj.language_name === this.project.basic_language;
+		})[0];
+
+		console.log(obj);
 
 	}
 }

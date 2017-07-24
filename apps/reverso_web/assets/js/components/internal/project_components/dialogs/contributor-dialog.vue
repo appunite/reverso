@@ -4,7 +4,7 @@
   :visible.sync="dialogData.visable"
   size="tiny"
   :before-close="handleClose"
-  :show-close="false" class="dialog">
+  :show-close="false" class="dialog-box">
     <span slot="title">
       <img :src="dialogData.icon">
       {{ dialogData.header }}
