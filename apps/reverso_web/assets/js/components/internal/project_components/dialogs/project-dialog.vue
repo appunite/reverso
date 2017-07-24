@@ -13,7 +13,7 @@
   <el-form ref="form" :model="tempProject" label-position="top">
     <div class="input-wrapper">
       <label>Project Name</label><br>
-      <input type="text" placeholder="Name Your Project" v-model="tempProject.project_name">
+      <input type="text" placeholder="Name Your Project" v-model="tempProject.project_name" maxlength="35">
     </div>
     
     <div class="input-wrapper">
@@ -25,7 +25,7 @@
     
     <div class="input-wrapper platform">
       <label>Select Platforms</label><br>
-      <el-checkbox-group v-model="tempProject.platforms" fill="#ffffff" >
+      <el-checkbox-group v-model="tempProject.platforms" fill="#ffffff">
         <el-checkbox-button v-for="platform in platforms" :label="platform.name" :name="platform.name" class="platform-checkbox">
           <div @click="platform.sel = !platform.sel">
             <img :src="platform.img_sel" v-if="platform.sel">
@@ -36,9 +36,13 @@
     </div>
 
     <div class="dialog-footer">
-      <el-button type="primary" class="primary-btn" @click="onSubmit">Save</el-button>
-      <el-button class="cancel-btn" @click="dialogData.visable = false">Cancel</el-button>
-      <el-button v-if="dialogData.delete_btn" class="delete-btn">Delete</el-button> 
+      <span>
+        <el-button type="primary" class="primary-btn" :disabled="!formReady" @click="onSubmit">Save</el-button>
+        <el-button class="cancel-btn" @click="close">Cancel</el-button>
+      </span>
+      <div>
+        <el-button v-if="dialogData.delete_btn" class="delete-btn">Delete</el-button> 
+      </div>
     </div>
 
   </el-form>
@@ -46,7 +50,7 @@
 </template>
 
 <script>
-  import { bus } from '../../../../app';
+  import projectService from '../../../../services/project-service.js'
 
   export default {
     name: "projectDialog",
@@ -83,12 +87,28 @@
     },
     methods: {
       onSubmit(){
-        this.$http.post(this.dialogData.url, this.tempProject).then(function(data){
-          console.log(data);
-        });
+        this.$http.post(this.dialogData.url, this.tempProject).then(
+          (response) => {
+            let resp_project = projectService.process(response);
+            this.$bus.$emit(this.dialogData.bus_event, resp_project);
+          },
+          (error) => {
 
-        bus.$emit(this.dialogData.bus_event, this.tempProject); 
-       },
+          }
+        )
+
+        this.close();
+      },
+      
+      close(){
+        this.dialogData.visable = false;
+      }
+    },
+
+    computed: {
+      formReady: function () {
+        return projectService.formReady(this.tempProject);
+      }
     },
 
     created(){

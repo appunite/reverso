@@ -27,15 +27,16 @@ defmodule Reverso.Web.SessionController do
     with {:ok, _} <- Accounts.delete_login_token(conn.assigns[:current_user]) do
       send_resp(conn, 200, "Logged out!")
     else
-      _ -> send_resp(conn, 401, "User with specified token not found!")
+      _ -> send_resp(conn, 404, "User with specified token not found!")
     end
 
   end
 
   # THIS WILL BE CHANGED
   def generate_activation_url(%User{} = user) do
-    ["localhost:4000/api/activate/?token=", user.activation_token]
-    |> Enum.join
+    Reverso.Web.Router.Helpers.token_url(Reverso.Web.Endpoint,
+      :activate_account,
+      token: user.activation_token)
   end
 
   def generate_password_reset_url(%User{} = user) do

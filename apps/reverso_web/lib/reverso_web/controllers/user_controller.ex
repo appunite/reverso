@@ -21,22 +21,26 @@ defmodule Reverso.Web.UserController do
   end
 
   def show(conn, %{"id" => id}) do
-    user = Accounts.get_user!(id)
-    render(conn, "show.json", user: user)
+    with {:ok, %User{} = user} <- Accounts.fetch_by_id(id) do
+      render(conn, "show.json", user: user)
+    else
+      _ -> send_resp(conn, 404, "User does not exist!")
+    end
   end
 
   def update(conn, %{"id" => id, "user" => user_params}) do
-    user = Accounts.get_user!(id)
-
-    with {:ok, %User{} = user} <- Accounts.update_user(user, user_params) do
+    with {:ok, %User{} = user} <- Accounts.fetch_by_id(id),
+         {:ok, %User{} = user} <- Accounts.update_user(user, user_params) do
       render(conn, "show.json", user: user)
     end
   end
 
   def delete(conn, %{"id" => id}) do
-    user = Accounts.get_user!(id)
-    with {:ok, %User{}} <- Accounts.delete_user(user) do
-      send_resp(conn, :no_content, "")
+    with {:ok, user} <- Accounts.fetch_by_id(id),
+         {:ok, _} <- Accounts.delete_user(user) do
+      send_resp(conn,200, "")
+    else
+      _ -> send_resp(conn, 404, "User does not exist!")
     end
   end
 end

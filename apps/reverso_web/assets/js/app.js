@@ -22,13 +22,21 @@ import Main from './main'
 
 import authService from "./services/auth-service"
 
-export const bus = new Vue();
+const bus = new Vue();
 
 Vue.use(VueResource);
 Vue.use(ElementUI);
 
+Object.defineProperty(Vue.prototype, '$bus', {
+  get() {
+    return this.$root.bus;
+  }
+});
+
 const app = new Vue({
-  el: '#app',
+  data: {
+    bus: bus
+  },
   router,
   render: h => h(Main)
 });
@@ -41,6 +49,7 @@ Vue.http.interceptors.push((request, next) => {
   next();
 })
 
+app.$mount("#app");
 
 export {app}
 
