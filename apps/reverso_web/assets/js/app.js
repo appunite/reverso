@@ -37,7 +37,6 @@ const app = new Vue({
   data: {
     bus: bus
   },
-  el: '#app',
   router,
   render: h => h(Main)
 });
@@ -50,6 +49,7 @@ Vue.http.interceptors.push((request, next) => {
   next();
 })
 
+app.$mount("#app");
 
 export {app}
 
