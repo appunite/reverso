@@ -43,7 +43,7 @@ export default {
 
     &__input, &__button {
       width: 100%;       
-      height: 35px;
+      min-height: 35px;
       margin: 5px 0 0 0;
       border-radius: 2px;
     }

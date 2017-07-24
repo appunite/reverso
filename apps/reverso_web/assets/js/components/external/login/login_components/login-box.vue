@@ -22,10 +22,10 @@ import authService from "../../../../services/auth-service.js"
 import profileService from "../../../../services/profile-service"
 
 export default {
-	name: "LoginBox",
+  name: "LoginBox",
   
-	data() {
-		return {
+  data() {
+    return {
       message: "It's nice to see you again!",
       errorMessage: "",
       hasError: false,
@@ -33,8 +33,8 @@ export default {
         email: "",
         password: ""
       }
-		} 
-	},
+    } 
+  },
 
   computed: {
     credentials() {
@@ -70,7 +70,7 @@ export default {
 
       display: block;
       width: 50%;
-      height: 35px; 
+      min-height: 35px; 
 
       margin: 5px auto 0 auto;
       border-radius: 2px;
@@ -89,7 +89,7 @@ export default {
 
         display: block;
         width: 50%;
-        height: 35px; 
+        min-height: 35px; 
 
         margin: 5px auto 0 auto;
         border-radius: 2px;

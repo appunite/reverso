@@ -41,7 +41,7 @@ defmodule Reverso.Web.Router do
     delete "/logout", SessionController, :delete
     resources "/accounts", UserController
     resources "/projects", ProjectController
-    get "/projects/:id/languages", LanguageController, :index
+    get "/projects/:id/languages", LanguageController, :list
     resources "/platforms", PlatformController
     resources "/translations", TranslationController
     resources "/languages", LanguageController

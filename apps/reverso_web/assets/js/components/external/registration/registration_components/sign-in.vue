@@ -1,10 +1,10 @@
 <template>
 
-	<div class="box-container">
+  <div class="box-container">
     <center>Reverso.co</center>
-		<!-- <router-view></router-view> -->
+    <!-- <router-view></router-view> -->
     <!-- <newUserBox></newUserBox> -->
-	</div>
+  </div>
 </template>
 
 <script>

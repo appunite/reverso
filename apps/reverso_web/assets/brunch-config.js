@@ -65,8 +65,9 @@ exports.config = {
 
   npm: {
     enabled: true,
-    whitelist: ["phoenix", "phoenix.html", "vue"],
+    whitelist: ["phoenix", "phoenix.html", "vue", "lodash"],
     globals: {
+      _: 'lodash/index.js',
       Vue: 'vue/dist/vue.common.js'
     }
   }

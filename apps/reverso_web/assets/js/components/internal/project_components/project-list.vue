@@ -29,7 +29,6 @@ import newProject from './actions/new-project.vue'
 import newContributor from './actions/new-contributor.vue'
 import exportSettings from './export-settings.vue'
 import editProject from './actions/edit-project.vue'
-import { bus } from '../../../app';
 
 export default {
 	name: "projectList",
@@ -45,13 +44,7 @@ export default {
 	data () {
 		return {
 			activeNames: ['1'],
-			projects: [],
-			dummy_projects: [
-				{ id: 1, name: "Super Wooper App", transls: [] },
-				{ id: 2, name: "Scooby Dooby Do App", transls: [] },
-				{ id: 3, name: "Pika Pika App", transls: [] }
-			]
-
+			projects: []
 		}
 
 	},
@@ -64,18 +57,17 @@ export default {
 					this.projects = response.data.data;
 				},
 				(error) => {
-					alert("Oops! Something went wrong!");
+					//alert("Oops! Something went wrong!");
 				}
 			)
 		}
 	},
 
-	created(){
+	mounted(){
 		this.fetchProjects();
 
-    bus.$on('update', (data) => {
-   		this.fetchProjects();
-   		console.log("xdxd");
+    this.$bus.$on('project_added', (resp) => {
+    	this.projects.push(resp);
     });
   }
 

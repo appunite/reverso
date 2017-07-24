@@ -2,6 +2,8 @@
 #
 #     mix run priv/repo/seeds.exs
 #
+#     mix run apps/reverso/priv/repo/seeds.exs
+#
 # Inside the script, you can read and write to any of your
 # repositories directly:
 #
