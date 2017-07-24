@@ -19,30 +19,30 @@ import translationPanel from './components/internal/translation-panel.vue';
 
 const router = new VueRouter({
     routes: [
-			{ path: '/', 
-				component: loginPanel,
-				redirect: '/log-in',
-				children: [
-					{ path: '/log-in', component: loginBox },
-					{ path: '/lost-password', component: lostPass },
-					{ path: '/account-activated', component: accountActivated }
-				]
-			},
-			{ path: '/session',
-				component: sessionPanel,
-				meta: { requiresAuth: true },
-				children: [
-					{ path: '/projects', component: projectList },
-					{ path: '/profile', component: seeProfile },
-					{ path: '/edit-profile', component: editProfile },
-					{ path: '/edit-pass', component: changePass },
+      { path: '/', 
+        component: loginPanel,
+        redirect: '/log-in',
+        children: [
+          { path: '/log-in', component: loginBox },
+          { path: '/lost-password', component: lostPass },
+          { path: '/account-activated', component: accountActivated }
+        ]
+      },
+      { path: '/session',
+        component: sessionPanel,
+        meta: { requiresAuth: true },
+        children: [
+          { path: '/projects', component: projectList },
+          { path: '/profile', component: seeProfile },
+          { path: '/edit-profile', component: editProfile },
+          { path: '/edit-pass', component: changePass },
 
-					{ path: '/translation', component: translationPanel}
+          { path: '/translation', component: translationPanel}
 
-				]
-			}//,
-			// { path: '/register', component: registrationPanel }
-		]
+        ]
+      }//,
+      // { path: '/register', component: registrationPanel }
+    ]
 });
 
 router.beforeEach((to, from, next) => {
