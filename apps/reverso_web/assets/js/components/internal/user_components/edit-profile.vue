@@ -5,15 +5,14 @@
         <form v-on:submit.prevent="saveEdit">
           <div class="editProfile__inputText">
             <label for="name">Name</label>
-            <input type="text" v-model="data.name" id="name" class="account__input">
+            <input type="text" v-model="data.name" id="name" class="account__input" minlength="1" maxlength="30" required>
           </div>
           <div class="editProfile__inputText">
             <label for="email">Email Address</label>
-            <input type="text" v-model="data.email" id="email" class="account__input">
+            <input type="email" v-model="data.email" id="email" class="account__input" required>
           </div>
-          </label>
   
-          <div class="editProfile__inputText editProfile_confirmInfo">
+          <div v-if="emailAuth" class="editProfile__inputText editProfile_confirmInfo">
             <label>Email address confirmation</label>
             <br>
             <p>Confirm your email address</p>
@@ -43,9 +42,12 @@ export default {
       },
 
       oldData: {
+        id: -1,
         name: '',
         email: ''
-      }
+      },
+
+      emailAuth: false
     }
   },
 
@@ -72,23 +74,21 @@ export default {
     },
 
     saveEdit() {
-      // if (this.wasChanged()) {
-      //   var address = "/api/accounts";
-      //   this.$http.patch(address, {
-      //     "user":
-      //     {
-      //       "name": this.data.name
-      //     }
-      //   }).then(
-      //     (response) => {
-      //       alert("ok");
-      //     },
-      //     (error) => {
-      //       alert("Oops! Something went wrong!");
-      //     }
-      //   )
-      // }
-      debugger;
+      if (this.wasChanged()) {
+        var address = "/api/accounts/" + this.data.id;
+        this.$http.patch(address, {
+          "user": this.data
+        }).then(
+          (response) => {
+            this.emailAuth = true;
+            profileService.setProfile(this.data);
+            this.loadSessionData();
+          },
+          (error) => {
+            alert("editProfile: Oops! Something went wrong!");
+          }
+        )
+      }
     }
   },
 
