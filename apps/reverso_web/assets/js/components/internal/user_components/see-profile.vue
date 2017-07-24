@@ -80,7 +80,7 @@ export default {
 
     &__input, &__button {
       width: 100%;       
-      height: 35px;
+      min-height: 35px;
       margin: 5px 0 0 0;
       border-radius: 2px;
     }
@@ -99,12 +99,12 @@ export default {
       margin-right: 10px;
     }
 
-    &__changePassButton {
-      @media only screen and (max-width: 460px) {
-          position: relative;
-          top: 12px;
-      }    
-    }
+    // &__changePassButton {
+    //   @media only screen and (max-width: 460px) {
+    //       position: relative;
+    //       top: 12px;
+    //   }    
+    // }
 
     &__message {
       font-size: 20px;

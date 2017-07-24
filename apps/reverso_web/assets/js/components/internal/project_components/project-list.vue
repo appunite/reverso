@@ -64,7 +64,7 @@ export default {
 		}
 	},
 
-	created(){
+	mounted(){
 		this.fetchProjects();
 
     bus.$on('project_added', (project) => {

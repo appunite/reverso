@@ -118,7 +118,7 @@ export default {
 
       display: inline-block;
       width: 45%;
-      height: 35px;
+      min-height: 35px;
 
       border-radius: 2px;
 

@@ -70,7 +70,7 @@ export default {
 
       display: block;
       width: 50%;
-      height: 35px; 
+      min-height: 35px; 
 
       margin: 5px auto 0 auto;
       border-radius: 2px;
@@ -89,7 +89,7 @@ export default {
 
         display: block;
         width: 50%;
-        height: 35px; 
+        min-height: 35px; 
 
         margin: 5px auto 0 auto;
         border-radius: 2px;
