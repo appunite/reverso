@@ -5,15 +5,15 @@
         <form v-on:submit.prevent="saveEdit">
           <div class="editProfile__inputText">
             <label for="currentPass">Current Password</label>
-            <input type="password" v-model="data.currentPass" id="currentPass" class="account__input" placeholder="********" autocomplete="off">
+            <input type="password" v-model="data.currentPass" id="currentPass" class="account__input" placeholder="********" minlength="5" maxlength="30" required="required" autocomplete="off">
           </div>
           <div class="editProfile__inputText">
             <label for="newPass">New Password</label>
-            <input type="password" v-model="data.newPass" id="newPass" class="account__input"  placeholder="********" autocomplete="off">
+            <input type="password" v-model="data.newPass" id="newPass" class="account__input"  placeholder="********" minlength="5" maxlength="30" required="required" autocomplete="off">
           </div>
           <div class="editProfile__inputText">
             <label for="newPassConfirm">New Password (Confirmation)</label>
-            <input type="password" v-model="data.newPassConfirm" id="newPassConfirm" class="account__input" placeholder="********" autocomplete="off">
+            <input type="password" v-model="data.newPassConfirm" id="newPassConfirm" class="account__input" placeholder="********" minlength="5" maxlength="30" required="required" autocomplete="off">
           </div>
   
           <div class="account__buttonsContainer">
@@ -49,27 +49,21 @@ export default {
 
   methods: {
     saveEdit() {
-      // if (this.wasChanged()) {
-      //   var address = "/api/accounts";
-      //   this.$http.patch(address, {
-      //     "user":
-      //     {
-      //       "name": this.data.name
-      //     }
-      //   }).then(
-      //     (response) => {
-      //       alert("ok");
-      //     },
-      //     (error) => {
-      //       alert("Oops! Something went wrong!");
-      //     }
-      //   )
-      // }
-      // debugger;
+        var address = "/api/accounts/" + this.data.id;
+        this.$http.patch(address, {
+          "user": this.data
+        }).then(
+          (response) => {
+            alert('ok');
+          },
+          (error) => {
+            alert("editProfile: Oops! Something went wrong!");
+          }
+        );
     }
   }
 }
 </script>
 
-<style lang="scss">
+<style>
 </style>
