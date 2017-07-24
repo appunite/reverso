@@ -7,6 +7,7 @@ import loginPanel from './components/external/login/login-panel.vue';
 import loginBox from './components/external/login/login_components/login-box.vue';
 import lostPass from './components/external/login/login_components/lost-password.vue';
 import registrationPanel from './components/external/registration/registration-panel.vue';
+import accountActivated from './components/external/account_actions/account-activated.vue'
 
 import sessionPanel from './components/internal/session-panel.vue';
 import projectList from './components/internal/project_components/project-list.vue';
@@ -23,7 +24,8 @@ const router = new VueRouter({
 				redirect: '/log-in',
 				children: [
 					{ path: '/log-in', component: loginBox },
-					{ path: '/lost-password', component: lostPass }
+					{ path: '/lost-password', component: lostPass },
+					{ path: '/account-activated', component: accountActivated }
 				]
 			},
 			{ path: '/session',
