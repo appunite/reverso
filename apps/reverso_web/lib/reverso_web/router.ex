@@ -39,22 +39,12 @@ defmodule Reverso.Web.Router do
     pipe_through :api_user_auth
 
     delete "/logout", SessionController, :delete
-   #resources "/accounts", UserController
+    resources "/accounts", UserController
     resources "/projects", ProjectController
     get "/projects/:id/languages", LanguageController, :list
     resources "/platforms", PlatformController
     resources "/translations", TranslationController
     resources "/languages", LanguageController
     get "/projects/:project_id/languages/:language_id", TranslationController, :index
-
-  end
-
-  scope "/api/accounts", Reverso.Web do
-    pipe_through :api_user_auth
-
-    get "/", UserController, :index
-    patch "/", UserController, :edit
-    post "/", UserController, :create
-    delete "/delete", UserController, :delete
   end
 end
