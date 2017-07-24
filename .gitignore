@@ -9,3 +9,4 @@ apps/reverso/config/test.exs
 */.DS_Store
 apps/reverso_web/assets/yarn-error.log
 apps/reverso_web/assets/package-lock.json
+/.vscode

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="270px" height="200px" viewBox="0 0 270 200" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 43.2 (39069) - http://www.bohemiancoding.com/sketch -->
+    <title>mail-illustration</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <polygon id="path-1" points="4.68867604e-15 130.175869 132.759317 130.175869 132.759317 56.3472186 66.3796591 0 4.68867604e-15 56.3472165"></polygon>
+        <rect id="path-3" x="27.3176198" y="27.0567088" width="114.377898" height="70.1417719" rx="14.2933333"></rect>
+    </defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="mail-illustration">
+            <g>
+                <rect id="Bounds" x="0" y="0" width="270" height="200"></rect>
+                <g id="mail" transform="translate(52.000000, 43.000000)">
+                    <g id="Rectangle-4" transform="translate(16.759660, 0.753544)">
+                        <mask id="mask-2" fill="white">
+                            <use xlink:href="#path-1"></use>
+                        </mask>
+                        <g id="Mask" stroke-linejoin="round">
+                            <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-1"></use>
+                            <path stroke="#545EEE" stroke-width="4" d="M4.68867604e-15,132.175869 L132.759317,132.175869 L134.759317,132.175869 L134.759317,130.175869 L134.759317,56.3472186 L134.759317,55.4215356 L134.053607,54.8224846 L67.6739489,-1.52473399 L66.3796591,-2.62340841 L65.0853692,-1.52473402 L-1.29428983,54.8224825 L-2,55.4215335 L-2,56.3472165 L-2,130.175869 L-2,132.175869 L4.68867604e-15,132.175869 Z"></path>
+                        </g>
+                        <polygon fill="#86EAEF" mask="url(#mask-2)" points="-19.3562597 31.3374602 66.3796587 -19.2889873 66.3796587 146.168069 -19.3562597 139.085033"></polygon>
+                    </g>
+                    <g id="Rectangle-1">
+                        <use fill="#F7F9FA" fill-rule="evenodd" xlink:href="#path-3"></use>
+                        <rect stroke="#545EEE" stroke-width="4" x="29.3176198" y="29.0567088" width="110.377898" height="66.1417719" rx="14.2933333"></rect>
+                    </g>
+                    <rect id="Rectangle-2" fill="#545EEE" x="44.9142195" y="46.345696" width="54.5494591" height="4" rx="2"></rect>
+                    <rect id="Rectangle-2-Copy" fill="#545EEE" x="44.9142195" y="59.7486966" width="35.1931994" height="4" rx="2"></rect>
+                    <polygon id="Path-331" stroke="#545EEE" stroke-width="2" fill="#86EAEF" stroke-linejoin="round" points="84.3156797 94.3309871 15.232486 132.072639 15.232486 56.241608"></polygon>
+                    <polygon id="Path-331-Copy" stroke="#545EEE" stroke-width="2" fill="#FFFFFF" stroke-linejoin="round" transform="translate(116.408676, 94.767442) scale(-1, 1) translate(-116.408676, -94.767442) " points="150.950273 94.9413052 81.8670789 132.682957 81.8670789 56.8519262"></polygon>
+                    <polygon id="Star-1" fill="#FD3652" fill-rule="nonzero" points="173.257728 113.46674 167.569066 116.447053 168.655504 110.13465 164.05328 105.664181 170.413397 104.743214 173.257728 99 176.102059 104.743214 182.462177 105.664181 177.859952 110.13465 178.94639 116.447053"></polygon>
+                    <polygon id="Star-1-Copy" fill="#FD3652" fill-rule="nonzero" points="10.2577282 31.4667405 4.56906616 34.4470529 5.65550392 28.1346499 1.0532797 23.6641812 7.41339716 22.743214 10.2577282 17 13.1020591 22.743214 19.4621766 23.6641812 14.8599524 28.1346499 15.9463901 34.4470529"></polygon>
+                    <polygon id="Star-1-Copy-2" fill="#FD3652" fill-rule="nonzero" points="30 8.5 27.0610737 10.045085 27.6223587 6.77254249 25.2447174 4.45491503 28.5305369 3.97745751 30 1 31.4694631 3.97745751 34.7552826 4.45491503 32.3776413 6.77254249 32.9389263 10.045085"></polygon>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
