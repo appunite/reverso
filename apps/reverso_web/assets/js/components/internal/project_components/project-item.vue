@@ -68,7 +68,7 @@ export default {
 		}
 	},
 	
-	created(){
+	mounted(){
 		this.fetchLanguages(this.project.id);
 	}
 }

@@ -22,12 +22,21 @@ import Main from './main'
 
 import authService from "./services/auth-service"
 
-export const bus = new Vue();
+const bus = new Vue();
 
 Vue.use(VueResource);
 Vue.use(ElementUI);
 
+Object.defineProperty(Vue.prototype, '$bus', {
+  get() {
+    return this.$root.bus;
+  }
+});
+
 const app = new Vue({
+  data: {
+    bus: bus
+  },
   el: '#app',
   router,
   render: h => h(Main)
