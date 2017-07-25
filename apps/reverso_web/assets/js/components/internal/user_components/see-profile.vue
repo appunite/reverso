@@ -86,7 +86,7 @@ export default {
     }
 
     &__button {
-      width: 45%;
+      width: 50%;
     }
 
     &__input {
@@ -97,14 +97,8 @@ export default {
 
     &__editButton {
       margin-right: 10px;
+      width: calc(50% - 14px);
     }
-
-    // &__changePassButton {
-    //   @media only screen and (max-width: 460px) {
-    //       position: relative;
-    //       top: 12px;
-    //   }    
-    // }
 
     &__message {
       font-size: 20px;

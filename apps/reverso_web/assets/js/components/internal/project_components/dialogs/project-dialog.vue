@@ -1,18 +1,19 @@
 <template>
 
   <el-dialog
-  :visible.sync="dialogData.visable"
+  :visible.sync="dialogParams.visable"
   :before-close="handleClose"
   :show-close="false"
-  size="tiny" class="dialog">
+  size="tiny" class="reverso-dialog">
   <span slot="title">
-    <img :src="dialogData.icon">
-    {{ dialogData.header }}
+    <img :src="dialogParams.icon">
+    {{ dialogParams.header }}
   </span>
 
   <el-form ref="form" :model="tempProject" label-position="top">
+
     <div class="input-wrapper">
-      <label>Project Name</label><br>
+      <label>Project Name</label>
       <input type="text" placeholder="Name Your Project" v-model="tempProject.project_name" maxlength="35">
     </div>
     
@@ -41,7 +42,7 @@
         <el-button class="cancel-btn" @click="close">Cancel</el-button>
       </span>
       <div>
-        <el-button v-if="dialogData.delete_btn" class="delete-btn">Delete</el-button> 
+        <el-button v-if="dialogParams.delete_btn" class="delete-btn">Delete</el-button> 
       </div>
     </div>
 
@@ -56,7 +57,7 @@
     name: "projectDialog",
 
     props: [
-    'dialogData'
+    'dialogParams'
     ],
 
     data () {
@@ -87,13 +88,14 @@
     },
     methods: {
       onSubmit(){
-        this.$http.post(this.dialogData.url, this.tempProject).then(
+        this.$http.post(this.dialogParams.url, this.tempProject).then(
           (response) => {
+        
             let resp_project = projectService.process(response);
-            this.$bus.$emit(this.dialogData.bus_event, resp_project);
+            this.$bus.$emit(this.dialogParams.bus_event, resp_project);
           },
           (error) => {
-
+            console.log(error);
           }
         )
 
@@ -101,7 +103,7 @@
       },
       
       close(){
-        this.dialogData.visable = false;
+        this.dialogParams.visable = false;
       }
     },
 
@@ -111,14 +113,8 @@
       }
     },
 
-    created(){
- 
-      this.tempProject = {
-        project_name: this.dialogData.project.project_name,
-        basic_language: this.dialogData.project.basic_language,
-        platforms: this.dialogData.project.platforms
-      };
-    
+    mounted(){
+      this.tempProject = _.cloneDeep(this.dialogParams.project); 
     }
   }
 

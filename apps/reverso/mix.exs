@@ -20,7 +20,7 @@ defmodule Reverso.Mixfile do
   # Type `mix help compile.app` for more information.
   def application do
     [mod: {Reverso.Application, []},
-     extra_applications: [:logger, :runtime_tools, :comeonin, :swoosh, :gen_smtp]]
+     extra_applications: [:logger, :runtime_tools, :comeonin, :bamboo, :bamboo_smtp]]
   end
 
   # Specifies which paths to compile per environment.
@@ -34,8 +34,8 @@ defmodule Reverso.Mixfile do
     [{:postgrex, ">= 0.0.0"},
      {:ecto, "~> 2.1"},
      {:comeonin, "~> 3.2"},
-     {:swoosh, "~> 0.8.1"},
-     {:gen_smtp, "~> 0.11.0"}
+     {:bamboo, "~> 0.8"},
+     {:bamboo_smtp, "~> 1.4.0"}
     ]
   end
 

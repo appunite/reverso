@@ -1,7 +1,7 @@
 <template>	
-	<div id="project-list"> 
+	<div class="project-list"> 
 
-		<div id="add">
+		<div class="add-project">
 			MY PROJECTS ({{ projects.length }})
 			<newProject></newProject>
 		</div>
@@ -10,11 +10,7 @@
 		<el-collapse v-model="activeNames">
 			<el-collapse-item v-for="(project, key) in projects" :name="key">
 				<template slot="title">
-					{{ project.project_name }}
-
-					<newContributor></newContributor>
-					<exportSettings></exportSettings>
-					<editProject v-bind:project="project"></editProject>
+					<projectListHeader v-bind:project="project"></projectListHeader>
 				</template>
 				<projectItem v-bind:project="project"></projectItem>
 			</el-collapse-item>
@@ -24,26 +20,21 @@
 </template>
 
 <script>
+import projectListHeader from './project-list-header.vue'
 import projectItem from './project-item.vue'
 import newProject from './actions/new-project.vue'
-import newContributor from './actions/new-contributor.vue'
-import exportSettings from './export-settings.vue'
-import editProject from './actions/edit-project.vue'
 
 export default {
 	name: "projectList",
 
 	components: {
+		'projectListHeader': projectListHeader,
 		'projectItem': projectItem,
-		'newProject': newProject,
-		'newContributor': newContributor,
-		'exportSettings': exportSettings,
-		'editProject': editProject
+		'newProject': newProject
 	},
 
 	data () {
 		return {
-			activeNames: ['1'],
 			projects: []
 		}
 
@@ -57,7 +48,7 @@ export default {
 					this.projects = response.data.data;
 				},
 				(error) => {
-					//alert("Oops! Something went wrong!");
+					console.log(error);
 				}
 			)
 		}

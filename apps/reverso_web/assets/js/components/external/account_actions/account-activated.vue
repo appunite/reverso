@@ -1,23 +1,19 @@
 <template>
-  <div id="new-user-box" class="newUserBox">
+  <div id="account-activated" class="accountActivated">
     <img src="/images/mail-illustration.svg">
-    <div class="newUserBox__title">
-      <h3>Confirmation Link</h3>
-      <p>Registration is almost complete! We've sent a confirmation link on your email.</p>
-    </div>    
-      <router-link class="green-btn newUserBox__button" to="/">Gotcha!</router-link>
-
+    <h3 class="accountActivated__title">Your account is now activated!</h3>
+    <router-link class="green-btn accountActivated__button" to="/">Gotcha!</router-link>
  </div>
 </template>
 
 <script>
 export default {
-  name: "newUserBox"
+  name: "accountActivated"
 }
 </script>
 
 <style lang="scss">
-.newUserBox {
+.accountActivated {
   text-align: center;
   
   &__button {
@@ -40,7 +36,6 @@ export default {
   }
 
   &__title {
-    color: #444;
     margin-bottom: 30px;
   }
 }

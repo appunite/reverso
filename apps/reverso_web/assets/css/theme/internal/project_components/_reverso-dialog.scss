@@ -1,4 +1,5 @@
-.dialog {
+.reverso-dialog {
+  line-height: normal;
 
   .el-dialog--tiny {
     width: 470px;
@@ -12,7 +13,6 @@
 
     img{
       margin-bottom: 3px;
-      fill: slategray;
     }
   }
   .el-dialog__body {
@@ -23,40 +23,6 @@
     display: flex;
     width: 100%;
     justify-content: space-between;
-  }
-
-  .input-wrapper {
-    border: 1px solid lightgray;
-    margin-bottom: 16px;
-    border-radius: 5px;
-    padding: 10px;
-
-    label {
-      color: slategray;
-    }
-
-    .el-select {
-      width: 100%;
-    }
-
-    input {
-      border: none;
-      width: 100%;
-      background: transparent;
-      font-size: large;   
-      padding: 0;
-
-      &:focus {
-        outline: 0;
-      }
-
-      &::placeholder {
-        color: lightgray;
-      }
-    }
-
-
-
   }
 
   .platform {
