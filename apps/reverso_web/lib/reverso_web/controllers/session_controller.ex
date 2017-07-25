@@ -14,11 +14,11 @@ defmodule Reverso.Web.SessionController do
         |> render("session.json", user: user)
       {:error, :invalid_credentials} ->
         conn
-        |> put_status(401)
+        |> put_status(422)
         |> render("login_message.json", %{error: "Invalid credentials!"})
       {:error, :user_not_activated} ->
         conn
-        |> put_status(401)
+        |> put_status(422)
         |> render("login_message.json", %{error: "User not activated!"})
     end
   end
