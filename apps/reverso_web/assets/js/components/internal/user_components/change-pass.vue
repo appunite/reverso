@@ -1,5 +1,5 @@
 <template>
-  <div id="edit-profile" class="account">
+  <div id="change-pass" class="changePass">
     <el-row type="flex" class="row-bg loginPanel__row" justify="center">
       <el-col class="main-col loginPanel__main-col" :xs="16" :sm="9" :md="9" :lg="9">
         <form v-on:submit.prevent="saveEdit">
@@ -17,8 +17,8 @@
           </div>
   
           <div class="account__buttonsContainer">
-            <button type="submit" class="green-btn account__button editProfile__save">Save</button>
-            <router-link to="/profile" class="white-btn account__button editProfile__cancel">Cancel</router-link>
+            <button type="submit" class="green-btn changePass__save">Save</button>
+            <router-link to="/profile" class="white-btn changePass__cancel">Cancel</router-link>
           </div>
         </form>
       </el-col>
@@ -70,3 +70,39 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+.changePass {
+
+  &__save {
+    width: calc(50% - 14px);
+    min-height: 35px;
+    margin: 5px 10px 0 0;
+    border-radius: 2px;
+  }
+
+  &__cancel {
+    &,
+    &:link,
+    &:visited,
+    &:hover,
+    &:active {
+      width: 50%;
+      min-height: 35px;      
+      margin: 5px 0 0 0;
+      border-radius: 2px;      
+
+      background: transparent;
+      color: #bbbbbb;
+
+      display: inline-block;
+
+      font-weight: 153;
+      font-size: 13px;
+      text-align: center;
+      text-decoration: none;
+      line-height: 33px;
+    }
+  }
+}
+</style>

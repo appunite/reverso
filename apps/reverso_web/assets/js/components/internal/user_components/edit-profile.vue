@@ -12,13 +12,13 @@
             <input type="email" v-model="profileData.email" id="email" class="account__input" required>
           </div>
   
-          <div v-if="showEmailConfirmationMessage" class="editProfile__inputText editProfile_confirmInfo">
+          <div v-if="showEmailConfirmationMessage" class="editProfile__inputText">
             <label>Email address confirmation</label>
             <br>
             <p>Confirm your email address</p>
           </div>
-          <div v-if="showMessage">
-            {{message}}
+          <div v-if="showMessage" class="editProfile__inputText editProfile__green">
+            <p>{{message}}</p>
           </div>
   
           <div class="account__buttonsContainer">
@@ -74,16 +74,23 @@ export default {
       || (this.profileData.email != this.oldProfileData.email);
     },
 
+    onEditSuccess() {
+      if(this.profileData.email != this.oldProfileData.email)
+      {
+        this.showEmailConfirmationMessage = true;
+      }
+      profileService.setProfile(this.profileData);
+      this.loadSessionData();
+
+      this.message = "Editing completed successfully";
+      this.showMessage = true;
+    },
+
     saveEdit() {
       if (this.wasChanged()) {
-        this.$http.patch(`/api/accounts/${this.profileData.id}`, this.params).then(
+        profileService.editProfile(this.params).then(
           (response) => {
-            this.showEmailConfirmationMessage = true;
-            profileService.setProfile(this.profileData);
-            this.loadSessionData();
-
-            this.message = "Editing completed successfully";
-            this.showMessage = true;
+            this.onEditSuccess();
           },
           (error) => {
             alert("editProfile: Oops! Something went wrong!");
@@ -148,6 +155,12 @@ export default {
 
     p {
       font-size: 20px;
+    }
+  }
+
+  &__green {
+    p {
+      color: green;
     }
   }
 }

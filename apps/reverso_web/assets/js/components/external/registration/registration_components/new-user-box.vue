@@ -1,58 +1,47 @@
 <template>
-  <div id="new-user-box">
+  <div id="new-user-box" class="newUserBox">
+    <img src="/images/mail-illustration.svg">
+    <div class="newUserBox__title">
+      <h3>Confirmation Link</h3>
+      <p>Registration is almost complete! We've sent a confirmation link on your email.</p>
+    </div>    
+      <router-link class="green-btn newUserBox__button" to="/">Gotcha!</router-link>
 
-    <h3>Register</h3>
-
-    <form>
-
-      Email:<br>
-      <input type="text" v-model="email" placeholder="Email"><br>
-      
-      Name:<br>
-      <input type="text" v-model="name" placeholder="Name"><br>
-
-      Password:<br>
-      <input type="password" v-model="password" placeholder="Password"><br>
-      
-      <button v-on:click.prevent="signIn">Sign In</button>
-    </form>
  </div>
 </template>
 
 <script>
 export default {
-  name: "NewUserBox",
-  data() {
-    return {
-      message: "It's nice to see you again!",
-      error: false,
-
-      dummy_user: {
-        email: "foo@bar.com",
-        name: "asdfgh",
-        password: "abcdef"
-      },
-      email: "",
-      password: "",
-      name: ""
-    } 
-  },
-
-  methods: {
-    signIn: function(){
-
-    }
-  }
-
+  name: "newUserBox"
 }
 </script>
 
-<style>
-/*
-  #new-user-box {
-    border: solid;
-    margin-top: 20px;
-  }
-*/
-</style>
+<style lang="scss">
+.newUserBox {
+  text-align: center;
+  
+  &__button {
+    &, &:link, &:visited, &:hover, &:active {
+      color: #ffffff;
 
+      display: block;
+      width: 50%;
+      min-height: 35px; 
+
+      margin: 5px auto 0 auto;
+      border-radius: 2px;
+        
+      font-weight: 153;
+      font-size: 13px;
+      text-align: center;
+      text-decoration: none;
+      line-height: 33px;
+    }
+  }
+
+  &__title {
+    color: #444;
+    margin-bottom: 30px;
+  }
+}
+</style>
