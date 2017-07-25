@@ -4,7 +4,6 @@ defmodule Reverso.Web.TokenController do
   alias Reverso.Accounts
   alias Reverso.Accounts.User
 
-
   def password_reset(conn, %{"token" => token, "new_password" => new_password}) do
     case Accounts.reset_password(token, new_password) do
       {:ok, _} ->
