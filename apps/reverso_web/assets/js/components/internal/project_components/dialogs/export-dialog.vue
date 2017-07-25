@@ -20,17 +20,7 @@ export default {
 
   props: [
     'dialogData'
-  ],
-
-  data () {
-    return {
-    }
-  },
-  methods: {
-
-    
-  }
-  
+  ],  
 }
 </script>
 

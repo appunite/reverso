@@ -86,28 +86,9 @@ export default {
       return filtered_tab;
     }
   },
-  created(){
+  mounted(){
     this.fetch_users();
   }
   
 }
 </script>
-
-<style scoped lang="scss">
-  .invite-list {
-
-  .el-checkbox-group {
-    height: 300px;
-    overflow: scroll;
-    margin: 25px 0px 40px;
-
-    .el-checkbox-button {
-      width: 100%;
-    }
-
-
-  }
-
-}
-
-</style>

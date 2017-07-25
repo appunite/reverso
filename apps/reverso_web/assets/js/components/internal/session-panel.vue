@@ -14,11 +14,6 @@ export default {
   components: {
     'navPanel': navPanel      
   },
-
-  data () {
-    return {
-    }
-  }
 }
 
 </script>
