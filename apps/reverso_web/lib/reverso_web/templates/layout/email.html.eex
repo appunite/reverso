@@ -1,6 +1,5 @@
 <html>
   <head>
-    <link rel="stylesheet" href="<%= static_url(Reverso.Web.Endpoint, "/css/email.css") %>">
   </head>
   <body>
     <main role="main">

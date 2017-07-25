@@ -1,1 +1,4 @@
-<p>Activation link: <%= link("<hello>", to: @activation_adress, class: "btn")  %></p>
+<p style="text-align: center;margin: auto">
+    Click <strong>activation button</strong> below to activate<br>
+        <%= link("Activate account!", to: @activation_adress)%>
+</p>
