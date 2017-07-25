@@ -15,11 +15,11 @@ defmodule Reverso.Web.SessionController do
       {:error, :invalid_credentials} ->
         conn
         |> put_status(401)
-        |> render("invalid_creds.json", %{error: "Invalid credentials!"})
+        |> render("login_message.json", %{error: "Invalid credentials!"})
       {:error, :user_not_activated} ->
         conn
         |> put_status(401)
-        |> render("invalid_creds.json", %{error: "User not activated!"})
+        |> render("login_message.json", %{error: "User not activated!"})
     end
   end
 
@@ -32,15 +32,4 @@ defmodule Reverso.Web.SessionController do
 
   end
 
-  # THIS WILL BE CHANGED
-  def generate_activation_url(%User{} = user) do
-    Reverso.Web.Router.Helpers.token_url(Reverso.Web.Endpoint,
-      :activate_account,
-      token: user.activation_token)
-  end
-
-  def generate_password_reset_url(%User{} = user) do
-    ["localhost:4000/api/resetpassword/?token=", user.password_reset_token]
-    |> Enum.join
-  end
 end
