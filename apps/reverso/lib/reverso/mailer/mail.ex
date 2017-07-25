@@ -26,8 +26,9 @@ defmodule Reverso.Email do
     new_email
     |> to(user.email)
     |> from("noreply@reverso.co")
+    |> put_html_layout({Reverso.Web.LayoutView, "email.html"})
     |> subject("REVERSO.co - Password Reset")
-    |> html_body("<strong>Welcome</strong>")
-    |> text_body("welcome")
+    |> assign(:activation_adress, Reverso.Web.TokenController.generate_password_reset_url(user))
+    |> render("password_reset_email.html")
   end
 end
