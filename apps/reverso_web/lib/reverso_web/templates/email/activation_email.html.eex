@@ -1,0 +1,1 @@
+<p>Activation link: <%= link("<hello>", to: @activation_adress, class: "btn")  %></p>

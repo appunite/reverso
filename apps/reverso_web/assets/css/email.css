@@ -1,0 +1,8 @@
+.btn {
+	  border: none;
+	  border-radius: 3px;
+	  width: 110px;
+	  font-size: small;
+    color: white;
+    background: #38c885;
+}
