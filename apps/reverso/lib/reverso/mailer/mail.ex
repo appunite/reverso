@@ -10,7 +10,7 @@ defmodule Reverso.Email do
     else
       _ -> {:error, :user_not_found}
     end
-  end
+  end 
 
   defp activation_email(%User{} = user) do
     new_email
@@ -18,7 +18,7 @@ defmodule Reverso.Email do
     |> from("noreply@reverso.co")
     |> put_html_layout({Reverso.Web.LayoutView, "email.html"})
     |> subject("REVERSO.co - activation")
-    |> assign(:activation_adress, Reverso.Accounts.Token.generate_activation_url(user))
+    |> assign(:activation_adress, Reverso.Web.TokenController.generate_activation_url(user))
     |> render("activation_email.html")
   end
 
