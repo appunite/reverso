@@ -1,7 +1,7 @@
 a<template>  
   <span class="summary">
     <span class="summary-col-1">
-              {{ project_name }}
+              {{ project.project_name }}
             </span>
 
             <span class="summary-col-2">
@@ -10,7 +10,7 @@ a<template>
             </span>
 
             <span class="summary-col-3">
-              <el-progress :percentage="100" status="success" :show-text="false"></el-progress>
+              <el-progress :percentage="progress_percentage" status="success" :show-text="false"></el-progress>
             </span>
 
             <span class="summary-col-4">
@@ -32,19 +32,13 @@ export default {
   name: "projectListHeader",
 
   props: [
-    'project_name'
+    'project'
   ],
 
   components: {
     'newContributor': newContributor,
     'exportSettings': exportSettings,
     'editProject': editProject
-  },
-
-  data () {
-    return {
-    }
-
-  },
+  }
 }
 </script>

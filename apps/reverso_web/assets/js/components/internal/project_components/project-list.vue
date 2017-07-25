@@ -10,7 +10,7 @@
 		<el-collapse v-model="activeNames">
 			<el-collapse-item v-for="(project, key) in projects" :name="key">
 				<template slot="title">
-					<projectListHeader v-bind:project_name="project.project_name"></projectListHeader>
+					<projectListHeader v-bind:project="project"></projectListHeader>
 				</template>
 				<projectItem v-bind:project="project"></projectItem>
 			</el-collapse-item>
@@ -35,7 +35,6 @@ export default {
 
 	data () {
 		return {
-			activeNames: ['1'],
 			projects: []
 		}
 
@@ -49,7 +48,7 @@ export default {
 					this.projects = response.data.data;
 				},
 				(error) => {
-					//alert("Oops! Something went wrong!");
+					console.log(error);
 				}
 			)
 		}
