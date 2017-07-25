@@ -12,11 +12,16 @@ defmodule Reverso.Web.UserController do
   end
 
   def create(conn, %{"user" => user_params}) do
-    with {:ok, %User{} = user} <- Accounts.create_user(user_params) do
+    with {:ok, %User{} = user} <- Accounts.create_user(user_params),
+         {:ok, _} <- Reverso.Email.send_activation_email(user) do
       conn
-      |> put_status(:created)
-      |> put_resp_header("location", user_path(conn, :show, user))
-      |> render("show.json", user: user)
+      |> put_status(200)
+      |> render("show.json", %{user: user})
+    else
+      _->
+        conn
+        |> put_status(422)
+        |> render("login_message.json", %{error: "Invalid credentials!"})
     end
   end
 
