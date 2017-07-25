@@ -14,7 +14,7 @@ defmodule Reverso.Web.SessionView do
     }
   end
 
-  def render("invalid_creds.json", %{error: error}) do
+  def render("login_message.json", %{error: error}) do
     %{error: error}
   end
 end

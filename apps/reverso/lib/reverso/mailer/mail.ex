@@ -3,10 +3,10 @@ defmodule Reverso.Email do
 
   alias Reverso.Accounts.User
 
-  def activation_email(%User{} = user) do
+  def activation_email() do
     new_email
-    |> to(user.email)
-    |> from("czupakabra96@gmail.com")
+    |> to("example@example.com")
+    |> from("noreply@reverso.co")
     |> subject("REVERSO.co - activation")
     |> html_body("<strong>Welcome</strong>")
     |> text_body("welcome")

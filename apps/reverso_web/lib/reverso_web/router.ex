@@ -47,4 +47,8 @@ defmodule Reverso.Web.Router do
     resources "/languages", LanguageController
     get "/projects/:project_id/languages/:language_id", TranslationController, :index
   end
+
+  if Mix.env == :dev do
+    forward "/sent_emails", Bamboo.EmailPreviewPlug
+  end
 end

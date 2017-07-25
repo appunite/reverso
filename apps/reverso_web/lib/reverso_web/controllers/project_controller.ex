@@ -15,16 +15,15 @@ defmodule Reverso.Web.ProjectController do
   def create(conn, %{
     "basic_language" => basic_language,
     "project_name" => project_name,
-    "platforms" => platforms}) do 
+    "platforms" => platforms}) do
 
     project_params = %{
       project_name: project_name,
       basic_language: basic_language,
       owner_id: conn.assigns[:current_user_id]}
 
-
-    case  Projects.create_project(project_params,platforms) do
-      {:ok, %Project{} = project} -> 
+    with {:ok, %Project{} = project} <-
+      Projects.create_project(project_params,platforms) do
         conn
         |> put_status(:created)
         |> render("show.json", project: project)
@@ -34,7 +33,8 @@ defmodule Reverso.Web.ProjectController do
   def update(conn, %{"id" => id, "project" => project_params}) do
     project = Projects.get_project!(id)
 
-    with {:ok, %Project{} = project} <- Projects.update_project(project, project_params) do
+    with {:ok, %Project{} = project} <-
+    Projects.update_project(project, project_params) do
       render(conn, "index.json", project: project)
     end
   end
