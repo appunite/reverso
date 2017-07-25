@@ -52,16 +52,18 @@
 
     .el-collapse-item {
       margin: 10px 0px;
-    }
+    
+      &__wrap {
+        border-bottom: none;
+      }
 
-    .el-collapse-item__content{
-      padding: 0px;
-      border-width: 3px 40px 6px 40px;
-      border-style: solid;
-      border-color: $main-bg-color;
-    }
-  
-  
+      &__content {
+        padding: 0px;
+        border-width: 3px 40px 6px 40px;
+        border-style: solid;
+        border-color: $main-bg-color;
+      }
+    }  
 }
 
 .project-item {
