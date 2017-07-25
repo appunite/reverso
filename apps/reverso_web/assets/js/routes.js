@@ -65,10 +65,16 @@ router.beforeEach((to, from, next) => {
         path: '/log-in'
       })
     } else {
-      next()
+      next();
     }
   } else {
-    next()
+    if (authService.loggedIn()) {
+      next({
+        path: '/projects'
+      })
+    } else {
+      next();
+    }
   }
 })
 
