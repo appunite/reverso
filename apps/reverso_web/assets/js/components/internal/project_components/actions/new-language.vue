@@ -1,6 +1,6 @@
 <template>
   <span>
-    <el-button type="text" id="dialogVisable"  @click="dialogData.visable = true">
+    <el-button type="text" class="add_sth_btn" id="dialogVisable"  @click="dialogData.visable = true">
       <img :src="dialogData.icon">Add language
     </el-button>
     <languageDialog v-bind:dialogData="dialogData" v-if="dialogData.visable" @close="dialogData.visable = false">

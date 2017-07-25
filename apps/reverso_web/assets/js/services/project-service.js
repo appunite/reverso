@@ -33,6 +33,18 @@ export default {
       var progress_percentage = _.floor(100 * numerator / denominator);
 
       return progress_percentage;
+    },
+
+    deleteProject(project){
+      Vue.http.delete(`/api/project/${project.id}`, {}).then(
+      (response) => {
+        Vue.bus.$emit('project_deleted', project);
+      },
+
+      (error) =>{
+        console.log(error);
+      }
+    )
     }
 
 }
