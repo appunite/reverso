@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 43.2 (39069) - http://www.bohemiancoding.com/sketch -->
+    <title>ic-add</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="ic-add">
+            <g>
+                <path d="M10.4,9.6 L10.4,4.39926147 C10.4,4.16963577 10.2209139,4 10,4 C9.78554688,4 9.6,4.17875545 9.6,4.39926147 L9.6,9.6 L4.39926147,9.6 C4.16963577,9.6 4,9.7790861 4,10 C4,10.2144531 4.17875545,10.4 4.39926147,10.4 L9.6,10.4 L9.6,15.6007385 C9.6,15.8303642 9.7790861,16 10,16 C10.2144531,16 10.4,15.8212445 10.4,15.6007385 L10.4,10.4 L15.6007385,10.4 C15.8303642,10.4 16,10.2209139 16,10 C16,9.78554687 15.8212445,9.6 15.6007385,9.6 L10.4,9.6 Z" id="Combined-Shape" stroke="#545EEE" stroke-width="0.7" fill="#545EEE"></path>
+                <rect id="Bounds" x="0" y="0" width="20" height="20"></rect>
+            </g>
+        </g>
+    </g>
+</svg>

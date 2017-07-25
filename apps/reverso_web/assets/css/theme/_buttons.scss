@@ -1,21 +1,62 @@
+@mixin btn {
+	border: none;
+	border-radius: 3px;
+	width: 110px;
+	font-size: small;
+} 
+
+.cancel-btn {
+	@include btn;
+
+  color: slategray;
+	text-transform: uppercase;
+  font-size: smaller;
+}
+
+.primary-btn {
+	@include btn;
+
+	color: white;
+	background-color: $primary-btn-color;
+}
+
+.delete-btn {
+	text-transform: uppercase;
+	font-size: smaller;
+	color: red;
+	border: none;
+}
+
+
 .add_sth_btn {
 	border: none;
 	background: transparent;
-	color: blue;
+	text-transform: uppercase;
+  font-size: smaller;	
 }
 
-.green-btn, .white-btn {
-	color: #ffffff;
-	font-weight: 153;
-	font-size: 13px;
-}
 
 .green-btn {
-	background: #38c885 !important;
+	@include btn;
+	color: white;
+	background: $primary-btn-color;
+}
+
+.transparent-btn {
+	@include btn;
+	background: transparent;
 }
 
 .white-btn {
-	background: transparent !important;
+	color: #9EA1AD;
+	background: #fff;
+	border: 1px solid #d5d5d5;
+	border-radius: 2px;
+}
+.purple-btn {
+	@include btn;
+	color: #fff;
+	background: #5861e6;
 }
 
 ::input-placeholder {

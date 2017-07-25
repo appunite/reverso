@@ -8,6 +8,8 @@ defmodule Reverso.Projects.Language do
     field :language_name, :string
     field :project_id, :integer
 
+    field :strings_count, :integer, virtual: true, default: 0
+
     timestamps()
   end
 

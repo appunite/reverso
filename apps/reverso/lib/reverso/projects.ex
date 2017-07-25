@@ -8,16 +8,30 @@ defmodule Reverso.Projects do
   alias Reverso.Accounts.ProjectCollaborator
   alias Reverso.Accounts.User
 
-  def list_project do
-    Repo.all(Project)
+  def list_project(user_id) do
+    query = Ecto.Query.from c in ProjectCollaborator,
+    join: p in Project,
+    on: p.id == c.project_id,
+    where: c.user_id == ^user_id,
+    select: %{id: p.id, project_name: p.project_name, basic_language: p.basic_language}
+    Repo.all(query)
   end
 
   def get_project!(id), do: Repo.get!(Project, id)
 
-  def create_project(attrs \\ %{}) do
-    %Project{}
+  def create_project(attrs, platforms) do
+
+   {:ok, project} =  %Project{}
     |> Project.changeset(attrs)
     |> Repo.insert()
+
+    Enum.map(platforms, fn p ->
+      %{platform_name: p , project_id: project.id}
+      |> Projects.create_platform()    
+      end)
+
+    Projects.associate_with_project(project.owner_id, project.id)
+    {:ok, project}
   end
   
   def associate_with_project(user_id,project_id) do
@@ -104,7 +118,10 @@ defmodule Reverso.Projects do
   alias Reverso.Projects.Language
 
   def list_languages do
-    Repo.all(Language)
+    query = Ecto.Query.from l in Language,
+    distinct: true,
+    select: %{language_name: l.language_name}
+    Repo.all(query)
   end
 
   def get_language!(id), do: Repo.get!(Language, id)
@@ -129,13 +146,19 @@ defmodule Reverso.Projects do
     Language.changeset(language, %{})
   end
 
-  def get_languages_by_project(project_id) do
+  def get_project_language_properties(project_id) do
 
-    query = Ecto.Query.from u in Language,
-    where: u.project_id == ^project_id,
-    select: u
-    #select: %{language_id: u.id, language_name: u.language_name} 
-    Repo.all(query)
+    query = 
+    Ecto.Query.from l in Language,
+    left_join: t in Translation,
+    on: t.language_id == l.id,
+    left_join: u in User,
+    on: t.user_id == u.id,
+    where: l.project_id == ^project_id,
+    group_by: l.id,
+    group_by: u.id,
+    select: %{language_id: l.id, language_name: l.language_name, count: count(t.id), editor: u.name, last_edit: max(t.updated_at)}
+    summary = Repo.all(query)
     
   end
 
@@ -144,26 +167,11 @@ defmodule Reverso.Projects do
     query = Ecto.Query.from u in Translation,
     join: x in Language,
     where: u.project_id==^project_id and u.language_id == x.id,
-    select: {x.language_name, count(u.id)},
+    select: %{language_name: x.language_name, count: count(u.id)},
     group_by: x.id
     Repo.all(query)
-    
 
-  end
-
-  def last_editor(project_id, language_id) do
-    subquery = Ecto.Query.from u in Translation,
-    where: u.project_id == ^project_id and u.language_id == ^language_id,
-    select: max(u.updated_at)
-    [last_change] = Repo.all(subquery)
-
-    query = Ecto.Query.from u in Translation,
-    join: x in User, on: x.id == u.user_id,
-    where: u.updated_at == ^last_change,
-    select: {x.name,u.updated_at}
-    Repo.all(query)
-
-  end
+    end
 
   def get_translation_for_project(project_id, language_id) do
     query = Ecto.Query.from u in Translation, 

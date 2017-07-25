@@ -22,23 +22,34 @@ import Main from './main'
 
 import authService from "./services/auth-service"
 
+const bus = new Vue();
+
 Vue.use(VueResource);
 Vue.use(ElementUI);
 
+Object.defineProperty(Vue.prototype, '$bus', {
+  get() {
+    return this.$root.bus;
+  }
+});
+
 const app = new Vue({
-  el: '#app',
+  data: {
+    bus: bus
+  },
   router,
   render: h => h(Main)
 });
 
 Vue.http.interceptors.push((request, next) => {
   if (sessionStorage.getItem('auth_token')) {
-    request.headers['Authorization'] = JSON.parse(localStorage.getItem('auth'));
+    request.headers.set('authorization', sessionStorage.getItem('auth_token'))
   }
 
   next();
 })
 
+app.$mount("#app");
 
 export {app}
 

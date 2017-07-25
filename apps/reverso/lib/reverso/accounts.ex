@@ -13,9 +13,7 @@ defmodule Reverso.Accounts do
     Repo.all(User)
   end
 
-  def get_user!(id), do: Repo.get!(User, id)
-
-  def create_user(attrs \\ %{}) do
+  def create_user(attrs) do
     %User{}
     |> User.changeset(Map.put(attrs, :activation_token, Ecto.UUID.generate()))
     |> Repo.insert()
@@ -23,7 +21,7 @@ defmodule Reverso.Accounts do
 
   def update_user(%User{} = user, attrs) do
     user
-    |> User.changeset(attrs)
+    |> User.update_changeset(attrs)
     |> Repo.update()
   end
 
@@ -35,12 +33,28 @@ defmodule Reverso.Accounts do
     User.changeset(user, %{})
   end
 
+  def fetch_by_id(id) do
+    with %User{} = user <- Repo.get_by(User,id: id) do
+      {:ok, user}
+    else
+      _ -> {:error, :user_not_found}
+    end
+  end
+
   def fetch_by_token(token) do
-    Repo.get_by!(User, token)
+    with %User{} = user <- Repo.get_by(User,user_token: token) do
+      {:ok, user}
+    else
+      _ -> {:error, :user_not_found}
+    end
   end
 
   def fetch_by_email(email)do
-    Repo.get_by(User,email: email)
+    with %User{} = user <- Repo.get_by(User,email: email) do
+      {:ok, user}
+    else
+      _ -> {:error, :user_not_found}
+    end
   end
 
   def create_login_token(%User{} = user) do
@@ -82,21 +96,18 @@ defmodule Reverso.Accounts do
   def login(%{"email" => user_email, "password" => user_password}) do
     with {:ok, %User{} = user} <- fetch_by_email(user_email),
          {:ok, _} <- authenticate(user, user_password),
-         {:ok, _} <- activated?(user) do
-      {:ok, user}
+         {:ok, _} <- activated?(user),
+         {:ok, user_with_token} <- create_login_token(user) do
+      {:ok, user_with_token}
     else
-      {:error, nil} -> {:error, :invalid_credentials}
+      {:error, :user_not_found} -> {:error, :invalid_credentials}
       {:error, :auth_error} -> {:error, :invalid_credentials}
       {:error, :user_not_activated} -> {:error, :user_not_activated}
     end
   end
 
-  def activated?(%User{} = user) do
-    case user.activated do
-      true -> {:ok, :user_activated}
-      false -> {:error, :user_not_activated}
-    end
-  end
+  def activated?(%User{activated: true}) do {:ok, :user_activated} end
+  def activated?(_) do {:error, :user_not_activated} end
 
   def authenticate(%User{} = user, password) do
     case Comeonin.Bcrypt.checkpw(password, user.crypted_password) do

@@ -3,33 +3,38 @@ defmodule Reverso.Web.ProjectController do
 
   alias Reverso.Projects
   alias Reverso.Projects.Project
+  alias Reverso.Accounts.ProjectCollaborator
 
   action_fallback Reverso.Web.FallbackController
 
   def index(conn, _params) do
-    project = Projects.list_project()
-    render(conn, "index.json", project: project)
+    projects = Projects.list_project(conn.assigns[:current_user_id])
+    render(conn, "index.json", projects: projects)
   end
 
-  def create(conn, %{"project" => project_params}) do
-    with {:ok, %Project{} = project} <- Projects.create_project(project_params) do
-      conn
-      |> put_status(:created)
-      |> put_resp_header("location", project_path(conn, :show, project))
-      |> render("index.json", project: project)
+  def create(conn, %{
+    "basic_language" => basic_language,
+    "project_name" => project_name,
+    "platforms" => platforms}) do
+
+    project_params = %{
+      project_name: project_name,
+      basic_language: basic_language,
+      owner_id: conn.assigns[:current_user_id]}
+
+    with {:ok, %Project{} = project} <-
+      Projects.create_project(project_params,platforms) do
+        conn
+        |> put_status(:created)
+        |> render("show.json", project: project)
     end
-  end
-
-  def show(conn, %{"id" => id}) do  
-    languages = Projects.get_languages_by_project(String.to_integer(id))
-    IO.inspect(languages)
-    render(conn, "show.json", languages: languages)
   end
 
   def update(conn, %{"id" => id, "project" => project_params}) do
     project = Projects.get_project!(id)
 
-    with {:ok, %Project{} = project} <- Projects.update_project(project, project_params) do
+    with {:ok, %Project{} = project} <-
+    Projects.update_project(project, project_params) do
       render(conn, "index.json", project: project)
     end
   end

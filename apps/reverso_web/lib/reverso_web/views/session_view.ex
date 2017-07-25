@@ -1,6 +1,5 @@
 defmodule Reverso.Web.SessionView do
   use Reverso.Web, :view
-  alias Reverso.Web.SessionView
 
   def render("token.json", %{user: user}) do
     %{auth_token: user.user_token}
@@ -15,7 +14,7 @@ defmodule Reverso.Web.SessionView do
     }
   end
 
-  def render("invalid_creds.json", %{error: error}) do
+  def render("login_message.json", %{error: error}) do
     %{error: error}
   end
 end

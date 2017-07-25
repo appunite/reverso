@@ -1,0 +1,92 @@
+@mixin project-list-row {
+  .summary {
+    background: white;
+
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+
+    &-col- {
+      &1, &2, &3, &4 {
+        flex-basis: 25%;
+      }
+
+      &4 {
+        display: flex;
+        width: 100%;
+        justify-content: flex-end;
+      }
+    }
+  }
+}
+
+.project-list {
+    padding: 20px;
+
+    .add-project {
+      width: 100%;
+      background: white;
+      padding: 10px 16px;
+      box-shadow: 2px 2px 15px gainsboro;
+      margin-bottom: 40px;
+    }
+
+    .el-collapse {
+      border: none;
+    }
+
+    .el-collapse-item__header {
+      border-bottom: none;
+      height: initial;
+      line-height: normal;
+      padding: 10px 15px;
+
+      display: flex;
+      width: 100%;
+      align-items: center;
+      justify-content: flex-start;
+
+      @include project-list-row
+    } 
+
+    .el-collapse-item {
+      margin: 10px 0px;
+    
+      &__wrap {
+        border-bottom: none;
+      }
+
+      &__content {
+        padding: 0px;
+        border-width: 3px 40px 6px 40px;
+        border-style: solid;
+        border-color: $main-bg-color;
+      }
+    }  
+}
+
+.project-item {
+  div {
+    padding: 0px 20px;
+    border: 3px solid $main-bg-color;
+  }
+
+  @include project-list-row
+
+
+  .add-language {
+    background: $add-lang-bg-color;
+    text-align: center;
+
+    span {
+      text-transform: uppercase;
+      font-size: smaller;
+      color: $icon-blue;
+
+      img {
+        margin-bottom: 3px;
+      }
+    }
+  }
+}
