@@ -5,12 +5,22 @@ defmodule Reverso.Email do
   alias Reverso.Accounts.User
 
   def send_activation_email(%User{} = user) do
-    with %Bamboo.Email{} = email <- activation_email(user) do
+    with %Bamboo.Email{} = email <- activation_email(user),
+         %Bamboo.Email{} = email <- Reverso.Mailer.deliver_later(email) do
       {:ok, user}
     else
       _ -> {:error, :user_not_found}
     end
-  end 
+  end
+
+  def send_reset_password_email(%User{} = user) do
+    with %Bamboo.Email{} = email <- password_reset_email(user),
+         %Bamboo.Email{} = email <- Reverso.Mailer.deliver_later(email) do
+      {:ok, user}
+    else
+      _ -> {:error, :user_not_found}
+    end
+  end
 
   defp activation_email(%User{} = user) do
     new_email
