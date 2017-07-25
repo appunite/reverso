@@ -21,7 +21,7 @@ defmodule Reverso.Accounts do
 
   def update_user(%User{} = user, attrs) do
     user
-    |> User.changeset(attrs)
+    |> User.update_changeset(attrs)
     |> Repo.update()
   end
 
@@ -100,7 +100,7 @@ defmodule Reverso.Accounts do
          {:ok, user_with_token} <- create_login_token(user) do
       {:ok, user_with_token}
     else
-      {:error, :invalid_credentials} -> {:error, :invalid_credentials}
+      {:error, :user_not_found} -> {:error, :invalid_credentials}
       {:error, :auth_error} -> {:error, :invalid_credentials}
       {:error, :user_not_activated} -> {:error, :user_not_activated}
     end
