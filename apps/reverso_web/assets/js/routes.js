@@ -6,8 +6,12 @@ import authService from "./services/auth-service.js";
 import loginPanel from './components/external/login/login-panel.vue';
 import loginBox from './components/external/login/login_components/login-box.vue';
 import lostPass from './components/external/login/login_components/lost-password.vue';
-import registrationPanel from './components/external/registration/registration-panel.vue';
+
 import accountActivated from './components/external/account_actions/account-activated.vue'
+
+import registrationPanel from './components/external/registration/registration-panel.vue';
+import signUp from './components/external/registration/registration_components/sign-up.vue';
+import newUserBox from './components/external/registration/registration_components/new-user-box.vue';
 
 import sessionPanel from './components/internal/session-panel.vue';
 import projectList from './components/internal/project_components/project-list.vue';
@@ -25,7 +29,15 @@ const router = new VueRouter({
         children: [
           { path: '/log-in', component: loginBox },
           { path: '/lost-password', component: lostPass },
-          { path: '/account-activated', component: accountActivated }
+          { path: '/account-activated', component: accountActivated },
+        ]
+      },
+      { path: '/registration', 
+        component: registrationPanel,
+        //redirect: '/registration',        
+        children: [
+          { path: '/sign-up', component: signUp },
+          { path: '/new-user-box', component: newUserBox }
         ]
       },
       { path: '/session',
