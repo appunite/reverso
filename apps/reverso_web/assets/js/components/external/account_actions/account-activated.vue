@@ -8,16 +8,7 @@
 
 <script>
 export default {
-  name: "accountActivated",
-  data() {
-    return {
-
-    } 
-  },
-
-  methods: {
-  }
-
+  name: "accountActivated"
 }
 </script>
 

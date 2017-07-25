@@ -5,22 +5,25 @@
         <form v-on:submit.prevent="saveEdit">
           <div class="editProfile__inputText">
             <label for="name">Name</label>
-            <input type="text" v-model="data.name" id="name" class="account__input" minlength="1" maxlength="30" required>
+            <input type="text" v-model="profileData.name" id="name" class="account__input" minlength="1" maxlength="30" required>
           </div>
           <div class="editProfile__inputText">
             <label for="email">Email Address</label>
-            <input type="email" v-model="data.email" id="email" class="account__input" required>
+            <input type="email" v-model="profileData.email" id="email" class="account__input" required>
           </div>
   
-          <div v-if="emailAuth" class="editProfile__inputText editProfile_confirmInfo">
+          <div v-if="showEmailConfirmationMessage" class="editProfile__inputText editProfile_confirmInfo">
             <label>Email address confirmation</label>
             <br>
             <p>Confirm your email address</p>
           </div>
+          <div v-if="showMessage">
+            {{message}}
+          </div>
   
           <div class="account__buttonsContainer">
-            <button type="submit" class="green-btn account__button editProfile__save">Save</button>
-            <router-link to="/profile" class="white-btn account__button editProfile__cancel">Cancel</router-link>
+            <button type="submit" class="green-btn editProfile__save">Save</button>
+            <router-link to="/profile" class="white-btn editProfile__cancel">Cancel</router-link>
           </div>
         </form>
       </el-col>
@@ -35,54 +38,52 @@ export default {
 
   data() {
     return {
-      data: {
+      profileData: {
         id: -1,
         name: '',
         email: ''
       },
 
-      oldData: {
+      oldProfileData: {
         id: -1,
         name: '',
         email: ''
       },
 
-      emailAuth: false
+      showEmailConfirmationMessage: false,
+      showMessage: false,
+      message: ''
     }
   },
 
-  watch: {
-    name(val) {
-      this.name = val;
-      this.data.name = val;
-    },
-    email(val) {
-      this.email = val;      
-      this.data.email = val;
+  computed: {
+    params() {
+      return { user: this.profileData }
     }
   },
 
   methods: {
     loadSessionData() {
       var user = profileService.getProfile();
-      this.data = _.cloneDeep(user);
-      this.oldData = _.cloneDeep(user);
+      this.profileData = _.cloneDeep(user);
+      this.oldProfileData = _.cloneDeep(user);
     },
 
     wasChanged() {
-      return (this.data.name != this.oldData.name) || (this.data.email != this.oldData.email);
+      return (this.profileData.name != this.oldProfileData.name)
+      || (this.profileData.email != this.oldProfileData.email);
     },
 
     saveEdit() {
       if (this.wasChanged()) {
-        var address = "/api/accounts/" + this.data.id;
-        this.$http.patch(address, {
-          "user": this.data
-        }).then(
+        this.$http.patch(`/api/accounts/${this.profileData.id}`, this.params).then(
           (response) => {
-            this.emailAuth = true;
-            profileService.setProfile(this.data);
+            this.showEmailConfirmationMessage = true;
+            profileService.setProfile(this.profileData);
             this.loadSessionData();
+
+            this.message = "Editing completed successfully";
+            this.showMessage = true;
           },
           (error) => {
             alert("editProfile: Oops! Something went wrong!");
@@ -103,8 +104,10 @@ export default {
 .editProfile {
 
   &__save {
-    width: 45%;
-    margin-right: 10px;
+    width: calc(50% - 14px);
+    min-height: 35px;
+    margin: 5px 10px 0 0;
+    border-radius: 2px;
   }
 
   &__cancel {
@@ -113,14 +116,15 @@ export default {
     &:visited,
     &:hover,
     &:active {
+      width: 50%;
+      min-height: 35px;      
+      margin: 5px 0 0 0;
+      border-radius: 2px;      
+
       background: transparent;
       color: #bbbbbb;
 
       display: inline-block;
-      width: 45%;
-      min-height: 35px;
-
-      border-radius: 2px;
 
       font-weight: 153;
       font-size: 13px;

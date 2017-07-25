@@ -5,15 +5,15 @@
         <form v-on:submit.prevent="saveEdit">
           <div class="editProfile__inputText">
             <label for="currentPass">Current Password</label>
-            <input type="password" v-model="data.currentPass" id="currentPass" class="account__input" placeholder="********" minlength="5" maxlength="30" required="required" autocomplete="off">
+            <input type="password" v-model="passwordChangeData.currentPass" id="currentPass" class="account__input" placeholder="********" minlength="5" maxlength="30" required="required" autocomplete="off">
           </div>
           <div class="editProfile__inputText">
             <label for="newPass">New Password</label>
-            <input type="password" v-model="data.newPass" id="newPass" class="account__input"  placeholder="********" minlength="5" maxlength="30" required="required" autocomplete="off">
+            <input type="password" v-model="passwordChangeData.newPass" id="newPass" class="account__input"  placeholder="********" minlength="5" maxlength="30" required="required" autocomplete="off">
           </div>
           <div class="editProfile__inputText">
             <label for="newPassConfirm">New Password (Confirmation)</label>
-            <input type="password" v-model="data.newPassConfirm" id="newPassConfirm" class="account__input" placeholder="********" minlength="5" maxlength="30" required="required" autocomplete="off">
+            <input type="password" v-model="passwordChangeData.newPassConfirm" id="newPassConfirm" class="account__input" placeholder="********" minlength="5" maxlength="30" required="required" autocomplete="off">
           </div>
   
           <div class="account__buttonsContainer">
@@ -27,13 +27,13 @@
 </template>
 
 <script>
-import profileService from "../../../services/profile-service.js"
+import profileService from "../../../services/profile-service.js";
 export default {
   name: "changePass",
 
   data() {
     return {
-      data: {
+      passwordChangeData: {
         id: -1,
         currentPass: '',
         newPass: '',
@@ -42,30 +42,31 @@ export default {
     }
   },
 
-  mounted () {
+  mounted() {
     var user = profileService.getProfile();
-    this.data.id = user.id;
+    this.passwordChangeData.id = user.id;
+  },
+
+  computed: {
+    params() {
+      return {
+        password: "test",
+        password_confirmation: "test"
+      }
+    }
   },
 
   methods: {
     saveEdit() {
-        var address = "/api/accounts/" + this.data.id;
-        this.$http.patch(address, {
-          "user": {
-            
-          }
-        }).then(
-          (response) => {
-            alert('ok');
-          },
-          (error) => {
-            alert("editProfile: Oops! Something went wrong!");
-          }
-        );
+      this.$http.patch(`/api/accounts/${this.passwordChangeData.id}`, params).then(
+        (response) => {
+          alert('ok');
+        },
+        (error) => {
+          alert("editProfile: Oops! Something went wrong!");
+        }
+      );
     }
   }
 }
 </script>
-
-<style>
-</style>
