@@ -10,3 +10,4 @@ apps/reverso/config/test.exs
 apps/reverso_web/assets/yarn-error.log
 apps/reverso_web/assets/package-lock.json
 /.vscode
+wiki.xliff
