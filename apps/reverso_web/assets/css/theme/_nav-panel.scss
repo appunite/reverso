@@ -11,6 +11,10 @@
 .el-menu {
 	background: $menu-color;
 
+	.reverso-logo {
+		margin: 16px 10px;
+	}
+
 	.el-submenu {		
 		float: right;
 		padding-left: 80px;
@@ -21,6 +25,10 @@
 
 			img {
 				margin-right: 10px;
+			}
+
+			&nth_child(2){
+				color: $error-color;
 			}
 		}
 	}

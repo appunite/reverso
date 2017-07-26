@@ -8,7 +8,7 @@
 .cancel-btn {
 	@include btn;
 
-  color: slategray;
+  color: $label-gray;
 	text-transform: uppercase;
   font-size: smaller;
 }
@@ -23,7 +23,7 @@
 .delete-btn {
 	text-transform: uppercase;
 	font-size: smaller;
-	color: red;
+	color: $error-color;
 	border: none;
 }
 
