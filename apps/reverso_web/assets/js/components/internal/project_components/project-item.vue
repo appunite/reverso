@@ -1,7 +1,7 @@
 <template>	
 	<div class="project-item">
 	
-		<div v-for="translation in translations">
+		<div v-for="translation in translations" class="project-item__language">
 			<span class="summary">
 				<span class="summary-col-1">
 					{{ translation.language_name }}

@@ -60,6 +60,10 @@ export default {
     this.$bus.$on('project_added', (resp) => {
     	this.projects.push(resp);
     });
+
+    this.$bus.$on('project_deleted', (resp) => {
+    	_.pull(this.projects, resp);
+    });
   }
 
 }

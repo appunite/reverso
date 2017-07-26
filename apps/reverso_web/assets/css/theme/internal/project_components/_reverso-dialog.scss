@@ -1,5 +1,6 @@
 .reverso-dialog {
   line-height: normal;
+  text-align: initial;
 
   .el-dialog--tiny {
     width: 470px;
@@ -25,7 +26,7 @@
     justify-content: space-between;
   }
 
-  .platform {
+  .no-border {
     border: none;
 
     .el-checkbox-group {

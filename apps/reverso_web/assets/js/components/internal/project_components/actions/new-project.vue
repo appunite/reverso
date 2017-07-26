@@ -1,6 +1,6 @@
   <template>
   <span>
-    <el-button type="text" id="dialogVisable"  @click="dialogParams.visable = true">
+    <el-button type="text" class="add_sth_btn" id="dialogVisable"  @click="dialogParams.visable = true">
       <img :src="dialogParams.icon">Add new project
 
     </el-button>
