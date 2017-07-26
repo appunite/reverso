@@ -21,7 +21,7 @@ defmodule Reverso.Web.ProjectController do
       basic_language: basic_language,
       owner_id: conn.assigns[:current_user_id]}
 
-    with {:ok, %Project{} = project} <-
+    with {:ok, project} <-
       Projects.create_project(project_params,platforms) do
         conn
         |> put_status(:created)
@@ -30,7 +30,7 @@ defmodule Reverso.Web.ProjectController do
   end
 
   def update(conn, %{"id" => id, "project" => project_params}) do
-    project = Projects.get_project!(id)
+    project = Projects.get_project(id)
 
     with {:ok, %Project{} = project} <-
     Projects.update_project(project, project_params) do
