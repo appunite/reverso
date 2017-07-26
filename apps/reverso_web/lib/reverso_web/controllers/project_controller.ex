@@ -33,17 +33,16 @@ defmodule Reverso.Web.ProjectController do
     "basic_language" => basic_language,
     "id" => id,
     "project_name" => project_name,
-    "platforms" => platforms,
     "platforms_added" => platforms_added,
-    "platforms_removed" => platforms_removed}) do
+    "platforms_removed" => platforms_removed,
+    "languages" => languages}) do
     project_params = %{
       project_name: project_name,
       basic_language: basic_language}
-    project = Projects.get_project(id)
-    
-    with {:ok, project_platform} <-
-      Projects.update_project(project, project_params, platforms, platforms_added, platforms_removed) do
-      render(conn, "show.json", project: project_platform)
+
+    with {:ok, project} <-
+      Projects.update_project(Projects.get_project(id), project_params, platforms_added, platforms_removed, languages) do
+      render(conn, "show.json", project: project)
     end
   end
 

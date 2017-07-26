@@ -52,7 +52,7 @@ export default {
 
       project["platforms_added"] = _.difference(project.platforms, this.dialogParams.project.platforms);
 
-      delete project.languages;
+      delete project.platforms;
 
       projectService.updateProject(project).then(
         (response) => {
