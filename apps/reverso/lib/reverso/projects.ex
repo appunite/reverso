@@ -89,8 +89,7 @@ defmodule Reverso.Projects do
   def get_translation!(id), do: Repo.get!(Translation, id)
 
   def create_translation(file,params,user_id) do
-
-    %{"project_id" => project_id, "platform_id" => platform_id, "user_id" => user_id, "langauge_id" => language_id} = params
+   
     stream = File.stream!(file)
     result = stream |> xpath(~x"//trans-unit"l, 
     platform_key: ~x"//trans-unit/@id"s,
@@ -98,7 +97,10 @@ defmodule Reverso.Projects do
     translation: ~x"//target/text()"s)
     
     map = Enum.map(result,fn r -> 
-      %{project_id: project_id, platform_id: platform_id, user_id: user_id, langauge_id: language_id }
+      %{project_id: params.project_id,
+        platform_id: params.platform_id,
+        user_id: user_id,
+        language_id: params.language_id }
       |> Map.merge(r)  
       end)
 
