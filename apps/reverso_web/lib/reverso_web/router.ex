@@ -30,10 +30,11 @@ defmodule Reverso.Web.Router do
   scope "/api", Reverso.Web do
     pipe_through :api_no_auth
 
-    post "/accounts", UserController, :create
-    post "/resetpassword", TokenController, :password_reset
-    get "/activate", TokenController, :activate_account
     post "/login", SessionController, :create
+    post "/accounts", UserController, :create
+    get "/activate", TokenController, :activate_account
+    get "/resetpassword", TokenController, :start_password_reset
+    post "/resetpassword", TokenController, :password_reset
   end
 
   scope "/api", Reverso.Web do
