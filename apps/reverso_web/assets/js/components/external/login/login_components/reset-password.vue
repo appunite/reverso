@@ -71,7 +71,7 @@ export default {
           }
           else
           {
-            this.message = error.statusText;
+            this.message = error.body.bodyText;
           }
           this.hasSuccess = false;
           this.hasError = true;
@@ -109,13 +109,13 @@ export default {
     }
   }
 
-    &__error {
-      color: #fe3c5b;
-    }
+  &__error {
+    color: #fe3c5b;
+  }
 
-    &__success {
-      color: #38c885;
-    }
+  &__success {
+    color: #38c885;
+  }
 
  }
 </style>
