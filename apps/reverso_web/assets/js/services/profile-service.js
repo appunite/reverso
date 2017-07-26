@@ -8,7 +8,9 @@ export default {
   editProfile(creds) {
     let promise = Vue.http.patch(`/api/accounts/${creds.user.id}`, creds);
     return promise;
+  },
+  changePassProfile(params) {
+    let promise = Vue.http.post('/api/changepassword', params);
+    return promise;
   }
 }
-
-
