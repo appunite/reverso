@@ -1,4 +1,8 @@
 export default {
+  registerUser(params) {
+    let promise = Vue.http.post('/api/accounts', params);
+    return promise;
+  },
   setProfile(profile) {
     localStorage.setItem("currentUser", JSON.stringify(profile));
   },
