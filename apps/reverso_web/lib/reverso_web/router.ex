@@ -41,7 +41,9 @@ defmodule Reverso.Web.Router do
     pipe_through :api_user_auth
 
     delete "/logout", SessionController, :delete
-    resources "/accounts", UserController, except: [:create]
+    resources "/accounts", UserController, except: [:create, :change_password]
+    post "/changepassword", UserController, :change_password
+
     resources "/projects", ProjectController
     get "/projects/:id/languages", LanguageController, :list
     resources "/translations", TranslationController
