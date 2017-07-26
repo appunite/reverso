@@ -15,19 +15,22 @@ defmodule Reverso.Web.SessionController do
       {:error, :invalid_credentials} ->
         conn
         |> put_status(422)
-        |> render("login_message.json", %{error: "Invalid credentials!"})
+        |> render("message.json", %{error: "Invalid credentials!"})
       {:error, :user_not_activated} ->
         conn
         |> put_status(422)
-        |> render("login_message.json", %{error: "User not activated!"})
+        |> render("message.json", %{error: "User not activated!"})
     end
   end
 
   def delete(conn, _params) do
     with {:ok, _} <- Accounts.delete_login_token(conn.assigns[:current_user]) do
-      send_resp(conn, 200, "Logged out!")
+      send_resp(conn, 200, "")
     else
-      _ -> send_resp(conn, 404, "User with specified token not found!")
+      _ ->
+        conn
+        |> put_status(422)
+        |> render("message.json", %{error: "User does not exist!"})
     end
 
   end
