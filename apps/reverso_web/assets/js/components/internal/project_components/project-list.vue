@@ -3,7 +3,9 @@
 
     <div class="top-table-panel">
       MY PROJECTS ({{ projects.length }})
-      <newProject></newProject>
+      <newProject
+      v-on:project_added="addProject($event)"
+      ></newProject>
     </div>
     
 
@@ -45,21 +47,22 @@ export default {
 
       this.$http.get("/api/projects", {}).then(
         (response) => {
+          console.log(response.data.data);
           this.projects = response.data.data;
         },
         (error) => {
           console.log(error);
         }
       )
+    },
+
+    addProject(project){
+      this.projects.push(project);
     }
   },
 
   mounted(){
     this.fetchProjects();
-
-    this.$bus.$on('project_added', (resp) => {
-      this.projects.push(resp);
-    });
 
     this.$bus.$on('project_deleted', (resp) => {
       _.remove(this.projects, function(n) {

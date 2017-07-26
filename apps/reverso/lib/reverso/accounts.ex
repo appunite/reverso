@@ -15,7 +15,7 @@ defmodule Reverso.Accounts do
 
   def create_user(attrs) do
     %User{}
-    |> User.changeset(Map.put(attrs, :activation_token, Ecto.UUID.generate()))
+    |> User.changeset(Map.put(attrs, "activation_token", Ecto.UUID.generate()))
     |> Repo.insert()
   end
 

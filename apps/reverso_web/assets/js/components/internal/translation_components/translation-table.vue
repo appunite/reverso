@@ -22,7 +22,6 @@
         <th>{{ translation.description }}</th>
       </tr>
     </table>
-    
   </div>
 
 </template>
@@ -68,5 +67,5 @@
     methods: {
     }
   }
-  
+
 </script>

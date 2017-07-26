@@ -47,16 +47,16 @@ export default {
 
   methods: {
     createProject(project){
-        this.$http.post(this.dialogParams.url, project).then(
-          (response) => {
-            let resp_project = projectService.process(response);
-            this.$bus.$emit(this.dialogParams.bus_event, resp_project);
-          },
-          (error) => {
-            console.log(error);
-          }
-        )
-      },
+      this.$http.post(this.dialogParams.url, project).then(
+        (response) => {
+          let resp_project = projectService.process(response);
+          this.$emit(this.dialogParams.bus_event, resp_project);
+        },
+        (error) => {
+          console.log(error);
+        }
+      )
+    },
   }
 }
 </script>
