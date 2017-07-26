@@ -65,6 +65,9 @@
 
     &:hover{
       background: $hover-color;
+       a {
+        text-decoration: none;
+      }
     }
   }
 

@@ -11,6 +11,8 @@ defmodule Reverso.Projects do
   alias Reverso.Accounts.ProjectCollaborator
   alias Reverso.Accounts.User
   import Ecto.DataType.NaiveDateTime
+  import Reverso.SweetXml
+
 
   def list_project(user_id) do
     query = Ecto.Query.from c in ProjectCollaborator,
@@ -32,13 +34,18 @@ defmodule Reverso.Projects do
     |> Project.changeset(attrs)
     |> Repo.insert()
 
-    Enum.map(platforms, fn p ->
+    plat = Enum.map(platforms, fn p ->
       %{platform_name: p , project_id: project.id}
-      |> Projects.create_platform()    
       end)
+    Repo.insert_all(Platform,plat)
 
     Projects.associate_with_project(project.owner_id, project.id)
-    {:ok, project}
+    {:ok, 
+    %{id: project.id,
+      project_name: project.project_name,
+      basic_language: project.basic_language,
+      platforms: platforms, languages: []}} 
+   
   end
   
   def associate_with_project(user_id,project_id) do
@@ -55,6 +62,10 @@ defmodule Reverso.Projects do
   def delete_association_with_project(user_id,project_id) do
     Repo.get_by(ProjectCollaborator, project_id: project_id, user_id: user_id)
     |> Repo.delete()
+  end
+
+  def get_project(project_id) do
+    Repo.get(Project,project_id)
   end
 
   def create_platform(attrs) do
@@ -78,11 +89,22 @@ defmodule Reverso.Projects do
 
   def get_translation!(id), do: Repo.get!(Translation, id)
 
-  def create_translation(attrs \\ %{}) do
-    %Translation{}
-    |> Translation.changeset(attrs)
-    |> Repo.insert()
-  end
+  def create_translation(file,params,user_id) do
+    
+    stream = File.stream!(file)
+    result = stream |> xpath(~x"//trans-unit"l, 
+    platform_key: ~x"//trans-unit/@id"s,
+    basic: ~x"//source/text()"s,
+    translation: ~x"//target/text()"s)
+    
+    map = Enum.map(result,fn r -> 
+      %{project_id: project_id, platform_id: platform_id, user_id: user_id, langauge_id: language_id }
+      |> Map.merge(r)  
+      end)
+
+    Repo.insert_all(map)
+    
+   end
 
   def update_translation(%Translation{} = translation, attrs) do
     translation

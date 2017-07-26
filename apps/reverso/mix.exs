@@ -35,7 +35,10 @@ defmodule Reverso.Mixfile do
      {:ecto, "~> 2.1"},
      {:comeonin, "~> 3.2"},
      {:bamboo, "~> 0.8"},
-     {:bamboo_smtp, "~> 1.4.0"}
+     {:bamboo_smtp, "~> 1.4.0"},
+     {:ex_doc, "~> 0.14.5", only: :dev},
+     {:earmark,"~> 1.1.0 ", only: :dev},
+     {:xml_builder, "~> 0.1.1"}
     ]
   end
 

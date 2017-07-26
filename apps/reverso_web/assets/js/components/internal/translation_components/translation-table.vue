@@ -4,7 +4,6 @@
     <div class="top-table-panel">
       <el-button type="text" class="add_sth_btn">
         <img src="/images/ic-add.svg">Add new term
-
       </el-button>
     </div>
 
@@ -68,5 +67,5 @@
     methods: {
     }
   }
-  
+
 </script>

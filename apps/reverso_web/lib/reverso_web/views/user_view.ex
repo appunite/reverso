@@ -17,4 +17,12 @@ defmodule Reverso.Web.UserView do
   def render("show.json", %{user: user}) do
     %{data: render_one(user, UserView, "user.json")}
   end
+
+  def render("message.json", %{error: error}) do
+    %{error: error}
+  end
+
+  def render("message.json", %{info: info}) do
+    %{info: info}
+  end
 end
