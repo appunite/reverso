@@ -64,10 +64,11 @@ export default {
   mounted(){
     this.fetchProjects();
 
-    this.$bus.$on('project_deleted', (resp) => {
-      _.remove(this.projects, function(n) {
-        return n.id  == resp.id;
+    this.$bus.$on('project_deleted', (deleted_project) => {
+      _.remove(this.projects, function(project) {
+        return project.id  == deleted_project.id;
       });
+      console.log(this.projects);
     });
   }
 
