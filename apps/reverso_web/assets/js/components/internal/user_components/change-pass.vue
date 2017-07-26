@@ -50,18 +50,19 @@ export default {
   computed: {
     params() {
       return {
-        user: {
-          old_password: this.passwordChangeData.currentPass,
-          new_password: this.passwordChangeData.newPass,
-          new_password_confirmation: this.passwordChangeData.newPassConfirm
-        }
+        id: this.passwordChangeData.id,
+        old_password: this.passwordChangeData.currentPass,
+        new_password_set: {
+          password: this.passwordChangeData.newPass,
+          password_confirmation: this.passwordChangeData.newPassConfirm
+        } 
       }
     }
   },
 
   methods: {
     saveEdit() {
-      this.$http.patch(`/api/accounts/${this.passwordChangeData.id}`, params).then(
+      Vue.http.post('/api/changepassword', this.params).then(
         (response) => {
           alert('ok');
         },
