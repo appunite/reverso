@@ -2,23 +2,23 @@
   <div class="project-item">
   
 
-    <div v-for="translation in translations" class="project-item__language">
+    <div v-for="language in project.languages" class="project-item__language">
       <router-link to="/translation">
       <span class="summary">
         <span class="summary-col-1">
-          {{ translation.language_name }}
+          {{ language.language_name }}
         </span>
 
         <span class="summary-col-2">
-          <p v-if="isBasicLanguage(translation.language_name)">reference</p>
-          <p v-else>{{ translation.count }}/{{reference_str_count}} strings translated</p>
+          <p v-if="isBasicLanguage(language.language_name)">reference</p>
+          <p v-else>{{ language.count }}/{{reference_str_count}} strings translated</p>
 
           
         </span>
 
         <span class="summary-col-3">
-          <p v-if="translation.last_edit">
-            {{ translation.last_edit }} last edit by {{ translation.editor }}
+          <p v-if="language.last_edit">
+            {{ language.last_edit }} last edit by {{ language.editor }}
           </p>          
         </span>
     
@@ -73,8 +73,7 @@ export default {
     }
   },
   
-  mounted(){
-    this.fetchLanguages(this.project.id);     
+  mounted(){  
   }
 }
 
