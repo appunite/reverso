@@ -50,8 +50,11 @@ export default {
   computed: {
     params() {
       return {
-        password: "test",
-        password_confirmation: "test"
+        user: {
+          old_password: this.passwordChangeData.currentPass,
+          new_password: this.passwordChangeData.newPass,
+          new_password_confirmation: this.passwordChangeData.newPassConfirm
+        }
       }
     }
   },
