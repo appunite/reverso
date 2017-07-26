@@ -15,7 +15,7 @@ defmodule Reverso.Web.ProjectView do
       project_name: project.project_name,
       basic_language: project.basic_language,
       platforms: project.platforms,
-      langauages: project.languages}
+      languages: project.languages}
   end
 
 end

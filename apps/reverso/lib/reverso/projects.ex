@@ -67,6 +67,32 @@ defmodule Reverso.Projects do
     Repo.get(Project,project_id)
   end
 
+  def update_project(project, attrs, platforms, platforms_added, platforms_deleted) do
+    project
+    |> Project.changeset(attrs)
+    |> Repo.update()
+
+    plat = Enum.map(platforms_added, fn p ->
+      %{platform_name: p , project_id: project.id}
+      end)
+    Repo.insert_all(Platform,plat)
+    
+    delete = Enum.map(platforms_deleted, fn p -> 
+      from(p in Platform, 
+      where: p.project_id == ^project.id and p.platform_name == ^p)
+      |> Repo.delete_all
+    end)
+
+    platforms_after_changes = (platforms--platforms_deleted)++platforms_added
+
+    {:ok, 
+    %{id: project.id,
+      project_name: project.project_name,
+      basic_language: project.basic_language,
+      platforms: platforms_after_changes, languages: []}}     
+    
+  end
+
   def create_platform(attrs) do
     %Platform{}
     |> Platform.changeset(attrs)
