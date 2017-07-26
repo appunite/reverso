@@ -29,7 +29,7 @@ defmodule Reverso.Web.TokenController do
     else
       {:error, _} ->
         conn
-        |> render("login_message.json", %{error: "Invalid credentials!"})
+        |> send_resp(422, "")
     end
   end
 

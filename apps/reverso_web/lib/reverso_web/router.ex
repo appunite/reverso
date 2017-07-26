@@ -33,7 +33,7 @@ defmodule Reverso.Web.Router do
     post "/login", SessionController, :create
     post "/accounts", UserController, :create
     get "/activate", TokenController, :activate_account
-    get "/resetpassword", TokenController, :start_password_reset
+    post "/lostpassword", TokenController, :start_password_reset
     post "/resetpassword", TokenController, :password_reset
   end
 
