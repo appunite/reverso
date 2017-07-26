@@ -1,20 +1,21 @@
 <template>
 <span @click.stop>
-  <el-button type="text" id="dialogVisable" @click="dialogData.visable = true">
+  <el-button type="text" id="dialogVisable" @click="toggleVisability">
     <img :src="dialogData.icon">
   </el-button>
+  
   <projectDialog 
   v-bind:dialogParams="dialogParams"
   v-if="dialogData.visable" 
   v-on:submit="updateProject($event)"
-  @close="dialogData.visable = false">
-
+  @close="toggleVisability">
       
   </projectDialog>
 </span>
 </template>
 
 <script>
+import projectService from '../../../../services/project-service.js'
 import projectDialog from '../dialogs/project-dialog.vue'
 
 export default {
@@ -51,19 +52,22 @@ export default {
 
       project["platforms_added"] = _.difference(project.platforms, this.dialogParams.project.platforms);
 
-      delete project.platforms;
-      delete project.langauages;
+      delete project.languages;
 
-      this.$http.patch(`api/projects/${project.id}`, project).then(
+      projectService.updateProject(project).then(
         (response) => {
           let resp_project = projectService.process(response);
-          this.$bus.$emit(this.dialogParams.bus_event, resp_project);
+          this.$bus.$emit('project_edited', resp_project);
         },
+
         (error) => {
           console.log(error);
         }
-      )
+      );
+    },
 
+    toggleVisability(){
+      this.dialogData.visable = !this.dialogData.visable;
     }
   },
 

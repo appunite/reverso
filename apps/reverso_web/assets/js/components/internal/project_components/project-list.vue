@@ -22,6 +22,7 @@
 </template>
 
 <script>
+import projectService from '../../../services/project-service.js'
 import projectListHeader from './project-list-header.vue'
 import projectItem from './project-item.vue'
 import newProject from './actions/new-project.vue'
@@ -39,30 +40,24 @@ export default {
     return {
       projects: []
     }
-
   },
 
   methods: {
-    fetchProjects(){
-
-      this.$http.get("/api/projects", {}).then(
-        (response) => {
-          console.log(response.data.data);
-          this.projects = response.data.data;
-        },
-        (error) => {
-          console.log(error);
-        }
-      )
-    },
-
     addProject(project){
       this.projects.push(project);
     }
   },
 
   mounted(){
-    this.fetchProjects();
+    projectService.fetchProjects().then(
+      (response) => {
+        this.projects = response.data.data;
+      },
+
+      (error) => {
+        console.log(error);
+      }
+    );
 
     this.$bus.$on('project_deleted', (deleted_project) => {
       

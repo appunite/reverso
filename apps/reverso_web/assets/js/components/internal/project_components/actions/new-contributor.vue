@@ -1,9 +1,16 @@
 <template>
   <span @click.stop>
-    <el-button type="text" id="dialogVisable"  @click="dialogData.visable = true">
+    <el-button type="text"
+    id="dialogVisable"
+    @click="toggleVisability">
+
       <img :src="dialogData.icon">
     </el-button>
-    <contributorDialog v-bind:dialogData="dialogData" v-if="dialogData.visable" @close="dialogData.visable = false">
+
+    <contributorDialog
+    v-bind:dialogData="dialogData"
+    v-if="dialogData.visable"
+    @close="toggleVisability">
         
     </contributorDialog>
   </span>
@@ -25,11 +32,15 @@ export default {
       dialogData: {
         visable: false,
         header: "invite contributors",
-        icon: "/images/ic-add-contributor.svg"
-        
+        icon: "/images/ic-add-contributor.svg" 
       }
     }
+  },
 
+  methods: {
+    toggleVisability(){
+      this.dialogData.visable = !this.dialogData.visable;
+    }
   }
   
 }
