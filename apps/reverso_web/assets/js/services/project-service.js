@@ -11,28 +11,22 @@ export default {
         return true;
     },
 
-     
-    setProgressValues(translations, basic_lang){
-      var language_count = translations.length;
+    fetchProjects(){
+      let promise = Vue.http.get("/api/projects", {});
 
-      var reference_idx = _.findIndex(translations, ['language_name', basic_lang]);
-      
-      if(reference_idx > 0){
-        var reference_str_count = translations[reference_idx].count;
-      }
-
-      var progress_percentage = calculateProgress(translations, language_count, reference_str_count);
-
-      return [language_count, reference_str_count, progress_percentage];
+      return promise;
     },
 
-    calculateProgress(translations, language_count, reference_str_count){
-      var numerator = _.sumBy(translations, 'count');
-      var denominator = language_count * reference_str_count;
-    
-      var progress_percentage = _.floor(100 * numerator / denominator);
+    createProject(project){
+      let promise = Vue.http.post("api/projects", project);
 
-      return progress_percentage;
+      return promise;
+    },
+
+    updateProject(project){
+      let promise = Vue.http.patch(`api/projects/${project.id}`, project);
+
+      return promise;
     },
 
     deleteProject(project){
