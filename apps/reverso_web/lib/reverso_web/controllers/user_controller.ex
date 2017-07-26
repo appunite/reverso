@@ -48,4 +48,17 @@ defmodule Reverso.Web.UserController do
       _ -> send_resp(conn, 422, "User does not exist!")
     end
   end
+
+  def change_password(conn, %{ "id" => id, "user" => user_params}) do
+    with {:ok, %User{} = user} <- Accounts.fetch_by_id(id),
+         {:ok, _} <- Accounts.authenticate(user, user.params.old_password),
+         {:ok, _} <- change_password(user, user_params.new_password_set) do
+      conn
+      |> send_resp(200, "")
+    else
+      {:error, _} ->
+        conn
+        |> send_resp(422, "")
+    end
+  end
 end

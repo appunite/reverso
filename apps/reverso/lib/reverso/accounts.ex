@@ -124,6 +124,12 @@ defmodule Reverso.Accounts do
     end
   end
 
+  def change_password(%User{} = user, new_password_set) do
+    user
+    |> User.reset_password_changeset(new_password_set)
+    |> Repo.update()
+  end
+
   def authenticate(_, _) do
     Comeonin.Bcrypt.dummy_checkpw()
     {:error, :auth_error}
