@@ -17,6 +17,8 @@
           <label for="password-confirmation">Password (Confirmation)</label>
           <input type="password" v-model="passwordConfirm" id="password-confirmation" placeholder="Password (Confirmation)" required>
         </div>
+        <p v-if="hasError" class="signUpBox__error">{{message}}</p>
+        <p v-if="hasSuccess" class="signUpBox__success">{{message}}</p>
         <div class="signUpBox__footer">
           <button type="submit" class="primary-btn">Sign Up</button>
           <p>By creating an account, you agree to the <a href="#">terms</a></p>
@@ -34,16 +36,44 @@ export default {
   
   data() {
     return {
+      hasError: false,
+      hasSuccess: false,
+      message: '',
+
       name: '',
       email: '',
       password: '',
-      passwordConfim: ''
+      passwordConfirm: ''
     } 
   }, 
 
+  computed: {
+    params() {
+      return {
+        user: {
+          email: this.email,
+          name: this.name,
+          password: this.password,
+          password_confirmation: this.passwordConfirm
+        } 
+      }
+    }
+  },
+
   methods: {
     register() {
-      alert(this);
+      Vue.http.post('/api/accounts', this.params).then(
+        (response) => {
+          this.message = "OK";
+          this.hasError = false;
+          this.hasSuccess = true;
+        },
+        (error) => {
+          this.message = error.body.bodyText;
+          this.hasSuccess = false;
+          this.hasError = true;
+        }
+      );
     }
   }
 }
@@ -75,5 +105,13 @@ export default {
         }
       }
     }
+
+    &__error {
+      color: #fe3c5b;
+    }
+
+    &__success {
+      color: #38c885;
+    }  
   }
 </style>
