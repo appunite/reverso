@@ -8,7 +8,7 @@
     v-bind:dialogParams="dialogParams"
     v-if="dialogParams.visable" 
     v-on:submit="createProject($event)"
-    @close="dialogParams.visable = false">        
+    @close="close">        
     </projectDialog>
   </span>
 </template>
@@ -57,6 +57,10 @@ export default {
         }
       )
     },
+
+    close(){
+      this.dialogParams.visable = false;
+    }
   }
 }
 </script>

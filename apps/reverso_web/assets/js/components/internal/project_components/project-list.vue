@@ -65,10 +65,12 @@ export default {
     this.fetchProjects();
 
     this.$bus.$on('project_deleted', (deleted_project) => {
-      _.remove(this.projects, function(project) {
-        return project.id  == deleted_project.id;
+      
+      let index = _.findIndex(this.projects, (project) => {
+        return project.id == deleted_project.id;
       });
-      console.log(this.projects);
+
+      this.projects.splice(index, 1);
     });
   }
 
