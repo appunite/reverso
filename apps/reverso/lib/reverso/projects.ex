@@ -20,7 +20,6 @@ defmodule Reverso.Projects do
       from(t in Translation,
         join: u in User, on: t.user_id == u.id,
         order_by: [desc: t.updated_at],
-        limit: 1,
         select: u.name
       )
 
@@ -37,17 +36,14 @@ defmodule Reverso.Projects do
         },
         preload: [last_editor_name: ^editor_query]
       )
-      |> Repo.all()
 
 
-    # from(p in Project,
-    #   join: c in ProjectCollaborator,
-    #   on: c.project_id == p.id and c.user_id == ^user_id,
-    #   join: l in Language,
-    #   on: l.project_id == p.id,
-
-    # )
-    # |> Repo.all()
+    from(p in Project,
+      join: c in ProjectCollaborator,
+      on: c.project_id == p.id and c.user_id == ^user_id,
+      preload: [languages: ^languages_query]
+    )
+    |> Repo.all()
     # query = Ecto.Query.from c in ProjectCollaborator,
 
     # join: p in Project,

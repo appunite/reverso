@@ -28,13 +28,40 @@ defmodule Reverso.ProjectsTest do
 
     user1 = Repo.insert!(%User{name: "user1"})
     user2 = Repo.insert!(%User{name: "user2"})
+    user3 = Repo.insert!(%User{name: "user3"})
+    user4 = Repo.insert!(%User{name: "user4"})
+
+    _english_translation = Repo.insert!(%Translation{
+          language_id: english.id, user_id: user2.id, project_id: project.id
+                                       })
+    _english_translation = Repo.insert!(%Translation{
+          language_id: english.id, user_id: user3.id, project_id: project.id
+                                        })
+
+    _english_translation = Repo.insert!(%Translation{
+          language_id: english.id, user_id: user4.id, project_id: project.id
+                                        })
+
 
     english_translation = Repo.insert!(%Translation{
       language_id: english.id, user_id: user1.id, project_id: project.id
     })
 
+    _french_translation = Repo.insert!(%Translation{
+          language_id: french.id, user_id: user1.id, project_id: project.id
+                                      })
+
+    _french_translation = Repo.insert!(%Translation{
+          language_id: french.id, user_id: user2.id, project_id: project.id
+                                       })
+
+    _french_translation = Repo.insert!(%Translation{
+          language_id: french.id, user_id: user3.id, project_id: project.id
+                                       })
+
+
     french_translation = Repo.insert!(%Translation{
-      language_id: french.id, user_id: user2.id, project_id: project.id
+      language_id: french.id, user_id: user4.id, project_id: project.id
     })
 
     [fetched_project | _] = Projects.fetch_projects(user.id)
