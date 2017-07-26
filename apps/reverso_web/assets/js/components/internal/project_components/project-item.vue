@@ -1,7 +1,9 @@
 <template>  
   <div class="project-item">
   
+
     <div v-for="translation in translations" class="project-item__language">
+      <router-link to="/translation">
       <span class="summary">
         <span class="summary-col-1">
           {{ translation.language_name }}
@@ -24,11 +26,12 @@
           <exportSettings></exportSettings>
         </span>
       </span>
+      </router-link>
 
     </div>
+
     <div class="add-language">
       <newLanguage></newLanguage>
-
     </div>
 
   </div>

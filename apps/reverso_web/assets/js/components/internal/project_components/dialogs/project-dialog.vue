@@ -28,10 +28,8 @@
       <label>Select Platforms</label><br>
       <el-checkbox-group v-model="tempProject.platforms" fill="#ffffff">
         <el-checkbox-button v-for="platform in platforms" :label="platform.name" :name="platform.name" class="platform-checkbox">
-          <div @click="platform.sel = !platform.sel">
-            <img :src="platform.img_sel" v-if="platform.sel">
-            <img :src="platform.img_unsel" v-else>
-          </div>
+          <img :src="platform.img_sel" v-if="tempProject.platforms.includes(platform.name)">
+          <img :src="platform.img_unsel" v-else>
         </el-checkbox-button>
       </el-checkbox-group>  
     </div>
@@ -75,20 +73,17 @@
         {
           name: "Android",
           img_sel: "/images/platforms/ic-Android-selected.svg",
-          img_unsel: "/images/platforms/ic-Android-unselected.svg",
-          sel: false
+          img_unsel: "/images/platforms/ic-Android-unselected.svg"
         },
         {
           name: "iOS",
           img_sel: "/images/platforms/ic-apple-selected.svg",
-          img_unsel: "/images/platforms/ic-apple-unselected.svg",
-          sel: false
+          img_unsel: "/images/platforms/ic-apple-unselected.svg"
         },
         {
           name: "Desktop",
           img_sel: "/images/platforms/ic-desktop-selected.svg",
-          img_unsel: "/images/platforms/ic-desktop-unselected.svg",
-          sel: false
+          img_unsel: "/images/platforms/ic-desktop-unselected.svg"
         }
         ]
       }
@@ -98,7 +93,6 @@
       fetchLanguages(){
         this.$http.get("/api/languages", {}).then(
         (response) => {
-          console.log(response.data);
           this.languages = response.data.data;
         },
         (error) => {
@@ -124,7 +118,6 @@
 
     mounted(){
       this.fetchLanguages();
-
       this.tempProject = _.cloneDeep(this.dialogParams.project); 
     }
   }
