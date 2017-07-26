@@ -3,8 +3,7 @@ defmodule Reverso.Web.ProjectController do
 
   alias Reverso.Projects
   alias Reverso.Projects.Project
-  alias Reverso.Accounts.ProjectCollaborator
-
+  
   action_fallback Reverso.Web.FallbackController
 
   def index(conn, _params) do
