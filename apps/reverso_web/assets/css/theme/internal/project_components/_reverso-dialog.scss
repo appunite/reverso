@@ -12,10 +12,12 @@
     font-size: small;
     margin: 12px 0px 10px 10px;
 
-    img{
-      margin-bottom: 3px;
+    div {
+    display: flex;
+    align-items: center;
     }
   }
+
   .el-dialog__body {
     padding: 25px 16px;
   }
