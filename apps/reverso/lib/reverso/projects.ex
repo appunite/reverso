@@ -13,6 +13,7 @@ defmodule Reverso.Projects do
   import Ecto.DataType.NaiveDateTime
   import Reverso.SweetXml
 
+
   def list_project(user_id) do
     query = Ecto.Query.from c in ProjectCollaborator,
     join: p in Project,
