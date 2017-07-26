@@ -7,12 +7,14 @@
     <projectDialog
     v-bind:dialogParams="dialogParams"
     v-if="dialogParams.visable" 
-    @close="dialogParams.visable = false;">        
+    v-on:submit="createProject($event)"
+    @close="dialogParams.visable = false">        
     </projectDialog>
   </span>
 </template>
 
 <script>
+import projectService from '../../../../services/project-service.js'
 import projectDialog from '../dialogs/project-dialog.vue'
 
 export default {
@@ -41,6 +43,20 @@ export default {
       }
 
     }
+  },
+
+  methods: {
+    createProject(project){
+        this.$http.post(this.dialogParams.url, project).then(
+          (response) => {
+            let resp_project = projectService.process(response);
+            this.$bus.$emit(this.dialogParams.bus_event, resp_project);
+          },
+          (error) => {
+            console.log(error);
+          }
+        )
+      },
   }
 }
 </script>

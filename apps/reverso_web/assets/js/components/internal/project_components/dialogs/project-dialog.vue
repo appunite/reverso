@@ -42,7 +42,8 @@
         <el-button class="cancel-btn" @click="close">Cancel</el-button>
       </span>
       <div>
-        <el-button v-if="dialogParams.delete_btn" class="delete-btn" @click="deleteProject">Delete</el-button> 
+        <deleteProject v-if="dialogParams.delete_btn" v-bind:project="tempProject" v-on:close="close"></deleteProject>
+         
       </div>
     </div>
 
@@ -52,6 +53,7 @@
 
 <script>
   import projectService from '../../../../services/project-service.js'
+  import deleteProject from '../actions/delete-project'
 
   export default {
     name: "projectDialog",
@@ -59,6 +61,10 @@
     props: [
     'dialogParams'
     ],
+
+    components: {
+      'deleteProject': deleteProject
+    },
 
     data () {
       return {
@@ -101,23 +107,7 @@
       },
 
       onSubmit(){
-        this.$http.post(this.dialogParams.url, this.tempProject).then(
-          (response) => {
-        
-            let resp_project = projectService.process(response);
-            this.$bus.$emit(this.dialogParams.bus_event, resp_project);
-          },
-          (error) => {
-            console.log(error);
-          }
-        )
-
-        this.close();
-      },
-
-      deleteProject(){     
-        console.log(this.tempProject);   
-        projectService.deleteProject(this.tempProject);
+        this.$emit('submit', this.tempProject);
         this.close();
       },
       
