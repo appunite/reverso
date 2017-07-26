@@ -32,10 +32,10 @@ defmodule Reverso.Projects do
     |> Project.changeset(attrs)
     |> Repo.insert()
 
-    Enum.map(platforms, fn p ->
+    plat = Enum.map(platforms, fn p ->
       %{platform_name: p , project_id: project.id}
-      |> Projects.create_platform()    
       end)
+    Repo.insert_all(Platform,plat)
 
     Projects.associate_with_project(project.owner_id, project.id)
     {:ok, project}
