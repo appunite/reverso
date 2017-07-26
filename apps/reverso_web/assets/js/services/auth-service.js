@@ -10,7 +10,8 @@ export default {
         router.push('/log-in')
       },
       (error) =>{
-        alert("Logout: Oops! Something went wrong!");
+        if(error.status != 401)
+        { alert("Logout: Oops! Something went wrong!"); }
       }
     )
   },

@@ -21,13 +21,26 @@ export default {
   data() {
     return {
       email: ''
-
     } 
+  },
+
+  computed: {
+    params() {
+      return {
+        email: this.email
+      }
+    }
   },
 
   methods: {
     resetPass() {
-      ;
+      Vue.http.post("/api/lostpassword", this.params).then(
+        (response) => {
+          alert("ok");
+        },
+        (error) => {
+          alert("error");
+        });
     }
   }
 

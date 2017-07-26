@@ -20,11 +20,11 @@
     <div class="input-wrapper">
       <label>Reference Language</label>
       <el-select v-model="tempProject.basic_language" placeholder="Select Language">
-        <el-option label="English" value="English"></el-option>
+        <el-option v-for="language in languages" :label="language.language_name" :value="language.language_name"></el-option>
       </el-select>
     </div>
     
-    <div class="input-wrapper platform">
+    <div class="input-wrapper no-border">
       <label>Select Platforms</label><br>
       <el-checkbox-group v-model="tempProject.platforms" fill="#ffffff">
         <el-checkbox-button v-for="platform in platforms" :label="platform.name" :name="platform.name" class="platform-checkbox">
@@ -42,7 +42,7 @@
         <el-button class="cancel-btn" @click="close">Cancel</el-button>
       </span>
       <div>
-        <el-button v-if="dialogParams.delete_btn" class="delete-btn">Delete</el-button> 
+        <el-button v-if="dialogParams.delete_btn" class="delete-btn" @click="deleteProject">Delete</el-button> 
       </div>
     </div>
 
@@ -63,6 +63,7 @@
     data () {
       return {
         tempProject: {},
+        languages: [],
 
         platforms: [
         {
@@ -85,8 +86,20 @@
         }
         ]
       }
+
     },
     methods: {
+      fetchLanguages(){
+        this.$http.get("/api/languages", {}).then(
+        (response) => {
+          console.log(response.data);
+          this.languages = response.data.data;
+        },
+        (error) => {
+          console.log(error);
+        })
+      },
+
       onSubmit(){
         this.$http.post(this.dialogParams.url, this.tempProject).then(
           (response) => {
@@ -99,6 +112,12 @@
           }
         )
 
+        this.close();
+      },
+
+      deleteProject(){     
+        console.log(this.tempProject);   
+        projectService.deleteProject(this.tempProject);
         this.close();
       },
       
@@ -114,6 +133,8 @@
     },
 
     mounted(){
+      this.fetchLanguages();
+
       this.tempProject = _.cloneDeep(this.dialogParams.project); 
     }
   }

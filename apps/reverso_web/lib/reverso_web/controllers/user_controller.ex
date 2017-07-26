@@ -12,11 +12,16 @@ defmodule Reverso.Web.UserController do
   end
 
   def create(conn, %{"user" => user_params}) do
-    with {:ok, %User{} = user} <- Accounts.create_user(user_params) do
+    with {:ok, %User{} = user} <- Accounts.create_user(user_params),
+         {:ok, _} <- Reverso.Email.send_activation_email(user) do
       conn
-      |> put_status(:created)
-      |> put_resp_header("location", user_path(conn, :show, user))
-      |> render("show.json", user: user)
+      |> put_status(200)
+      |> render("show.json", %{user: user})
+    else
+      _->
+        conn
+        |> put_status(422)
+        |> render("login_message.json", %{error: "Invalid credentials!"})
     end
   end
 
@@ -41,6 +46,19 @@ defmodule Reverso.Web.UserController do
       send_resp(conn,200, "")
     else
       _ -> send_resp(conn, 422, "User does not exist!")
+    end
+  end
+
+  def change_password(conn, %{ "id" => id, "old_password" => old_password, "new_password_set" => new_password_set}) do
+    with {:ok, %User{} = user} <- Accounts.fetch_by_id(id),
+         {:ok, _} <- Accounts.authenticate(user, old_password),
+         {:ok, _} <- Accounts.change_password(user, new_password_set) do
+      conn
+      |> send_resp(200, "")
+    else
+      {:error, _} ->
+        conn
+        |> send_resp(422, "")
     end
   end
 end
