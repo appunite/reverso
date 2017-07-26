@@ -67,7 +67,7 @@ defmodule Reverso.Web.UserController do
       {:error, :user_not_found} ->
         conn
         |> put_status(422)
-        |> render("message.json", %{error: "User does not exist!"})
+        |> render("message.json", %{error: "Invalid credentials!"})
       {:error, :auth_error} ->
         conn
         |> put_status(422)
