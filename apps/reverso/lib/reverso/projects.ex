@@ -13,18 +13,53 @@ defmodule Reverso.Projects do
   import Reverso.SweetXml
 
 
-  def list_project(user_id) do
-    query = Ecto.Query.from c in ProjectCollaborator,
-    join: p in Project,
-    on: p.id == c.project_id,
-    where: c.user_id == ^user_id,
-    select: %{id: p.id, project_name: p.project_name, basic_language: p.basic_language}
-    sum = Repo.all(query)
+  def fetch_projects(user_id) do
+    IO.puts "fetch_projects"
 
-    Enum.map(sum, fn s ->
-      Map.put(s,:platforms,Projects.list_platform(s.id))
-      |> Map.put(:languages,Projects.get_project_language_properties(s.id))
-      end)
+    editor_query =
+      from(t in Translation,
+        join: u in User, on: t.user_id == u.id,
+        order_by: [desc: t.updated_at],
+        limit: 1,
+        select: u.name
+      )
+
+    languages_query =
+      from(l in Language,
+        join: t in Translation,
+        on: t.language_id == l.id and t.project_id == l.project_id,
+        join: u in User,
+        on: t.user_id == u.id,
+        group_by: l.id,
+        select: %{l |
+          strings_count: count(t.id),
+          last_edit_time: max(t.updated_at)
+        },
+        preload: [last_editor_name: ^editor_query]
+      )
+      |> Repo.all()
+
+
+    # from(p in Project,
+    #   join: c in ProjectCollaborator,
+    #   on: c.project_id == p.id and c.user_id == ^user_id,
+    #   join: l in Language,
+    #   on: l.project_id == p.id,
+
+    # )
+    # |> Repo.all()
+    # query = Ecto.Query.from c in ProjectCollaborator,
+
+    # join: p in Project,
+    # on: p.id == c.project_id,
+    # where: c.user_id == ^user_id,
+    # select: %{id: p.id, project_name: p.project_name, basic_language: p.basic_language}
+    # sum = Repo.all(query)
+
+    # Enum.map(sum, fn s ->
+    #   Map.put(s,:platforms, Projects.list_platform(s.id))
+    #   |> Map.put(:languages, Projects.get_project_language_properties(s.id))
+    #   end)
   end
 
   def create_project(attrs, platforms) do
@@ -39,14 +74,14 @@ defmodule Reverso.Projects do
     Repo.insert_all(Platform,plat)
 
     Projects.associate_with_project(project.owner_id, project.id)
-    {:ok, 
+    {:ok,
     %{id: project.id,
       project_name: project.project_name,
       basic_language: project.basic_language,
-      platforms: platforms, languages: []}} 
-   
+      platforms: platforms, languages: []}}
+
   end
-  
+
   def associate_with_project(user_id,project_id) do
      %ProjectCollaborator{}
      |> ProjectCollaborator.changeset(%{user_id: user_id, project_id: project_id})
@@ -55,7 +90,7 @@ defmodule Reverso.Projects do
 
   def delete_project(project_id) do
      project = Repo.get!(Project,project_id)
-     Repo.delete(project) 
+     Repo.delete(project)
   end
 
   def delete_association_with_project(user_id,project_id) do
@@ -89,23 +124,23 @@ defmodule Reverso.Projects do
   def get_translation!(id), do: Repo.get!(Translation, id)
 
   def create_translation(file,params,user_id) do
-   
+
     stream = File.stream!(file)
-    result = stream |> xpath(~x"//trans-unit"l, 
+    result = stream |> xpath(~x"//trans-unit"l,
     platform_key: ~x"//trans-unit/@id"s,
     basic: ~x"//source/text()"s,
     translation: ~x"//target/text()"s)
-    
-    map = Enum.map(result,fn r -> 
+
+    map = Enum.map(result,fn r ->
       %{project_id: params.project_id,
         platform_id: params.platform_id,
         user_id: user_id,
         language_id: params.language_id }
-      |> Map.merge(r)  
+      |> Map.merge(r)
       end)
 
     Repo.insert_all(Translation,map)
-    
+
    end
 
   def update_translation(%Translation{} = translation, attrs) do
@@ -153,7 +188,7 @@ defmodule Reverso.Projects do
 
   def get_project_language_properties(project_id) do
 
-    sub_query = 
+    sub_query =
     Ecto.Query.from l in Language,
     left_join: t in Translation,
     on: l.id == t.language_id,
@@ -161,7 +196,7 @@ defmodule Reverso.Projects do
     group_by: l.id,
     select: %{language_id: l.id, language_name: l.language_name, last_edit: max(t.updated_at), count: count(t.id), project_id: l.project_id}
 
-    query = 
+    query =
     Ecto.Query.from u in User,
     left_join: t in Translation,
     right_join: sb in subquery(sub_query),
@@ -171,7 +206,7 @@ defmodule Reverso.Projects do
     sum = Repo.all(query)
     Enum.map(sum, fn s ->
       if(s.last_edit) do
-        {{y,m,d},{h,min,sec,_}} = s.last_edit      
+        {{y,m,d},{h,min,sec,_}} = s.last_edit
         {:ok ,date} = NaiveDateTime.from_erl({{y,m,d},{h,min,sec}})
         Map.put(s,:last_edit,date)
       else
@@ -182,7 +217,7 @@ defmodule Reverso.Projects do
   end
 
   def get_translation_for_project(project_id, language_id) do
-    query = Ecto.Query.from u in Translation, 
+    query = Ecto.Query.from u in Translation,
     where: u.project_id == ^project_id and u.language_id == ^language_id,
     select: u
     Repo.all(query)

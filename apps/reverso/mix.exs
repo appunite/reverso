@@ -38,7 +38,8 @@ defmodule Reverso.Mixfile do
      {:bamboo_smtp, "~> 1.4.0"},
      {:ex_doc, "~> 0.14.5", only: :dev},
      {:earmark,"~> 1.1.0 ", only: :dev},
-     {:xml_builder, "~> 0.1.1"}
+     {:xml_builder, "~> 0.1.1"},
+     {:mix_test_watch, "~> 0.3", only: :dev, runtime: false}
     ]
   end
 
