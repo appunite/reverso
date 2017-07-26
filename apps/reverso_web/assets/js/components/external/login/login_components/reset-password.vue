@@ -10,7 +10,7 @@
       </div>
       <div class="resetPassword__inputText">
         <label for="password-confirm">New Password (Confirmation):</label>
-        <input type="password" v-model="newPasswordConfirm" id="password-cofirm" class="account__input" placeholder="New password (Confirmation)" required>
+        <input type="password" v-model="newPasswordConfirmation" id="password-cofirm" class="account__input" placeholder="New password (Confirmation)" required>
       </div> 
       <input type="submit" class="green-btn loginPanel__button" value="Save Password">
     </form>
@@ -23,6 +23,8 @@ export default {
   
   data() {
     return {
+      showMonit: false,
+      success: false,
       token: '',
       newPassword: '',
       newPasswordConfirmation: '',
@@ -32,23 +34,21 @@ export default {
   computed:{
     params(){
       return{
-        passReset : {
-          token: this.token,
-          new_password: this.newPassword,
-          new_password_confirmation: this.new_password_confirmation
-        }
+        token: this.token,
+        new_password: this.newPassword,
+        new_password_confirmation: this.newPasswordConfirmation
       }
     }
   },
 
   methods: {
     resetPass() {
-      Vue.$http.post("/api/resetpassword", params).then(
+      Vue.http.post("/api/resetpassword", this.params).then(
         (response) => {
-          ;
+          alert("ok");
         },
         (error) => {
-          ;// error callback
+          alert("error");
         });
     }
   },
