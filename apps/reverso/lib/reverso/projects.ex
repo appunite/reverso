@@ -12,6 +12,7 @@ defmodule Reverso.Projects do
   alias Reverso.Accounts.User
   import Reverso.SweetXml
 
+
   def list_project(user_id) do
     query = Ecto.Query.from c in ProjectCollaborator,
     join: p in Project,
