@@ -15,7 +15,8 @@
             <label for="newPassConfirm">New Password (Confirmation)</label>
             <input type="password" v-model="passwordChangeData.newPassConfirm" id="newPassConfirm" class="account__input" placeholder="********" minlength="5" maxlength="30" required="required" autocomplete="off">
           </div>
-  
+          <p v-if="hasError" class="changePass__error">{{message}}</p>
+          <p v-if="hasSuccess" class="changePass__success">{{message}}</p>
           <div class="account__buttonsContainer">
             <button type="submit" class="green-btn changePass__save">Save</button>
             <router-link to="/profile" class="white-btn changePass__cancel">Cancel</router-link>
@@ -33,6 +34,10 @@ export default {
 
   data() {
     return {
+      hasError: false,
+      hasSuccess: false,
+      message: '',
+
       passwordChangeData: {
         id: -1,
         currentPass: '',
@@ -62,12 +67,23 @@ export default {
 
   methods: {
     saveEdit() {
-      Vue.http.post('/api/changepassword', this.params).then(
+      profileService.changePassProfile(this.params).then(
         (response) => {
-          alert('ok');
+          this.message = "Your password has been changed successfully.";
+          this.hasError = false;
+          this.hasSuccess = true;
         },
         (error) => {
-          alert("editProfile: Oops! Something went wrong!");
+          if(error.status == 422 && this.passwordChangeData.newPass != this.passwordChangeData.newPassConfirm)
+          {
+            this.message = "Check passwords";
+          }
+          else
+          {
+            this.message = error.body.bodyText;
+          }
+          this.hasSuccess = false;
+          this.hasError = true;
         }
       );
     }
@@ -108,5 +124,13 @@ export default {
       line-height: 33px;
     }
   }
+
+  &__error {
+    color: #fe3c5b;
+  }
+
+  &__success {
+    color: #38c885;
+  }  
 }
 </style>

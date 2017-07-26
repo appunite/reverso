@@ -15,6 +15,8 @@
 </template>
 
 <script>
+import resetPasswordService from '../../../../services/reset-password-service.js';
+
 export default {
   name: "lostPass",
   
@@ -34,12 +36,12 @@ export default {
 
   methods: {
     resetPass() {
-      Vue.http.post("/api/lostpassword", this.params).then(
+      resetPasswordService.sendResetEmailProfile(this.params).then(
         (response) => {
-          alert("ok");
+          this.$router.push('/reset-pass-confirm-info')
         },
         (error) => {
-          alert("error");
+          alert("lostPassword: Oops! Something went wrong!");
         });
     }
   }
