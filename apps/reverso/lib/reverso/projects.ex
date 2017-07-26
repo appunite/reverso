@@ -10,7 +10,6 @@ defmodule Reverso.Projects do
   alias Reverso.Projects.Platform
   alias Reverso.Accounts.ProjectCollaborator
   alias Reverso.Accounts.User
-  import Ecto.DataType.NaiveDateTime
   import Reverso.SweetXml
 
 
@@ -90,7 +89,8 @@ defmodule Reverso.Projects do
   def get_translation!(id), do: Repo.get!(Translation, id)
 
   def create_translation(file,params,user_id) do
-    
+
+    %{"project_id" => project_id, "platform_id" => platform_id, "user_id" => user_id, "langauge_id" => language_id} = params
     stream = File.stream!(file)
     result = stream |> xpath(~x"//trans-unit"l, 
     platform_key: ~x"//trans-unit/@id"s,
@@ -102,7 +102,7 @@ defmodule Reverso.Projects do
       |> Map.merge(r)  
       end)
 
-    Repo.insert_all(map)
+    Repo.insert_all(Translation,map)
     
    end
 
