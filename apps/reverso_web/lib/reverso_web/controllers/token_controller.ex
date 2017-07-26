@@ -33,8 +33,6 @@ defmodule Reverso.Web.TokenController do
   end
 
   def generate_password_reset_url(%User{} = user) do
-    Reverso.Web.Router.Helpers.token_url(Reverso.Web.Endpoint,
-      :password_reset,
-      token: user.password_reset_token)
+    Application.get_env(:reverso_web, :reset_password_url) <> "?token=" <> user.password_reset_token
   end
 end

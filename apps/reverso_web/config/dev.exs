@@ -40,5 +40,5 @@ config :reverso_web, Reverso.Web.Endpoint,
       ~r{lib/reverso_web/templates/.*(eex)$}
     ]
   ]
-
-
+config :reverso_web,
+  reset_password_url: "http://localhost:4000/#/reset_password"
