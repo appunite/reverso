@@ -6,7 +6,7 @@ defmodule Reverso.Web.Plugs.AuthUser do
 
   def call(conn, _opts) do
     with [token] <- get_req_header(conn, "authorization"),
-         {:ok, user} <- Accounts.fetch_by_token(token) do
+         {:ok, user} <- Accounts.fetch_by_user_token(token) do
           conn
           |> assign(:current_user, user)
           |> assign(:current_user_id, user.id)

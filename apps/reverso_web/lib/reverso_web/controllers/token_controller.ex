@@ -4,22 +4,40 @@ defmodule Reverso.Web.TokenController do
   alias Reverso.Accounts
   alias Reverso.Accounts.User
 
-  def password_reset(conn, %{"token" => token, "new_password" => new_password}) do
-    case Accounts.reset_password(token, new_password) do
-      {:ok, _} ->
+  def start_password_reset(conn, %{"email" => email}) do
+    with {:ok, %User{} = user} <- Accounts.fetch_by_email(email),
+         {:ok, %User{} = user} <- Accounts.create_password_token(user),
+         {:ok, _} <- Reverso.Email.send_reset_password_email(user) do
+      conn
+      |> send_resp(200, "")
+    else
+      {:error, _} -> 
         conn
-        |> send_resp(200, "Password changed!")
-      {:error, :user_not_found} ->
+        |> send_resp(422, "")
+    end
+  end
+
+  def password_reset(conn, %{
+        "token" => token,
+        "new_password" => new_password,
+        "new_password_confirmation" => new_password_confirmation}) do
+    with {:ok, _} <- Accounts.reset_password(token, %{
+                  password: new_password,
+                  password_confirmation: new_password_confirmation})do
+      conn
+      |> send_resp(200, "")
+    else
+      {:error, _} ->
         conn
-        |> send_resp(401, "User not found!")
+        |> send_resp(422, "")
     end
   end
 
   def activate_account(conn, %{"token" => token}) do
-    case Accounts.activate(token) do
-      {:ok, _} ->
-        conn
-        |> redirect(to: "/#/account-activated")
+    with {:ok, _} <- Accounts.activate(token) do
+      conn
+      |> redirect(to: "/#/account-activated")
+    else
       {:error, :user_not_found} ->
         conn
         |> redirect(to: "/")
@@ -33,8 +51,6 @@ defmodule Reverso.Web.TokenController do
   end
 
   def generate_password_reset_url(%User{} = user) do
-    Reverso.Web.Router.Helpers.token_url(Reverso.Web.Endpoint,
-      :password_reset,
-      token: user.password_reset_token)
+    Application.get_env(:reverso_web, :reset_password_url) <> "?token=" <> user.password_reset_token
   end
 end

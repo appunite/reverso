@@ -4,22 +4,41 @@ defmodule Reverso.Email do
 
   alias Reverso.Accounts.User
 
-  def activation_email(%User{} = user) do
+  def send_activation_email(%User{} = user) do
+    with %Bamboo.Email{} = email <- activation_email(user),
+         %Bamboo.Email{} = email <- Reverso.Mailer.deliver_later(email) do
+      {:ok, user}
+    else
+      _ -> {:error, :user_not_found}
+    end
+  end
+
+  def send_reset_password_email(%User{} = user) do
+    with %Bamboo.Email{} = email <- password_reset_email(user),
+         %Bamboo.Email{} = email <- Reverso.Mailer.deliver_later(email) do
+      {:ok, user}
+    else
+      _ -> {:error, :user_not_found}
+    end
+  end
+
+  defp activation_email(%User{} = user) do
     new_email
     |> to(user.email)
-    |> from("czupakabra96@gmail.com")
+    |> from("noreply@reverso.co")
     |> put_html_layout({Reverso.Web.LayoutView, "email.html"})
     |> subject("REVERSO.co - activation")
-    |> assign(:activation_adress, Reverso.Accounts.Token.generate_activation_url(user))
+    |> assign(:activation_adress, Reverso.Web.TokenController.generate_activation_url(user))
     |> render("activation_email.html")
   end
 
-  def password_reset_email(%User{} = user) do
+  defp password_reset_email(%User{} = user) do
     new_email
     |> to(user.email)
-    |> from("czupakabra96@gmail.com")
+    |> from("noreply@reverso.co")
+    |> put_html_layout({Reverso.Web.LayoutView, "email.html"})
     |> subject("REVERSO.co - Password Reset")
-    |> html_body("<strong>Welcome</strong>")
-    |> text_body("welcome")
+    |> assign(:activation_adress, Reverso.Web.TokenController.generate_password_reset_url(user))
+    |> render("password_reset_email.html")
   end
 end

@@ -30,16 +30,20 @@ defmodule Reverso.Web.Router do
   scope "/api", Reverso.Web do
     pipe_through :api_no_auth
 
-    post "/resetpassword", TokenController, :password_reset
-    get "/activate", TokenController, :activate_account
     post "/login", SessionController, :create
+    post "/accounts", UserController, :create
+    get "/activate", TokenController, :activate_account
+    post "/lostpassword", TokenController, :start_password_reset
+    post "/resetpassword", TokenController, :password_reset
   end
 
   scope "/api", Reverso.Web do
     pipe_through :api_user_auth
 
     delete "/logout", SessionController, :delete
-    resources "/accounts", UserController
+    resources "/accounts", UserController, except: [:create, :change_password]
+    post "/changepassword", UserController, :change_password
+
     resources "/projects", ProjectController
     get "/projects/:id/languages", LanguageController, :list
     resources "/translations", TranslationController
