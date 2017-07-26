@@ -21,7 +21,7 @@ defmodule Reverso.Web.UserController do
       _->
         conn
         |> put_status(422)
-        |> render("login_message.json", %{error: "Invalid credentials!"})
+        |> render("message.json", %{error: "Invalid credentials!"})
     end
   end
 
@@ -29,7 +29,10 @@ defmodule Reverso.Web.UserController do
     with {:ok, %User{} = user} <- Accounts.fetch_by_id(id) do
       render(conn, "show.json", user: user)
     else
-      _ -> send_resp(conn, 422, "User does not exist!")
+    _ ->
+        conn
+        |> put_status(422)
+        |> render("message.json", %{error: "User does not exist!"})
     end
   end
 
@@ -45,20 +48,34 @@ defmodule Reverso.Web.UserController do
          {:ok, _} <- Accounts.delete_user(user) do
       send_resp(conn,200, "")
     else
-      _ -> send_resp(conn, 422, "User does not exist!")
+      _ ->
+        conn
+        |> put_status(422)
+        |> render("message.json", %{error: "User does not exist!"})
     end
   end
 
-  def change_password(conn, %{ "id" => id, "old_password" => old_password, "new_password_set" => new_password_set}) do
+  def change_password(conn, %{ "id" => id,
+                               "old_password" => old_password,
+                               "new_password_set" => new_password_set}) do
     with {:ok, %User{} = user} <- Accounts.fetch_by_id(id),
          {:ok, _} <- Accounts.authenticate(user, old_password),
          {:ok, _} <- Accounts.change_password(user, new_password_set) do
       conn
       |> send_resp(200, "")
     else
-      {:error, :user_not_found} -> conn |> send_resp(422, "User does not exist!")
-      {:error, :auth_error} -> conn |> send_resp(401, "Unauthorized!")
-      {:error, _} -> conn |> send_resp(422, "New password is not valid!")
+      {:error, :user_not_found} ->
+        conn
+        |> put_status(422)
+        |> render("message.json", %{error: "User does not exist!"})
+      {:error, :auth_error} ->
+        conn
+        |> put_status(422)
+        |> render("message.json", %{error: "Invalid credentials!"})
+      {:error, _} ->
+        conn
+        |> put_status(422)
+        |> render("message.json", %{error: "Password and confirmation must match!"})
     end
   end
 end
