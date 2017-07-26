@@ -28,10 +28,8 @@
       <label>Select Platforms</label><br>
       <el-checkbox-group v-model="tempProject.platforms" fill="#ffffff">
         <el-checkbox-button v-for="platform in platforms" :label="platform.name" :name="platform.name" class="platform-checkbox">
-          <div @click="platform.sel = !platform.sel">
-            <img :src="platform.img_sel" v-if="tempProject.platforms.includes(platform.name)">
-            <img :src="platform.img_unsel" v-else>
-          </div>
+          <img :src="platform.img_sel" v-if="tempProject.platforms.includes(platform.name)">
+          <img :src="platform.img_unsel" v-else>
         </el-checkbox-button>
       </el-checkbox-group>  
     </div>

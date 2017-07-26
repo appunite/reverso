@@ -46,6 +46,23 @@ export default {
 
   methods: {
     updateProject(project){
+
+      project["platforms_removed"] = _.difference(this.dialogParams.project.platforms, project.platforms);
+
+      project["platforms_added"] = _.difference(project.platforms, this.dialogParams.project.platforms);
+
+      delete project.platforms;
+
+      this.$http.patch(`api/projects/${project.id}`, project).then(
+        (response) => {
+          let resp_project = projectService.process(response);
+          this.$bus.$emit(this.dialogParams.bus_event, resp_project);
+        },
+        (error) => {
+          console.log(error);
+        }
+      )
+
     }
   },
 
