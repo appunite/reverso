@@ -51,8 +51,8 @@ export default {
 
       project["platforms_added"] = _.difference(project.platforms, this.dialogParams.project.platforms);
 
-      delete project.platforms;
-      delete project.langauages;
+      delete project.languages;
+      console.log(project);
 
       this.$http.patch(`api/projects/${project.id}`, project).then(
         (response) => {
