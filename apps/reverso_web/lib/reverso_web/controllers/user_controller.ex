@@ -56,9 +56,9 @@ defmodule Reverso.Web.UserController do
       conn
       |> send_resp(200, "")
     else
-      {:error, _} ->
-        conn
-        |> send_resp(422, "")
+      {:error, :user_not_found} -> conn |> send_resp(422, "User does not exist!")
+      {:error, :auth_error} -> conn |> send_resp(401, "Unauthorized!")
+      {:error, _} -> conn |> send_resp(422, "New password is not valid!")
     end
   end
 end

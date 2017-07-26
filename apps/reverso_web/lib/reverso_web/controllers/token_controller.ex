@@ -13,7 +13,8 @@ defmodule Reverso.Web.TokenController do
     else
       {:error, _} -> 
         conn
-        |> send_resp(422, "")
+        |> put_status(422)
+        |> render("message.json", %{error: "User does not exist!"})
     end
   end
 
@@ -29,7 +30,8 @@ defmodule Reverso.Web.TokenController do
     else
       {:error, _} ->
         conn
-        |> send_resp(422, "")
+        |> put_status(422)
+        |> render("message.json", %{error: "User does not exist!"})
     end
   end
 
