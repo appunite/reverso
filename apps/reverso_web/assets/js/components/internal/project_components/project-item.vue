@@ -65,21 +65,6 @@ export default {
   },
   
   methods: {
-
-    fetchLanguages(project_id) {
-      this.$http.get(`/api/projects/${project_id}/languages`, {}).then(
-        (response) => {
-          
-          this.translations = response.body.data;
-
-        },
-
-        (error) => {
-          console.log(error);
-        }
-      )
-    },
-
     isBasicLanguage(language_name){
         if (language_name === this.project.basic_language)
           return true;

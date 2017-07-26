@@ -18,7 +18,11 @@
 
       <div class="invite-list">
         <el-checkbox-group v-model="invitations.invited">
-          <el-checkbox-button v-for="contributor in filtered" :label="contributor.email" :name="contributor.email">
+          <el-checkbox-button
+          v-for="contributor in filtered"
+          :label="contributor.email"
+          :name="contributor.email">
+          
             <h4>{{contributor.email}}</h4>
             <p>{{contributor.name}}</p>
           </el-checkbox-button>
@@ -27,11 +31,13 @@
 
       <div class="input-wrapper">
         <label>Send Invitation</label>
-        <input type="text" v-model="invitations.inv_email" placeholder="Not listed? Invite by email address...">
+        <input type="text"
+        v-model="invitations.inv_email"
+        placeholder="Not listed? Invite by email address...">
       </div>
 
       <el-button type="primary" class="primary-btn" @click="onSubmit">save</el-button>
-      <el-button class="cancel-btn" @click="dialogData.visable = false">cancel</el-button>  
+      <el-button class="cancel-btn" @click="close">cancel</el-button>  
     
     </el-form>
  
@@ -70,6 +76,10 @@ export default {
           alert("Oops! Something went wrong!");
         }
       )
+    },
+
+    close(){
+      this.$emit("close");
     }
 
   },

@@ -1,9 +1,16 @@
 <template>
   <span>
-    <el-button type="text" class="add_sth_btn" id="dialogVisable"  @click="dialogData.visable = true">
+    <el-button type="text"
+    class="add_sth_btn"
+    id="dialogVisable"
+    @click="toggleVisability">
       <img :src="dialogData.icon">Add language
     </el-button>
-    <languageDialog v-bind:dialogData="dialogData" v-if="dialogData.visable" @close="dialogData.visable = false">
+
+    <languageDialog
+    v-bind:dialogData="dialogData"
+    v-if="dialogData.visable"
+    @close="toggleVisability">
         
     </languageDialog>
   </span>
@@ -28,8 +35,12 @@ export default {
         icon: "/images/ic-add.svg"
       }
     }
+  },
 
-  }
-  
+  methods: {
+    toggleVisability(){
+      this.dialogData.visable = !this.dialogData.visable;
+    }
+  }  
 }
 </script>

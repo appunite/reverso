@@ -1,9 +1,14 @@
 <template>
   <span @click.stop>
-    <el-button type="text" id="dialogVisable"  @click="dialogData.visable = true">
+    <el-button type="text" id="dialogVisable" 
+    @click="toggleVisability">
       <img :src="dialogData.icon">
     </el-button>
-    <exportDialog v-bind:dialogData="dialogData" v-if="dialogData.visable" @close="dialogData.visable = false">
+    
+    <exportDialog
+    v-bind:dialogData="dialogData"
+    v-if="dialogData.visable"
+    @close="toggleVisability">
         
     </exportDialog>
   </span>
@@ -21,15 +26,18 @@ export default {
 
   data () {
     return {
-
       dialogData: {
         visable: false,
         header: "export settings",
         icon: "/images/ic-export.svg"
       }
     }
+  },
 
-  }
-  
+  methods: {
+    toggleVisability(){
+      this.dialogData.visable = !this.dialogData.visable;
+    }
+  }  
 }
 </script>
