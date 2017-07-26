@@ -10,6 +10,7 @@ defmodule Reverso.Projects do
   alias Reverso.Projects.Platform
   alias Reverso.Accounts.ProjectCollaborator
   alias Reverso.Accounts.User
+  import Ecto.DataType.NaiveDateTime
 
   def list_project(user_id) do
     query = Ecto.Query.from c in ProjectCollaborator,
@@ -17,8 +18,12 @@ defmodule Reverso.Projects do
     on: p.id == c.project_id,
     where: c.user_id == ^user_id,
     select: %{id: p.id, project_name: p.project_name, basic_language: p.basic_language}
-    Repo.all(query)
+    sum = Repo.all(query)
 
+    Enum.map(sum, fn s ->
+      Map.put(s,:platforms,Projects.list_platform(s.id))
+      |> Map.put(:languages,Projects.get_project_language_properties(s.id))
+      end)
   end
 
   def create_project(attrs, platforms) do
@@ -56,6 +61,15 @@ defmodule Reverso.Projects do
     %Platform{}
     |> Platform.changeset(attrs)
     |> Repo.insert()
+  end
+
+  def list_platform(project_id) do
+    query = Query.from pl in Platform,
+    join: p in Project,
+    on: pl.project_id == p.id,
+    where: pl.project_id == ^project_id,
+    select: pl.platform_name
+    Repo.all(query)
   end
 
   def list_translations do
@@ -121,7 +135,7 @@ defmodule Reverso.Projects do
     on: l.id == t.language_id,
     where: l.project_id == ^project_id,
     group_by: l.id,
-    select: %{language_id: l.id, language_name: l.language_name, last_edit: max(t.updated_at), count: count(t.id)}
+    select: %{language_id: l.id, language_name: l.language_name, last_edit: max(t.updated_at), count: count(t.id), project_id: l.project_id}
 
     query = 
     Ecto.Query.from u in User,
@@ -129,8 +143,17 @@ defmodule Reverso.Projects do
     right_join: sb in subquery(sub_query),
     on: sb.last_edit == t.updated_at,
     on: u.id == t.user_id,
-    select: %{language_id: sb.language_id, language_name: sb.language_name , editor: u.name, count: sb.count }#,last_edit: sb.last_edit}
-    Repo.all(query)
+    select: %{language_id: sb.language_id, language_name: sb.language_name , editor: u.name, words_count: sb.count, project_id: sb.project_id, last_edit: sb.last_edit}
+    sum = Repo.all(query)
+    Enum.map(sum, fn s ->
+      if(s.last_edit) do
+        {{y,m,d},{h,min,sec,_}} = s.last_edit      
+        {:ok ,date} = NaiveDateTime.from_erl({{y,m,d},{h,min,sec}})
+        Map.put(s,:last_edit,date)
+      else
+        s
+      end
+    end)
 
   end
 
