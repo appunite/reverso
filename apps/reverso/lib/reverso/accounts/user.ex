@@ -48,7 +48,11 @@ defmodule Reverso.Accounts.User do
 
   def reset_password_changeset(%User{} = user, attrs) do
     user
-    |> cast(attrs, [:password, :password_reset_token])
+    |> cast(attrs, [:password])
+    |> put_change(:password_reset_token, nil)
+    |> validate_required([:password])
+    |> validate_length(:password, min: 5)
+    |> validate_confirmation(:password)
     |> hash_password()
   end
 

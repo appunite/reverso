@@ -41,7 +41,15 @@ defmodule Reverso.Accounts do
     end
   end
 
-  def fetch_by_token(token) do
+  def fetch_by_password_token(token) do
+    with %User{} = user <- Repo.get_by(User,password_reset_token: token) do
+      {:ok, user}
+    else
+      _ -> {:error, :user_not_found}
+    end
+  end
+
+  def fetch_by_user_token(token) do
     with %User{} = user <- Repo.get_by(User,user_token: token) do
       {:ok, user}
     else
@@ -121,14 +129,13 @@ defmodule Reverso.Accounts do
     {:error, :auth_error}
   end
 
-  def reset_password(token, new_password) do
-    case Repo.get_by(User, password_reset_token: token) do
-      %User{} = user ->
-        user
-        |> User.reset_password_changeset(%{password: new_password, password_reset_token: nil})
-        |> Repo.update()
-      _ ->
-        {:error, :user_not_found}
+  def reset_password(token, new_password_set) do
+    with {:ok, %User{} = user} <- fetch_by_password_token(token) do
+      user
+      |> User.reset_password_changeset(new_password_set)
+      |> Repo.update()
+    else
+      {:error, :user_not_found} -> {:error, :invalid_credentials}
     end
   end
 
