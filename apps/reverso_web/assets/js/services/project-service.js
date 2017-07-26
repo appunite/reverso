@@ -36,15 +36,9 @@ export default {
     },
 
     deleteProject(project){
-      Vue.http.delete(`/api/project/${project.id}`, {}).then(
-      (response) => {
-        Vue.bus.$emit('project_deleted', project);
-      },
+      let promise = Vue.http.delete(`/api/projects/${project.id}`, {});
 
-      (error) =>{
-        console.log(error);
-      }
-    )
+      return promise;
     }
 
 }

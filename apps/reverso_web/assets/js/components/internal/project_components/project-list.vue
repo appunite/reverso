@@ -1,22 +1,22 @@
-<template>	
-	<div class="project-list"> 
+<template>  
+  <div class="project-list"> 
 
-		<div class="add-project">
-			MY PROJECTS ({{ projects.length }})
-			<newProject></newProject>
-		</div>
-		
+    <div class="top-table-panel">
+      MY PROJECTS ({{ projects.length }})
+      <newProject></newProject>
+    </div>
+    
 
-		<el-collapse v-model="activeNames">
-			<el-collapse-item v-for="(project, key) in projects" :name="key">
-				<template slot="title">
-					<projectListHeader v-bind:project="project"></projectListHeader>
-				</template>
-				<projectItem v-bind:project="project"></projectItem>
-			</el-collapse-item>
-		</el-collapse>
-		
-	</div>
+    <el-collapse v-model="activeNames">
+      <el-collapse-item v-for="(project, key) in projects" :name="key">
+        <template slot="title">
+          <projectListHeader v-bind:project="project"></projectListHeader>
+        </template>
+        <projectItem v-bind:project="project"></projectItem>
+      </el-collapse-item>
+    </el-collapse>
+    
+  </div>
 </template>
 
 <script>
@@ -25,44 +25,46 @@ import projectItem from './project-item.vue'
 import newProject from './actions/new-project.vue'
 
 export default {
-	name: "projectList",
+  name: "projectList",
 
-	components: {
-		'projectListHeader': projectListHeader,
-		'projectItem': projectItem,
-		'newProject': newProject
-	},
+  components: {
+    'projectListHeader': projectListHeader,
+    'projectItem': projectItem,
+    'newProject': newProject
+  },
 
-	data () {
-		return {
-			projects: []
-		}
+  data () {
+    return {
+      projects: []
+    }
 
-	},
+  },
 
-	methods: {
-		fetchProjects(){
+  methods: {
+    fetchProjects(){
 
-			this.$http.get("/api/projects", {}).then(
-				(response) => {
-					this.projects = response.data.data;
-				},
-				(error) => {
-					console.log(error);
-				}
-			)
-		}
-	},
+      this.$http.get("/api/projects", {}).then(
+        (response) => {
+          this.projects = response.data.data;
+        },
+        (error) => {
+          console.log(error);
+        }
+      )
+    }
+  },
 
-	mounted(){
-		this.fetchProjects();
+  mounted(){
+    this.fetchProjects();
 
     this.$bus.$on('project_added', (resp) => {
-    	this.projects.push(resp);
+      this.projects.push(resp);
     });
 
     this.$bus.$on('project_deleted', (resp) => {
-    	_.pull(this.projects, resp);
+      _.remove(this.projects, function(n) {
+        return n.id  == resp.id;
+      });
     });
   }
 

@@ -1,8 +1,37 @@
 <template>	
-	<el-table
+
+
+
+<div class="translation-table">
+<div class="top-table-panel">
+  <el-button type="text" class="add_sth_btn">
+      <img src="/images/ic-add.svg">Add new term
+
+  </el-button>
+</div>
+<table>
+  <tr class="table-header">
+  <th>reference language</th>
+  <th>translation</th>
+  <th>description</th>
+  </tr>
+  </table>
+  <table class="translation-table__terms">
+    <tr v-for="translation in translations">
+  <th >{{ translation.basic }}</th>
+  <th>{{ translation.translation }}</th>
+  <th>{{ translation.description }}</th>
+  </tr>
+  </table>
+  
+
+</table>
+
+
+	<!-- <el-table
 		:data="translations"
 		border
-		style="width: 100%">
+		class="translation-table">
 
 		<el-table-column
 			prop="basic"
@@ -31,7 +60,8 @@
 			label="developer description">
 		</el-table-column>
 	
-	</el-table>
+	</el-table> -->
+  </div>
 </template>
 
 <script>
@@ -44,21 +74,21 @@ export default {
 			{
 				basic: "elo",
 				platform_key: "elo_k",
-				description: "",
+				description: "ccc",
 				translation: "xdxd",
 				platform_id: 1
 			},
 			{
 				basic: "elo1",
 				platform_key: "elo1_k",
-				description: "",
+				description: "xxx",
 				translation: "xdxd1",
 				platform_id: 1
 			},
 			{
 				basic: "elo3",
 				platform_key: "elo3_k",
-				description: "",
+				description: "ppp",
 				translation: "xdxd3",
 				platform_id: 2
 			},

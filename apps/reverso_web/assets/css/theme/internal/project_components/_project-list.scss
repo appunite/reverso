@@ -22,16 +22,10 @@
 .project-list {
     padding: 20px;
 
-    .add-project {
-      width: 100%;
-      background: white;
-      padding: 10px 16px;
-      box-shadow: 2px 2px 15px gainsboro;
-      margin-bottom: 40px;
-    }
 
     .el-collapse {
       border: none;
+      margin-top: 40px;
     }
 
     .el-collapse-item__header {
@@ -82,4 +76,12 @@
     text-align: center;
   
   }
+}
+
+.top-table-panel {
+  width: 100%;
+  background: white;
+  padding: 10px 16px;
+  box-shadow: 2px 2px 15px gainsboro;
+  margin-bottom: 15px;
 }

@@ -1,6 +1,5 @@
 <template>  
-  <div>
-  <sidebar></sidebar>
+  <div class="translation-panel">
   <translationTable></translationTable>
   </div>
 </template>
@@ -56,3 +55,11 @@ export default {
 }
   
 </script>
+
+<style lang="scss">
+.translation-panel {
+ display: flex;
+ width: 100%;
+ justify-content: space-between;
+}
+</style>

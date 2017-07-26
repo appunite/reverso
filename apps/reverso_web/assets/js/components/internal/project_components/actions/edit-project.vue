@@ -3,7 +3,11 @@
   <el-button type="text" id="dialogVisable" @click="dialogData.visable = true">
     <img :src="dialogData.icon">
   </el-button>
-  <projectDialog v-bind:dialogParams="dialogParams" v-if="dialogData.visable" @close="dialogData.visable = false">
+  <projectDialog 
+  v-bind:dialogParams="dialogParams"
+  v-if="dialogData.visable" 
+  v-on:submit="updateProject($event)"
+  @close="dialogData.visable = false">
 
       
   </projectDialog>
@@ -39,6 +43,12 @@ export default {
 
     }
   },
+
+  methods: {
+    updateProject(project){
+    }
+  },
+
   computed: {
     dialogParams() {
       this.dialogData["project"] = this.project;
