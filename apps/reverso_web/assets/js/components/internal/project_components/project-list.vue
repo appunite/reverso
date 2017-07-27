@@ -68,7 +68,6 @@ export default {
       this.projects[index].project_name = edited_project.project_name;
       this.projects[index].basic_language = edited_project.basic_language;
       this.projects[index].platforms = edited_project.platforms;
-      console.log(this.projects);
     });
 
     this.$bus.$on('project_deleted', (deleted_project) => {
