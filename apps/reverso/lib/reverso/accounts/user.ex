@@ -30,6 +30,25 @@ defmodule Reverso.Accounts.User do
     |> hash_password()
   end
 
+  def new_invitation_changeset(%User{} = user, attrs) do
+    user
+    |> cast(attrs, [:email])
+    |> validate_required([:email])
+    |> validate_format(:email, ~r/@/)
+    |> unique_constraint(:email)
+  end
+
+  def invitation_update_changeset(%User{} = user, attrs) do
+    user
+    |> cast(attrs, [:name, :password, :activation_token])
+    |> validate_required([:name, :password, :activation_token])
+    |> validate_length(:password, min: 5)
+    |> validate_confirmation(:password)
+    |> unique_constraint(:email)
+    |> hash_password()
+
+  end
+
   def update_changeset(%User{} = user, attrs) do
     user
     |> cast(attrs, [:email, :name])
