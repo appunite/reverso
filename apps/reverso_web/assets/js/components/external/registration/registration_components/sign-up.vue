@@ -28,8 +28,9 @@
 </template>
 
 <script>
+import router from "../../../../routes.js";
 import authService from "../../../../services/auth-service.js"
-import profileService from "../../../../services/profile-service"
+import profileService from "../../../../services/profile-service.js"
 
 export default {
   name: "signUpBox",
@@ -62,9 +63,9 @@ export default {
 
   methods: {
     register() {
-      Vue.http.post('/api/accounts', this.params).then(
+      profileService.registerUser(this.params).then(
         (response) => {
-          this.message = "OK";
+          this.$router.push("/new-user-box");
           this.hasError = false;
           this.hasSuccess = true;
         },
