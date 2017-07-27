@@ -3,7 +3,12 @@
   
 
     <div v-for="language in project.languages" class="project-item__language">
-      <router-link to="/translation">
+      <router-link :to="{ name: 'translation',
+      params:
+      { project_id: project.id,
+      language_id: language.language_id }
+      }">
+      
       <span class="summary">
         <span class="summary-col-1">
           {{ language.language_name }}
