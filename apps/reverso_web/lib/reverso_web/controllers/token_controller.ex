@@ -1,7 +1,6 @@
 defmodule Reverso.Web.TokenController do
   use Reverso.Web, :controller
 
-  alias Reverso.Accounts
   alias Reverso.Accounts.User
   alias Reverso.Accounts.Password
   alias Reverso.Accounts.Activation
