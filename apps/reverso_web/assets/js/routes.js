@@ -38,7 +38,7 @@ const router = new VueRouter({
       },
       { path: '/registration', 
         component: registrationPanel,
-        //redirect: '/registration',        
+        redirect: '/sign-up',        
         children: [
           { path: '/sign-up', component: signUp },
           { path: '/new-user-box', component: newUserBox }
@@ -58,8 +58,7 @@ const router = new VueRouter({
           component: translationPanel}
 
         ]
-      }//,
-      // { path: '/register', component: registrationPanel }
+      }
     ]
 });
 

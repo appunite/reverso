@@ -7,7 +7,7 @@ export default {
       (response) => {
         localStorage.removeItem('currentUser');
         sessionStorage.removeItem('auth_token');
-        router.push('/log-in')
+        router.push('/log-in');
       },
       (error) =>{
         if(error.status != 401)

@@ -18,10 +18,12 @@
 
       <div class="invite-list">
         <el-checkbox-group v-model="invitations.invited">
-          <el-checkbox-button
-          v-for="contributor in filtered"
-          :label="contributor.email"
-          :name="contributor.email">
+          <el-checkbox-button          
+            v-bind:key="contributor.id"
+            v-for="contributor in filtered"
+            :label="contributor.id"
+            :name="contributor.email"            
+          >
           
             <h4>{{contributor.email}}</h4>
             <p>{{contributor.name}}</p>
@@ -50,7 +52,8 @@ export default {
   name: "contributorDialog",
 
   props: [
-    'dialogData'
+    'dialogData',
+    'projectId'
   ],
 
   data () {
@@ -65,6 +68,7 @@ export default {
   },
   methods: {
     onSubmit(){
+      console.log(this.invitations);
     },
 
     fetch_users(){
@@ -88,7 +92,9 @@ export default {
       var filtered_tab = [];
 
       for (var i = 0; i < this.contributors.length; i++) { 
-        if (this.contributors[i].name.toLowerCase().includes(this.filter.toLowerCase()) || this.contributors[i].email.toLowerCase().includes(this.filter.toLowerCase())){
+        if (this.contributors[i].name.toLowerCase().includes(this.filter.toLowerCase())
+        || this.contributors[i].email.toLowerCase().includes(this.filter.toLowerCase()))
+        {
           filtered_tab.push(this.contributors[i]);
         }
       }

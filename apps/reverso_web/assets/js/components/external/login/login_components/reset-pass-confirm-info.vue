@@ -1,6 +1,6 @@
 <template>
   <div id="reset-pass-confirm-info" class="resetPassConfirmInfo">
-    <img src="/images/mail-illustration.svg">
+    <img class="envelope" src="/images/mail-illustration.svg">
     <div class="resetPassConfirmInfo__title">
       <h3>Check your Mailbox</h3>
       <p>We've sent you a link to reset your current password and define a new one.</p>
@@ -43,5 +43,11 @@ export default {
     color: #444;
     margin-bottom: 30px;
   }
+}
+
+.envelope {
+  @media only screen and (max-width: 768px) {
+    margin-top: 30px;
+  } 
 }
 </style>
