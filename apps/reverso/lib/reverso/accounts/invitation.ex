@@ -5,7 +5,7 @@ defmodule Reverso.Accounts.Invitation do
   alias Reverso.Accounts
   alias Reverso.Accounts.User
 
-  def invitation(%{"email" => email, "user" => user_params}) do
+  def update_invitation(%{"email" => email, "user" => user_params}) do
     with {:ok, %User{} = user} <- Accounts.fetch_by_email(email),
          {:ok, %User{} = user} <- update_user_invitation(user, user_params) do
       {:ok, user}

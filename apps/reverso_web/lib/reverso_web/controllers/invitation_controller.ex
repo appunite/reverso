@@ -18,7 +18,7 @@ defmodule Reverso.Web.InvitationController do
   end
 
   def update_user_from_invitation(conn, invitation_set) do
-    with {:ok, _} <- Invitation.invitation(invitation_set) do
+    with {:ok, _} <- Invitation.update_invitation(invitation_set) do
       conn
       |> send_resp(200, "")
     else
