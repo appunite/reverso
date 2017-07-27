@@ -5,10 +5,10 @@
   :before-close="handleClose"
   :show-close="false"
   size="tiny" class="reverso-dialog">
-  <span slot="title">
+  <div slot="title">
     <img :src="dialogParams.icon">
     {{ dialogParams.header }}
-  </span>
+  </div>
 
   <el-form ref="form" :model="tempProject" label-position="top">
 
