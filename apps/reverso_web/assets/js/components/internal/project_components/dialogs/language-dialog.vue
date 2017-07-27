@@ -18,7 +18,8 @@
       <label>Language</label>
         <el-select v-model="new_language.language_name"
         placeholder="Select Language">
-          <el-option v-for="language in languages"
+          <el-option
+          v-for="language in languages"
           :label="language.language_name"
           :value="language.language_name">
           </el-option>
