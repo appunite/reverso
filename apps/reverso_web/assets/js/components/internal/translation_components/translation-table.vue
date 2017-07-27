@@ -30,42 +30,11 @@
 
   export default {
     name: "translationTable",
-    data () {
-      return {
-        translations: [
-        {
-          basic: "elo",
-          platform_key: "elo_k",
-          description: "ccc",
-          translation: "xdxd",
-          platform_id: 1
-        },
-        {
-          basic: "elo1",
-          platform_key: "elo1_k",
-          description: "xxx",
-          translation: "xdxd1",
-          platform_id: 1
-        },
-        {
-          basic: "elo3",
-          platform_key: "elo3_k",
-          description: "ppp",
-          translation: "xdxd3",
-          platform_id: 2
-        },
-        {
-          basic: "elo4",
-          platform_key: "elo4_k",
-          description: "",
-          translation: "xdxd4",
-          platform_id: 2
-        }
-        ]
-      }
-    },
-    methods: {
-    }
+  
+    props: [
+      'translations'
+    ]
+
   }
 
 </script>
