@@ -164,7 +164,7 @@ defmodule Reverso.Projects do
 
   def get_language!(id), do: Repo.get!(Language, id)
 
-  def create_language(params, file, user_id) do
+  def create_language(params, file, user_id, platforms) do
 
     stream = File.stream!(file)
     {:ok, language} = %Language{}

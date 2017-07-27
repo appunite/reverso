@@ -1,6 +1,6 @@
 defmodule Reverso.Web.LanguageController do
   use Reverso.Web, :controller
-
+ 
   alias Reverso.Projects
   alias Reverso.Projects.Language
 
@@ -16,9 +16,10 @@ defmodule Reverso.Web.LanguageController do
     render(conn, "list.json", languages: languages)
   end
 
-  def create(conn, %{"language" => language_params, "file" => file}) do
+  def create(conn,%{"language_name" => name, "project_id" => id, "language_file" => file,"platforms" => platforms}) do
+    language_params = %{language_name: name, project_id: id}
     with {:ok, %Language{} = language} <- 
-      Projects.create_language(language_params, file, conn.assigns[:current_user_id]) do
+      Projects.create_language(language_params, file, conn.assigns[:current_user_id], platforms) do
       conn
       |> put_status(:created)
       |> put_resp_header("location", language_path(conn, :show, language))
