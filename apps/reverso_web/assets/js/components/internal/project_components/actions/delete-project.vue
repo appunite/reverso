@@ -1,5 +1,5 @@
 <template>
-  <el-button  class="delete-btn" @click="open2">Delete</el-button>  
+  <el-button  class="delete-btn" @click="deleteWarning">Delete</el-button>  
 </template>
 
 <script>
@@ -13,12 +13,15 @@ export default{
   ],
 
   methods: {
-    open2() {
-      this.$confirm('This will permanently delete the file. Continue?', 'Warning', {
+    deleteWarning() {
+      this.$confirm('This will permanently delete the project. Continue?', 'Warning', {
         confirmButtonText: 'OK',
+        confirmButtonClass: 'primary-btn',
         cancelButtonText: 'Cancel',
-        type: 'warning'
+        cancelButtonClass: 'cancel-btn',
+        showClose: false
       }).then(() => {
+        this.deleteProject();
         this.$message({
           type: 'success',
           message: 'Delete completed'
@@ -28,7 +31,7 @@ export default{
           type: 'info',
           message: 'Delete canceled'
         });          
-      });
+     });
     },
 
     deleteProject(){
