@@ -71,6 +71,7 @@
 
 <script>
   import projectService from '../../../../services/project-service.js'
+  import formService from '../../../../services/form-service.js'
   import languageService from '../../../../services/language-service.js'
   import deleteProject from '../actions/delete-project'
 
@@ -117,7 +118,7 @@
       },
       
       includesPlatform(platform_name){
-        return _.includes(this.tempProject.platforms, platform_name);
+        return formService.includesPlatform(this.tempProject.platforms, platform_name);
       },
 
       close(){
@@ -127,7 +128,7 @@
 
     computed: {
       formReady: function () {
-        return projectService.formReady(this.tempProject);
+        return formService.formReady(this.tempProject);
       }
     },
 
