@@ -95,10 +95,12 @@ export default {
     onSubmit(){
       this.$http.post("/api/collaborators", this.newContributors ).then(
         (response) => {
-          alert("ok");
+          this.close();
+          this.openSuccessMessage();
         },
         (error) => {
-          alert("Oops! Something went wrong!");
+          this.close();
+          this.openErrorMessage();          
         }
       );
     },
@@ -113,6 +115,22 @@ export default {
         }
       )
     },
+
+    openSuccessMessage() {
+      this.$message({
+        showClose: true,
+        message: 'Contributors added',
+        type: 'success'
+      });
+    },  
+
+    openErrorMessage() {
+      this.$message({
+        showClose: true,
+        message: 'Oops! Something went wrong!',
+        type: 'error'
+      });
+    },  
 
     close(){
       this.$emit("close");
