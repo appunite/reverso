@@ -12,11 +12,15 @@
       {{ dialogData.header }}
     </span>
 
-    <el-form ref="form" :model="language" label-position="top">
+    <el-form ref="form"
+    :model="new_language"
+    label-position="top"
+    enctype="multipart/form-data">
 
       <div class="input-wrapper">
       <label>Language</label>
-        <el-select v-model="language" placeholder="Select Language">
+        <el-select v-model="new_language.language_name"
+        placeholder="Select Language">
           <el-option v-for="language in languages"
           :label="language.language_name"
           :value="language.language_name">
@@ -26,9 +30,11 @@
 
       <div class="input-wrapper no-border">
         <label class="input-wrapper.label">Import</label>
+
+        <input type="file" @change="filesChange($event.target.files)">
       </div>
 
-      <el-button type="primary" class="primary-btn" @click="onSubmit">Add</el-button>
+      <el-button type="primary" class="primary-btn" @click="onUpload">Add</el-button>
       <el-button class="cancel-btn" @click="close">Cancel</el-button>  
 
     </el-form>
@@ -49,17 +55,22 @@ export default {
 
   data () {
     return {
+      new_language: {
+        language_name: ""
+      },
+
       languages: []
     }
   },
 
   methods: {
-
-    submitUpload() {
-      //this.$refs.upload.submit();
+    onUpload(){
+      languageService.uploadLanguage(this.new_language);
     },
-    onSubmit() {
 
+    filesChange(fileList) {
+      let file = fileList[0];
+      this.new_language['language_file'] = file;
     },
 
     close(){
