@@ -53,7 +53,9 @@ const router = new VueRouter({
           { path: '/edit-profile', component: editProfile },
           { path: '/edit-pass', component: changePass },
 
-          { path: '/translation', component: translationPanel}
+          { path: '/translation/:project_id/:language_id',
+          name: 'translation',
+          component: translationPanel}
 
         ]
       }//,
