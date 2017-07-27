@@ -72,6 +72,7 @@ export default {
     return {
       new_language: {
         language_name: "",
+        language_file: null,
         platforms: []
       },
 
@@ -122,7 +123,7 @@ export default {
       return formService.formReady([
         this.new_language.language_name,
         this.new_language.language_file,
-        this.new_language.platfoms]);
+        this.new_language.platforms]);
     }
   },
 
