@@ -38,7 +38,7 @@ defmodule Reverso.Projects do
       end)
     Repo.insert_all(Platform,plat)
 
-    Projects.associate_with_project(project.owner_id, project.id)
+    Projects.associate_project_owner(project.owner_id, project.id)
     {:ok, 
     %{id: project.id,
       project_name: project.project_name,
@@ -47,10 +47,17 @@ defmodule Reverso.Projects do
    
   end
   
-  def associate_with_project(user_id,project_id) do
+  def associate_project_owner(user_id,project_id) do
      %ProjectCollaborator{}
      |> ProjectCollaborator.changeset(%{user_id: user_id, project_id: project_id})
      |> Repo.insert()
+  end
+
+  def associate_with_project(users, project_id) do
+    associated_users = Enum.map(users, fn u ->
+      %{user_id: u, project_id: project_id}      
+      end)
+    Repo.insert_all(ProjectCollaborator,associated_users)
   end
 
   def delete_project(project_id) do
