@@ -43,7 +43,8 @@ defmodule Reverso.Web.Router do
     delete "/logout", SessionController, :delete
     resources "/accounts", UserController, except: [:create, :change_password]
     post "/changepassword", UserController, :change_password
-
+    get "/collaborators", CollaboratorController, :index
+    post "/collaborators", CollaboratorController, :create 
     resources "/projects", ProjectController
     get "/projects/:id/languages", LanguageController, :list
     resources "/translations", TranslationController
