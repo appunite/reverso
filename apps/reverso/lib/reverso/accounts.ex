@@ -5,12 +5,24 @@ defmodule Reverso.Accounts do
 
   import Ecto.Query, warn: false
   alias Reverso.Repo
-
+  
   alias Reverso.Accounts.User
+  alias Reverso.Accounts.ProjectCollaborator
+  alias Reverso.Projects.Project
 
 
   def list_users do
     Repo.all(User)
+  end
+
+  def fetch_collaborators() do
+    from(c in ProjectCollaborator,
+    join: p in Project,
+    on: c.project_id == p.id,
+    join: u in User, 
+    on: c.user_id == u.id,
+    select: %{user_id: u.id, user_name: u.name, user_email: u.email, project_id: p.id})
+    |> Repo.all
   end
 
   def create_user(attrs) do
