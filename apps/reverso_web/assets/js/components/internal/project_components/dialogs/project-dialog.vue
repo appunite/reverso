@@ -128,7 +128,10 @@
 
     computed: {
       formReady: function () {
-        return formService.formReady(this.tempProject);
+        return formService.formReady(
+          [this.tempProject.project_name,
+          this.tempProject.basic_language,
+          this.tempProject.platforms]);
       }
     },
 
