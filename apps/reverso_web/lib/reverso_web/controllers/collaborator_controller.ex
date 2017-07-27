@@ -13,7 +13,7 @@ defmodule Reverso.Web.CollaboratorController do
   end
 
   def create(conn, %{"project_id" => project_id, "users" => users,"email" => email}) do
-    with {:ok, %ProjectCollaborator{}} <-
+    with {_num,nil} <-
       Projects.associate_with_project(users, project_id) do
       conn
       |> put_status(200)
