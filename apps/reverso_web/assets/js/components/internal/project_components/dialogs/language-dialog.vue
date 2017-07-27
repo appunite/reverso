@@ -72,7 +72,7 @@ export default {
     return {
       new_language: {
         language_name: "",
-        language_file: [],
+        language_file: null,
         platforms: []
       },
 
@@ -120,7 +120,10 @@ export default {
 
   computed: {
     formReady: function () {
-      return formService.formReady(this.new_language);
+      return formService.formReady([
+        this.new_language.language_name,
+        this.new_language.language_file,
+        this.new_language.platforms]);
     }
   },
 
