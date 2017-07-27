@@ -9,6 +9,7 @@
 
     <contributorDialog
     v-bind:dialogData="dialogData"
+    v-bind:projectId="projectId"
     v-if="dialogData.visable"
     @close="toggleVisability">
         
@@ -21,6 +22,10 @@ import contributorDialog from '../dialogs/contributor-dialog.vue'
 
 export default {
   name: "newContributor",
+
+  props: [
+    'projectId'
+  ],
 
   components: {
     'contributorDialog': contributorDialog
@@ -41,6 +46,7 @@ export default {
     toggleVisability(){
       this.dialogData.visable = !this.dialogData.visable;
     }
+    
   }
   
 }
