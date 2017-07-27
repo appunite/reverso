@@ -10,6 +10,7 @@
     <languageDialog
     v-bind:dialogData="dialogData"
     v-if="dialogData.visable"
+    v-on:upload="upload($event)"
     @close="toggleVisability">
         
     </languageDialog>
@@ -17,10 +18,15 @@
 </template>
 
 <script>
+import languageService from '../../../../services/language-service.js'
 import languageDialog from '../dialogs/language-dialog.vue'
 
 export default {
   name: "newLanguage",
+
+  props: [
+    'project_id'
+  ],
 
   components: {
     'languageDialog': languageDialog
@@ -40,6 +46,19 @@ export default {
   methods: {
     toggleVisability(){
       this.dialogData.visable = !this.dialogData.visable;
+    },
+
+    upload(new_language){
+      new_language['project_id'] = this.project_id;
+
+      languageService.uploadLanguage(new_language).then(
+      (response) => {
+        //emit event
+      },
+
+      (error) => {
+        console.log(error);
+      });
     }
   }  
 }

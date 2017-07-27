@@ -100,14 +100,7 @@ export default {
 
   methods: {
     onUpload(){
-      languageService.uploadLanguage(this.new_language).then(
-      (response) => {
-        //bus event attaching language
-      },
-      (error) => {
-        console.log(error);
-      });
-
+      this.$emit("upload", this.new_language);
       this.close();
     },
 

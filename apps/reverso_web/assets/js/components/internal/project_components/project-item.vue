@@ -36,7 +36,7 @@
     </div>
 
     <div class="add-language">
-      <newLanguage></newLanguage>
+      <newLanguage v-bind:project_id="project.id"></newLanguage>
     </div>
 
   </div>
