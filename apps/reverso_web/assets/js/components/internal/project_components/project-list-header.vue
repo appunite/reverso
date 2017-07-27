@@ -19,7 +19,7 @@
 
   <span class="summary-col-4">
     <span class="summary-col-4__icons">
-      <newContributor></newContributor>
+      <newContributor v-bind:projectId="project.id"></newContributor>
       <exportSettings></exportSettings>
       <editProject v-bind:project="project"></editProject>
     </span>
@@ -37,7 +37,7 @@
     name: "projectListHeader",
 
     props: [
-    'project'
+      'project'
     ],
 
     components: {

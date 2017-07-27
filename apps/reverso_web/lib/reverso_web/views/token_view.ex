@@ -1,6 +1,5 @@
 defmodule Reverso.Web.TokenView do
   use Reverso.Web, :view
-  alias Reverso.Web.TokenView
 
   def render("message.json", %{error: error}) do
     %{error: error}

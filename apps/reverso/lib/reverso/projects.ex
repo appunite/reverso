@@ -38,7 +38,7 @@ defmodule Reverso.Projects do
       end)
     Repo.insert_all(Platform,plat)
 
-    Projects.associate_with_project(project.owner_id, project.id)
+    Projects.associate_project_owner(project.owner_id, project.id)
     {:ok, 
     %{id: project.id,
       project_name: project.project_name,
@@ -47,10 +47,17 @@ defmodule Reverso.Projects do
    
   end
   
-  def associate_with_project(user_id,project_id) do
+  def associate_project_owner(user_id,project_id) do
      %ProjectCollaborator{}
      |> ProjectCollaborator.changeset(%{user_id: user_id, project_id: project_id})
      |> Repo.insert()
+  end
+
+  def associate_with_project(users, project_id) do
+    associated_users = Enum.map(users, fn u ->
+      %{user_id: u, project_id: project_id}      
+      end)
+    Repo.insert_all(ProjectCollaborator,associated_users)
   end
 
   def delete_project(project_id) do
@@ -114,7 +121,7 @@ defmodule Reverso.Projects do
 
   def get_translation!(id), do: Repo.get!(Translation, id)
 
-  def create_translation(file,params,user_id) do
+  def create_translation(params,file,user_id) do
    
     stream = File.stream!(file)
     result = stream |> xpath(~x"//trans-unit"l, 
@@ -157,10 +164,27 @@ defmodule Reverso.Projects do
 
   def get_language!(id), do: Repo.get!(Language, id)
 
-  def create_language(attrs) do
-    %Language{}
-    |> Language.changeset(attrs)
+  def create_language(params, file, user_id) do
+
+    stream = File.stream!(file)
+    {:ok, language} = %Language{}
+    |> Language.changeset(params)
     |> Repo.insert()
+
+    result = stream |> xpath(~x"//trans-unit"l, 
+    platform_key: ~x"//trans-unit/@id"s,
+    basic: ~x"//source/text()"s,
+    translation: ~x"//target/text()"s)
+    
+    map = Enum.map(result,fn r -> 
+      %{project_id: params.project_id,
+        platform_id: params.platform_id,
+        user_id: user_id,
+        language_id: language.id}
+      |> Map.merge(r)  
+      end)
+
+    Repo.insert_all(Translation,map)
   end
 
   def update_language(%Language{} = language, attrs) do

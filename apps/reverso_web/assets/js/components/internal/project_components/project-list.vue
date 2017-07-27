@@ -63,7 +63,7 @@ export default {
       let index = _.findIndex(this.projects, (project) => {
         return project.id == edited_project.id;
       });
-      
+            
       Vue.set(this.projects, index, edited_project);
     });
 

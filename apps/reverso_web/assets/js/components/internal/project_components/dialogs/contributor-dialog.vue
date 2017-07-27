@@ -18,10 +18,12 @@
 
       <div class="invite-list">
         <el-checkbox-group v-model="invitations.invited">
-          <el-checkbox-button
-          v-for="contributor in filtered"
-          :label="contributor.email"
-          :name="contributor.email">
+          <el-checkbox-button          
+            v-bind:key="contributor.id"
+            v-for="contributor in filtered"
+            :label="contributor.id"
+            :name="contributor.email"            
+          >
           
             <h4>{{contributor.email}}</h4>
             <p>{{contributor.name}}</p>
@@ -50,7 +52,8 @@ export default {
   name: "contributorDialog",
 
   props: [
-    'dialogData'
+    'dialogData',
+    'projectId'
   ],
 
   data () {
@@ -63,8 +66,43 @@ export default {
       }
     }
   },
+
+  computed: {
+    filtered(){
+      var filtered_tab = [];
+
+      for (var i = 0; i < this.contributors.length; i++) { 
+        if (this.contributors[i].name.toLowerCase().includes(this.filter.toLowerCase())
+        || this.contributors[i].email.toLowerCase().includes(this.filter.toLowerCase()))
+        {
+          filtered_tab.push(this.contributors[i]);
+        }
+      }
+
+      return filtered_tab;
+    },
+
+    newContributors() {
+      return {
+        project_id: this.projectId, 
+        users: this.invitations.invited,
+        email: this.invitations.inv_email
+      }
+    }
+  },
+
   methods: {
     onSubmit(){
+      this.$http.post("/api/collaborators", this.newContributors ).then(
+        (response) => {
+          this.close();
+          this.openSuccessMessage();
+        },
+        (error) => {
+          this.close();
+          this.openErrorMessage();          
+        }
+      );
     },
 
     fetch_users(){
@@ -78,24 +116,28 @@ export default {
       )
     },
 
+    openSuccessMessage() {
+      this.$message({
+        showClose: true,
+        message: 'Contributors added',
+        type: 'success'
+      });
+    },  
+
+    openErrorMessage() {
+      this.$message({
+        showClose: true,
+        message: 'Oops! Something went wrong!',
+        type: 'error'
+      });
+    },  
+
     close(){
       this.$emit("close");
     }
 
   },
-  computed: {
-    filtered(){
-      var filtered_tab = [];
 
-      for (var i = 0; i < this.contributors.length; i++) { 
-        if (this.contributors[i].name.toLowerCase().includes(this.filter.toLowerCase()) || this.contributors[i].email.toLowerCase().includes(this.filter.toLowerCase())){
-          filtered_tab.push(this.contributors[i]);
-        }
-      }
-
-      return filtered_tab;
-    }
-  },
   mounted(){
     this.fetch_users();
   }

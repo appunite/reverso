@@ -1,13 +1,13 @@
 defmodule Reverso.Web.SessionController do
   use Reverso.Web, :controller
 
-  alias Reverso.Accounts
+  alias Reverso.Accounts.Login
   alias Reverso.Accounts.User
 
   action_fallback Reverso.Web.FallbackController
 
   def create(conn, %{"params" => session_params}) do
-    case Accounts.login(session_params) do
+    case Login.login(session_params) do
       {:ok, %User{} = user } ->
         conn
         |> put_status(200)
@@ -24,7 +24,7 @@ defmodule Reverso.Web.SessionController do
   end
 
   def delete(conn, _params) do
-    with {:ok, _} <- Accounts.delete_login_token(conn.assigns[:current_user]) do
+    with {:ok, _} <- Login.delete_login_token(conn.assigns[:current_user]) do
       send_resp(conn, 200, "")
     else
       _ ->

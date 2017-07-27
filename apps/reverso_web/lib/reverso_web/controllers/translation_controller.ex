@@ -11,8 +11,9 @@ defmodule Reverso.Web.TranslationController do
     render(conn, "index.json", translations: translations)
   end
 
-  def create(conn, %{"translation" => translation_params}) do
-    with {:ok, %Translation{} = translation} <- Projects.create_translation(translation_params) do
+  def create(conn, %{"translation" => params, "file" => file}) do
+    with {:ok, %Translation{} = translation} <- 
+      Projects.create_translation(params,file, conn.assigns[:current_user_id]) do
       conn
       |> put_status(:created)
       |> put_resp_header("location", translation_path(conn, :show, translation))
