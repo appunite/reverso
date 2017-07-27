@@ -12,9 +12,9 @@ defmodule Reverso.Web.CollaboratorController do
     render(conn, "index.json", collaborators: collaborators)
   end
 
-  def create(conn, %{"project_id" => project_id, "user_id" => user_id}) do
+  def create(conn, %{"project_id" => project_id, "users" => users,"email" => email}) do
     with {:ok, %ProjectCollaborator{}} <-
-      Projects.associate_with_project(user_id, project_id) do
+      Projects.associate_with_project(users, project_id) do
       conn
       |> put_status(200)
       |> render("message.json", %{info: "Collaborator added"})
