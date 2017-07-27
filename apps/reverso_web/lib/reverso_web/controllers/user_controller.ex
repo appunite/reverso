@@ -3,6 +3,7 @@ defmodule Reverso.Web.UserController do
 
   alias Reverso.Accounts
   alias Reverso.Accounts.User
+  alias Reverso.Accounts.Password
 
   action_fallback TestJson.Web.FallbackController
 
@@ -55,12 +56,8 @@ defmodule Reverso.Web.UserController do
     end
   end
 
-  def change_password(conn, %{ "id" => id,
-                               "old_password" => old_password,
-                               "new_password_set" => new_password_set}) do
-    with {:ok, %User{} = user} <- Accounts.fetch_by_id(id),
-         {:ok, _} <- Accounts.authenticate(user, old_password),
-         {:ok, _} <- Accounts.change_password(user, new_password_set) do
+  def change_password(conn, new_password_set) do
+    with {:ok, _} <- Password.change_password(new_password_set) do
       conn
       |> send_resp(200, "")
     else
