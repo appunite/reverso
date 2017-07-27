@@ -56,8 +56,7 @@ export default {
 
       projectService.updateProject(project).then(
         (response) => {
-          let resp_project = projectService.process(response);
-          this.$bus.$emit('project_edited', resp_project);
+          this.$bus.$emit('project_edited', response.data.data);
         },
 
         (error) => {
