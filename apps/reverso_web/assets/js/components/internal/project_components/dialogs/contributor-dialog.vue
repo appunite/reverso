@@ -85,7 +85,7 @@ export default {
     newContributors() {
       return {
         project_id: this.projectId, 
-        user_id: this.invitations.invited,
+        users: this.invitations.invited,
         email: this.invitations.inv_email
       }
     }
@@ -93,7 +93,7 @@ export default {
 
   methods: {
     onSubmit(){
-      this.$http.post("/api/accounts", this.newContributors ).then(
+      this.$http.post("/api/collaborators", this.newContributors ).then(
         (response) => {
           alert("ok");
         },
