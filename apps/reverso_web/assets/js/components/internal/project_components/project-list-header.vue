@@ -20,7 +20,10 @@
   <span class="summary-col-4">
     <span class="summary-col-4__icons">
       <newContributor v-bind:projectId="project.id"></newContributor>
-      <exportSettings></exportSettings>
+      <exportSettings
+      v-bind:project_id="project.id"
+      v-bind:project_name="project.project_name">
+      </exportSettings>
       <editProject v-bind:project="project"></editProject>
     </span>
   </span>

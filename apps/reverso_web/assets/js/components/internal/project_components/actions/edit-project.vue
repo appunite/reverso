@@ -37,7 +37,6 @@ export default {
         header: "project settings",
         icon: "/images/ic-settings.svg",
         delete_btn: true,
-        bus_event: 'project_edited',
 
         project: {}
       }

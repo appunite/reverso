@@ -1,8 +1,8 @@
 <template>  
 
-  <div class="translation-table">
+  <div id="translation-table">
     <div class="top-table-panel">
-      <el-button type="text" class="add_sth_btn">
+      <el-button type="text" class="add_sth_btn" @click="addTerm">
         <img src="/images/ic-add.svg">Add new term
       </el-button>
     </div>
@@ -15,7 +15,7 @@
       </tr>
     </table>
 
-    <table class="translation-table__terms">
+    <table id="translation-table__terms">
       <tr v-for="translation in translations">
         <th >{{ translation.basic }}</th>
         <th>{{ translation.translation }}</th>
@@ -33,8 +33,21 @@
   
     props: [
       'translations'
-    ]
+    ],
 
+    data() {
+      return {
+        sampleElement: '<button v-on="click: test()">Test</button>'
+      }
+    },
+    methods: {
+      addTerm(){
+        var template = document.createElement('template');
+        template.innerHTML = "<tr><th></th><th></th><th></th></tr";
+        
+        document.getElementById("translation-table__terms").appendChild(template);
+      }
+    }
   }
 
 </script>
