@@ -22,9 +22,9 @@ defmodule Reverso.Projects do
 
     languages_query =
       from(l in Language,
-        join: t in Translation,
+        left_join: t in Translation,
         on: t.language_id == l.id and t.project_id == l.project_id,
-        join: u in User,
+        left_join: u in User,
         on: t.user_id == u.id,
         group_by: l.id,
         select: %{l |
