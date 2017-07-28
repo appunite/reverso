@@ -16,17 +16,24 @@
     </table>
 
     <div class="translation-table__terms">
-    <table>
+    <table v-chat-scroll="{always: false}">
       <tr v-for="translation in translations"
-      :key="translation.id">
+      :key="translation.id"
+      @mouseover="hoverRow = translation.id"
+      @mouseleave="hoverRow = null">
+
         <th>
-        <el-input
-        type="textarea"
-        :autosize="true"
-        placeholder="No Reference"
-        v-model="translation.basic"
-        @blur="update(translation)">
-        </el-input>
+        <span>
+          <el-input
+          type="textarea"
+          :autosize="true"
+          placeholder="No Reference"
+          v-model="translation.basic"
+          @blur="update(translation)">
+          </el-input>
+          <img src="/images/ic-delete.svg"
+          v-show="hoverRow == translation.id">
+        </span>
         </th>
 
         <th>
@@ -63,7 +70,8 @@ export default {
 
   data() {
     return {
-      translations: []
+      translations: [],
+      hoverRow: null
     }
   },
 

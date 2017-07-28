@@ -25,7 +25,7 @@
         </span>
 
         <span class="summary-col-3">
-          <p v-if="language.last_edit">
+          <p v-if="language.last_edit_time">
             {{ language.last_edit_time }} last edit by {{ language.editor_name }}
           </p>          
         </span>
