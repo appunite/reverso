@@ -2,7 +2,10 @@
   <div class="project-item">
   
 
-    <div v-for="language in project.languages" class="project-item__language">
+    <div
+    v-for="language in project.languages"
+    :key="language.language_id"
+    class="project-item__language">
       <router-link :to="{ name: 'translation',
       params:
       { project_id: project.id,
@@ -16,14 +19,14 @@
 
         <span class="summary-col-2">
           <p v-if="isBasicLanguage(language.language_name)">reference</p>
-          <p v-else>{{ language.count }}/{{reference_str_count}} strings translated</p>
+          <p v-else>{{ language.strings_count }}/{{reference_str_count}} strings translated</p>
 
           
         </span>
 
         <span class="summary-col-3">
           <p v-if="language.last_edit">
-            {{ language.last_edit }} last edit by {{ language.editor }}
+            {{ language.last_edit_time }} last edit by {{ language.editor_name }}
           </p>          
         </span>
     

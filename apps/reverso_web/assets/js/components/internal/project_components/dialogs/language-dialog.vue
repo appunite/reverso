@@ -51,7 +51,7 @@
       @click="onUpload">Add</el-button>
 
       <el-button class="cancel-btn" @click="close">Cancel</el-button>  
-
+      
     </el-form>
 
   </el-dialog>

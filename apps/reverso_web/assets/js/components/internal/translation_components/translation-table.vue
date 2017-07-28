@@ -1,6 +1,6 @@
 <template>  
 
-  <div id="translation-table">
+  <div class="translation-table">
     <div class="top-table-panel">
       <el-button type="text" class="add_sth_btn" @click="addTerm">
         <img src="/images/ic-add.svg">Add new term
@@ -15,28 +15,42 @@
       </tr>
     </table>
 
-    <table id="translation-table__terms">
-      <tr v-for="translation in translations">
+    <div class="translation-table__terms">
+    <table>
+      <tr v-for="translation in translations"
+      :key="translation.id">
         <th>
-        <textarea
+        <el-input
+        type="textarea"
+        :autosize="true"
+        placeholder="No Reference"
         v-model="translation.basic"
-        placeholder="No Reference">
-        </textarea>
+        @blur="update(translation)">
+        </el-input>
         </th>
+
         <th>
-        <textarea
+        <el-input
+        type="textarea"
+        :autosize="true"
         v-model="translation.translation"
-        placeholder="No Translation">
-        </textarea>
+        placeholder="No Translation"
+        @blur="update(translation)">
+        </el-input>
         </th>
+
         <th>
-        <textarea
+        <el-input
+        type="textarea"
+        :autosize="true"
         v-model="translation.description"
-        placeholder="No comments added">
-        </textarea>
+        placeholder="No comments added"
+        @blur="update(translation)">
+        </el-input>
         </th>
       </tr>
     </table>
+    </div>
   </div>
 
 </template>
@@ -72,12 +86,16 @@ export default {
       }
 
       this.translations.push(newTerm);
+    },
+    
+    update(translation){
     }
   },
 
   mounted() {
     translationService.fetchTranslation(this.project_id, this.language_id).then(
       (response) => {
+        console.log(response.data.data);
         this.translations = response.data.data;
       },
 

@@ -10,7 +10,8 @@
     
 
     <el-collapse v-model="activeNames">
-      <el-collapse-item v-for="(project, key) in projects" :name="key">
+      <el-collapse-item v-for="project in projects"
+      :key="project.project_id">
         <template slot="title">
           <projectListHeader v-bind:project="project"></projectListHeader>
         </template>
