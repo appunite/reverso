@@ -23,7 +23,8 @@
         type="textarea"
         :autosize="true"
         placeholder="No Reference"
-        v-model="translation.basic">
+        v-model="translation.basic"
+        @blur="update(translation)">
         </el-input>
         </th>
 
@@ -32,7 +33,8 @@
         type="textarea"
         :autosize="true"
         v-model="translation.translation"
-        placeholder="No Translation">
+        placeholder="No Translation"
+        @blur="update(translation)">
         </el-input>
         </th>
 
@@ -41,7 +43,8 @@
         type="textarea"
         :autosize="true"
         v-model="translation.description"
-        placeholder="No comments added">
+        placeholder="No comments added"
+        @blur="update(translation)">
         </el-input>
         </th>
       </tr>
@@ -82,6 +85,9 @@ export default {
       }
 
       this.translations.push(newTerm);
+    },
+    
+    update(translation){
     }
   },
 
