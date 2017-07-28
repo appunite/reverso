@@ -28,6 +28,20 @@
     height: 100px;
     overflow: scroll;
 
+    textarea {
+      width: 100%;
+      border: none;
+      resize: none;
+
+      &:focus {
+        outline: 0;
+      }
+
+      &::placeholder {
+        color: $placeholder-light-gray;
+      }
+    }
+
     tr:nth-child(even){
       background: $table-even-row;
     }
@@ -38,6 +52,7 @@
 
       &:nth-child(1){
         font-weight: normal;
+        padding-right: 60px;
       }
 
       &:nth-child(3){

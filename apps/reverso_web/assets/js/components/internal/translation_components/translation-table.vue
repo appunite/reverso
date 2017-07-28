@@ -17,9 +17,24 @@
 
     <table id="translation-table__terms">
       <tr v-for="translation in translations">
-        <th >{{ translation.basic }}</th>
-        <th>{{ translation.translation }}</th>
-        <th>{{ translation.description }}</th>
+        <th>
+        <textarea
+        v-model="translation.basic"
+        placeholder="No Reference">
+        </textarea>
+        </th>
+        <th>
+        <textarea
+        v-model="translation.translation"
+        placeholder="No Translation">
+        </textarea>
+        </th>
+        <th>
+        <textarea
+        v-model="translation.description"
+        placeholder="No comments added">
+        </textarea>
+        </th>
       </tr>
     </table>
   </div>
@@ -27,27 +42,50 @@
 </template>
 
 <script>
+import translationService from '../../../services/translation-service.js'
 
-  export default {
-    name: "translationTable",
-  
-    props: [
-      'translations'
-    ],
+export default {
+  name: "translationTable",
 
-    data() {
-      return {
-        sampleElement: '<button v-on="click: test()">Test</button>'
-      }
-    },
-    methods: {
-      addTerm(){
-        var template = document.createElement('template');
-        template.innerHTML = "<tr><th></th><th></th><th></th></tr";
-        
-        document.getElementById("translation-table__terms").appendChild(template);
-      }
+  data() {
+    return {
+      translations: []
     }
+  },
+
+  computed: {
+    language_id(){
+      return this.$route.params.language_id;
+    },
+
+    project_id(){
+      return this.$route.params.project_id;
+    }
+  },
+
+  methods: {
+    addTerm(){
+      let newTerm = {
+        basic: "",
+        translation: "",
+        description: ""
+      }
+
+      this.translations.push(newTerm);
+    }
+  },
+
+  mounted() {
+    translationService.fetchTranslation(this.project_id, this.language_id).then(
+      (response) => {
+        this.translations = response.data.data;
+      },
+
+      (error) => {
+        console.log(error);
+      }
+    );
   }
+}
 
 </script>
