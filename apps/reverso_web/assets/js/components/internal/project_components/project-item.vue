@@ -28,17 +28,19 @@
         </span>
     
         <span class="summary-col-4">
-          <exportSettings></exportSettings>
+          <exportSettings
+          v-bind:project_id="project.id"
+          v-bind:project_name="project.project_name"
+          v-bind:language="language">
+          </exportSettings>
         </span>
       </span>
       </router-link>
 
     </div>
-
-    <div class="add-language">
-      <newLanguage v-bind:project_id="project.id"></newLanguage>
-    </div>
-
+    
+    <newLanguage v-bind:project_id="project.id"></newLanguage>
+    
   </div>
 </template>
 

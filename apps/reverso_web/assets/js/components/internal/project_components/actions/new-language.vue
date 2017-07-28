@@ -1,5 +1,5 @@
 <template>
-  <span>
+  <div class="add-language">
     <el-button type="text"
     class="add_sth_btn"
     id="dialogVisable"
@@ -14,7 +14,7 @@
     @close="toggleVisability">
         
     </languageDialog>
-  </span>
+  </div>
 </template>
 
 <script>

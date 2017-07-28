@@ -12,13 +12,26 @@
 
 export default {
 	name: "sidebar",
+
 	data () {
 		return {
       isCollapse: false
 		}
 	},
-	methods: {
-	}
+
+	computed: {
+    language_id(){
+      return this.$route.params.language_id;
+    },
+
+    project_id(){
+      return this.$route.params.project_id;
+    }
+  },
+
+	mounted (){
+		//project show request
+	} 
 }
 	
 </script>

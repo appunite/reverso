@@ -10,7 +10,7 @@
       {{ dialogData.header }}
     </span>
 
-    <el-form ref="form" :model="invitations" label-position="top">
+    <form ref="form" :model="invitations" label-position="top" v-on:submit.prevent="onSubmit">
 
       <div class="input-wrapper">
         <input v-model="filter" placeholder="Search">
@@ -33,15 +33,15 @@
 
       <div class="input-wrapper">
         <label>Send Invitation</label>
-        <input type="text"
+        <input type="email"
         v-model="invitations.inv_email"
         placeholder="Not listed? Invite by email address...">
       </div>
 
-      <el-button type="primary" class="primary-btn" @click="onSubmit">save</el-button>
-      <el-button class="cancel-btn" @click="close">cancel</el-button>  
+      <button type="submit" class="primary-btn dialog-button">save</button>
+      <button type="button" class="cancel-btn dialog-button" @click="close">cancel</button>  
     
-    </el-form>
+    </form>
  
   </el-dialog>
 
@@ -59,7 +59,7 @@ export default {
   data () {
     return {
       contributors: [],
-      filter: "",
+      filter: '',
       invitations: {
         invited: [],
         inv_email: ""
@@ -69,34 +69,70 @@ export default {
 
   computed: {
     filtered(){
+      
       var filtered_tab = [];
 
-      for (var i = 0; i < this.contributors.length; i++) { 
-        if (this.contributors[i].name.toLowerCase().includes(this.filter.toLowerCase())
-        || this.contributors[i].email.toLowerCase().includes(this.filter.toLowerCase()))
-        {
-          filtered_tab.push(this.contributors[i]);
-        }
+      var filter = this.filter.toLowerCase();
+      for (var i = 0; i < this.contributors.length-1; i++) {
+        let name = this.contributors[i].name;
+        let email = this.contributors[i].email;
+        if(name) name = name.toLowerCase(); else name = ""; 
+        if(name) email = email.toLowerCase(); else email = "";
+
+        if ( name.includes(filter) || email.includes(filter) )
+        { filtered_tab.push(this.contributors[i]); }
       }
 
-      return filtered_tab;
+      return filtered_tab;      
     },
 
     newContributors() {
       return {
         project_id: this.projectId, 
-        users: this.invitations.invited,
+        users_ids: this.invitations.invited,
+        email: this.invitations.inv_email
+      }
+    },
+
+    emailInvitationParams() {
+      return {
         email: this.invitations.inv_email
       }
     }
   },
 
   methods: {
+    onSubmitSuccess() {
+      if( this.invitations.inv_email != "") {
+        this.$http.post("/api/invitation/new", this.emailInvitationParams).then(
+          (response) => {
+
+            this.$message({
+              showClose: true,
+              message: 'Invitation email sent',
+              type: 'success'
+            });
+
+          },
+          (error) => {
+
+            this.$message({
+              showClose: true,
+              message: 'Invitation email error',
+              type: 'error'
+            });
+
+          }
+        );
+      }
+      this.close();
+      this.openSuccessMessage();
+    },
+
     onSubmit(){
       this.$http.post("/api/collaborators", this.newContributors ).then(
         (response) => {
-          this.close();
-          this.openSuccessMessage();
+          this.onSubmitSuccess();
         },
         (error) => {
           this.close();
