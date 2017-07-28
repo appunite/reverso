@@ -37,8 +37,11 @@ defmodule Reverso.Projects do
     user_query = 
     from(p in Project,
       join: c in ProjectCollaborator,
+      join: pl in assoc(p, :platforms),
       on: c.project_id == p.id and c.user_id == ^user_id,
-      preload: [languages: ^languages_query]
+      where: pl.project_id == p.id,
+      preload: [languages: ^languages_query],
+      preload: [platforms: pl]
     )
     |> Repo.all()
   end
@@ -86,7 +89,7 @@ defmodule Reverso.Projects do
   end
 
   def update_project(project, attrs, platforms_added, platforms_deleted, languages) do
-    project
+    {:ok, changed_project} = project
     |> Project.changeset(attrs)
     |> Repo.update()
     
@@ -96,9 +99,9 @@ defmodule Reverso.Projects do
 
     {:ok, %{
       id: project.id,
-      project_name: project.project_name,
-      basic_language: project.basic_language,
-      platforms: platforms_after_changes, languages: languages}}     
+      project_name: changed_project.project_name,
+      basic_language: changed_project.basic_language,
+      platforms: platforms_after_changes, languages: languages}}    
     
   end
 
@@ -125,8 +128,7 @@ defmodule Reverso.Projects do
     query = Query.from pl in Platform,
     join: p in Project,
     on: pl.project_id == p.id,
-    where: pl.project_id == ^project_id,
-    select: pl.platform_name
+    where: pl.project_id == ^project_id
     Repo.all(query)
   end
 
@@ -252,6 +254,5 @@ defmodule Reverso.Projects do
       )
     |> Repo.all
   end
-
 
 end
