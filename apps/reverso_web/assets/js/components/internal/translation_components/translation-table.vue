@@ -17,7 +17,8 @@
 
     <div class="translation-table__terms">
     <table>
-      <tr v-for="translation in translations">
+      <tr v-for="translation in translations"
+      :key="translation.id">
         <th>
         <el-input
         type="textarea"
