@@ -134,7 +134,7 @@ Reverso.Repo.insert(%Reverso.Projects.Translation{
 Reverso.Repo.insert(%Reverso.Projects.Translation{
   basic: "Antes que te cases, mira lo que haces.",
   translation: "Before you marry, look what you are doing.",
-  language_id: 3,
+  language_id: 4,
   platform_id: 3,
   platform_key: "Pierwszy english",
   project_id: 2,
@@ -144,7 +144,7 @@ Reverso.Repo.insert(%Reverso.Projects.Translation{
 Reverso.Repo.insert(%Reverso.Projects.Translation{
   basic: "In a hundred years we will be dead anyway.",
   translation: "Despues de los años mil, Torna el agua a su carril.",
-  language_id: 3,
+  language_id: 4,
   platform_id: 3,
   platform_key: "Drugi espanol",
   project_id: 2,

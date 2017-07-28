@@ -9,6 +9,9 @@ defmodule Reverso.Projects.Project do
     field :project_name, :string
     field :owner_id, :integer
 
+    has_many :languages, Reverso.Projects.Language
+    has_many :platforms, Reverso.Projects.Platform
+
     timestamps()
   end
 

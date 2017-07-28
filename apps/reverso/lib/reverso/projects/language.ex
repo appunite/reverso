@@ -7,9 +7,10 @@ defmodule Reverso.Projects.Language do
   schema "projects_languages" do
     field :language_name, :string
     field :project_id, :integer
-
     field :strings_count, :integer, virtual: true, default: 0
+    field :last_edit_time, :naive_datetime, virtual: true
 
+    has_one :last_editor_name, Reverso.Accounts.User
     timestamps()
   end
 
