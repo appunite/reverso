@@ -50,12 +50,10 @@
 <script>
 export default {
   name: "contributorDialog",
-
   props: [
     'dialogData',
     'projectId'
   ],
-
   data () {
     return {
       contributors: [],
@@ -66,11 +64,9 @@ export default {
       }
     }
   },
-
   computed: {
     filtered(){
       var filtered_tab = [];
-
       for (var i = 0; i < this.contributors.length; i++) { 
         if (this.contributors[i].name.toLowerCase().includes(this.filter.toLowerCase())
         || this.contributors[i].email.toLowerCase().includes(this.filter.toLowerCase()))
@@ -78,19 +74,16 @@ export default {
           filtered_tab.push(this.contributors[i]);
         }
       }
-
       return filtered_tab;
     },
-
     newContributors() {
       return {
         project_id: this.projectId, 
-        users: this.invitations.invited,
+        users_ids: this.invitations.invited,
         email: this.invitations.inv_email
       }
     }
   },
-
   methods: {
     onSubmit(){
       this.$http.post("/api/collaborators", this.newContributors ).then(
@@ -104,7 +97,6 @@ export default {
         }
       );
     },
-
     fetch_users(){
       this.$http.get("/api/accounts", {}).then(
         (response) => {
@@ -115,7 +107,6 @@ export default {
         }
       )
     },
-
     openSuccessMessage() {
       this.$message({
         showClose: true,
@@ -123,7 +114,6 @@ export default {
         type: 'success'
       });
     },  
-
     openErrorMessage() {
       this.$message({
         showClose: true,
@@ -131,13 +121,10 @@ export default {
         type: 'error'
       });
     },  
-
     close(){
       this.$emit("close");
     }
-
   },
-
   mounted(){
     this.fetch_users();
   }
