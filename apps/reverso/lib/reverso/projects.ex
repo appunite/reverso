@@ -88,7 +88,7 @@ defmodule Reverso.Projects do
     Repo.get(Project,project_id)
   end
 
-  def update_project(project, attrs, platforms_added, platforms_deleted, languages) do
+  def update_project(project, attrs, platforms_added, platforms_deleted) do
     {:ok, changed_project} = project
     |> Project.changeset(attrs)
     |> Repo.update()
@@ -101,7 +101,8 @@ defmodule Reverso.Projects do
       id: project.id,
       project_name: changed_project.project_name,
       basic_language: changed_project.basic_language,
-      platforms: platforms_after_changes, languages: languages}}    
+      platforms: platforms_after_changes,
+      languages: []}}    
     
   end
 
