@@ -7,7 +7,7 @@ defmodule Reverso.Web.ProjectController do
   action_fallback Reverso.Web.FallbackController
 
   def index(conn, _params) do
-    projects = Projects.list_project(conn.assigns[:current_user_id])
+    projects = Projects.fetch_projects(conn.assigns.current_user_id)
     render(conn, "index.json", projects: projects)
   end
 
@@ -19,7 +19,7 @@ defmodule Reverso.Web.ProjectController do
     project_params = %{
       project_name: project_name,
       basic_language: basic_language,
-      owner_id: conn.assigns[:current_user_id]}
+      owner_id: conn.assigns.current_user_id}
 
     with {:ok, project} <-
       Projects.create_project(project_params,platforms) do

@@ -14,11 +14,12 @@ defmodule Reverso.Accounts do
 
   def fetch_collaborators() do
     from(c in ProjectCollaborator,
-    join: p in Project,
-    on: c.project_id == p.id,
-    join: u in User, 
-    on: c.user_id == u.id,
-    select: %{user_id: u.id, user_name: u.name, user_email: u.email, project_id: p.id})
+      join: p in Project,
+      on: c.project_id == p.id,
+      join: u in User,
+      on: c.user_id == u.id,
+      select: %{id: u.id, name: u.name, email: u.email, project_id: u.project_id}
+    )
     |> Repo.all
   end
 

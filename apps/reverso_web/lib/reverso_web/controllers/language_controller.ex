@@ -11,19 +11,17 @@ defmodule Reverso.Web.LanguageController do
     render(conn, "index.json", languages: languages)
   end
 
-  def list(conn, %{"id"=> project_id}) do
-    languages= Projects.get_project_language_properties(String.to_integer(project_id))
-    render(conn, "list.json", languages: languages)
-  end
-
-  def create(conn,%{"language_name" => name, "project_id" => id, "language_file" => file,"platforms" => platforms}) do
-    language_params = %{language_name: name, project_id: id}
-    with {:ok, %Language{} = language} <- 
-      Projects.create_language(language_params, file, conn.assigns[:current_user_id], platforms) do
+  def create(conn,%{
+    "language_file" => language_file,
+    "language_name" => language_name,
+    "project_id" => project_id,
+    "platforms" => platforms}) do
+    language_params = %{language_name: language_name, project_id: project_id}
+    with {:ok, [language]} <- 
+      Projects.create_language(language_params, language_file.path, conn.assigns.current_user_id, platforms) do
       conn
-      |> put_status(:created)
-      |> put_resp_header("location", language_path(conn, :show, language))
-      |> render("show.json", language: language)
+      |> put_status(200)
+      |> render("language_list.json", language: language)
     end
   end
 
