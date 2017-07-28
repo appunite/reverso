@@ -25,6 +25,17 @@ export default {
       let promise = Vue.http.delete(`/api/projects/${project.id}`, {});
 
       return promise;
-    }
+    },
 
+    exportProject(project_id){
+      let promise = Vue.http.get(`/api/projects/${project_id}/export`, {});
+     
+      return promise;
+    },
+
+    exportLanguage(project_id, language_id){
+      let promise = Vue.http.get(`/api/projects/${project_id}/languages/${language_id}`, {});
+      
+      return promise;
+    }
 }
