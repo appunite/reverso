@@ -1,6 +1,7 @@
 defmodule Reverso.Web.ProjectView do
   use Reverso.Web, :view
   alias Reverso.Web.ProjectView
+  alias Reverso.Web.LanguageView
 
   def render("index.json", %{projects: projects}) do 
     %{data: render_many(projects, ProjectView, "project.json")}
@@ -14,8 +15,8 @@ defmodule Reverso.Web.ProjectView do
     %{id: project.id,
       project_name: project.project_name,
       basic_language: project.basic_language,
-      platforms: project.platforms,
-      languages: project.languages}
+     # platforms: project.platforms,
+      languages: render_many(project.languages,LanguageView,"language_list.json")}
   end
 
 end
