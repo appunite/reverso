@@ -105,10 +105,10 @@ export default {
     onSubmit(){
       this.$http.post("/api/collaborators", this.newContributors ).then(
         (response) => {
-          alert("ok");
+          this.close();
+          this.openSuccessMessage();
         },
         (error) => {
-          this.close();
           this.openErrorMessage();          
         }
       );

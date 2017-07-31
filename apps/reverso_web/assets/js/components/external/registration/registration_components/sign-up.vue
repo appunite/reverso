@@ -7,7 +7,7 @@
         </div>
         <div class="input-wrapper">
           <label for="email">Email Address</label>
-          <input type="email" v-model="email" id="email" placeholder="Email" required>
+          <input type="email" v-model="email" id="email" placeholder="Email" :readonly="activateInvitedUser" required>
         </div>
         <div class="input-wrapper">
           <label for="password">Password</label>
@@ -44,7 +44,9 @@ export default {
       name: '',
       email: '',
       password: '',
-      passwordConfirm: ''
+      passwordConfirm: '',
+
+      activateInvitedUser: false
     } 
   }, 
 
@@ -56,8 +58,36 @@ export default {
           name: this.name,
           password: this.password,
           password_confirmation: this.passwordConfirm
-        } 
+        }
       }
+    },
+    token() {
+      return {
+        invitation_token: this.$route.query.invitation_token
+      }
+    }
+  },
+
+  mounted() {
+    //alert(this.token.invitation_token);
+
+    if(this.token.invitation_token)
+    {
+      this.activateInvitedUser = true;
+
+      this.$http.post("/api/invitation/get", this.token).then(
+        (response) => {
+          console.log(response);
+          alert("ok");
+        },
+        (error) => {
+          alert("error");
+        }
+      );
+    }
+    else
+    {
+      alert("no token");
     }
   },
 
