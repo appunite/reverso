@@ -46,10 +46,12 @@ export default {
 
   methods: {
     updateProject(project){
+      let previous_platforms = 
+        projectService.platformsMapToArray(this.dialogParams.project.platforms);
 
-      project["platforms_removed"] = _.difference(this.dialogParams.project.platforms, project.platforms);
+      project["platforms_removed"] = _.difference(previous_platforms, project.platforms);
 
-      project["platforms_added"] = _.difference(project.platforms, this.dialogParams.project.platforms);
+      project["platforms_added"] = _.difference(project.platforms, previous_platforms);
 
       delete project.platforms;
 
