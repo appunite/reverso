@@ -1,0 +1,4 @@
+<p style="text-align: center;margin: auto">
+    Click <strong>invitaation button</strong><br>
+    <%= link("Join project!", to: @invitation_adress, target: "_blank")%>
+</p>
