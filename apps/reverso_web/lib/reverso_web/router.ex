@@ -33,9 +33,9 @@ defmodule Reverso.Web.Router do
     post "/invitation/update", CollaboratorController, :update_user_from_invitation
     post "/login", SessionController, :create
     post "/accounts", UserController, :create
-    get "/activate", TokenController, :activate_account
-    post "/lostpassword", TokenController, :start_password_reset
-    post "/resetpassword", TokenController, :password_reset
+    get "/activate", AccountController, :activate_account
+    post "/lostpassword", AccountController, :start_password_reset
+    post "/resetpassword", AccountController, :password_reset
   end
 
   scope "/api", Reverso.Web do

@@ -1,4 +1,4 @@
-defmodule Reverso.Web.TokenController do
+defmodule Reverso.Web.AccountController do
   use Reverso.Web, :controller
 
   alias Reverso.Accounts.User
@@ -40,7 +40,7 @@ defmodule Reverso.Web.TokenController do
   end
 
   def generate_activation_url(%User{} = user) do
-    Reverso.Web.Router.Helpers.token_url(Reverso.Web.Endpoint,
+    Reverso.Web.Router.Helpers.account_url(Reverso.Web.Endpoint,
       :activate_account,
       token: user.activation_token)
   end
