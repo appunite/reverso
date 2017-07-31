@@ -14,8 +14,11 @@ defmodule Reverso.Web.CollaboratorController do
     render(conn, "index.json", collaborators: collaborators)
   end
 
-  def create(conn, %{"project_id" => project_id, "users_ids" => users,"email" => email}) do
-    with {:ok, %User{} = user} <- Invitation.start_invitation(email),
+  def create(conn, %{
+        "project_id" => project_id,
+        "users_ids" => users,
+        "invitation_token" => invitation_token}) do
+    with {:ok, %User{} = user} <- Invitation.start_invitation(invitation_token),
          {_num,nil} <- Projects.associate_with_project([user.id | users], project_id) do
       conn
       |> put_status(200)
@@ -42,6 +45,6 @@ defmodule Reverso.Web.CollaboratorController do
   end
 
   def generate_invitation_url(%User{} = user) do
-    Application.get_env(:reverso_web, :invitation_url) <> "?email=" <> user.email
+    Application.get_env(:reverso_web, :invitation_url) <> "?invitation_token=" <> user.invitation_token
   end
 end

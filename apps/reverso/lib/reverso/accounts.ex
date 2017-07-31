@@ -67,6 +67,14 @@ defmodule Reverso.Accounts do
     end
   end
 
+  def fetch_by_invitation_token(token) do
+    with %User{} = user <- Repo.get_by(User,invitation_token: token) do
+      {:ok, user}
+    else
+      _ -> {:error, :user_not_found}
+    end
+  end
+
   def fetch_by_email(email)do
     with %User{} = user <- Repo.get_by(User,email: email) do
       {:ok, user}
