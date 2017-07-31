@@ -26,7 +26,7 @@
         </el-select>
       </div>
 
-      <div class="input-wrapper no-border upload-btn-style">
+      <div class="input-wrapper no-border">
         <label class="input-wrapper.label">Import</label> 
         <div class="upload-input">
           <span class="upload-input__btn">
