@@ -47,7 +47,7 @@ defmodule Reverso.Email do
     |> from("noreply@reverso.co")
     |> put_html_layout({Reverso.Web.LayoutView, "email.html"})
     |> subject("REVERSO.co - Password Reset")
-    |> assign(:activation_adress, Reverso.Web.TokenController.generate_password_reset_url(user))
+    |> assign(:password_reset_adress, Reverso.Web.TokenController.generate_password_reset_url(user))
     |> render("password_reset_email.html")
   end
 
@@ -57,7 +57,7 @@ defmodule Reverso.Email do
     |> from("noreply@reverso.co")
     |> put_html_layout({Reverso.Web.LayoutView, "email.html"})
     |> subject("REVERSO.co - User Invitation")
-    |> assign(:activation_adress, Reverso.Web.CollaboratorController.generate_invitation_url(user))
+    |> assign(:invitation_adress, Reverso.Web.CollaboratorController.generate_invitation_url(user))
     |> render("invitation_email.html")
   end
 end

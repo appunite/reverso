@@ -15,9 +15,9 @@ defmodule Reverso.Web.CollaboratorController do
   end
 
   def create(conn, %{"project_id" => project_id, "users_ids" => users,"email" => email}) do
-    with {:ok, %User = user} <- Invitation.start_invitation(email),
-         {_num,nil} <- Projects.associate_with_project(users, project_id) do
-      IO.inspect(users)
+    with {:ok, %User{} = user} <- Invitation.start_invitation(email),
+         {_num,nil} <- Projects.associate_with_project([user.id | users], project_id) do
+      IO.inspect([user.id | users])
       conn
       |> put_status(200)
       |> render("message.json", %{info: "Collaborator added"})
