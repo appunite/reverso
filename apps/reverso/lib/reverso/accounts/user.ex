@@ -14,6 +14,7 @@ defmodule Reverso.Accounts.User do
     field :activated, :boolean, default: false
     field :activation_token, :string, default: nil
     field :password_reset_token, :string, default: nil
+    field :invitation_token, :string, default: nil
 
     timestamps()
   end
@@ -32,8 +33,8 @@ defmodule Reverso.Accounts.User do
 
   def new_invitation_changeset(%User{} = user, attrs) do
     user
-    |> cast(attrs, [:email])
-    |> validate_required([:email])
+    |> cast(attrs, [:email, :invitation_token])
+    |> validate_required([:email, :invitation_token])
     |> validate_format(:email, ~r/@/)
     |> unique_constraint(:email)
   end
