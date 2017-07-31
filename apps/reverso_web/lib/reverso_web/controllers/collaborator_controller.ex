@@ -47,4 +47,15 @@ defmodule Reverso.Web.CollaboratorController do
   def generate_invitation_url(%User{} = user) do
     Application.get_env(:reverso_web, :invitation_url) <> "?invitation-token=" <> user.invitation_token
   end
+
+  def show(conn, %{"invitation_token" => invitation_token}) do
+    with {:ok, %User{} = user} <- Accounts.fetch_by_invitation_token(invitation_token) do
+      render(conn, "show.json", user: user)
+    else
+      _ ->
+        conn
+        |> put_status(422)
+        |> render("message.json", %{error: "User does not exist!"})
+    end
+  end
 end
