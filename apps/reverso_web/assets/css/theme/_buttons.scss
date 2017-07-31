@@ -1,75 +1,106 @@
 @mixin btn {
-	border: none;
-	border-radius: 3px;
-	width: 110px;
-	font-size: small;
+  border: none;
+  border-radius: 3px;
+  width: 110px;
+  font-size: small;
 } 
 
+@mixin bgChange($bg-color){
+  &:active, &:visited {
+    background: $bg-color;
+  }
+
+  &:hover, &:focus {
+    background: lighten($bg-color, 8);
+  }
+}
+
+@mixin textChange($text-color){
+  &:active, &:visited {
+    color: $text-color;
+  }
+
+  &:hover, &:focus {
+    color: lighten($text-color, 20);
+  }
+}
+
+
 .cancel-btn {
-	@include btn;
+  @include btn;
+  @include textChange($label-gray);
 
   color: $label-gray;
-	text-transform: uppercase;
+  text-transform: uppercase;
   font-size: smaller;
 }
 
 .primary-btn {
-	@include btn;
+  @include btn;
+  @include bgChange($primary-btn-color);
 
-	color: white;
-	background-color: $primary-btn-color;
+  color: white;
+  background-color: $primary-btn-color;
 }
 
 .delete-btn {
-	text-transform: uppercase;
-	font-size: smaller;
-	color: $error-color;
-	border: none;
+  @include textChange($error-color);
+
+  text-transform: uppercase;
+  font-size: smaller;
+  color: $error-color;
+  border: none;
 }
 
 .add_sth_btn {
-	border: none;
-	background: transparent;
-	text-transform: uppercase;
-  font-size: smaller;	
+  @include textChange($icon-blue);
+  
+  border: none;
+  background: transparent;
+  text-transform: uppercase;
+  font-size: smaller; 
   color: $icon-blue;
 
   span {
-	  display: flex;
-	  align-items: center;
-	}
+    display: flex;
+    align-items: center;
+  }
 }
 
 .green-btn {
-	@include btn;
-	color: white;
-	background: $primary-btn-color;
+  @include btn;
+  @include bgChange($primary-btn-color);
+
+  color: white;
+  background: $primary-btn-color;
 }
 
 .transparent-btn {
-	@include btn;
-	background: transparent;
+  @include btn;
+  background: transparent;
 }
 
 .white-btn {
-	color: $placeholder-dark-gray;
-	background: transparent;
-	border: 1px solid #d5d5d5;
-	border-radius: 2px;
-	width: 100px;
+  color: $placeholder-dark-gray;
+  background: transparent;
+  border: 1px solid #d5d5d5;
+  border-radius: 2px;
+  width: 100px;
 }
 
 .purple-btn {
-	@include btn;
-	color: #fff;
-	background: #5861e6;
+  @include bgChange(#5861e6);
+
+  @include btn;
+  color: #fff;
+  background: #5861e6;
 }
 
 ::input-placeholder {
-	color: #bbb;
-	opacity: 1;
+  color: #bbb;
+  opacity: 1;
 }
 
 input:-webkit-autofill {
-	-webkit-box-shadow: 0 0 0 30px $main-bg-color inset;
+  -webkit-box-shadow: 0 0 0 30px $main-bg-color inset;
 }

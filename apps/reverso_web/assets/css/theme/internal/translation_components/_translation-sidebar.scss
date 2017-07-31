@@ -119,19 +119,6 @@
     margin: 0 $leftMargin;    
   }
 
-  &__deleteLang {
-    &, &:link, &:visited, &:hover, &:active {
-      display: inline-block;
-      margin: 6px 0 6px 16px;
-
-      font-size: 11px;
-      font-weight: 500;
-      text-decoration: none;
-      text-transform: uppercase;
-      color: #FF2B4E;
-    }
-  }
-
   &__bakcToProjectListWrapp {
     display: block;
     text-align: center;
