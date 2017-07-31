@@ -24,4 +24,10 @@ defmodule Reverso.Projects.Translation do
     |> cast(attrs, [:basic, :translation, :platform_key, :platform_id, :language_id, :user_id, :project_id])
     |> validate_required([:basic, :translation, :platform_key, :platform_id, :language_id, :user_id, :project_id])
   end
+
+  def update_changeset(%Translation{} = translation, attrs) do
+    translation
+    |> cast(attrs, [:basic, :translation])
+    |> validate_required([:basic, :translation])
+  end
 end

@@ -199,7 +199,7 @@ defmodule Reverso.Projects do
 
   def update_translation(%Translation{} = translation, attrs) do
     translation
-    |> Translation.changeset(attrs)
+    |> Translation.update_changeset(attrs)
     |> Repo.update()
   end
 

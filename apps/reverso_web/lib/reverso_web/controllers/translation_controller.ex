@@ -30,7 +30,7 @@ defmodule Reverso.Web.TranslationController do
       "project_id" => project_id}) do
     translation = Projects.get_translation!(translation_id)
     with {:ok, %Translation{}} <- Projects.delete_translation(translation) do
-      send_resp(conn, :no_content, "")
+      send_resp(conn, 200, "")
     end
   end
 
