@@ -9,12 +9,14 @@ defmodule Reverso.Accounts.Invitation do
     with {:ok, %User{} = user} <- Accounts.fetch_by_email(email),
          {:ok, %User{} = user} <- update_user_invitation(user, user_params) do
       {:ok, user}
+    else
+      {:error, _} -> {:error, :invitation_not_valid}
     end
   end
 
   def create_user_invitation(attrs) do
     %User{}
-    |> User.new_invitation_changeset(attrs)
+    |> User.new_invitation_changeset(Map.put(attrs, "invitation_token", Ecto.UUID.generate()))
     |> Repo.insert()
   end
 
