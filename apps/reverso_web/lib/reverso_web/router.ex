@@ -46,9 +46,12 @@ defmodule Reverso.Web.Router do
     resources "/accounts", UserController, except: [:create, :change_password]
     post "/changepassword", UserController, :change_password
     get "/collaborators", CollaboratorController, :index
-    post "/collaborators", CollaboratorController, :create 
-    resources "/projects", ProjectController
-    get "/projects/:id/languages", LanguageController, :list
+    post "/collaborators", CollaboratorController, :create
+    get "/projects", ProjectController, :index
+    post "/projects", ProjectController, :create
+    patch "/projects/:id", ProjectController, :update
+    delete "/projects/:id", ProjectController, :delete
+    get "/projects/:project_id/:language_id", ProjectController, :show
     resources "/translations", TranslationController
     resources "/languages", LanguageController
     get "/projects/:project_id/languages/:language_id", TranslationController, :index

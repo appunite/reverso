@@ -46,6 +46,13 @@ defmodule Reverso.Projects do
   end
 
   def fetch_project_info(project_id,language_id) do
+    editor_query =
+      from(t in Translation,
+        join: u in User, on: t.user_id == u.id,
+        order_by: [desc: t.updated_at],
+        select: u.name
+      )
+
     languages_query =
       from(l in Language,
         left_join: t in Translation,
@@ -57,12 +64,13 @@ defmodule Reverso.Projects do
         select: %{l |
           strings_count: count(t.id),
           last_edit_time: max(t.updated_at)
-        }
+        },
+        preload: [last_editor_name: ^editor_query]
       )
 
     from(p in Project,
-      join: pl in assoc(p, :platforms),
-      on: pl.project_id == p.id,
+      join: c in ProjectCollaborator, on: c.project_id == p.id,
+      join: pl in assoc(p, :platforms), on: pl.project_id == p.id,
       where: p.id == ^project_id,
       preload: [languages: ^languages_query],
       preload: [platforms: pl]
