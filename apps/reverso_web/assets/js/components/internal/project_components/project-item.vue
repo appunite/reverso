@@ -1,7 +1,6 @@
 <template>  
   <div class="project-item">
   
-
     <div
     v-for="language in project.languages"
     :key="language.language_id"
@@ -26,7 +25,7 @@
 
         <span class="summary-col-3">
           <p v-if="language.last_edit_time">
-            {{ language.last_edit_time }} last edit by {{ language.editor_name }}
+            {{ language.last_edit_time }} last edit by {{ language.last_editor_name }}
           </p>          
         </span>
     
