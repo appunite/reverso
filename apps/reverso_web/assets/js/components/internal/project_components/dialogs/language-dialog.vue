@@ -27,9 +27,14 @@
       </div>
 
       <div class="input-wrapper no-border">
-        <label class="input-wrapper.label">Import</label>
-
-        <input type="file" @change="filesChange($event.target.files)">
+        <label class="input-wrapper.label">Import</label> 
+        <div class="upload-input">
+          <span class="upload-input__btn">
+            <img src="/images/ic-upload.svg"> upload file
+          </span>        
+          <input type="file" @change="filesChange($event.target.files)">
+          <span class="upload-tip">{{file_name}}</span>
+        </div>
       </div>
 
       <div class="input-wrapper no-border">
@@ -125,6 +130,14 @@ export default {
         this.new_language.language_name,
         this.new_language.language_file,
         this.new_language.platforms]);
+    },
+    
+    file_name(){
+      if (this.new_language.language_file){
+        return this.new_language.language_file.name;
+      }
+      
+      return "xliff files supported";
     }
   },
 
@@ -140,5 +153,3 @@ export default {
   
 }
 </script>
-
-

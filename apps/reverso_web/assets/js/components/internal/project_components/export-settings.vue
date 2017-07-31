@@ -1,10 +1,14 @@
 <template>
   <span @click.prevent.stop>
-    <el-button type="text" id="dialogVisable" 
-    @click="toggleVisability">
-      <img :src="dialogData.icon">
-    </el-button>
-    
+
+    <span @click="toggleVisability">
+      <slot>
+        <el-button type="text" id="dialogVisable">
+          <img :src="dialogData.icon">
+        </el-button>
+      </slot>    
+    </span>
+
     <exportDialog
     v-bind:dialogData="dialogParams"
     v-if="dialogData.visable"

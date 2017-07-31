@@ -17,17 +17,16 @@
         </span>
 
         <span class="summary-col-2">
-          <p v-if="isBasicLanguage(language.language_name)">reference</p>
-          <p v-else>{{ language.strings_count }}/{{reference_str_count}} strings translated</p>
+          <div v-if="isBasicLanguage(language.language_name)">reference</div>
+          <div v-else>{{ language.strings_count }}/{{reference_str_count}} strings translated</div>
 
           
         </span>
 
         <span class="summary-col-3">
-
-          <p v-if="language.last_edit_time">
+          <div v-if="language.last_edit_time">
             {{ language.last_edit_time }} last edit by {{ language.last_editor_name }}
-          </p>          
+          </div>          
         </span>
     
         <span class="summary-col-4">
