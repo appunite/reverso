@@ -13,6 +13,8 @@ defmodule Reverso.Projects.Translation do
     field :language_id, :integer
     field :user_id, :integer
     field :project_id, :integer
+
+    field :platform_name, :string, virtual: true
     timestamps()
   end
 

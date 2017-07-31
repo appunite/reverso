@@ -258,10 +258,13 @@ defmodule Reverso.Projects do
   end
 
   def get_translation_for_project(project_id, language_id) do
-    query = Ecto.Query.from u in Translation, 
-    where: u.project_id == ^project_id and u.language_id == ^language_id,
-    select: u
-    Repo.all(query)
+    from(t in Translation,
+      join: p in Platform,
+      on: p.id == t.platform_id,
+      where: t.project_id == ^project_id and t.language_id == ^language_id,
+      select: %{t | platform_name: p.platform_name}
+    )
+    |> Repo.all()
   end
 
   def get_language_with_edit_time(language_id,project_id) do
