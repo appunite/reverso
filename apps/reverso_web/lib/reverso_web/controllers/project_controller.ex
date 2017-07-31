@@ -52,7 +52,7 @@ defmodule Reverso.Web.ProjectController do
 
   def delete(conn, %{"id" => id}) do
     with {:ok, %Project{}} <- Projects.delete_project(id) do
-      send_resp(conn, :no_content, "")
+      send_resp(conn, 200, "")
     end
   end
 
