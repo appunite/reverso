@@ -3,6 +3,7 @@ defmodule Reverso.Web.ProjectView do
   alias Reverso.Web.ProjectView
   alias Reverso.Web.LanguageView
   alias Reverso.Web.PlatformView
+  alias Reverso.Web.CollaboratorView
 
   def render("index.json", %{projects: projects}) do 
     %{data: render_many(projects, ProjectView, "project_dashboard.json")}
@@ -22,10 +23,11 @@ defmodule Reverso.Web.ProjectView do
   end
 
   def render("project_dashboard.json", %{project: project}) do
-    data = %{id: project.id,
+    %{id: project.id,
       project_name: project.project_name,
       basic_language: project.basic_language,
       number_of_languages: project.number_of_languages,
+      collaborators: render_many(project.collaborators, CollaboratorView, "collaborator.json"),
       platforms: render_many(project.platforms,PlatformView,"platform.json"),
       languages: render_many(project.languages,LanguageView,"language_list.json")
     } 

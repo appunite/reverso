@@ -30,7 +30,7 @@ defmodule Reverso.Web.ProjectController do
   end
 
   def show(conn, %{"project_id" => project_id, "language_id" => language_id}) do
-    [project] = Projects.fetch_project_info(project_id,language_id)
+    project = Projects.fetch_project_info(project_id,language_id)
     render(conn, "show.json", project: project)
   end
 

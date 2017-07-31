@@ -7,9 +7,9 @@ defmodule Reverso.Web.CollaboratorView do
   end
 
   def render("collaborator.json", %{collaborator: collaborator}) do
-    %{user_id: collaborator.user_id,
-      user_name: collaborator.user_name,
-      user_email: collaborator.user_email}
+    %{user_id: collaborator.id,
+      user_name: collaborator.name,
+      user_email: collaborator.email}
   end
 
   def render("message.json", %{info: message}) do
