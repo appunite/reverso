@@ -47,22 +47,22 @@
 </template>
 
 <script>
-import translationService from "../../../services/translation-service.js"
+import projectService from "../../../services/project-service.js"
 
 export default {
   name: "sidebar",
 
   data () {
     return {
-      projectName: "KingsChat",
-      platformName: "Android",
-      refLang: "English",
+      projectName: "",
+      platformName: "",
+      refLang: "",
 
-      language: "French",
-      translatedStringsNumerator: 187,
-      translatedStringsDenominator: 320,
-      lastEdit: "07.27.2017",
-      lastExport: "Never",  
+      language: "",
+      translatedStringsNumerator: 1,
+      translatedStringsDenominator: 1,
+      lastEdit: "",
+      lastExport: "",  
 
       showSidebar: false
     }
@@ -83,16 +83,37 @@ export default {
   },
 
   mounted (){
-    translationService.fetchTranslation(this.project_id, this.language_id).then(
+    projectService.loadSidebarData(this.project_id, this.language_id).then(
       (response) => {
-        alert(response);
-        alert("ok");
+        this.assignSidebarData(response.data.data);
       },
       (error) => {
-        alert("error");        
+        alert("Error while loading sidebar data");        
       }
     );
-  } 
+  },
+
+  methods: {
+    assignSidebarData(translationData){
+      this.projectName = translationData.project_name;
+      this.platformName = "";
+      for(let i = 0; i < translationData.platforms.length; i++)
+      {
+        if(i != 0)
+          this.platformName += ", ";
+        this.platformName += translationData.platforms[i];
+      }
+      this.refLang = translationData.basic_language;
+
+      let currentLang = translationData.languages[0];
+
+      this.language = currentLang.language_name;
+      this.translatedStringsNumerator = currentLang.strings_count;
+      /* CHANGE IT */this.translatedStringsDenominator = currentLang.strings_count + 1;
+      this.lastEdit = (currentLang.last_edit_time) ? currentLang.last_edit_time : "Never";
+      /* CHANGE IT */this.lastExport = "Never"; 
+    } 
+  }
 }
   
 </script>
