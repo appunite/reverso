@@ -16,7 +16,7 @@ createTerm(project_id, language_id, term){
 
 updateTerm(project_id, language_id, term){
   let promise = Vue.http.patch(
-    `api/projects/${project.id}/languages/${language_id}/${term.id}`, term);
+    `api/projects/${project_id}/languages/${language_id}/${term.id}`, term);
 
   return promise;
 },

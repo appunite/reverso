@@ -1,5 +1,9 @@
 <template>
-  <el-button  class="delete-btn" @click="deleteWarning">Delete</el-button>  
+  <el-button  class="delete-btn" @click="deleteWarning">
+    <slot>
+      Delete
+    </slot>
+  </el-button>  
 </template>
 
 <script>
