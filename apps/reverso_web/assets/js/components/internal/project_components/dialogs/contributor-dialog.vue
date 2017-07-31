@@ -102,37 +102,10 @@ export default {
   },
 
   methods: {
-    onSubmitSuccess() {
-      if( this.invitations.inv_email != "") {
-        this.$http.post("/api/invitation/new", this.emailInvitationParams).then(
-          (response) => {
-
-            this.$message({
-              showClose: true,
-              message: 'Invitation email sent',
-              type: 'success'
-            });
-
-          },
-          (error) => {
-
-            this.$message({
-              showClose: true,
-              message: 'Invitation email error',
-              type: 'error'
-            });
-
-          }
-        );
-      }
-      this.close();
-      this.openSuccessMessage();
-    },
-
     onSubmit(){
       this.$http.post("/api/collaborators", this.newContributors ).then(
         (response) => {
-          this.onSubmitSuccess();
+          alert("ok");
         },
         (error) => {
           this.close();
