@@ -22,7 +22,7 @@ defmodule Reverso.Web.ProjectView do
   end
 
   def render("project_dashboard.json", %{project: project}) do
-    data = %{id: project.id,
+    %{id: project.id,
       project_name: project.project_name,
       basic_language: project.basic_language,
       number_of_languages: project.number_of_languages,

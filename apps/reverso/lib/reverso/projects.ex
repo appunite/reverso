@@ -79,7 +79,7 @@ defmodule Reverso.Projects do
       preload: [languages: ^languages_query],
       preload: [platforms: pl]
     )
-    |> Repo.all()
+    |> Repo.one()
   end
 
   def create_project(attrs, platforms) do
@@ -89,13 +89,14 @@ defmodule Reverso.Projects do
 
     create_platforms_by_list(platforms,project.id)
     associate_project_owner(project.owner_id, project.id)
+    platforms_after_changes = get_platform_by_project_id(project.id)
 
     {:ok, %{
       id: project.id,
       number_of_languages: 0,
       project_name: project.project_name,
       basic_language: project.basic_language,
-      platforms: platforms, languages: []}} 
+      platforms: platforms_after_changes, languages: []}} 
   end
   
   def associate_project_owner(user_id,project_id) do
@@ -138,8 +139,7 @@ defmodule Reverso.Projects do
       project_name: changed_project.project_name,
       basic_language: changed_project.basic_language,
       platforms: platforms_after_changes,
-      languages: []}}    
-    
+      languages: []}}
   end
 
   def create_platform(attrs) do
