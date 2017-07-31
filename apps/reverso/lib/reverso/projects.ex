@@ -33,13 +33,22 @@ defmodule Reverso.Projects do
         },
         preload: [last_editor_name: ^editor_query],
       )
+    
+    collaborator_query =
+      from(c in ProjectCollaborator,
+        join: p in Project,
+        on: c.project_id == p.id,
+        join: u in User,
+        on: c.user_id == u.id,
+        select: u
+      )
 
     result = from(p in Project,
       join: c in ProjectCollaborator,
       join: pl in assoc(p, :platforms),
       on: c.project_id == p.id and c.user_id == ^user_id,
       where: pl.project_id == p.id,
-      preload: [languages: ^languages_query],
+      preload: [languages: ^languages_query,collaborators: ^collaborator_query],
       preload: [platforms: pl]
     )
     |> Repo.all()
