@@ -10,6 +10,12 @@
         flex-basis: 25%;
       }
 
+      &2, &3, &4 {
+        text-transform: uppercase;
+        font-size: smaller;
+        color: $placeholder-dark-gray;
+      }
+
       &4 {
         display: flex;
         width: 100%;
@@ -40,6 +46,10 @@
       justify-content: flex-start;
 
       @include project-list-row
+
+      .summary-col-1 {
+        font-size: medium;
+      }
     } 
 
     .el-collapse-item {
@@ -63,6 +73,11 @@
     padding: 0px 20px;
     border: 3px solid $main-bg-color;
 
+    a {
+      color: black;
+
+    }
+
     &:hover{
       background: $hover-color;
        a {
@@ -73,6 +88,11 @@
 
   @include project-list-row
 
+  .summary-col-1 {
+    text-transform: uppercase;
+    color: $icon-blue;
+    font-size: small;
+  }
 
   .add-language {
     background: $add-lang-bg-color;
