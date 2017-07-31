@@ -34,7 +34,7 @@ defmodule Reverso.Projects do
         preload: [last_editor_name: ^editor_query],
       )
 
-    from(p in Project,
+    result = from(p in Project,
       join: c in ProjectCollaborator,
       join: pl in assoc(p, :platforms),
       on: c.project_id == p.id and c.user_id == ^user_id,
@@ -43,6 +43,10 @@ defmodule Reverso.Projects do
       preload: [platforms: pl]
     )
     |> Repo.all()
+
+    Enum.map(result, fn f -> 
+      %{f | number_of_languages: length(f.languages)}      
+      end)      
   end
 
   def fetch_project_info(project_id,language_id) do
@@ -88,6 +92,7 @@ defmodule Reverso.Projects do
 
     {:ok, %{
       id: project.id,
+      number_of_languages: 0,
       project_name: project.project_name,
       basic_language: project.basic_language,
       platforms: platforms, languages: []}} 
@@ -128,7 +133,6 @@ defmodule Reverso.Projects do
     create_platforms_by_list(platforms_added,project.id)
     delete_platforms_by_list(platforms_deleted,project.id)
     platforms_after_changes = get_platform_by_project_id(project.id)
-
     {:ok, %{
       id: project.id,
       project_name: changed_project.project_name,
