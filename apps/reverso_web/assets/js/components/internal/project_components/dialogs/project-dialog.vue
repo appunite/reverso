@@ -137,7 +137,9 @@
 
     created(){
       this.tempProject = _.cloneDeep(this.dialogParams.project); 
-
+      console.log(this.tempProject.platforms);
+      this.tempProject.platforms = 
+        projectService.platformsMapToArray(this.tempProject.platforms);
     },
 
     mounted(){
