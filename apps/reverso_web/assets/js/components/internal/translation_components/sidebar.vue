@@ -131,25 +131,28 @@ export default {
   methods: {
     assignSidebarData(translationData){
       this.projectName = translationData.project_name;
-
-      this.platformName = "";
-      for(let i = 0; i < translationData.platforms.length; i++)
-      {
-        if(i != 0)
-          this.platformName += ", ";
-        this.platformName += translationData.platforms[i];
-      }
-
+      this.assignPlatforms(translationData);
       this.refLang = translationData.basic_language;
+      this.assignTranslationVersionInfo(translationData);
+    }, 
 
+    assignPlatforms(translationData){
+      var platforms = "";
+      platforms = projectService.platformsMapToArray(translationData.platforms).join(", ");
+      this.platformName = platforms;
+    },
+
+    assignTranslationVersionInfo(translationData){
       let currentLang = translationData.languages[0];
+
       this.language = currentLang.language_name;
       this.translatedStringsNumerator = currentLang.strings_count;
       /* CHANGE IT */this.translatedStringsDenominator = currentLang.strings_count + 1;
       this.lastEdit = (currentLang.last_edit_time) ? currentLang.last_edit_time : "Never";
       /* CHANGE IT */this.lastExport = "Never"; 
-    } 
+    }    
   }
+
 }
   
 </script>
