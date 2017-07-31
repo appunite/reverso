@@ -3,6 +3,10 @@ export default {
       return JSON.parse(resp.bodyText).data;
     },
 
+    platformsMapToArray(platformMap){
+      return Object.values(_.mapValues(platformMap, "platform_name"));
+    },
+
     fetchProjects(){
       let promise = Vue.http.get("/api/projects", {});
 
