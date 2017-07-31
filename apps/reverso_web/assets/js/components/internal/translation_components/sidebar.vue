@@ -137,7 +137,7 @@ export default {
       {
         if(i != 0)
           this.platformName += ", ";
-        this.platformName += translationData.platforms[i];
+        this.platformName += translationData.platforms[i].platform_name;
       }
 
       this.refLang = translationData.basic_language;
