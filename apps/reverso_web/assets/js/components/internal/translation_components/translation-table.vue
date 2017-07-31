@@ -1,5 +1,6 @@
 <template>  
 
+
 <div class="translation-table">
   <div class="top-table-panel">
     <el-button type="text" class="add_sth_btn" @click="addTerm">
@@ -65,6 +66,7 @@ export default {
       }
 
       this.translations.push(newTerm);
+
     }    
   },
 

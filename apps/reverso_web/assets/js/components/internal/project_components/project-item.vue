@@ -1,6 +1,6 @@
 <template>  
   <div class="project-item">
-  
+
     <div
     v-for="language in project.languages"
     :key="language.language_id"
