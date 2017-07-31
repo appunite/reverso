@@ -47,14 +47,14 @@ defmodule Reverso.Web.Router do
     post "/changepassword", UserController, :change_password
     get "/collaborators", CollaboratorController, :index
     post "/collaborators", CollaboratorController, :create
-    get "/projects", ProjectController, :index
-    post "/projects", ProjectController, :create
-    patch "/projects/:id", ProjectController, :update
-    delete "/projects/:id", ProjectController, :delete
-    get "/projects/:project_id/:language_id", ProjectController, :show
-    resources "/translations", TranslationController
     resources "/languages", LanguageController
-    get "/projects/:project_id/languages/:language_id", TranslationController, :index
+    resources "/projects", ProjectController, only: [:index, :create, :update, :delete]
+    get "/projects/:project_id/:language_id", ProjectController, :show
+    get "/projects/:project_id/languages/:language_id/", TranslationController, :index
+    post "/projects/:project_id/languages/:language_id", TranslationController, :create
+    patch "/projects/:project_id/languages/:language_id/translation_id", TranslationController, :update
+    delete "/projects/:project_id/languages/:language_id/:translation_id", TranslationController, :delete
+
   end
 
   if Mix.env == :dev do
