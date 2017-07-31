@@ -64,8 +64,10 @@ export default {
       let index = _.findIndex(this.projects, (project) => {
         return project.id == edited_project.id;
       });
-            
-      Vue.set(this.projects, index, edited_project);
+
+      this.projects[index].project_name = edited_project.project_name;  
+      this.projects[index].basic_language = edited_project.basic_language;  
+      this.projects[index].platforms = edited_project.platforms;
     });
 
     this.$bus.$on('project_deleted', (deleted_project) => {

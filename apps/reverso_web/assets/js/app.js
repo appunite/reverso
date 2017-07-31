@@ -17,6 +17,7 @@ import VueResource from 'vue-resource'
 import router from './routes'
 
 import ElementUI from 'element-ui'
+import VueChatScroll from 'vue-chat-scroll'
 
 import Main from './main'
 
@@ -26,6 +27,7 @@ const bus = new Vue();
 
 Vue.use(VueResource);
 Vue.use(ElementUI);
+Vue.use(VueChatScroll);
 
 Object.defineProperty(Vue.prototype, '$bus', {
   get() {
