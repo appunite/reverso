@@ -20,7 +20,10 @@
     <table v-chat-scroll="{always: false}">
       <tr v-for="term in translations"
       :key="term.id">
-        <translationTerm v-bind:term="term"></translationTerm>     
+        <translationTerm
+        v-bind:term="term"
+        v-on:term_deleted="tableRemoveTerm($event)"
+        ></translationTerm>     
       </tr>
   </table>
   </div>
@@ -66,7 +69,14 @@ export default {
       }
 
       this.translations.push(newTerm);
+    },
+    
+    tableRemoveTerm(deleted_term){
+      let index = _.findIndex(this.translations, (term) => {
+        return term.id == deleted_term.id;
+      });
 
+      this.translations.splice(index, 1);
     }    
   },
 

@@ -32,7 +32,9 @@
           <span class="upload-input__btn">
             <img src="/images/ic-upload.svg"> upload file
           </span>        
-          <input type="file" @change="filesChange($event.target.files)">
+          <input type="file"
+          accept=".xliff"
+          @change="filesChange($event.target.files)">
           <span class="upload-tip">{{file_name}}</span>
         </div>
       </div>

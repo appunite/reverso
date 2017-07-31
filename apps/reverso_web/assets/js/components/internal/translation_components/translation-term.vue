@@ -69,7 +69,7 @@
   methods: {
     updateTerm(term){
       if(term.id){
-        translationService.createTerm(this.project_id, this.language_id, term).then(
+        translationService.updateTerm(this.project_id, this.language_id, term).then(
           (response) => {
 
           },
@@ -80,9 +80,9 @@
           );
       }
       else {
-        translationService.updateTerm(this.project_id, this.language_id, term).then(
+        translationService.createTerm(this.project_id, this.language_id, term).then(
           (response) => {
-
+            
           },
 
           (error) => {
@@ -95,7 +95,8 @@
     deleteTerm(term){
       translationService.deleteTerm(this.project_id, this.language_id, term.id).then(
         (response) => {
-
+          console.log(response);
+          this.$emit('term_deleted', term);
         },
 
         (error) => {
