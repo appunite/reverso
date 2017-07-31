@@ -45,7 +45,7 @@ defmodule Reverso.Web.CollaboratorController do
   end
 
   def generate_invitation_url(%User{} = user) do
-    Application.get_env(:reverso_web, :invitation_url) <> "?invitation-token=" <> user.invitation_token
+    Application.get_env(:reverso_web, :invitation_url) <> "?invitation_token=" <> user.invitation_token
   end
 
   def show(conn, %{"invitation_token" => invitation_token}) do
