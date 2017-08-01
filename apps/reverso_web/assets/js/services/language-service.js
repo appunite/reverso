@@ -7,7 +7,6 @@ export default {
   },
 
   uploadLanguageToProject(formData){
-    console.log(formData);
     var data = new FormData();
 
     data.append("project_id", formData.project_id);

@@ -46,7 +46,7 @@
 
     </div>
     
-    <newLanguage v-bind:project_id="project.id"></newLanguage>
+    <newLanguage v-bind:project="project"></newLanguage>
     
   </div>
 </template>
@@ -89,7 +89,6 @@ export default {
     convertedTime(last_edit){
       return moment(last_edit).format("MMM D, YYYY");
     }
-
   }
 }
 

@@ -43,10 +43,12 @@
         <label>Select Platforms</label><br>
         <el-checkbox-group v-model="new_language.platforms" fill="#ffffff">
           <el-checkbox-button v-for="platform in platforms"
+          v-if="includesPlatform(projectPlatforms, platform.name)"
           :label="platform.name"
           :name="platform.name"
           class="platform-checkbox">
-            <img :src="platform.img_sel" v-if="includesPlatform(platform.name)">
+            <img :src="platform.img_sel"
+            v-if="includesPlatform(new_language.platforms, platform.name)">
             <img :src="platform.img_unsel" v-else>
           </el-checkbox-button>
         </el-checkbox-group>  
@@ -66,6 +68,7 @@
 </template>
 
 <script>
+import projectService from '../../../../services/project-service.js'
 import languageService from '../../../../services/language-service.js'
 import formService from '../../../../services/form-service.js'
 
@@ -78,6 +81,8 @@ export default {
 
   data () {
     return {
+      projectPlatforms: [],
+
       new_language: {
         language_name: "",
         language_file: null,
@@ -117,8 +122,8 @@ export default {
       this.new_language['language_file'] = file;
     },
 
-    includesPlatform(platform_name){
-      return formService.includesPlatform(this.new_language.platforms, platform_name);
+    includesPlatform(platformArray, platform_name){
+      return formService.includesPlatform(platformArray, platform_name);
     },
 
     close(){
@@ -150,8 +155,10 @@ export default {
       },
       (error) => {
         console.log(error);
-      });
-  }
-  
+    });
+
+    this.projectPlatforms = 
+        projectService.platformsMapToArray(this.dialogData.project.platforms);
+  }  
 }
 </script>

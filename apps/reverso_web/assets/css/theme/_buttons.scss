@@ -48,8 +48,10 @@
 
   text-transform: uppercase;
   font-size: smaller;
-  color: $error-color;
   border: none;
+  
+  color: $error-color;
+  background-color: transparent;
 }
 
 .danger-btn {

@@ -95,7 +95,6 @@ export default {
   mounted() {
     translationService.fetchTranslation(this.project_id, this.language_id).then(
       (response) => {
-        console.log(response.data.data);
         this.translations = response.data.data;
       },
 
