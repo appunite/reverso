@@ -5,8 +5,12 @@
   </span>
 
   <span class="summary-col-2">
-    languages
-    strings
+    <span>
+      <strong>{{ project.number_of_languages }}</strong> languages
+    </span>
+    <span>
+      strings
+    </span>
   </span>
 
   <span class="summary-col-3">
