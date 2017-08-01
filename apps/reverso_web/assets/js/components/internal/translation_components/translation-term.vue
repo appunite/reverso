@@ -11,9 +11,10 @@
       v-model="term.basic"
       @blur="updateTerm(term)">
       </el-input>
-
+      <span class="delete-img-wrapper">
       <img src="/images/ic-delete.svg"
       v-show="showBin" @click="deleteTerm(term)">
+      </span>
     </span>
   </th>
 

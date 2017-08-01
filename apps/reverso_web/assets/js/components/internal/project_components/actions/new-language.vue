@@ -51,7 +51,7 @@ export default {
     upload(new_language){
       new_language['project_id'] = this.project_id;
 
-      languageService.uploadLanguage(new_language).then(
+      languageService.uploadLanguageToProject(new_language).then(
       (response) => {
         //emit event
       },
