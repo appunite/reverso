@@ -22,9 +22,7 @@
         <div class="signUpBox__footer">
           <button type="submit" class="primary-btn">Sign Up</button>
           <p>By creating an account, you agree to the <a href="#">terms</a></p>
-        </div>
-
-        {{email}} / {{invitation_token}} / {{project_id}} / {{isInvited}}  
+        </div>  
       </form>
   </div>
 </template>
@@ -66,6 +64,7 @@ export default {
         }
       }
     },
+
     activateInviationParams() {
       return {
         user: {

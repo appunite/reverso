@@ -1,8 +1,10 @@
 <template> 
   <span class="contributorsInitials">
-    <button class="contributorsInitials__button">
-        <div v-for="initials in allContributorsInitials" class="contributorsInitials__circle">{{initials}}</div>
-    </button>
+    <a class="contributorsInitials__button">
+        <div v-for="initials in allContributorsInitials" class="contributorsInitials__circle">
+          {{initials}}
+        </div>
+    </a>
   </span>
 </template>
 
@@ -65,13 +67,18 @@
   $purple: #5861E6;
 
   .contributorsInitials {
-    &__button {
-      width: 100px;
-      margin: 10px 0;
 
-      padding: 0;
-      border: none;
-      background: transparent;
+    &__button {
+      &, &:link, &:visited, &:hover, &:active {  
+        width: 100px;
+        margin: 10px 10px;
+        padding: 0;
+        border: none;
+        background: transparent;
+        display: flex;
+        justify-content: flex-end;
+        text-decoration: none;
+      }
     }
 
     &__circle {
@@ -87,31 +94,10 @@
 
       background: #ffffff;
       border: 1px solid $purple;
-
-      float: left;
-
       position: relative;
-      left: 0px;
-    }
 
-    &__circle:nth-child(1) {
-      left: 0;
+      margin-left: -6px;
+      text-align: center;
     }
-
-    &__circle:nth-child(2) {
-      left: -6px;
-    }
-
-    &__circle:nth-child(3) {
-      left: -12px;
-    }
-
-    &__circle:nth-child(4) {
-      left: -18px;
-    }
-
-    &__circle:nth-child(5) {
-      left: -24px;
-    }        
   }
 </style>
