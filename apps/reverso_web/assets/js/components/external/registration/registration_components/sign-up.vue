@@ -71,24 +71,24 @@ export default {
   mounted() {
     //alert(this.token.invitation_token);
 
-    if(this.token.invitation_token)
-    {
-      this.activateInvitedUser = true;
+    // if(this.token.invitation_token)
+    // {
+    //   this.activateInvitedUser = true;
 
-      this.$http.post("/api/invitation/get", this.token).then(
-        (response) => {
-          console.log(response);
-          alert("ok");
-        },
-        (error) => {
-          alert("error");
-        }
-      );
-    }
-    else
-    {
-      alert("no token");
-    }
+    //   this.$http.post("/api/invitation/get", this.token).then(
+    //     (response) => {
+    //       console.log(response);
+    //       alert("ok");
+    //     },
+    //     (error) => {
+    //       alert("error");
+    //     }
+    //   );
+    // }
+    // else
+    // {
+    //   alert("no token");
+    // }
   },
 
   methods: {
@@ -100,7 +100,11 @@ export default {
           this.hasSuccess = true;
         },
         (error) => {
-          this.message = error.body.bodyText;
+          if(error.body.error) {
+            this.message = error.body.error;
+          } else {
+            this.message = error.body.bodyText;
+          }
           this.hasSuccess = false;
           this.hasError = true;
         }

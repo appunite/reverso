@@ -18,6 +18,9 @@
   </span>
 
   <span class="summary-col-4">
+    <span class="summary-col-4__contributors">
+      <contributorsInitials v-bind:contributors="project.collaborators"></contributorsInitials>
+    </span>
     <span class="summary-col-4__icons">
       <newContributor v-bind:projectId="project.id"></newContributor>
       <exportSettings
@@ -32,6 +35,7 @@
 </template>
 
 <script>
+  import contributorsInitials from './contributors-initials.vue'
   import newContributor from './actions/new-contributor.vue'
   import exportSettings from './export-settings.vue'
   import editProject from './actions/edit-project.vue'
@@ -44,6 +48,7 @@
     ],
 
     components: {
+      'contributorsInitials': contributorsInitials,      
       'newContributor': newContributor,
       'exportSettings': exportSettings,
       'editProject': editProject
