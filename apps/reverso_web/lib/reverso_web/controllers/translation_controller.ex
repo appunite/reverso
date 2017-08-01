@@ -23,7 +23,8 @@ defmodule Reverso.Web.TranslationController do
     "translation" => translation,
     "description" => description}) do
       
-    translation_params = %{project_id: project_id,
+    translation_params = %{
+      project_id: project_id,
       language_id: language_id,
       basic: basic,
       translation: translation,
