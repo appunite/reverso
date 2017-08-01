@@ -8,7 +8,7 @@ defmodule Reverso.Projects.Translation do
     field :basic, :string
     field :platform_key, :string
     field :translation, :string
-
+    field :description, :string
     field :platform_id, :integer
     field :language_id, :integer
     field :user_id, :integer
