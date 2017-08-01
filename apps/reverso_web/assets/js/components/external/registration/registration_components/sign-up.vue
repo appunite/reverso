@@ -7,7 +7,7 @@
         </div>
         <div class="input-wrapper">
           <label for="email">Email Address</label>
-          <input type="email" v-model="email" id="email" placeholder="Email" :readonly="activateInvitedUser" required>
+          <input type="email" v-model="email" id="email" placeholder="Email" :readonly="isInvited" required>
         </div>
         <div class="input-wrapper">
           <label for="password">Password</label>
@@ -23,6 +23,8 @@
           <button type="submit" class="primary-btn">Sign Up</button>
           <p>By creating an account, you agree to the <a href="#">terms</a></p>
         </div>
+
+        {{email}} / {{invitation_token}} / {{project_id}} / {{isInvited}}  
       </form>
   </div>
 </template>
@@ -42,16 +44,19 @@ export default {
       message: '',
 
       name: '',
-      email: '',
+      email: this.$route.query.email || "",
       password: '',
       passwordConfirm: '',
 
-      activateInvitedUser: false
+      isInvited: false,
+
+      invitation_token: this.$route.query.invitation_token || "",
+      project_id: this.$route.query.project_id || ""
     } 
   }, 
 
   computed: {
-    params() {
+    newUserParams() {
       return {
         user: {
           email: this.email,
@@ -61,39 +66,38 @@ export default {
         }
       }
     },
-    token() {
+    activateInviationParams() {
       return {
-        invitation_token: this.$route.query.invitation_token
+        user: {
+          email: this.email,
+          name: this.name,
+          password: this.password,
+          password_confirmation: this.passwordConfirm
+        },
+        invitation_token: this.invitation_token,
+        project_id: this.project_id     
       }
     }
   },
 
   mounted() {
-    //alert(this.token.invitation_token);
-
-    // if(this.token.invitation_token)
-    // {
-    //   this.activateInvitedUser = true;
-
-    //   this.$http.post("/api/invitation/get", this.token).then(
-    //     (response) => {
-    //       console.log(response);
-    //       alert("ok");
-    //     },
-    //     (error) => {
-    //       alert("error");
-    //     }
-    //   );
-    // }
-    // else
-    // {
-    //   alert("no token");
-    // }
+    this.checkInvitation();
   },
 
   methods: {
     register() {
-      profileService.registerUser(this.params).then(
+      if(this.isInvited)
+      {
+        this.registerInvited();
+      }
+      else
+      {
+        this.registerNew();
+      }
+    },
+
+    registerNew() {
+      profileService.registerUser(this.newUserParams).then(
         (response) => {
           this.$router.push("/new-user-box");
           this.hasError = false;
@@ -109,8 +113,56 @@ export default {
           this.hasError = true;
         }
       );
+    },
+
+    registerInvited() {
+      profileService.activateInvitedUser(this.activateInviationParams).then(
+        (response) => {
+          this.$router.push("/new-user-box");
+          this.hasError = false;
+          this.hasSuccess = true;
+        },
+        (error) => {
+          if(error.body.error) {
+            this.message = error.body.error;
+          } else {
+            this.message = error.body.bodyText;
+          }
+          this.hasSuccess = false;
+          this.hasError = true;
+        }
+      );
+    },
+
+    checkInvitation() {
+      if(typeof this.invitation_token !== 'undefinied' && this.invitation_token != '')
+      {
+        this.isInvited = true;
+      }
+      else
+      {
+        this.isInvited = false;
+      }      
+
+      if(this.isInvited && (typeof this.email !== 'undefinied' && this.email != ''))
+      {
+        ;      
+      }
+      else
+      {
+        this.isInvited = false;
+      }
+
+      if(this.isInvited && (typeof this.project_id !== 'undefinied' && this.project_id != ''))
+      {
+        ;
+      }
+      else
+      { 
+        this.isInvited = false;
+      }    
     }
-  }
+  }  
 }
 </script>
 
