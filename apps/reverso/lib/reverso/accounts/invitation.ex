@@ -11,7 +11,7 @@ defmodule Reverso.Accounts.Invitation do
       "project_id" => project_id}) do
     with {:ok, %User{} = user} <- Accounts.fetch_by_invitation_token(invitation_token),
          {:ok, %User{} = user} <- update_user_invitation(user, user_params),
-         {_num,nil} <- Reverso.Projects.associate_with_project([user.id], project_id) do
+         {_num,nil} <- Reverso.Projects.associate_with_project([user.id], String.to_integer(project_id)) do
       {:ok, user}
     else
       {:error, _} -> {:error, :invitation_not_valid}
