@@ -53,16 +53,21 @@ defmodule Reverso.Projects do
     )
     |> Repo.all()
 
-    Enum.map(result, fn f ->
-      sum = Enum.map(f.languages, fn l ->
-        temp =+ l.strings_count
-      end)
-      
-      %{f |
-        number_of_languages: length(f.languages),
-        sum_of_strings: Enum.sum(sum)
+    Enum.map(result, fn project ->
+      sum = Enum.map(project.languages, fn l ->
+        l.strings_count
+      end)    
+
+      reference_language = Enum.find(project.languages, fn(language) -> 
+        language.language_name == project.basic_language        
+      end)   
+
+      %{project |
+        number_of_languages: length(project.languages),
+        sum_of_strings: Enum.sum(sum),
+        reference_language: reference_language
       }
-    end)    
+    end)
   end
 
   def fetch_project_info(project_id,language_id) do

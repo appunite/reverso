@@ -52,7 +52,7 @@ defmodule Reverso.Web.Router do
     get "/projects/:project_id/:language_id", ProjectController, :show
     get "/projects/:project_id/languages/:language_id/", TranslationController, :index
     post "/projects/:project_id/languages/:language_id", TranslationController, :create
-    patch "/projects/:project_id/languages/:language_id/translation_id", TranslationController, :update
+    patch "/projects/:project_id/languages/:language_id/:translation_id", TranslationController, :update
     delete "/projects/:project_id/languages/:language_id/:translation_id", TranslationController, :delete
 
   end
