@@ -23,9 +23,9 @@ export default {
     return promise;
   },
 
-  deleteLanguageFromProject(project_id, language_id){
+  deleteLanguageFromProject(language_id){
     let promise =
-      Vue.http.delete(`/api/projects/${project_id}/languages/${language_id}`, data);
+      Vue.http.delete(`/api/languages/${language_id}`, {});
   
     return promise;
   }
