@@ -8,7 +8,7 @@
     </el-button>
 
     <languageDialog
-    v-bind:dialogData="dialogData"
+    v-bind:dialogData="dialogParams"
     v-if="dialogData.visable"
     v-on:upload="upload($event)"
     @close="toggleVisability">
@@ -25,7 +25,7 @@ export default {
   name: "newLanguage",
 
   props: [
-    'project_id'
+    'project'
   ],
 
   components: {
@@ -38,8 +38,17 @@ export default {
       dialogData: {
         visable: false,
         header: "new language",
-        icon: "/images/ic-add.svg"
+        icon: "/images/ic-add.svg",
+
+        project: {}
       }
+    }
+  },
+
+  computed: {
+    dialogParams() {
+      this.dialogData["project"] = this.project;
+      return this.dialogData; 
     }
   },
 
@@ -49,10 +58,11 @@ export default {
     },
 
     upload(new_language){
-      new_language['project_id'] = this.project_id;
+      new_language['project_id'] = this.project.project_id;
 
       languageService.uploadLanguageToProject(new_language).then(
       (response) => {
+        console.log(response.data);
         //emit event
       },
 
