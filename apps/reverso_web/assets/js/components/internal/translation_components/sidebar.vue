@@ -37,9 +37,9 @@
       <div class="translationSideBar__filesSupported">csv, xls, xliff, xml files supported</div>
       <hr class="translationSideBar__line">
       
-      <deleteProject>
+      <deleteLanguage>
         <b>Delete Language Version</b>
-      </deleteProject>
+      </deleteLanguage>
 
       <div class="translationSideBar__buttonsWrapper">
         <exportSettings        
@@ -77,14 +77,14 @@
 <script>
 import projectService from "../../../services/project-service.js"
 import exportSettings from "../project_components/export-settings"
-import deleteProject from "../project_components/actions/delete-project"
+import deleteLanguage from "../project_components/actions/delete-language"
 
 export default {
   name: "sidebar",
 
   components: {
     'exportSettings': exportSettings,
-    'deleteProject': deleteProject
+    'deleteLanguage': deleteLanguage
   },
 
   data () {

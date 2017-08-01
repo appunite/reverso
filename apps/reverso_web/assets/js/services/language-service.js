@@ -6,7 +6,7 @@ export default {
     return promise;
   },
 
-  uploadLanguage(formData){
+  uploadLanguageToProject(formData){
     console.log(formData);
     var data = new FormData();
 
@@ -22,4 +22,11 @@ export default {
   
     return promise;
   },
+
+  deleteLanguageFromProject(project_id, language_id){
+    let promise =
+      Vue.http.delete(`/api/projects/${project_id}/languages/${language_id}`, data);
+  
+    return promise;
+  }
 }

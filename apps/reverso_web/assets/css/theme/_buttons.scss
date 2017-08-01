@@ -52,6 +52,14 @@
   border: none;
 }
 
+.danger-btn {
+  @include btn;
+  @include bgChange($error-color);
+
+  color: white;
+  background-color: $error-color;
+}
+
 .add_sth_btn {
   @include textChange($icon-blue);
   

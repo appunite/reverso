@@ -1,0 +1,20 @@
+.delete-dialog {
+
+  .el-dialog .el-dialog--tiny {
+    width: 420px;
+  }
+
+  .el-dialog__body {
+    text-align: center;
+    text-transform: none;
+
+    h3 {
+      font-weight: normal;
+    }
+
+    div {
+      margin: 30px 0px 20px;
+    }  
+  }
+
+}

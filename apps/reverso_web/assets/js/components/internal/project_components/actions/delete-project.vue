@@ -1,14 +1,25 @@
 <template>
-  <el-button  class="delete-btn" @click="deleteWarning">
-    <slot>
-      Delete
-    </slot>
-  </el-button>  
+  <span>
+    <el-button  class="delete-btn" @click="toggleVisability">
+      <slot>
+        Delete
+      </slot>
+    </el-button>
+ 
+    <deleteDialog 
+      v-bind:dialogData="dialogData"
+      v-if="dialogData.visable" 
+      v-on:confirm="deleteProject"
+      @close="toggleVisability">
+        
+    </deleteDialog>
+  </span>
 </template>
 
 <script>
 import projectService from '../../../../services/project-service.js'
-  
+import deleteDialog from '../dialogs/delete-dialog.vue'
+
 export default{
   name: "deleteProject",
 
@@ -16,41 +27,41 @@ export default{
     'project'
   ],
 
-  methods: {
-    deleteWarning() {
-      this.$confirm('This will permanently delete the project. Continue?', 'Warning', {
-        confirmButtonText: 'OK',
-        confirmButtonClass: 'primary-btn',
-        cancelButtonText: 'Cancel',
-        cancelButtonClass: 'cancel-btn',
-        showClose: false
-      }).then(() => {
-        this.deleteProject();
-        this.$message({
-          type: 'success',
-          message: 'Delete completed'
-        });
-      }).catch(() => {
-        this.$message({
-          type: 'info',
-          message: 'Delete canceled'
-        });          
-     });
-    },
+  components: {
+    'deleteDialog': deleteDialog
+  },
 
+  data () {
+    return {
+      dialogData: {
+        visable: false,
+        deletionObject: "project"
+      }
+    }
+  },
+
+  methods: {
     deleteProject(){
       projectService.deleteProject(this.project).then(
         (response) => {
           this.$bus.$emit('project_deleted', this.project);
+
+          this.$message({
+            message: 'Delete completed.',
+            type: 'success'
+          });
         },
 
         (error) =>{
           console.log(error);
         }
       )
-      this.$emit('close');
+      //this.$emit('close');
+    },
+
+    toggleVisability(){
+      this.dialogData.visable = !this.dialogData.visable;
     }
   }
-
 }
 </script>
