@@ -105,16 +105,22 @@
     },
 
     deleteTerm(term){
-      translationService.deleteTerm(this.project_id, this.language_id, term.id).then(
-        (response) => {
-          console.log(response);
-          this.$emit('term_deleted', term);
-        },
+      if(term.id){
+        translationService.deleteTerm(this.project_id, this.language_id, term.id).then(
+          (response) => {
+            console.log(response);
+            this.$emit('term_deleted', term);
+          },
 
-        (error) => {
-          console.log(error);
-        }
-      );
+          (error) => {
+            console.log(error);
+          }
+        );
+      }
+
+      else {
+        this.$emit('row_deleted', term);
+      }
     }
   }
 }

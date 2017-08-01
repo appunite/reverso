@@ -23,6 +23,7 @@
         <translationTerm
         v-bind:term="term"
         v-on:term_deleted="tableRemoveTerm($event)"
+        v-on:row_deleted="tableRemoveRow($event)"
         ></translationTerm>     
       </tr>
   </table>
@@ -75,6 +76,17 @@ export default {
       let index = _.findIndex(this.translations, (term) => {
         return term.id == deleted_term.id;
       });
+      
+      this.translations.splice(index, 1);
+    },
+
+    tableRemoveRow(deleted_term){
+      let index = _.findIndex(this.translations, (term) => {
+          return 
+            term.basic == deleted_term.basic &&
+            term.translation == deleted_term.translation &&
+            term.description == deleted_term.description;
+        });
 
       this.translations.splice(index, 1);
     }    
