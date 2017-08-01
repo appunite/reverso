@@ -4,8 +4,8 @@ defmodule Reverso.Email do
 
   alias Reverso.Accounts.User
 
-  def send_invitation_email(%User{} = user) do
-    with %Bamboo.Email{} = email <- invitation_email(user),
+  def send_invitation_email(%User{} = user, project_id) do
+    with %Bamboo.Email{} = email <- invitation_email(user, project_id),
          %Bamboo.Email{} = _email <- Reverso.Mailer.deliver_later(email) do
       {:ok, user}
     else
@@ -51,13 +51,13 @@ defmodule Reverso.Email do
     |> render("password_reset_email.html")
   end
 
-  defp invitation_email(%User{} = user) do
+  defp invitation_email(%User{} = user, project_id) do
     new_email()
     |> to(user.email)
     |> from("noreply@reverso.co")
     |> put_html_layout({Reverso.Web.LayoutView, "email.html"})
     |> subject("REVERSO.co - User Invitation")
-    |> assign(:invitation_adress, Reverso.Web.CollaboratorController.generate_invitation_url(user))
+    |> assign(:invitation_adress, Reverso.Accounts.Invitation.generate_invitation_url(user, project_id))
     |> render("invitation_email.html")
   end
 end
