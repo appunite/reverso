@@ -58,7 +58,7 @@ export default {
     },
 
     upload(new_language){
-      new_language['project_id'] = this.project.project_id;
+      new_language['project_id'] = this.project.id;
 
       languageService.uploadLanguageToProject(new_language).then(
       (response) => {
@@ -69,7 +69,7 @@ export default {
       (error) => {
         console.log(error);
       });
-    }
-  }  
+    },
+  }
 }
 </script>
