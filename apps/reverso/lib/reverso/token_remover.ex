@@ -1,11 +1,11 @@
 defmodule Reverso.TokenRemover do
   use GenServer
 
-
+  @name __MODULE__
   # server callbacks
 
   def start_link do
-    GenServer.start_link(__MODULE__, [])
+    GenServer.start_link(__MODULE__, [], name: @name)
   end
 
   def init(list) do
@@ -18,25 +18,27 @@ defmodule Reverso.TokenRemover do
 
   def handle_cast({:add_token, token}, list) do
     schedule_work()
-    {:noreply, list ++ [token]}
+    {:noreply, [token | list]}
   end
 
   def handle_info(:delete_token, list) do
-    IO.puts("Removing token: " <> List.first(list))
-    {:noreply, List.delete_at(list, 0)}
+    token = List.last(list)
+    Reverso.Accounts.Password.delete_password_token(token)
+    IO.puts("Removing token: " <> token)
+    {:noreply, List.delete(list, token)}
   end
 
   defp schedule_work() do
-    Process.send_after(self(), :delete_token, 1 * 1 * 25 * 1000) #for testing only 25s
+    Process.send_after(self(), :delete_token, 1 * 60 * 60 * 1000)
   end
 
   # client API
 
-  def read_token_list(pid) do
-    GenServer.call(pid, {:read})
+  def read_token_list() do
+    GenServer.call(@name, {:read})
   end
 
-  def add_token(pid, token) do
-    GenServer.cast(pid, {:add_token, token})
+  def add_token(token) do
+    GenServer.cast(@name, {:add_token, token})
   end
 end

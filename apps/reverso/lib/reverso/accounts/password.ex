@@ -48,14 +48,18 @@ defmodule Reverso.Accounts.Password do
   end
 
   def create_password_token(%User{} = user) do
+    password_reset_token = Ecto.UUID.generate()
+    Reverso.TokenRemover.add_token(password_reset_token)
     user
-    |> User.user_token_changeset(%{password_reset_token: Ecto.UUID.generate()})
+    |> User.user_token_changeset(%{password_reset_token: password_reset_token})
     |> Repo.update()
   end
 
-  def delete_password_token(%User{} = user) do
-    user
-    |> User.user_token_changeset(%{password_reset_token: nil})
-    |> Repo.update()
+  def delete_password_token(token) do
+    with {:ok, %User{} = user} <- Accounts.fetch_by_password_token(token) do
+      user
+      |> User.user_token_changeset(%{password_reset_token: nil})
+      |> Repo.update()
+    end
   end
 end
