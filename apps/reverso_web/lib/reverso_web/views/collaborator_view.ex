@@ -24,6 +24,6 @@ defmodule Reverso.Web.CollaboratorView do
   end
 
   def render("show.json", %{user: user}) do
-    %{data: render_one(user, UserView, "user.json")}
+    %{data: render_one(user, CollaboratorView, "user.json")}
   end
 end

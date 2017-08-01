@@ -30,18 +30,18 @@ defmodule Reverso.Web.Router do
   scope "/api", Reverso.Web do
     pipe_through :api_no_auth
 
-    post "/invitation/update", CollaboratorController, :update_user_from_invitation
+    post "/invitation/update", InvitationController, :update_user_from_invitation
     post "/login", SessionController, :create
     post "/accounts", UserController, :create
     get "/activate", AccountController, :activate_account
     post "/lostpassword", AccountController, :start_password_reset
     post "/resetpassword", AccountController, :password_reset
-    post "/invitation/get", CollaboratorController, :show
   end
 
   scope "/api", Reverso.Web do
     pipe_through :api_user_auth
 
+    post "/invitation/new", InvitationController, :create
     delete "/logout", SessionController, :delete
     resources "/accounts", UserController, except: [:create, :change_password]
     post "/changepassword", UserController, :change_password
