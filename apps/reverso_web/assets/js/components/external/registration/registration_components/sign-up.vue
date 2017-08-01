@@ -18,7 +18,8 @@
           <input type="password" v-model="passwordConfirm" id="password-confirmation" placeholder="Password (Confirmation)" required>
         </div>
         <p v-if="hasError" class="signUpBox__error">{{message}}</p>
-        <p v-if="hasSuccess" class="signUpBox__success">{{message}}</p>
+        <p v-else-if="hasSuccess" class="signUpBox__success">{{message}}</p>
+        <p v-else>&nbsp;</p>
         <div class="signUpBox__footer">
           <button type="submit" class="primary-btn">Sign Up</button>
           <p>By creating an account, you agree to the <a href="#">terms</a></p>

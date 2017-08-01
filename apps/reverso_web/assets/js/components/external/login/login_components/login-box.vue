@@ -10,6 +10,7 @@
       <label for="password">Password:</label>
       <input type="password" v-model="params.password" placeholder="Password" id="password" class="loginPanel__input"><br>
       <p v-if="hasError" class="loginBox__error">{{errorMessage}}</p>
+      <p v-else>&nbsp;</p>
       <br>
       <button type="submit" class="green-btn loginPanel__button">Log in</button>
       <router-link to="/lost-password" class="loginBox__transparent-btn">Can't log in?</router-link>    

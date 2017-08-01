@@ -104,18 +104,34 @@ export default {
 
   methods: {
     onSubmit(){
+      if(this.invitations.invited.length > 0)
+      {
+        this.submitNewContributors();
+      }
+      
+      if(this.invitations.inv_email != "")
+      {
+        this.submitInviteContributors();
+      }
+    },
+
+    submitNewContributors(){
       this.$http.post("/api/collaborators", this.newContributors ).then(
         (response) => {
           this.openSuccessMessage("Contributors added");
+          this.close();
         },
         (error) => {
           this.openErrorMessage("Oops! Something went wrong!");          
         }
       );
+    },
 
+    submitInviteContributors(){
       this.$http.post("/api/invitation/new", this.emailInvitationParams ).then(
         (response) => {
           this.openSuccessMessage("Invitation sent");
+          this.close();
         },
         (error) => {
           this.openErrorMessage("Invitation error");  
