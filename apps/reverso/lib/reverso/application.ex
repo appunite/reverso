@@ -14,6 +14,7 @@ defmodule Reverso.Application do
 
     Supervisor.start_link([
       supervisor(Reverso.Repo, []),
+      worker(Reverso.TokenRemover, [])
     ], strategy: :one_for_one, name: Reverso.Supervisor)
   end
 end
