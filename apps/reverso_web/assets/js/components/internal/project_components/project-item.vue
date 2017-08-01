@@ -17,15 +17,20 @@
         </span>
 
         <span class="summary-col-2">
-          <div v-if="isBasicLanguage(language.language_name)">reference</div>
-          <div v-else>{{ language.strings_count }}/{{reference_str_count}} strings translated</div>
+          <div v-if="isBasicLanguage(language.language_name)">
+            <strong>reference</strong>
+          </div>
 
-          
+          <div v-else>
+          <strong>{{ language.strings_count }}/{{reference_str_count}}</strong>
+          strings translated</div>          
         </span>
 
         <span class="summary-col-3">
           <div v-if="language.last_edit_time">
-            {{ language.last_edit_time }} last edit by {{ language.last_editor_name }}
+            <strong> {{ convertedTime(language.last_edit_time) }}</strong>
+            last edit by
+            <strong>{{ language.last_editor_name }}</strong>
           </div>          
         </span>
     
@@ -41,7 +46,7 @@
 
     </div>
     
-    <newLanguage v-bind:project_id="project.id"></newLanguage>
+    <newLanguage v-bind:project="project"></newLanguage>
     
   </div>
 </template>
@@ -72,13 +77,17 @@ export default {
       translations: []
     }
   },
-  
+
   methods: {
     isBasicLanguage(language_name){
         if (language_name === this.project.basic_language)
           return true;
 
         return false;
+    },
+
+    convertedTime(last_edit){
+      return moment(last_edit).format("MMM D, YYYY");
     }
   }
 }

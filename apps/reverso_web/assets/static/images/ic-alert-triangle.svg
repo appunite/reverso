@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="102px" height="88px" viewBox="0 0 102 88" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 43.2 (39069) - http://www.bohemiancoding.com/sketch -->
+    <title>ic-alert-triangle</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="ic-alert-triangle">
+            <g id="alert-triangle">
+                <path d="M44.4758793,6.03534997 C45.8616395,3.74297162 48.334834,2.34460798 51,2.34460798 C53.6668971,2.34460798 56.1415732,3.74478875 57.5268195,6.03981797 L98.3311188,74.4976821 C99.6746294,76.8364013 99.682751,79.7513716 98.3362866,82.1253189 C96.9916555,84.4960338 94.4987624,85.9701785 91.7879098,86.000122 L10.19,86 C7.50123755,85.9701785 5.00834452,84.4960338 3.66371341,82.1253189 C2.31724898,79.7513716 2.32537058,76.8364013 3.68502864,74.4700925 L44.4758793,6.03534997 Z" id="Shape" stroke="#FD3652" stroke-width="4"></path>
+                <path d="M51,25 L51,50" id="Shape" stroke="#FD3652" stroke-width="3.90000021" stroke-linecap="round" stroke-linejoin="round"></path>
+                <circle id="Oval-3" fill="#FD3652" cx="51" cy="63" r="2"></circle>
+            </g>
+        </g>
+    </g>
+</svg>

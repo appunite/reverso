@@ -13,6 +13,7 @@ defmodule Reverso.Projects.Project do
 
     has_many :languages, Reverso.Projects.Language
     has_many :platforms, Reverso.Projects.Platform
+    has_many :collaborators, Reverso.Accounts.ProjectCollaborator
 
     timestamps()
   end

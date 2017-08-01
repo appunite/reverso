@@ -37,9 +37,9 @@
       <div class="translationSideBar__filesSupported">csv, xls, xliff, xml files supported</div>
       <hr class="translationSideBar__line">
       
-      <deleteProject>
+      <deleteLanguage v-bind:language_id="language_id">
         <b>Delete Language Version</b>
-      </deleteProject>
+      </deleteLanguage>
 
       <div class="translationSideBar__buttonsWrapper">
         <exportSettings        
@@ -47,7 +47,7 @@
         v-bind:project_name="projectName"
         v-bind:language="refLang">
           <el-button class="white-btn">
-          Export
+            Export
           </el-button>
         </exportSettings>
         
@@ -77,14 +77,14 @@
 <script>
 import projectService from "../../../services/project-service.js"
 import exportSettings from "../project_components/export-settings"
-import deleteProject from "../project_components/actions/delete-project"
+import deleteLanguage from "../project_components/actions/delete-language"
 
 export default {
   name: "sidebar",
 
   components: {
     'exportSettings': exportSettings,
-    'deleteProject': deleteProject
+    'deleteLanguage': deleteLanguage
   },
 
   data () {
@@ -108,6 +108,7 @@ export default {
       let fraction = this.translatedStringsNumerator / this.translatedStringsDenominator;
       return Math.floor(fraction * 100);
     },
+
     language_id(){
       return this.$route.params.language_id;
     },
@@ -131,25 +132,38 @@ export default {
   methods: {
     assignSidebarData(translationData){
       this.projectName = translationData.project_name;
-
-      this.platformName = "";
-      for(let i = 0; i < translationData.platforms.length; i++)
-      {
-        if(i != 0)
-          this.platformName += ", ";
-        this.platformName += translationData.platforms[i];
-      }
-
+      this.assignPlatforms(translationData);
       this.refLang = translationData.basic_language;
+      this.assignTranslationVersionInfo(translationData);
+    }, 
 
+    assignPlatforms(translationData){
+      var platforms = "";
+      platforms = projectService.platformsMapToArray(translationData.platforms).join(", ");
+      this.platformName = platforms;
+    },
+
+    assignTranslationVersionInfo(translationData){
       let currentLang = translationData.languages[0];
+
       this.language = currentLang.language_name;
       this.translatedStringsNumerator = currentLang.strings_count;
-      /* CHANGE IT */this.translatedStringsDenominator = currentLang.strings_count + 1;
-      this.lastEdit = (currentLang.last_edit_time) ? currentLang.last_edit_time : "Never";
-      /* CHANGE IT */this.lastExport = "Never"; 
-    } 
+      /* CHANGE IT */ this.translatedStringsDenominator = currentLang.strings_count + 1;
+      this.assignLastEditTime(currentLang);
+      this.assignLastExportTime(currentLang);
+    },
+
+    assignLastEditTime(languageData){
+      this.lastEdit = (languageData.last_edit_time) ? languageData.last_edit_time : "Never";
+    },
+
+    assignLastExportTime(languageData){
+      /* CHANGE IT */ this.lastExport = (languageData.last_export_time) ? languageData.last_export_time : "Never";
+    }
+
+
   }
+
 }
   
 </script>

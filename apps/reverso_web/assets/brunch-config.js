@@ -67,6 +67,7 @@ exports.config = {
     enabled: true,
     whitelist: ["phoenix", "phoenix.html", "vue", "lodash"],
     globals: {
+      moment: 'moment',
       _: 'lodash/index.js',
       Vue: 'vue/dist/vue.common.js'
     }

@@ -96,7 +96,8 @@ export default {
 
     emailInvitationParams() {
       return {
-        email: this.invitations.inv_email
+        email: this.invitations.inv_email,
+        project_id: this.projectId
       }
     }
   },
@@ -105,11 +106,19 @@ export default {
     onSubmit(){
       this.$http.post("/api/collaborators", this.newContributors ).then(
         (response) => {
-          this.close();
-          this.openSuccessMessage();
+          this.openSuccessMessage("Contributors added");
         },
         (error) => {
-          this.openErrorMessage();          
+          this.openErrorMessage("Oops! Something went wrong!");          
+        }
+      );
+
+      this.$http.post("/api/invitation/new", this.emailInvitationParams ).then(
+        (response) => {
+          this.openSuccessMessage("Invitation sent");
+        },
+        (error) => {
+          this.openErrorMessage("Invitation error");  
         }
       );
     },
@@ -125,18 +134,18 @@ export default {
       )
     },
 
-    openSuccessMessage() {
+    openSuccessMessage(text) {
       this.$message({
         showClose: true,
-        message: 'Contributors added',
+        message: text,
         type: 'success'
       });
     },  
 
-    openErrorMessage() {
+    openErrorMessage(text) {
       this.$message({
         showClose: true,
-        message: 'Oops! Something went wrong!',
+        message: text,
         type: 'error'
       });
     },  

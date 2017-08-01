@@ -8,9 +8,9 @@
     &-col- {
       &1, &2, &3, &4 {
         flex-basis: 25%;
-      }
+      } 
 
-      &2, &3, &4 {
+      &2, &3 {
         text-transform: uppercase;
         font-size: smaller;
         color: $placeholder-dark-gray;
@@ -28,6 +28,10 @@
 .project-list {
     padding: 20px;
 
+    strong {
+      color: black;
+      font-weight: normal;
+    }
 
     .el-collapse {
       border: none;
@@ -47,8 +51,15 @@
 
       @include project-list-row
 
-      .summary-col-1 {
-        font-size: medium;
+      .summary-col- {
+        &1{
+          font-size: medium;
+        }
+
+        &2 {
+          display: flex;
+          justify-content: space-around;
+        }
       }
     } 
 

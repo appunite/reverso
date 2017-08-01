@@ -48,8 +48,18 @@
 
   text-transform: uppercase;
   font-size: smaller;
-  color: $error-color;
   border: none;
+  
+  color: $error-color;
+  background-color: transparent;
+}
+
+.danger-btn {
+  @include btn;
+  @include bgChange($error-color);
+
+  color: white;
+  background-color: $error-color;
 }
 
 .add_sth_btn {
