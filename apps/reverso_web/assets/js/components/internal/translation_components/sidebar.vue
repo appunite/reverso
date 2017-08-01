@@ -108,6 +108,7 @@ export default {
       let fraction = this.translatedStringsNumerator / this.translatedStringsDenominator;
       return Math.floor(fraction * 100);
     },
+    
     language_id(){
       return this.$route.params.language_id;
     },
@@ -158,7 +159,7 @@ export default {
 
     assignLastExportTime(languageData){
       /* CHANGE IT */
-      this.lastEdit = (languageData.last_export_time) ? languageData.last_export_time : "Never";
+      this.lastExport = (languageData.last_export_time) ? languageData.last_export_time : "Never";
     }
 
 
