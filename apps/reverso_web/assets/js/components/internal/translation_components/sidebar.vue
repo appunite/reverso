@@ -108,7 +108,7 @@ export default {
       let fraction = this.translatedStringsNumerator / this.translatedStringsDenominator;
       return Math.floor(fraction * 100);
     },
-    
+
     language_id(){
       return this.$route.params.language_id;
     },
@@ -148,7 +148,7 @@ export default {
 
       this.language = currentLang.language_name;
       this.translatedStringsNumerator = currentLang.strings_count;
-      /* CHANGE IT */this.translatedStringsDenominator = currentLang.strings_count + 1;
+      /* CHANGE IT */ this.translatedStringsDenominator = currentLang.strings_count + 1;
       this.assignLastEditTime(currentLang);
       this.assignLastExportTime(currentLang);
     },
@@ -158,8 +158,7 @@ export default {
     },
 
     assignLastExportTime(languageData){
-      /* CHANGE IT */
-      this.lastExport = (languageData.last_export_time) ? languageData.last_export_time : "Never";
+      /* CHANGE IT */ this.lastExport = (languageData.last_export_time) ? languageData.last_export_time : "Never";
     }
 
 
