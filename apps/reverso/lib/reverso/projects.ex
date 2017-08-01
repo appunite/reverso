@@ -53,9 +53,16 @@ defmodule Reverso.Projects do
     )
     |> Repo.all()
 
-    Enum.map(result, fn f -> 
-      %{f | number_of_languages: length(f.languages)}      
-      end)      
+    Enum.map(result, fn f ->
+      sum = Enum.map(f.languages, fn l ->
+        temp =+ l.strings_count
+      end)
+      
+      %{f |
+        number_of_languages: length(f.languages),
+        sum_of_strings: Enum.sum(sum)
+      }
+    end)    
   end
 
   def fetch_project_info(project_id,language_id) do
@@ -186,9 +193,20 @@ defmodule Reverso.Projects do
 
   def get_translation!(id), do: Repo.get!(Translation, id)
 
-  def create_translation(params,file,user_id) do    
-    map = parse_file(file)
-    |> set_translation_properties(params,user_id)
+  def create_translation(params,user_id) do
+    platforms = get_platform_by_project_id(params.project_id)
+    map = Enum.map(platforms, fn  f ->  
+      %{
+        basic: params.basic,
+        translation: params.translation,
+        description: params.description,
+        platform_key: "",
+        platform_id: f.id,
+        user_id: user_id,
+        project_id: String.to_integer(params.project_id),
+        language_id: String.to_integer(params.language_id)
+      }
+    end)
 
     Repo.insert_all(Translation,map)
   end
