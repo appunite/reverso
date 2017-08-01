@@ -24,7 +24,6 @@ export default {
   name: "deleteLanguage",
 
   props: [
-    'project_id',
     'language_id'
   ],
 
@@ -43,8 +42,7 @@ export default {
 
   methods: {
     deleteLanguage(){
-      languageService.deleteLanguageFromProject(
-        this.project_id, this.language_id).then(
+      languageService.deleteLanguageFromProject(this.language_id).then(
           (response) => {
             this.$router.push('/projects');
             this.$message({

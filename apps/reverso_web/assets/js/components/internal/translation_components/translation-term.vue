@@ -9,7 +9,7 @@
       :autosize="true"
       placeholder="No Reference"
       v-model="term.basic"
-      @blur="updateTerm(term)">
+      @blur="updateOrCreateTerm(term)">
       </el-input>
       <span class="delete-img-wrapper">
       <img src="/images/ic-delete.svg"
@@ -24,7 +24,7 @@
     :autosize="true"
     v-model="term.translation"
     placeholder="No Translation"
-    @blur="updateTerm(term)">
+    @blur="updateOrCreateTerm(term)">
   </el-input>
   </th>
 
@@ -34,7 +34,7 @@
     :autosize="true"
     v-model="term.description"
     placeholder="No comments added"
-    @blur="updateTerm(term)">
+    @blur="updateOrCreateTerm(term)">
   </el-input>
   </th>
 
@@ -68,29 +68,40 @@
   },
 
   methods: {
+    updateOrCreateTerm(term){
+      if(term.basic){
+        if(term.id){
+          this.updateTerm(term);
+        }
+
+        else {
+          this.createTerm(term);
+        }
+      }
+    },
+
     updateTerm(term){
-      if(term.id){
-        translationService.updateTerm(this.project_id, this.language_id, term).then(
-          (response) => {
+      translationService.updateTerm(this.project_id, this.language_id, term).then(
+        (response) => {
 
-          },
+        },
 
-          (error) => {
-            console.log(error);
-          }
-          );
-      }
-      else {
-        translationService.createTerm(this.project_id, this.language_id, term).then(
-          (response) => {
-            
-          },
+        (error) => {
+          console.log(error);
+        }
+      );
+    },
 
-          (error) => {
-            console.log(error);
-          }
-          );
-      }
+    createTerm(term){
+      translationService.createTerm(this.project_id, this.language_id, term).then(
+        (response) => {
+          //add key so it doesn't get created again
+        },
+
+        (error) => {
+          console.log(error);
+        }
+      );
     },
 
     deleteTerm(term){

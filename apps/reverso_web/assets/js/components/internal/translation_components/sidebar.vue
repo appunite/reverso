@@ -37,7 +37,7 @@
       <div class="translationSideBar__filesSupported">csv, xls, xliff, xml files supported</div>
       <hr class="translationSideBar__line">
       
-      <deleteLanguage>
+      <deleteLanguage v-bind:language_id="language_id">
         <b>Delete Language Version</b>
       </deleteLanguage>
 
@@ -47,7 +47,7 @@
         v-bind:project_name="projectName"
         v-bind:language="refLang">
           <el-button class="white-btn">
-          Export
+            Export
           </el-button>
         </exportSettings>
         
