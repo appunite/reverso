@@ -4,7 +4,10 @@
     <span @click="toggleVisibility">
       <slot>
         <el-button type="text" id="dialogVisable">
-          <img :src="dialogData.icon">
+          <icon
+          v-bind:imageName="dialogData.icon_name"
+          color="#5F69EF">
+          </icon>
         </el-button>
       </slot>    
     </span>
@@ -20,6 +23,7 @@
 </template>
 
 <script>
+import icon from '../../../icons.vue'
 import projectService from '../../../services/project-service.js'
 import exportDialog from './dialogs/export-dialog.vue'
 
@@ -27,7 +31,8 @@ export default {
   name: "exportSettings",
 
   components: {
-    'exportDialog': exportDialog
+    'exportDialog': exportDialog,
+    'icon': icon
   },
 
   props: [
@@ -41,7 +46,7 @@ export default {
       dialogData: {
         visable: false,
         header: "export settings",
-        icon: "/images/ic-export.svg",
+        icon_name: "export",
 
         fileName: ""
       }

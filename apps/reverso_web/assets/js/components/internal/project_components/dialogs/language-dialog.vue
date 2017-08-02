@@ -7,10 +7,13 @@
   :show-close="false"
   class="reverso-dialog language-dialog">
 
-    <span slot="title" class="dialog-title">
-      <img :src="dialogData.icon">
+    <div slot="title" class="dialog-title">
+      <icon
+      v-bind:imageName="dialogData.icon_name"
+      color="#EBEBF1">
+      </icon>
       {{ dialogData.header }}
-    </span>
+    </div>
 
     <el-form ref="form" :model="new_language" label-position="top">
 
@@ -71,6 +74,7 @@
 import projectService from '../../../../services/project-service.js'
 import languageService from '../../../../services/language-service.js'
 import formService from '../../../../services/form-service.js'
+import icon from '../../../../icons.vue'
 
 export default {
   name: "languageDialog",
@@ -78,6 +82,10 @@ export default {
   props: [
     'dialogData'
   ],
+
+  components: {
+    'icon': icon
+  },
 
   data () {
     return {

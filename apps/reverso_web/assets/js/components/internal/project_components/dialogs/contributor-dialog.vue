@@ -5,10 +5,13 @@
   size="tiny"
   :before-close="handleClose"
   :show-close="false" class="reverso-dialog">
-    <span slot="title">
-      <img :src="dialogData.icon">
+    <div slot="title" class="dialog-title">
+      <icon
+      imageName='contributor'
+      color='#969AA7'>        
+      </icon>
       {{ dialogData.header }}
-    </span>
+    </div>
 
     <form ref="form" :model="invitations" label-position="top" v-on:submit.prevent="onSubmit">
 
@@ -48,6 +51,8 @@
 </template>
 
 <script>
+import icon from '../../../../icons.vue'
+
 export default {
   name: "contributorDialog",
 
@@ -55,6 +60,10 @@ export default {
     'dialogData',
     'projectId'
   ],
+
+  components: {
+    'icon': icon
+  },
 
   data () {
     return {

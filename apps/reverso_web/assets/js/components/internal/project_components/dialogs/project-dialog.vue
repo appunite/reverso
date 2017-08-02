@@ -6,7 +6,11 @@
   :show-close="false"
   size="tiny" class="reverso-dialog">
   <div slot="title">
-    <img :src="dialogParams.icon">
+    <icon
+      v-bind:imageName="dialogParams.icon_name"
+      v-bind:className='icon_class'
+      color="#969AA7">  
+    </icon>
     {{ dialogParams.header }}
   </div>
 
@@ -74,6 +78,7 @@
   import formService from '../../../../services/form-service.js'
   import languageService from '../../../../services/language-service.js'
   import deleteProject from '../actions/delete-project'
+  import icon from '../../../../icons.vue'
 
   export default {
     name: "projectDialog",
@@ -83,11 +88,13 @@
     ],
 
     components: {
-      'deleteProject': deleteProject
+      'deleteProject': deleteProject,
+      'icon': icon
     },
 
     data () {
       return {
+        icon_class: 'icon-gray',
         tempProject: {},
         languages: [],
 

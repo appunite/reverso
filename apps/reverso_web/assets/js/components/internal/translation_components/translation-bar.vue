@@ -3,7 +3,11 @@
   <div class="top-table-panel">
     <span>  
     <el-button type="text" class="add_sth_btn" @click="addTerm">
-      <img src="/images/ic-add.svg">Add new term
+      <icon
+      imageName='add'
+      color='#5F69EF'>
+      </icon>
+      Add new term
     </el-button>
     </span>
 
@@ -51,6 +55,7 @@
 </template>
 
 <script>
+import icon from '../../../icons.vue'
 
 export default {
   name: 'translationBar',
@@ -59,6 +64,10 @@ export default {
     'platforms',
     'filter'
   ],
+
+  components: {
+    'icon': icon
+  },
 
   data(){
     return {
