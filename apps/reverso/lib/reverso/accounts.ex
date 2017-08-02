@@ -23,6 +23,14 @@ defmodule Reverso.Accounts do
     |> Repo.all
   end
 
+  def fetch_all_tokens() do
+    from(u in User,
+      where: not is_nil(u.password_reset_token),
+      select: u.password_reset_token
+    )
+    |> Repo.all
+  end
+
   def create_user(attrs) do
     %User{}
     |> User.changeset(Map.put(attrs, "activation_token", Ecto.UUID.generate()))
