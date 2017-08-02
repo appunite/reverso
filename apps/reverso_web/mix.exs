@@ -32,14 +32,18 @@ defmodule Reverso.Web.Mixfile do
   #
   # Type `mix help deps` for examples and options.
   defp deps do
-    [{:phoenix, "~> 1.3.0-rc"},
-     {:phoenix_pubsub, "~> 1.0"},
-     {:phoenix_ecto, "~> 3.2"},
-     {:phoenix_html, "~> 2.6"},
-     {:phoenix_live_reload, "~> 1.0", only: :dev},
-     {:gettext, "~> 0.11"},
-     {:reverso, in_umbrella: true},
-     {:cowboy, "~> 1.0"}]
+    [
+      {:phoenix, "~> 1.3.0-rc"},
+      {:phoenix_pubsub, "~> 1.0"},
+      {:phoenix_ecto, "~> 3.2"},
+      {:phoenix_html, "~> 2.6"},
+      {:phoenix_live_reload, "~> 1.0", only: :dev},
+      {:gettext, "~> 0.11"},
+      {:reverso, in_umbrella: true},
+      {:cowboy, "~> 1.0"},
+      {:edeliver, "~> 1.4.4"},
+      {:distillery, ">= 0.8.0", warn_missing: false}
+    ]
   end
 
   # Aliases are shortcuts or tasks specific to the current project.
