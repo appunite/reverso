@@ -9,6 +9,7 @@ defmodule Reverso.TokenRemover do
   end
 
   def init(list) do
+    schedule_delete()
     {:ok, list}
   end
 
@@ -21,6 +22,13 @@ defmodule Reverso.TokenRemover do
     {:noreply, [token | list]}
   end
 
+  def handle_info(:delete_obsolete_tokens, list) do
+    Reverso.Accounts.fetch_all_tokens()
+    |> delete_tokens(list)
+    schedule_delete()
+    {:noreply, list}
+  end
+
   def handle_info(:delete_token, list) do
     token = List.last(list)
     Reverso.Accounts.Password.delete_password_token(token)
@@ -30,6 +38,17 @@ defmodule Reverso.TokenRemover do
 
   defp schedule_work() do
     Process.send_after(self(), :delete_token, 1 * 60 * 60 * 1000)
+  end
+
+  defp schedule_delete() do
+    Process.send_after(self(), :delete_obsolete_tokens, 2 * 60 * 60 * 1000)
+  end
+
+  defp delete_tokens(token_list, list) do
+    Enum.each(token_list -- list,
+      fn(token) ->
+        Reverso.Accounts.Password.delete_password_token(token)
+      end)
   end
 
   # client API
