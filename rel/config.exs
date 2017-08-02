@@ -3,7 +3,7 @@ Path.join(["rel", "plugins", "*.exs"])
 |> Enum.map(&Code.eval_file(&1))
 
 use Mix.Releases.Config,
-    default_release: :prod,
+    default_release: :reverso_web,
     default_environment: Mix.env()
 
 environment :prod do
@@ -13,7 +13,7 @@ environment :prod do
 end
 
 release :reverso_web do
-  set version: "0.1.10"
+  set version: "0.1.11"
   set applications: [
     :runtime_tools,
     reverso: :temporary,
