@@ -13,7 +13,7 @@ environment :prod do
 end
 
 release :reverso_web do
-  set version: "0.1.5"
+  set version: "0.1.6"
   set applications: [
     :runtime_tools,
     reverso: :permanent,
