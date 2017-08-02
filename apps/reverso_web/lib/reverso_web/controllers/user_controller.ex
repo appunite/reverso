@@ -75,4 +75,16 @@ defmodule Reverso.Web.UserController do
         |> render("message.json", %{error: "Password and confirmation must match!"})
     end
   end
+
+  def resend_activation_email(conn, %{"email" => email}) do
+    with {:ok, %User{} = user} <- Accounts.fetch_by_email(email),
+         {:ok, _} <- Reverso.Email.send_activation_email(user) do
+      conn
+      |> send_resp(200, "")
+    else
+      {:error, _} ->
+        conn
+        |> send_resp(200, "")
+    end
+  end
 end
