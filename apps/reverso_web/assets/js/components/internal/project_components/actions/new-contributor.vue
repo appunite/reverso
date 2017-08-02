@@ -4,7 +4,10 @@
     id="dialogVisable"
     @click="toggleVisibility">
 
-      <img :src="dialogData.icon">
+      <icon
+      v-bind:imageName='dialogData.icon_name'
+      color="#5F69EF">
+      </icon>
     </el-button>
 
     <contributorDialog
@@ -19,6 +22,7 @@
 
 <script>
 import contributorDialog from '../dialogs/contributor-dialog.vue'
+import icon from '../../../../icons.vue'
 
 export default {
   name: "newContributor",
@@ -28,7 +32,8 @@ export default {
   ],
 
   components: {
-    'contributorDialog': contributorDialog
+    'contributorDialog': contributorDialog,
+    'icon': icon
   },
 
   data () {
@@ -37,7 +42,7 @@ export default {
       dialogData: {
         visable: false,
         header: "invite contributors",
-        icon: "/images/ic-add-contributor.svg" 
+        icon_name: "contributor"
       }
     }
   },

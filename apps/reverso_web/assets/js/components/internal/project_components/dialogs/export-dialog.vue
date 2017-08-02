@@ -6,7 +6,10 @@
   :before-close="handleClose"
   :show-close="false" class="reverso-dialog">
     <div slot="title" class="dialog-title">
-      <img :src="dialogData.icon">
+      <icon
+      v-bind:imageName="dialogData.icon_name"
+      color="#969AA7">      
+      </icon>
       {{ dialogData.header }}
     </div>
  
@@ -26,12 +29,17 @@
 </template>
 
 <script>
+import icon from "../../../../icons.vue"
 export default {
   name: "exportDialog",
 
   props: [
     'dialogData'
   ],
+
+  components: {
+    'icon': icon
+  },
 
   methods: {
     onDownload() {

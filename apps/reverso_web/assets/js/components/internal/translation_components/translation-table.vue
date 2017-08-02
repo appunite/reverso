@@ -2,7 +2,9 @@
 
 <div class="translation-table">
 
-  <translationBar v-on:addTerm="addTerm"></translationBar>
+  <translationBar
+  v-on:addTerm="addTerm"
+  v-bind:filter="filter"></translationBar>
   
   <table>
     <tr class="table-header">
@@ -45,7 +47,13 @@ export default {
   data() {
     return {
       translations: [],
-      hoverRow: null
+
+      filter: {
+        platform: "Translating",
+        search: "",
+        show: "All",
+        sort: "Alphabetically"
+      }
     }
   },
 
@@ -91,7 +99,9 @@ export default {
   },
 
   mounted() {
-    translationService.fetchTranslation(this.project_id, this.language_id).then(
+    translationService.fetchTranslation(
+      this.project_id, this.language_id, this.filter).then(
+      
       (response) => {
         this.translations = response.data.data;
       },

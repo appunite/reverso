@@ -4,7 +4,11 @@
     class="add_sth_btn"
     id="dialogVisable"
     @click="toggleVisibility">
-      <img :src="dialogData.icon">Add language
+      <icon
+      v-bind:imageName="dialogData.icon_name"
+      color="#5F69EF">
+      </icon>
+      Add language
     </el-button>
 
     <languageDialog
@@ -20,6 +24,7 @@
 <script>
 import languageService from '../../../../services/language-service.js'
 import languageDialog from '../dialogs/language-dialog.vue'
+import icon from '../../../../icons.vue'
 
 export default {
   name: "newLanguage",
@@ -29,7 +34,8 @@ export default {
   ],
 
   components: {
-    'languageDialog': languageDialog
+    'languageDialog': languageDialog,
+    'icon': icon
   },
 
   data () {
@@ -38,7 +44,7 @@ export default {
       dialogData: {
         visable: false,
         header: "new language",
-        icon: "/images/ic-add.svg",
+        icon_name: "add",
 
         project: {}
       }

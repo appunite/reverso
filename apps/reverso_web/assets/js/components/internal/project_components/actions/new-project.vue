@@ -5,7 +5,12 @@
     id="dialogVisable"
     @click="toggleVisibility">
 
-      <img :src="dialogParams.icon">Add new project
+      <icon
+        v-bind:imageName="dialogParams.icon_name"
+        v-bind:className='icon_class'
+        color="#5F69EF">  
+      </icon>
+      Add new project
 
     </el-button>
     <projectDialog
@@ -20,21 +25,25 @@
 <script>
 import projectService from '../../../../services/project-service.js'
 import projectDialog from '../dialogs/project-dialog.vue'
+import icon from '../../../../icons.vue'
 
 export default {
   name: "newProject",
 
   components: {
-    'projectDialog': projectDialog
+    'projectDialog': projectDialog,
+    'icon': icon
   },
 
   data () {
     return {
+      icon_class: "icon-gray",
 
       dialogParams: {
         visable: false,
         header: "new project",
         icon: "/images/ic-add.svg",
+        icon_name: "add",
         delete_btn: false,
 
         project: {
