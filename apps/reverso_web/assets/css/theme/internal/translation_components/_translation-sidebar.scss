@@ -19,60 +19,53 @@
 
   &__hidden {
     width: $hiddenSidebarWidth;
+    padding: 10px;
   }
 
-  &__title {
-    display: inline-block;
-    margin: 18px 0 0 $leftMargin;
-    width: 140px;    
+  &__header {
+    margin: 12px 12px 0px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+  
     text-transform: uppercase;
     color: $label-gray;
     font-size: small;    
+    
+    padding-bottom: 12px;
+    border-bottom: 1px solid $border-gray;
   }
 
-  &__showHideButton {
-    width: $buttonWidth;
-    height: 32px;
-    margin-top: 7px;
+  &__section {
+    &1, &2 {
+      color: $text-grey;
 
-    text-align: center;
-    background: transparent;
-    border: 0;
-    float: right;
-    box-shadow: none;
-  }
+      strong {
+        font-weight: normal;
+        color: black;
 
-  &__showHideButton:focus {
-    outline: 0;
-    -webkit-box-shadow: none;
-    box-shadow: none;
-  }
+        &::after {
+          content: "\a";
+          white-space: pre;
+        }
+      }
 
-  &__line {
-    color: $text-grey;
-    border-color: $border-gray;
-    width: 0.9 * $shownSidebarWidth;
-    clear: both;
-    margin: 15px auto;
-  }
-
-  &__fullLine {
-    color: $text-grey;
-    border-color: $border-gray;
-    width: 100%;
-    clear: both;
-    margin: 30px auto;
-  }
-
-  p {
-    margin-left: $leftMargin;
-  }
-
-  &__infos {
-    margin-bottom: 5px;
-    p {
-      margin-bottom: 0px;
+      border-bottom: 1px solid $border-gray;
     }
+
+    &1 {
+      padding: 18px 16px 30px;
+    }
+
+    &2 {
+      margin: 18px 16px;
+      padding-bottom: 30px;
+
+      strong:nth-of-type(3) {
+        color: $icon-blue;
+      }
+    }   
   }
 
   &__titleFull {
@@ -86,52 +79,22 @@
   .el-progress-bar {
     display: block;
     margin: 10px auto 15px auto;
-    width: 90%;
   }
 
-  .el-progress-bar__innerText {
-    display: none;
-  }
-
-  &__date {
-    color: $purple;
-  }
-
-  &__uploadButton {
-    &, &:link, &:visited, &:hover, &:active { 
-      font-size: 11px;
-      font-weight: 400;
-      text-transform: uppercase;
-      text-decoration: none;
-      color: $purple;
-      cursor: pointer;
-
-      display: inline-block;
-      padding: 5px 5px 2px 5px;
-      margin: 14px 6px 0 7px;  
-    }  
-  }
-
-  &__filesSupported {
-    font-size: 11px;
-    font-style: italic;
-    color: $label-gray;
-    margin: 0 $leftMargin;    
-  }
 
   &__backToProjectListWrapp {
     display: block;
     text-align: center;
     margin-top: 20px;
-  }
 
-  &__backToProjectList {
-    &, &:link, &:visited, &:hover, &:active {
-      text-decoration: none;
-      text-transform: uppercase;
-      font-size: 10px;
-      font-weight: 700;
-      color: $purple;
+    a {
+      &, &:link, &:visited, &:hover, &:active {
+        text-decoration: none;
+        text-transform: uppercase;
+        font-size: 10px;
+        font-weight: 700;
+        color: $purple;
+      }
     }
   }
 

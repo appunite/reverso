@@ -3,7 +3,7 @@
     <el-button type="text"
     class="add_sth_btn"
     id="dialogVisable"
-    @click="toggleVisability">
+    @click="toggleVisibility">
 
       <img :src="dialogParams.icon">Add new project
 
@@ -12,7 +12,7 @@
     v-bind:dialogParams="dialogParams"
     v-if="dialogParams.visable" 
     v-on:submit="createProject($event)"
-    @close="toggleVisability">        
+    @close="toggleVisibility">        
     </projectDialog>
   </span>
 </template>
@@ -60,7 +60,7 @@ export default {
       )
     },
 
-    toggleVisability(){
+    toggleVisibility(){
       this.dialogParams.visable = !this.dialogParams.visable;
     }
   }

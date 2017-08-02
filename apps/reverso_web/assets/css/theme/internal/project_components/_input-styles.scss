@@ -19,10 +19,6 @@
     font-size: large;   
     padding: 0;
 
-    &:focus {
-      outline: 0;
-    }
-
     &::placeholder {
       color: $placeholder-light-gray;
     }
@@ -55,5 +51,25 @@
     position: relative;
     z-index: 1;
     width: 110px;
+  }
+}
+
+.search-input {
+  background: $search-color;
+  border: none;
+  padding: 4px 4px 4px 28px;
+
+  font-weight: lighter;
+
+  background-image: url("/images/ic-search-grey.svg");
+  background-repeat: no-repeat;
+  background-position: 4px;
+}
+
+input:focus {
+    outline: 0;
+
+  &::placeholder {
+    opacity: 0;
   }
 }

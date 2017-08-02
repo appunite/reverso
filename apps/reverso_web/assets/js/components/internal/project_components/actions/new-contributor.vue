@@ -2,7 +2,7 @@
   <span @click.stop>
     <el-button type="text"
     id="dialogVisable"
-    @click="toggleVisability">
+    @click="toggleVisibility">
 
       <img :src="dialogData.icon">
     </el-button>
@@ -11,7 +11,7 @@
     v-bind:dialogData="dialogData"
     v-bind:projectId="projectId"
     v-if="dialogData.visable"
-    @close="toggleVisability">
+    @close="toggleVisibility">
         
     </contributorDialog>
   </span>
@@ -43,7 +43,7 @@ export default {
   },
 
   methods: {
-    toggleVisability(){
+    toggleVisibility(){
       this.dialogData.visable = !this.dialogData.visable;
     }
     

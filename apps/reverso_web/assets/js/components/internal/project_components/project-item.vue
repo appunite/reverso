@@ -46,7 +46,10 @@
 
     </div>
     
-    <newLanguage v-bind:project="project"></newLanguage>
+    <newLanguage
+      v-bind:project="project"
+      v-on:languageAdded="appendLanugage($event)">
+    </newLanguage>
     
   </div>
 </template>
@@ -87,7 +90,12 @@ export default {
     },
 
     convertedTime(last_edit){
-      return moment(last_edit).format("MMM D, YYYY");
+      return projectService.convertedTime(last_edit, "MMM D, YYYY");
+    },
+
+    appendLanugage(language){
+      this.project.languages.push(language);
+      this.project.number_of_languages++;
     }
   }
 }

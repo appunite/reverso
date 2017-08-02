@@ -3,7 +3,7 @@
     <el-button type="text"
     class="add_sth_btn"
     id="dialogVisable"
-    @click="toggleVisability">
+    @click="toggleVisibility">
       <img :src="dialogData.icon">Add language
     </el-button>
 
@@ -11,7 +11,7 @@
     v-bind:dialogData="dialogParams"
     v-if="dialogData.visable"
     v-on:upload="upload($event)"
-    @close="toggleVisability">
+    @close="toggleVisibility">
         
     </languageDialog>
   </div>
@@ -53,7 +53,7 @@ export default {
   },
 
   methods: {
-    toggleVisability(){
+    toggleVisibility(){
       this.dialogData.visable = !this.dialogData.visable;
     },
 
@@ -62,8 +62,7 @@ export default {
 
       languageService.uploadLanguageToProject(new_language).then(
       (response) => {
-        console.log(response.data);
-        //emit event
+        this.$emit('languageAdded', response.data);
       },
 
       (error) => {

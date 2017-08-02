@@ -3,40 +3,42 @@
 
   <div v-if="!showSidebar">
     <div class="translationSideBar__shown">
-      <p class="translationSideBar__title">Project Details</p>
+
+      <div class="translationSideBar__header">
       
-      <button class="translationSideBar__showHideButton" @click="showSidebar = !showSidebar">
-        <img src="/images/translation/sidebar/ic-hide-sidemenu.svg">
-      </button>
+        <span>Project Details</span>
+        
+        <img src="/images/translation/sidebar/ic-hide-sidemenu.svg"
+          @click="showSidebar = !showSidebar">
       
-      <hr class="translationSideBar__line">
+      </div>
       
-      <div class="translationSideBar__infos">
-        <p>Project: <b>{{ projectName }}</b></p>
-        <p>Platform: <b>{{ platformName }}</b></p>
-        <p>Reference Language: <b>{{ refLang }}</b></p>
+      <div class="translationSideBar__section1">
+
+        Project: <strong> {{ projectName }} </strong>
+        Platfrom: <strong> {{ platformName }} </strong>
+        Reference Language: <strong> {{ refLang }} </strong>
+
       </div>
 
-      <hr class="translationSideBar__fullLine">
+      <div class="translationSideBar__section2">
+
+        <p class="translationSideBar__titleFull">Translation Version</p>
+        
+        <el-progress
+          :class="translationSideBar__progress"
+          :show-text="false"
+          :percentage="progress"
+          status="success">
+        </el-progress>      
       
-      <p class="translationSideBar__titleFull">Translation Version</p>
-      
-      <el-progress :class="translationSideBar__progress" :text-inside="true" :percentage="progress" status="success"></el-progress>      
-      
-      <div class="translationSideBar__infos">
-        <p>Language: <b>{{ language }}</b></p>
-        <p>Translated Strings: <b>{{ translatedStringsNumerator }}/{{ translatedStringsDenominator }}</b></p>
-        <p>Last Edit: <b class="translationSideBar__date">{{ lastEdit }}</b></p>
-        <p>Last Export: <b>{{ lastExport }}</b></p>        
+        Language: <strong> {{ language }} </strong>
+        Translated Strings: <strong>{{ translatedStringsNumerator }} </strong>
+        Last Edit: <strong> {{ lastEdit }} </strong>
+        Last Export: <strong> {{ lastExport }} </strong>
+
       </div>
-      
-      <a class="translationSideBar__uploadButton" href="#">
-        <img src="/images/translation/sidebar/ic-upload.svg">Upload File
-      </a>
-      
-      <div class="translationSideBar__filesSupported">csv, xls, xliff, xml files supported</div>
-      <hr class="translationSideBar__line">
-      
+        
       <deleteLanguage v-bind:language_id="language_id">
         <b>Delete Language Version</b>
       </deleteLanguage>
@@ -51,12 +53,13 @@
           </el-button>
         </exportSettings>
         
-        <el-button type="primary" class="primary-btn">Save</el-button>
+        <el-button class="white-btn">Upload file</el-button>
       </div>
       
       <div class="translationSideBar__backToProjectListWrapp">
-        <router-link class="translationSideBar__backToProjectList" to="/projects">
-          <img src="/images/translation/sidebar/ic-back-blue.svg"> Back to project list
+        <router-link to="/projects">
+          <img src="/images/translation/sidebar/ic-back-blue.svg">
+          Back to project list
         </router-link>
       </div>
     
@@ -65,9 +68,8 @@
 
   <div v-else>
     <div class="translationSideBar__hidden">
-      <button class="translationSideBar__showHideButton" @click="showSidebar = !showSidebar">
-        <img src="/images/translation/sidebar/ic-show-sidemenu.svg">
-      </button>
+      <img src="/images/translation/sidebar/ic-show-sidemenu.svg"
+      @click="showSidebar = !showSidebar">
     </div>
   </div>
 
@@ -118,17 +120,6 @@ export default {
     }
   },
 
-  mounted (){
-    projectService.loadSidebarData(this.project_id, this.language_id).then(
-      (response) => {
-        this.assignSidebarData(response.data.data);
-      },
-      (error) => {
-        alert("Error while loading sidebar data");        
-      }
-    );
-  },
-
   methods: {
     assignSidebarData(translationData){
       this.projectName = translationData.project_name;
@@ -154,15 +145,28 @@ export default {
     },
 
     assignLastEditTime(languageData){
-      this.lastEdit = (languageData.last_edit_time) ? languageData.last_edit_time : "Never";
+      this.lastEdit = (languageData.last_edit_time) ? 
+        projectService.convertedTime(languageData.last_edit_time, "DD.MM.YYYY")
+        : "Never";
     },
 
     assignLastExportTime(languageData){
-      /* CHANGE IT */ this.lastExport = (languageData.last_export_time) ? languageData.last_export_time : "Never";
-    }
+      this.lastExport = (languageData.last_export_time) ?
+        projectService.convertedTime(languageData.last_export_time, "DD.MM.YYYY")
+          : "Never";
+    },
+  },
 
-
-  }
+  mounted (){
+    projectService.loadSidebarData(this.project_id, this.language_id).then(
+      (response) => {
+        this.assignSidebarData(response.data.data);
+      },
+      (error) => {
+        alert("Error while loading sidebar data");        
+      }
+    );
+  },
 
 }
   
