@@ -1,8 +1,8 @@
 export default {
 
-fetchTranslation(project_id, language_id){
+fetchTranslation(project_id, language_id, filter){
   let promise = Vue.http.get(
-    `/api/projects/${project_id}/languages/${language_id}`, {});
+    `/api/projects/${project_id}/languages/${language_id}`, filter);
 
   return promise;
 },
