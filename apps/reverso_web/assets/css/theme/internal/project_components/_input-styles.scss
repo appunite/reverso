@@ -59,11 +59,13 @@
   border: none;
   padding: 4px 4px 4px 28px;
 
-  font-weight: lighter;
-
   background-image: url("/images/ic-search-grey.svg");
   background-repeat: no-repeat;
   background-position: 4px;
+
+  &::placeholder{
+    font-weight: lighter;
+  }
 }
 
 input:focus {
