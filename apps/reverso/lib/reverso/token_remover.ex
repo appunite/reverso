@@ -2,6 +2,16 @@ defmodule Reverso.TokenRemover do
   use GenServer
 
   @name __MODULE__
+
+  # client API
+
+  def read_token_list() do
+    GenServer.call(@name, {:read})
+  end
+
+  def add_token(token) do
+    GenServer.cast(@name, {:add_token, token})
+  end
   # server callbacks
 
   def start_link do
@@ -48,15 +58,5 @@ defmodule Reverso.TokenRemover do
       fn(token) ->
         Reverso.Accounts.Password.delete_password_token(token)
       end)
-  end
-
-  # client API
-
-  def read_token_list() do
-    GenServer.call(@name, {:read})
-  end
-
-  def add_token(token) do
-    GenServer.cast(@name, {:add_token, token})
   end
 end
