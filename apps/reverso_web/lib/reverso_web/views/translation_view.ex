@@ -14,6 +14,7 @@ defmodule Reverso.Web.TranslationView do
     %{id: translation.id,
       basic: translation.basic,
       translation: translation.translation,
+      description: translation.description,
       platform_key: translation.platform_key,
       platform_name: translation.platform_name
     }

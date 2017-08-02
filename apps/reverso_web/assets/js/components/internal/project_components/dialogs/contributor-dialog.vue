@@ -96,20 +96,45 @@ export default {
 
     emailInvitationParams() {
       return {
-        email: this.invitations.inv_email
+        email: this.invitations.inv_email,
+        project_id: this.projectId
       }
     }
   },
 
   methods: {
     onSubmit(){
+      if(this.invitations.invited.length > 0)
+      {
+        this.submitNewContributors();
+      }
+      
+      if(this.invitations.inv_email != "")
+      {
+        this.submitInviteContributors();
+      }
+    },
+
+    submitNewContributors(){
       this.$http.post("/api/collaborators", this.newContributors ).then(
         (response) => {
+          this.openSuccessMessage("Contributors added");
           this.close();
-          this.openSuccessMessage();
         },
         (error) => {
-          this.openErrorMessage();          
+          this.openErrorMessage("Oops! Something went wrong!");          
+        }
+      );
+    },
+
+    submitInviteContributors(){
+      this.$http.post("/api/invitation/new", this.emailInvitationParams ).then(
+        (response) => {
+          this.openSuccessMessage("Invitation sent");
+          this.close();
+        },
+        (error) => {
+          this.openErrorMessage("Invitation error");  
         }
       );
     },
@@ -125,18 +150,18 @@ export default {
       )
     },
 
-    openSuccessMessage() {
+    openSuccessMessage(text) {
       this.$message({
         showClose: true,
-        message: 'Contributors added',
+        message: text,
         type: 'success'
       });
     },  
 
-    openErrorMessage() {
+    openErrorMessage(text) {
       this.$message({
         showClose: true,
-        message: 'Oops! Something went wrong!',
+        message: text,
         type: 'error'
       });
     },  

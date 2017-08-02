@@ -10,7 +10,9 @@ defmodule Reverso.Projects.Project do
     field :owner_id, :integer
 
     field :number_of_languages, :integer, virtual: true, default: 0
+    field :sum_of_strings, :integer, virtual: true, default: 0
 
+    has_one :reference_language, Reverso.Projects.Language
     has_many :languages, Reverso.Projects.Language
     has_many :platforms, Reverso.Projects.Platform
     has_many :collaborators, Reverso.Accounts.ProjectCollaborator

@@ -27,9 +27,10 @@ defmodule Reverso.Web.ProjectView do
       project_name: project.project_name,
       basic_language: project.basic_language,
       number_of_languages: project.number_of_languages,
+      reference_language: render_one(project.reference_language, LanguageView, "language_list.json"),
       collaborators: render_many(project.collaborators, CollaboratorView, "collaborator.json"),
-      platforms: render_many(project.platforms,PlatformView,"platform.json"),
-      languages: render_many(project.languages,LanguageView,"language_list.json")
-    } 
+      platforms: render_many(project.platforms, PlatformView, "platform.json"),
+      languages: render_many(project.languages, LanguageView, "language_list.json")
+    }
   end
 end
