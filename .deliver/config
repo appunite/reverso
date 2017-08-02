@@ -1,0 +1,11 @@
+# .deliver/config
+
+APP="reverso_web"
+
+BUILD_HOST="coreos2.appunite.com"
+BUILD_USER="build"
+BUILD_AT="/home/builds/reverso"
+
+STAGING_HOSTS="coreos2.appunite.com"
+STAGING_USER="reverso"
+DELIVER_TO="/home/reverso"
