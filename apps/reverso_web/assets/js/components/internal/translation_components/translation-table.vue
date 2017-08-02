@@ -1,13 +1,9 @@
 <template>  
 
-
 <div class="translation-table">
-  <div class="top-table-panel">
-    <el-button type="text" class="add_sth_btn" @click="addTerm">
-      <img src="/images/ic-add.svg">Add new term
-    </el-button>
-  </div>
 
+  <translationBar v-on:addTerm="addTerm"></translationBar>
+  
   <table>
     <tr class="table-header">
       <th>reference language</th>
@@ -36,12 +32,14 @@
 <script>
 import translationService from '../../../services/translation-service.js'
 import translationTerm from './translation-term'
+import translationBar from './translation-bar'
 
 export default {
   name: "translationTable",
 
   components: {
-    'translationTerm': translationTerm
+    'translationTerm': translationTerm,
+    'translationBar': translationBar
   },
 
   data() {

@@ -12,7 +12,7 @@
       @blur="updateOrCreateTerm(term)">
       </el-input>
       <span class="delete-img-wrapper">
-      <img src="/images/ic-delete.svg"
+      <img src="/images/translation/ic-delete.svg"
       v-show="showBin" @click="deleteTerm(term)">
       </span>
     </span>

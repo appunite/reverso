@@ -1,7 +1,7 @@
 <template>
   <span @click.prevent.stop>
 
-    <span @click="toggleVisability">
+    <span @click="toggleVisibility">
       <slot>
         <el-button type="text" id="dialogVisable">
           <img :src="dialogData.icon">
@@ -13,7 +13,7 @@
     v-bind:dialogData="dialogParams"
     v-if="dialogData.visable"
     v-on:download="download"
-    @close="toggleVisability">
+    @close="toggleVisibility">
         
     </exportDialog>
   </span>
@@ -49,7 +49,7 @@ export default {
   },
 
   methods: {
-    toggleVisability(){
+    toggleVisibility(){
       this.dialogData.visable = !this.dialogData.visable;
     },
 

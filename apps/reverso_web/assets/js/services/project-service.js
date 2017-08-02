@@ -7,6 +7,10 @@ export default {
       return Object.values(_.mapValues(platformMap, "platform_name"));
     },
 
+    convertedTime(timestamp, format){
+      return moment(timestamp).format(format);
+    },
+
     fetchProjects(){
       let promise = Vue.http.get("/api/projects", {});
 

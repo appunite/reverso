@@ -1,6 +1,6 @@
 <template>
 <span>
-  <el-button  class="delete-btn" @click="toggleVisability">
+  <el-button  class="delete-btn" @click="toggleVisibility">
     <slot>
       Delete
     </slot>
@@ -10,7 +10,7 @@
   v-bind:dialogData="dialogData"
   v-if="dialogData.visable" 
   v-on:confirm="deleteLanguage"
-  @close="toggleVisability">
+  @close="toggleVisibility">
       
   </deleteDialog>
 </span>
@@ -57,7 +57,7 @@ export default {
         );
     },
 
-    toggleVisability(){
+    toggleVisibility(){
       this.dialogData.visable = !this.dialogData.visable;
     }
   }

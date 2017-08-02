@@ -1,0 +1,51 @@
+.top-table-panel {
+  width: 100%;
+  background: white;
+  padding: 10px 16px;
+  box-shadow: 2px 2px 15px $placeholder-light-gray;
+  margin-bottom: 15px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+
+  &__radio-buttons {
+
+    strong {
+      color: #969AA7;
+      text-transform: uppercase;
+      font-size: smaller;
+      font-weight: normal;
+    }
+
+    .el-radio {
+      margin-left: 20px;
+    }
+
+    .el-radio__label {
+      font-size: smaller;
+    }
+  }
+
+  &__dropdowns {
+    
+    img {
+      padding: 10px;
+    }
+
+    .el-dropdown {
+
+      &:nth-of-type(2) img {
+        border-left: 1px solid $border-gray; 
+        padding-right: 4px;
+      }
+
+      .el-radio-button__inner {
+        border: none;
+      }
+    }
+  }
+
+
+}
