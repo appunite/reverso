@@ -8,6 +8,7 @@ import loginBox from './components/external/login/login_components/login-box.vue
 import lostPass from './components/external/login/login_components/lost-password.vue';
 import resetPassConfirmInfo from './components/external/login/login_components/reset-pass-confirm-info.vue';
 import resetPassword from './components/external/login/login_components/reset-password.vue';
+import resendActivation from './components/external/login/login_components/resend-activation.vue';
 
 import accountActivated from './components/external/account_actions/account-activated.vue'
 
@@ -33,12 +34,13 @@ const router = new VueRouter({
           { path: '/lost-password', component: lostPass },
           { path: '/account-activated', component: accountActivated },
           { path: '/reset-pass-confirm-info', component: resetPassConfirmInfo },
-          { path: '/reset-password', component: resetPassword }
+          { path: '/reset-password', component: resetPassword },
+          { path : '/resend-activation', component: resendActivation }
         ]
       },
-      { path: '/registration', 
+      { path: '/registration',
         component: registrationPanel,
-        redirect: '/sign-up',        
+        redirect: '/sign-up',
         children: [
           { path: '/sign-up', component: signUp },
           { path: '/new-user-box', component: newUserBox }

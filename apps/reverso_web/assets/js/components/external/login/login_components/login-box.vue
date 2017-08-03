@@ -9,7 +9,9 @@
       <br>
       <label for="password">Password:</label>
       <input type="password" v-model="params.password" placeholder="Password" id="password" class="loginPanel__input"><br>
-      <p v-if="hasError" class="loginBox__error">{{errorMessage}}</p>
+      <p v-if="hasError" class="loginBox__error">{{errorMessage}}
+        <router-link v-if="this.errorMessage == 'User not activated!'" to="/resend-activation" class="loginBox__error">Didn't receive activation email?</router-link>
+      </p>
       <p v-else>&nbsp;</p>
       <br>
       <button type="submit" class="green-btn loginPanel__button">Log in</button>
@@ -104,7 +106,13 @@ export default {
     }
 
     &__error {
-      color: #fe3c5b;
+        color: #fe3c5b;
+       &:link, &:visited,  &:active {
+        text-decoration: underline;
+        &:hover {
+            color: #cb0123;
+        }
+      }
     }
   }
 </style>
