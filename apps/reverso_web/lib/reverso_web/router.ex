@@ -30,6 +30,7 @@ defmodule Reverso.Web.Router do
   scope "/api", Reverso.Web do
     pipe_through :api_no_auth
 
+    get "/file", FileController, :export_file
     post "/invitation/update", InvitationController, :update_user_from_invitation
     post "/login", SessionController, :create
     post "/accounts", UserController, :create
