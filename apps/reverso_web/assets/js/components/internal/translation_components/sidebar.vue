@@ -47,7 +47,8 @@
         <exportSettings        
         v-bind:project_id="project_id"
         v-bind:project_name="projectName"
-        v-bind:language="reference">
+          v-bind:language_id="language_id"
+          v-bind:language_name="reference">
           <el-button class="white-btn">
             Export
           </el-button>

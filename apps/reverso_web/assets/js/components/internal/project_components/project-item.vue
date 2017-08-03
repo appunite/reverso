@@ -40,7 +40,8 @@
           <exportSettings
           v-bind:project_id="project.id"
           v-bind:project_name="project.project_name"
-          v-bind:language="language">
+          v-bind:language_id="language.language_id"
+          v-bind:language_name="language.language_name">
           </exportSettings>
         </span>
       </span>
