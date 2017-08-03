@@ -32,7 +32,7 @@ export default {
     }
 
     &__main-col {
-      margin-top: 100px;
+      margin-top: 30px;
       padding: 15px;
       box-sizing: border-box;
 
