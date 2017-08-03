@@ -107,10 +107,11 @@ export default {
 
     &__error {
         color: #fe3c5b;
-       &:link, &:visited,  &:active {
-        text-decoration: underline;
-        &:hover {
-            color: #cb0123;
+       &:link, &:visited {
+         text-decoration: underline;
+         font-weight: 800;
+         &:hover {
+           color: #cb0123;
         }
       }
     }
