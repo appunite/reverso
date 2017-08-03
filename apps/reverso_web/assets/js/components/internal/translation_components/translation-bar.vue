@@ -1,6 +1,6 @@
 <template>
 
-  <div class="top-table-panel">
+  <div class="top-table-panel-translation">
     <span>  
     <el-button type="text" class="add_sth_btn" @click="addTerm">
       <icon
@@ -11,7 +11,7 @@
     </el-button>
     </span>
 
-    <span class="top-table-panel__radio-buttons">
+    <span class="top-table-panel-translation__radio-buttons">
       <strong>View:</strong>
 
       <el-radio-group fill="#5f69ef" v-model="filter.platform">
@@ -19,7 +19,7 @@
       </el-radio-group>
     </span>
     
-    <span class="top-table-panel__filters">  
+    <span class="top-table-panel-translation__filters">  
       <input placeholder="Search..." class="search-input" v-model="filter.search">
 
       <el-dropdown>

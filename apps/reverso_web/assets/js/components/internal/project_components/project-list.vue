@@ -1,11 +1,17 @@
 <template>  
   <div class="project-list"> 
 
-    <div class="top-table-panel">
-      MY PROJECTS ({{ projects.length }})
-      <newProject
-      v-on:project_added="addProject($event)"
-      ></newProject>
+    <div class="top-table-panel-projects">
+      <span>
+        MY PROJECTS ({{ projects.length }})
+        <newProject
+          v-on:project_added="addProject($event)">
+        </newProject>
+      </span>
+
+      <span>
+        <input class="search-input" placeholder="Search...">
+      </span>
     </div>
     
 

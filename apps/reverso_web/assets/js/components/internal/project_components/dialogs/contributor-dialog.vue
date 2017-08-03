@@ -13,7 +13,7 @@
       {{ dialogData.header }}
     </div>
 
-    <form ref="form" :model="invitations" label-position="top" v-on:submit.prevent="onSubmit">
+    <el-form ref="form" :model="invitations" label-position="top">
 
       <div class="input-wrapper">
         <input v-model="filter" placeholder="Search">
@@ -41,10 +41,15 @@
         placeholder="Not listed? Invite by email address...">
       </div>
 
-      <button type="submit" class="primary-btn dialog-button">save</button>
-      <button type="button" class="cancel-btn dialog-button" @click="close">cancel</button>  
+      <!-- <button type="submit" class="primary-btn dialog-button">save</button> -->
+      <el-button type="primary"
+      class="primary-btn"
+      @click="onSubmit">
+        Save
+      </el-button>
+      <el-button class="cancel-btn" @click="close">cancel</el-button>
     
-    </form>
+    </el-form>
  
   </el-dialog>
 
