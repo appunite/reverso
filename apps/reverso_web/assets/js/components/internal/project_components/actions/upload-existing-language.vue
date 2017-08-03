@@ -1,10 +1,13 @@
 <template>
-<span>
-  <slot>
-    <el-button class="white-btn" @click="toggleVisibility">
-      Upload file
-    </el-button>
-  </slot>
+<span @click.stop>
+  <span @click="toggleVisibility">
+    <slot>
+      <el-button class="white-btn">
+        Upload file
+      </el-button>
+    </slot>
+  </span>
+
   <uploadDialog
     v-bind:dialogData="dialogParams"
     v-if="dialogData.visible"
@@ -16,6 +19,7 @@
 </template>
 
 <script>
+import projectService from '../../../../services/project-service.js'
 import languageService from '../../../../services/language-service.js'
 import uploadDialog from '../dialogs/upload-dialog.vue'
 
@@ -54,7 +58,8 @@ export default {
     dialogParams() {
       this.dialogData.language_name = this.language_name;
       this.dialogData.language_id = this.language_id;
-      this.dialogData.platforms = this.platforms;
+      this.dialogData.platforms =
+        projectService.platformsMapToArray(this.platforms);
       this.dialogData.project = this.project;
       return this.dialogData; 
     }
