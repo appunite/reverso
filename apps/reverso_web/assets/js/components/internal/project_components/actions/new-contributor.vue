@@ -2,7 +2,7 @@
   <span @click.stop>
     <el-button type="text"
     id="dialogVisable"
-    @click="toggleVisibility">
+    @click="toggleVisibility" class="dialog-btn-icon">
 
       <icon
       v-bind:imageName='dialogData.icon_name'

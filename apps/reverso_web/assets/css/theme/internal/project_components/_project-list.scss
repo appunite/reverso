@@ -63,17 +63,16 @@
 
         &4__icons {
           span {
-            button {
+            .dialog-btn-icon {
               padding: 8px 10px;
               border-right: 1px solid $border-gray;
               border-radius: 0;
-            }
 
-            &:nth-of-type(3) button {
-              border: none;
-              padding-right: 0px;
+              &__last {
+                padding: 8px 0px 8px 10px;
+              }
             }
-          }
+          }          
         }
       }
     } 

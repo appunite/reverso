@@ -150,7 +150,8 @@ export default {
       // this.calculateProgress(this.language.strings_count,
       //  this.reference.strings_count);  
 
-      this.$bus.$emit('platforms', this.platforms);
+      this.$bus.$emit('platforms',
+        projectService.platformsMapToArray(this.platforms));
     }, 
 
     calculateProgress(numerator, denominator){

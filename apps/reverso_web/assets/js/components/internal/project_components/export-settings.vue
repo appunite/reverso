@@ -3,7 +3,7 @@
 
     <span @click="toggleVisibility">
       <slot>
-        <el-button type="text" id="dialogVisable">
+        <el-button type="text" id="dialogVisable" class="dialog-btn-icon">
           <icon
           v-bind:imageName="dialogData.icon_name"
           color="#5F69EF">
