@@ -28,7 +28,7 @@
     <div class="input-wrapper">
       <label>Reference Language</label>
       <el-select v-model="tempProject.basic_language" placeholder="Select Language">
-        <el-option v-for="language in languages"
+        <el-option v-for="language in dialogParams.languages"
         :label="language.language_name"
         :value="language.language_name">
         </el-option>
@@ -76,7 +76,6 @@
 <script>
   import projectService from '../../../../services/project-service.js'
   import formService from '../../../../services/form-service.js'
-  import languageService from '../../../../services/language-service.js'
   import deleteProject from '../actions/delete-project'
   import icon from '../../../../icons.vue'
 
@@ -146,16 +145,6 @@
       this.tempProject = _.cloneDeep(this.dialogParams.project); 
       this.tempProject.platforms = 
         projectService.platformsMapToArray(this.tempProject.platforms);
-    },
-
-    mounted(){
-      languageService.fetchLanguages().then(
-        (response) => {
-          this.languages = response.data.data;
-        },
-        (error) => {
-          console.log(error);
-        });
     }
   }
 

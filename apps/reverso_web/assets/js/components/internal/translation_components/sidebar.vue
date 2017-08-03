@@ -16,8 +16,8 @@
       <div class="translationSideBar__section1">
 
         Project: <strong> {{ projectName }} </strong>
-        Platfrom: <strong> {{ platformName }} </strong>
-        Reference Language: <strong> {{ refLang }} </strong>
+        Platfrom: <strong> {{ listed_platforms }} </strong>
+        Reference Language: <strong> {{ reference }} </strong>
 
       </div>
 
@@ -32,8 +32,8 @@
           status="success">
         </el-progress>      
       
-        Language: <strong> {{ language }} </strong>
-        Translated Strings: <strong>{{ translatedStringsNumerator }} </strong>
+        Language: <strong> {{ language.language_name }} </strong>
+        Translated Strings: <strong>{{ language.strings_count }} </strong>
         Last Edit: <strong> {{ lastEdit }} </strong>
         Last Export: <strong> {{ lastExport }} </strong>
 
@@ -47,13 +47,18 @@
         <exportSettings        
         v-bind:project_id="project_id"
         v-bind:project_name="projectName"
-        v-bind:language="refLang">
+          v-bind:language_id="language_id"
+          v-bind:language_name="reference">
           <el-button class="white-btn">
             Export
           </el-button>
         </exportSettings>
         
-        <el-button class="white-btn">Upload file</el-button>
+        <uploadLanguage
+          v-bind:platforms="platforms"
+          v-bind:language_id="language_id"
+          v-bind:language_name="reference">
+        </uploadLanguage>
       </div>
       
       <div class="translationSideBar__backToProjectListWrapp">
@@ -80,35 +85,49 @@
 import projectService from "../../../services/project-service.js"
 import exportSettings from "../project_components/export-settings"
 import deleteLanguage from "../project_components/actions/delete-language"
+import uploadLanguage from "../project_components/actions/upload-existing-language"
 
 export default {
   name: "sidebar",
 
   components: {
     'exportSettings': exportSettings,
-    'deleteLanguage': deleteLanguage
+    'deleteLanguage': deleteLanguage,
+    'uploadLanguage': uploadLanguage
   },
 
   data () {
     return {
       projectName: "",
-      platformName: "",
-      refLang: "",
+      platforms: [],
+      reference: null,
 
-      language: "",
-      translatedStringsNumerator: 1,
-      translatedStringsDenominator: 1,
-      lastEdit: "",
-      lastExport: "",  
+      language: {},
+      progress: 0,
 
       showSidebar: false
     }
   },
 
   computed: {
-    progress(){
-      let fraction = this.translatedStringsNumerator / this.translatedStringsDenominator;
-      return Math.floor(fraction * 100);
+    listed_platforms(){
+      return this.platforms.join(", ");
+    },
+
+    lastEdit(){
+      if(this.language.last_edit_time){
+        return projectService.convertedTime(this.language.last_edit_time, "DD.MM.YYYY");
+      }
+      
+      return "Never";
+    },
+
+    lastExport(){
+      if(this.language.last_export_time){
+        return projectService.convertedTime(this.language.last_export_time, "DD.MM.YYYY");
+      }
+
+      return "Never";
     },
 
     language_id(){
@@ -123,38 +142,21 @@ export default {
   methods: {
     assignSidebarData(translationData){
       this.projectName = translationData.project_name;
-      this.assignPlatforms(translationData);
-      this.refLang = translationData.basic_language;
-      this.assignTranslationVersionInfo(translationData);
+      this.platforms = projectService.platformsMapToArray(translationData.platforms);
+      this.reference = translationData.basic_language;
+      
+      this.language = translationData.languages[0];
+      
+      // this.calculateProgress(this.language.strings_count,
+      //  this.reference.strings_count);  
+
+      this.$bus.$emit('platforms', this.platforms);
     }, 
 
-    assignPlatforms(translationData){
-      var platforms = "";
-      platforms = projectService.platformsMapToArray(translationData.platforms).join(", ");
-      this.platformName = platforms;
-    },
+    calculateProgress(numerator, denominator){
+      this.progress = _.floor(numerator/denominator * 100);
 
-    assignTranslationVersionInfo(translationData){
-      let currentLang = translationData.languages[0];
-
-      this.language = currentLang.language_name;
-      this.translatedStringsNumerator = currentLang.strings_count;
-      /* CHANGE IT */ this.translatedStringsDenominator = currentLang.strings_count + 1;
-      this.assignLastEditTime(currentLang);
-      this.assignLastExportTime(currentLang);
-    },
-
-    assignLastEditTime(languageData){
-      this.lastEdit = (languageData.last_edit_time) ? 
-        projectService.convertedTime(languageData.last_edit_time, "DD.MM.YYYY")
-        : "Never";
-    },
-
-    assignLastExportTime(languageData){
-      this.lastExport = (languageData.last_export_time) ?
-        projectService.convertedTime(languageData.last_export_time, "DD.MM.YYYY")
-          : "Never";
-    },
+    }
   },
 
   mounted (){

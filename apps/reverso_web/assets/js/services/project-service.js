@@ -11,8 +11,8 @@ export default {
       return moment(timestamp).format(format);
     },
 
-    fetchProjects(){
-      let promise = Vue.http.get("/api/projects", {});
+    fetchProjects(filter){
+      let promise = Vue.http.get("/api/projects", filter);
 
       return promise;
     },

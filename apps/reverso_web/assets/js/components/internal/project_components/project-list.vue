@@ -1,11 +1,20 @@
 <template>  
   <div class="project-list"> 
 
-    <div class="top-table-panel">
-      MY PROJECTS ({{ projects.length }})
-      <newProject
-      v-on:project_added="addProject($event)"
-      ></newProject>
+    <div class="top-table-panel-projects">
+      <span>
+        MY PROJECTS ({{ projects.length }})
+        <newProject
+          v-on:project_added="addProject($event)">
+        </newProject>
+      </span>
+
+      <span>
+        <input class="search-input"
+        placeholder="Search..."
+        v-model="project_filter"
+        @keyup="debouncedFetch()">
+      </span>
     </div>
     
 
@@ -39,26 +48,35 @@ export default {
 
   data () {
     return {
-      projects: []
+      projects: [],
+      project_filter: ""
     }
   },
 
   methods: {
     addProject(project){
       this.projects.push(project);
-    }
+    },
+
+    fetchProjects(){
+      projectService.fetchProjects(this.project_filter).then(
+        (response) => {
+          this.projects = response.data.data;
+        },
+
+        (error) => {
+          console.log(error);
+        }
+      );
+    },
+
+    debouncedFetch: _.debounce(function() {
+      this.fetchProjects();
+    }, 250)
   },
 
   mounted(){
-    projectService.fetchProjects().then(
-      (response) => {
-        this.projects = response.data.data;
-      },
-
-      (error) => {
-        console.log(error);
-      }
-    );
+    this.fetchProjects();
 
     this.$bus.$on('project_edited', (edited_project) => {
       let index = _.findIndex(this.projects, (project) => {

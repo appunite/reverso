@@ -24,6 +24,7 @@
 
 <script>
 import projectService from '../../../../services/project-service.js'
+import languageService from '../../../../services/language-service.js'
 import projectDialog from '../dialogs/project-dialog.vue'
 import icon from '../../../../icons.vue'
 
@@ -50,7 +51,9 @@ export default {
           project_name: "",
           basic_language: "",
           platforms: []
-        }
+        },
+
+        languages: []
       }
 
     }
@@ -72,6 +75,16 @@ export default {
     toggleVisibility(){
       this.dialogParams.visable = !this.dialogParams.visable;
     }
+  },
+
+  mounted(){
+    languageService.fetchLanguages().then(
+      (response) => {
+        this.dialogParams.languages = response.data.data;
+      },
+      (error) => {
+        console.log(error);
+      });
   }
 }
 </script>

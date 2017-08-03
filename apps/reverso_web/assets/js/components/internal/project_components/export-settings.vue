@@ -38,7 +38,8 @@ export default {
   props: [
     'project_id',   
     'project_name',
-    'language'
+    'language_id',
+    'language_name'
   ],
 
   data () {
@@ -59,8 +60,8 @@ export default {
     },
 
     download(){
-      if (this.language) {
-        projectService.exportLanguage(this.project_id, this.language.language_id);
+      if (this.language_id) {
+        projectService.exportLanguage(this.project_id, this.language_id);
       }
       else {
         projectService.exportProject(this.project_id);
@@ -71,8 +72,8 @@ export default {
   computed: {
     dialogParams() {
       let fileName = this.project_name.replace(/[^a-z0-9]/ig, '_');
-      if(this.language){
-        fileName += `-${this.language.language_name}`
+      if(this.language_name){
+        fileName += `-${this.language_name}`
       }
       this.dialogData.fileName = fileName;
 

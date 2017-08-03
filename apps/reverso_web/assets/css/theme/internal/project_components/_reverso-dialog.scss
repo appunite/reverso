@@ -45,4 +45,11 @@
       border-left: none !important;
     }
   }
+
+  .platforms-readonly {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    padding: 15px 10px;
+  }
 }
