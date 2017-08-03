@@ -2,14 +2,18 @@
   <div class="add-language">
     <el-button type="text"
     class="add_sth_btn"
-    id="dialogVisable"
+    id="dialogvisible"
     @click="toggleVisibility">
-      <img :src="dialogData.icon">Add language
+      <icon
+      v-bind:imageName="dialogData.icon_name"
+      color="#5F69EF">
+      </icon>
+      Add language
     </el-button>
 
     <languageDialog
     v-bind:dialogData="dialogParams"
-    v-if="dialogData.visable"
+    v-if="dialogData.visible"
     v-on:upload="upload($event)"
     @close="toggleVisibility">
         
@@ -20,51 +24,42 @@
 <script>
 import languageService from '../../../../services/language-service.js'
 import languageDialog from '../dialogs/language-dialog.vue'
-
+import icon from '../../../../icons.vue'
 export default {
   name: "newLanguage",
-
   props: [
     'project'
   ],
-
   components: {
-    'languageDialog': languageDialog
+    'languageDialog': languageDialog,
+    'icon': icon
   },
-
   data () {
     return {
-
       dialogData: {
-        visable: false,
+        visible: false,
         header: "new language",
-        icon: "/images/ic-add.svg",
-
+        icon_name: "add",
         project: {}
       }
     }
   },
-
   computed: {
     dialogParams() {
       this.dialogData["project"] = this.project;
       return this.dialogData; 
     }
   },
-
   methods: {
     toggleVisibility(){
-      this.dialogData.visable = !this.dialogData.visable;
+      this.dialogData.visible = !this.dialogData.visible;
     },
-
     upload(new_language){
       new_language['project_id'] = this.project.id;
-
       languageService.uploadLanguageToProject(new_language).then(
       (response) => {
         this.$emit('languageAdded', response.data);
       },
-
       (error) => {
         console.log(error);
       });

@@ -22,7 +22,9 @@
           </div>
 
           <div v-else>
-          <strong>{{ language.strings_count }}/{{reference_str_count}}</strong>
+          <strong>
+            {{ language.strings_count }}{{ reference_str_count }}
+          </strong>
           strings translated</div>          
         </span>
 
@@ -38,7 +40,8 @@
           <exportSettings
           v-bind:project_id="project.id"
           v-bind:project_name="project.project_name"
-          v-bind:language="language">
+          v-bind:language_id="language.language_id"
+          v-bind:language_name="language.language_name">
           </exportSettings>
         </span>
       </span>
@@ -74,7 +77,6 @@ export default {
   data () {
     return {
       language_count: 0,
-      reference_str_count: 0,
       progress_percentage: 0,
       
       translations: []
@@ -96,6 +98,17 @@ export default {
     appendLanugage(language){
       this.project.languages.push(language);
       this.project.number_of_languages++;
+    }
+  },
+
+  computed: {
+    reference_str_count(){
+      if (this.project.reference_language){
+        return '/' + this.project.reference_language.strings_count;
+      }
+      else {
+        return "";
+      }
     }
   }
 }

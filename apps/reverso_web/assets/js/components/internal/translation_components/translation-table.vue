@@ -2,7 +2,12 @@
 
 <div class="translation-table">
 
-  <translationBar v-on:addTerm="addTerm"></translationBar>
+  <translationBar
+  v-on:addTerm="addTerm"
+  v-on:searchUsed="debouncedFetch"
+  v-on:optionSelected="fetchTranslation"
+  v-bind:filter="filter"
+  v-bind:platforms="platforms"></translationBar>
   
   <table>
     <tr class="table-header">
@@ -44,8 +49,15 @@ export default {
 
   data() {
     return {
+      platforms: [],
       translations: [],
-      hoverRow: null
+
+      filter: {
+        platform: "Translating",
+        search: "",
+        show: "All",
+        sort: "Alphabetically"
+      }
     }
   },
 
@@ -60,6 +72,24 @@ export default {
   },
 
   methods: {
+    fetchTranslation(){
+      translationService.fetchTranslation(
+        this.project_id, this.language_id, this.filter).then(
+        
+        (response) => {
+          this.translations = response.data.data;
+        },
+
+        (error) => {
+          console.log(error);
+        }
+      );      
+    },
+
+    debouncedFetch: _.debounce(function() {
+      this.fetchTranslation();
+    }, 250),
+
     addTerm(){
       let newTerm = {
         basic: "",
@@ -91,15 +121,11 @@ export default {
   },
 
   mounted() {
-    translationService.fetchTranslation(this.project_id, this.language_id).then(
-      (response) => {
-        this.translations = response.data.data;
-      },
-
-      (error) => {
-        console.log(error);
-      }
-    );
+    this.fetchTranslation();
+    this.$bus.$on('platforms', (platforms) => {
+      this.platforms = _.cloneDeep(platforms);
+      this.platforms.unshift("Translating");
+    });
   }
 }
 

@@ -6,7 +6,11 @@
   :show-close="false"
   size="tiny" class="reverso-dialog">
   <div slot="title">
-    <img :src="dialogParams.icon">
+    <icon
+      v-bind:imageName="dialogParams.icon_name"
+      v-bind:className='icon_class'
+      color="#969AA7">  
+    </icon>
     {{ dialogParams.header }}
   </div>
 
@@ -24,7 +28,7 @@
     <div class="input-wrapper">
       <label>Reference Language</label>
       <el-select v-model="tempProject.basic_language" placeholder="Select Language">
-        <el-option v-for="language in languages"
+        <el-option v-for="language in dialogParams.languages"
         :label="language.language_name"
         :value="language.language_name">
         </el-option>
@@ -72,8 +76,8 @@
 <script>
   import projectService from '../../../../services/project-service.js'
   import formService from '../../../../services/form-service.js'
-  import languageService from '../../../../services/language-service.js'
   import deleteProject from '../actions/delete-project'
+  import icon from '../../../../icons.vue'
 
   export default {
     name: "projectDialog",
@@ -83,11 +87,13 @@
     ],
 
     components: {
-      'deleteProject': deleteProject
+      'deleteProject': deleteProject,
+      'icon': icon
     },
 
     data () {
       return {
+        icon_class: 'icon-gray',
         tempProject: {},
         languages: [],
 
@@ -139,16 +145,6 @@
       this.tempProject = _.cloneDeep(this.dialogParams.project); 
       this.tempProject.platforms = 
         projectService.platformsMapToArray(this.tempProject.platforms);
-    },
-
-    mounted(){
-      languageService.fetchLanguages().then(
-        (response) => {
-          this.languages = response.data.data;
-        },
-        (error) => {
-          console.log(error);
-        });
     }
   }
 

@@ -9,11 +9,14 @@
       <br>
       <label for="password">Password:</label>
       <input type="password" v-model="params.password" placeholder="Password" id="password" class="loginPanel__input"><br>
-      <p v-if="hasError" class="loginBox__error">{{errorMessage}}</p>
+      <p v-if="hasError" class="loginBox__error">{{errorMessage}}
+        <router-link v-if="this.errorMessage == 'User not activated!'" to="/resend-activation" class="loginBox__error">Didn't receive activation email?</router-link>
+        <router-link v-if="this.errorMessage == 'Invalid credentials!'" to="/lost-password" class="loginBox__error">Forgot password?</router-link>
+      </p>
       <p v-else>&nbsp;</p>
       <br>
       <button type="submit" class="green-btn loginPanel__button">Log in</button>
-      <router-link to="/lost-password" class="loginBox__transparent-btn">Can't log in?</router-link>    
+      <router-link to="/sign-up" class="loginBox__transparent-btn">Sign Up</router-link>    
     </form>
  </div>
 </template>
@@ -104,7 +107,14 @@ export default {
     }
 
     &__error {
-      color: #fe3c5b;
+        color: #fe3c5b;
+       &:link, &:visited {
+         text-decoration: underline;
+         font-weight: 800;
+         &:hover {
+           color: #cb0123;
+        }
+      }
     }
   }
 </style>

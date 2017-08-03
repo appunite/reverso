@@ -1,7 +1,11 @@
 <template>
 <span @click.stop>
   <el-button type="text" id="dialogVisable" @click="toggleVisibility">
-    <img :src="dialogData.icon">
+    <icon
+      v-bind:imageName="dialogParams.icon_name"
+      v-bind:className='icon_class'
+      color="#5F69EF">  
+    </icon>
   </el-button>
   
   <projectDialog 
@@ -16,7 +20,9 @@
 
 <script>
 import projectService from '../../../../services/project-service.js'
+import languageService from '../../../../services/language-service.js'
 import projectDialog from '../dialogs/project-dialog.vue'
+import icon from '../../../../icons.vue'
 
 export default {
   name: "editProject",
@@ -26,19 +32,23 @@ export default {
   ],
 
   components: {
-    'projectDialog': projectDialog
+    'projectDialog': projectDialog,
+    'icon': icon
   },
 
   data () {
     return {
+      icon_class: "icon-gray",
 
       dialogData: {
         visable: false,
         header: "project settings",
-        icon: "/images/ic-settings.svg",
+        icon_name: 'settings',
         delete_btn: true,
 
-        project: {}
+        project: {},
+
+        languages: []
       }
 
     }
@@ -75,6 +85,7 @@ export default {
   computed: {
     dialogParams() {
       this.dialogData["project"] = this.project;
+      this.dialogData["languages"] = this.project.languages;
       return this.dialogData; 
     }
   }

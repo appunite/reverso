@@ -8,13 +8,19 @@
     <span>
       <strong>{{ project.number_of_languages }}</strong> languages
     </span>
-    <span>
-      strings
+    <span v-if="project.reference_language">
+      <strong>
+        {{ project.reference_language.strings_count }}
+      </strong> strings
+    </span>
+    <span v-else>
+      no reference
     </span>
   </span>
 
   <span class="summary-col-3">
     <el-progress
+    v-if="project.reference_language"
     :percentage="progress_percentage"
     status="success"
     :show-text="false">
@@ -56,6 +62,17 @@
       'newContributor': newContributor,
       'exportSettings': exportSettings,
       'editProject': editProject
+    },
+
+    computed: {
+      progress_percentage() {
+        let numerator = _.sum(_.map(this.project.languages, "strings_count"));
+        let denominator =
+          this.project.reference_language.strings_count *
+          this.project.number_of_languages;
+
+        return numerator/denominator * 100;
+      }
     }
   }
 </script>

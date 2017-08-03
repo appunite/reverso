@@ -4,7 +4,10 @@
     <span @click="toggleVisibility">
       <slot>
         <el-button type="text" id="dialogVisable">
-          <img :src="dialogData.icon">
+          <icon
+          v-bind:imageName="dialogData.icon_name"
+          color="#5F69EF">
+          </icon>
         </el-button>
       </slot>    
     </span>
@@ -20,6 +23,7 @@
 </template>
 
 <script>
+import icon from '../../../icons.vue'
 import projectService from '../../../services/project-service.js'
 import exportDialog from './dialogs/export-dialog.vue'
 
@@ -27,13 +31,15 @@ export default {
   name: "exportSettings",
 
   components: {
-    'exportDialog': exportDialog
+    'exportDialog': exportDialog,
+    'icon': icon
   },
 
   props: [
     'project_id',   
     'project_name',
-    'language'
+    'language_id',
+    'language_name'
   ],
 
   data () {
@@ -41,7 +47,7 @@ export default {
       dialogData: {
         visable: false,
         header: "export settings",
-        icon: "/images/ic-export.svg",
+        icon_name: "export",
 
         fileName: ""
       }
@@ -54,8 +60,8 @@ export default {
     },
 
     download(){
-      if (this.language) {
-        projectService.exportLanguage(this.project_id, this.language.language_id);
+      if (this.language_id) {
+        projectService.exportLanguage(this.project_id, this.language_id);
       }
       else {
         projectService.exportProject(this.project_id);
@@ -66,8 +72,8 @@ export default {
   computed: {
     dialogParams() {
       let fileName = this.project_name.replace(/[^a-z0-9]/ig, '_');
-      if(this.language){
-        fileName += `-${this.language.language_name}`
+      if(this.language_name){
+        fileName += `-${this.language_name}`
       }
       this.dialogData.fileName = fileName;
 

@@ -3,7 +3,7 @@
     <img src="/images/mail-illustration.svg">
     <div class="newUserBox__title">
       <h3>Confirmation Link</h3>
-      <p>Registration is almost complete! We've sent a confirmation link on your email.</p>
+      <p>Registration is almost complete!<br> We've sent a confirmation link on your email.</p>
     </div>    
       <router-link class="green-btn newUserBox__button" to="/">Gotcha!</router-link>
 

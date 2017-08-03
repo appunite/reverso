@@ -13,12 +13,10 @@
     margin: 12px 0px 10px 10px;
 
     div {
-    display: flex;
-    align-items: center;
+      display: flex;
+      align-items: center;
 
-      img {
-        margin-right: 5px;
-      }
+      margin-right: 5px;
     }
   }
 
@@ -46,5 +44,12 @@
       border: none;
       border-left: none !important;
     }
+  }
+
+  .platforms-readonly {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    padding: 15px 10px;
   }
 }

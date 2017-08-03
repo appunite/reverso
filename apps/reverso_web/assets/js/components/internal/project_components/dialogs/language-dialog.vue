@@ -1,16 +1,19 @@
 <template>
 
   <el-dialog
-  :visible.sync="dialogData.visable"
+  :visible.sync="dialogData.visible"
   size="tiny"
   :before-close="handleClose"
   :show-close="false"
   class="reverso-dialog language-dialog">
 
-    <span slot="title" class="dialog-title">
-      <img :src="dialogData.icon">
+    <div slot="title" class="dialog-title">
+      <icon
+      v-bind:imageName="dialogData.icon_name"
+      color="#EBEBF1">
+      </icon>
       {{ dialogData.header }}
-    </span>
+    </div>
 
     <el-form ref="form" :model="new_language" label-position="top">
 
@@ -71,24 +74,23 @@
 import projectService from '../../../../services/project-service.js'
 import languageService from '../../../../services/language-service.js'
 import formService from '../../../../services/form-service.js'
-
+import icon from '../../../../icons.vue'
 export default {
   name: "languageDialog",
-
   props: [
     'dialogData'
   ],
-
+  components: {
+    'icon': icon
+  },
   data () {
     return {
       projectPlatforms: [],
-
       new_language: {
         language_name: "",
         language_file: null,
         platforms: []
       },
-
       platforms: [
       {
         name: "Android",
@@ -106,31 +108,25 @@ export default {
         img_unsel: "/images/platforms/ic-desktop-unselected.svg"
       }
       ],
-
       languages: []
     }
   },
-
   methods: {
     onUpload(){
       this.$emit("upload", this.new_language);
       this.close();
     },
-
     filesChange(fileList) {
       let file = fileList[0];
       this.new_language['language_file'] = file;
     },
-
     includesPlatform(platformArray, platform_name){
       return formService.includesPlatform(platformArray, platform_name);
     },
-
     close(){
       this.$emit("close");
     }
   },
-
   computed: {
     formReady: function () {
       return formService.formReady([
@@ -147,7 +143,6 @@ export default {
       return "xliff files supported";
     }
   },
-
   mounted() {
     languageService.fetchLanguages().then(
       (response) => {
@@ -156,7 +151,6 @@ export default {
       (error) => {
         console.log(error);
     });
-
     this.projectPlatforms = 
         projectService.platformsMapToArray(this.dialogData.project.platforms);
   }  
