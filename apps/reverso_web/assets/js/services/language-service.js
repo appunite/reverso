@@ -22,9 +22,21 @@ export default {
     return promise;
   },
 
-  deleteLanguageFromProject(language_id){
-    let promise =
-      Vue.http.delete(`/api/languages/${language_id}`, {});
+  uploadFileToExistingLanguage(lang_id, lang_file, platforms){
+    var data = new FormData();
+
+    data.append("language_file", lang_file);
+    platforms.forEach((plat, index) => {
+      data.append(`platforms[${index}]`, plat);
+    });
+
+    let promise = Vue.http.patch(`/api/languages/${lang_id}`, data);
+  
+    return promise;
+  },
+
+  deleteLanguageFromProject(lang_id){
+    let promise = Vue.http.delete(`/api/languages/${lang_id}`, {});
   
     return promise;
   }
