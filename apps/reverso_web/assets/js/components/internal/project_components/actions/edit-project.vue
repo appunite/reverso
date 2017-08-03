@@ -20,6 +20,7 @@
 
 <script>
 import projectService from '../../../../services/project-service.js'
+import languageService from '../../../../services/language-service.js'
 import projectDialog from '../dialogs/project-dialog.vue'
 import icon from '../../../../icons.vue'
 
@@ -45,7 +46,9 @@ export default {
         icon_name: 'settings',
         delete_btn: true,
 
-        project: {}
+        project: {},
+
+        languages: []
       }
 
     }
@@ -82,6 +85,7 @@ export default {
   computed: {
     dialogParams() {
       this.dialogData["project"] = this.project;
+      this.dialogData["languages"] = this.project.languages;
       return this.dialogData; 
     }
   }
