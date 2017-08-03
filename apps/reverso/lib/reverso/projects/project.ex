@@ -8,6 +8,7 @@ defmodule Reverso.Projects.Project do
     field :basic_language, :string
     field :project_name, :string
     field :owner_id, :integer
+    field :basic_language_id, :integer
 
     field :number_of_languages, :integer, virtual: true, default: 0
     field :sum_of_strings, :integer, virtual: true, default: 0
@@ -26,4 +27,17 @@ defmodule Reverso.Projects.Project do
     |> cast(attrs, [:project_name, :basic_language, :owner_id])
     |> validate_required([:project_name, :basic_language, :owner_id])
   end
+
+  def basic_language_changeset(%Project{} = project, attrs) do
+    project
+    |> cast(attrs, [:basic_language_id])
+    |> validate_required([:basic_language_id])
+  end
+
+  def update_changeset(%Project{} = project, attrs) do
+    project
+    |> cast(attrs, [:project_name, :basic_language, :owner_id, :basic_language_id])
+    |> validate_required([:project_name, :basic_language, :owner_id, :basic_language_id])
+  end
+
 end

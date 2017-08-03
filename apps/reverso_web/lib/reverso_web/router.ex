@@ -50,11 +50,10 @@ defmodule Reverso.Web.Router do
     resources "/languages", LanguageController
     resources "/projects", ProjectController, only: [:index, :create, :update, :delete]
     get "/projects/:project_id/:language_id", ProjectController, :show
-    get "/projects/:project_id/languages/:language_id/", TranslationController, :index
-    post "/projects/:project_id/languages/:language_id", TranslationController, :create
-    patch "/projects/:project_id/languages/:language_id/:translation_id", TranslationController, :update
-    delete "/projects/:project_id/languages/:language_id/:translation_id", TranslationController, :delete
-
+    get "/projects/:project_id/languages/:language_id/", TermController, :index
+    post "/projects/:project_id/languages/:language_id", TermController, :create
+    patch "/projects/:project_id/languages/:language_id/:translation_id", TermController, :update
+    delete "/projects/:project_id/languages/:language_id/:translation_id", TermController, :delete
   end
 
   if Mix.env == :dev do
