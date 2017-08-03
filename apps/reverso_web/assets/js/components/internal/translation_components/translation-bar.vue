@@ -15,12 +15,17 @@
       <strong>View:</strong>
 
       <el-radio-group fill="#5f69ef" v-model="filter.platform">
-        <el-radio label="Translating">Translating</el-radio>
+        <el-radio label="Translating" @click="optionSelected">
+          Translating
+        </el-radio>
       </el-radio-group>
     </span>
     
     <span class="top-table-panel-translation__filters">  
-      <input placeholder="Search..." class="search-input" v-model="filter.search">
+      <input placeholder="Search..."
+      class="search-input"
+      v-model="filter.search"
+      @keyup="searchUsed">
 
       <el-dropdown>
         <span class="el-dropdown-link">
@@ -30,7 +35,8 @@
         <el-dropdown-menu slot="dropdown">  
           <el-dropdown-item v-for="show_type in show_types"
           :class="isActive(show_type, filter.show)">
-            <input type="radio" name="show" :value="show_type" v-model="filter.show">
+            <input type="radio" name="show" :value="show_type"
+            v-model="filter.show" @click="optionSelected">
             {{ show_type }}
           </el-dropdown-item>
         </el-dropdown-menu>
@@ -44,7 +50,8 @@
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item v-for="sort_type in sort_types"
           :class="isActive(sort_type, filter.sort)">
-            <input type="radio" name="sort" :value="sort_type" v-model="filter.sort">
+            <input type="radio" name="sort" :value="sort_type"
+            v-model="filter.sort" @click="optionSelected">
             {{ sort_type }}
           </el-dropdown-item>
         </el-dropdown-menu>
@@ -78,7 +85,15 @@ export default {
 
   methods: {
     addTerm(){
-      this.$emit('addTerm')
+      this.$emit('addTerm');
+    },
+
+    optionSelected(){
+      this.$emit('optionSelected');
+    },
+
+    searchUsed(){
+      this.$emit('searchUsed');
     },
 
     isActive(param, filter_param){

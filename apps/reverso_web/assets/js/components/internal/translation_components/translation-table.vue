@@ -4,6 +4,8 @@
 
   <translationBar
   v-on:addTerm="addTerm"
+  v-on:searchUsed="debouncedFetch"
+  v-on:optionSelected="fetchTranslation"
   v-bind:filter="filter"></translationBar>
   
   <table>
@@ -68,6 +70,24 @@ export default {
   },
 
   methods: {
+    fetchTranslation(){
+      translationService.fetchTranslation(
+        this.project_id, this.language_id, this.filter).then(
+        
+        (response) => {
+          this.translations = response.data.data;
+        },
+
+        (error) => {
+          console.log(error);
+        }
+      );      
+    },
+
+    debouncedFetch: _.debounce(function() {
+      this.fetchTranslation();
+    }, 250),
+
     addTerm(){
       let newTerm = {
         basic: "",
@@ -99,17 +119,7 @@ export default {
   },
 
   mounted() {
-    translationService.fetchTranslation(
-      this.project_id, this.language_id, this.filter).then(
-      
-      (response) => {
-        this.translations = response.data.data;
-      },
-
-      (error) => {
-        console.log(error);
-      }
-    );
+    this.fetchTranslation();
   }
 }
 
