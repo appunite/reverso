@@ -6,7 +6,8 @@
   v-on:addTerm="addTerm"
   v-on:searchUsed="debouncedFetch"
   v-on:optionSelected="fetchTranslation"
-  v-bind:filter="filter"></translationBar>
+  v-bind:filter="filter"
+  v-bind:platforms="platforms"></translationBar>
   
   <table>
     <tr class="table-header">
@@ -48,6 +49,7 @@ export default {
 
   data() {
     return {
+      platforms: [],
       translations: [],
 
       filter: {
@@ -120,6 +122,10 @@ export default {
 
   mounted() {
     this.fetchTranslation();
+    this.$bus.$on('platforms', (platforms) => {
+      this.platforms = _.cloneDeep(platforms);
+      this.platforms.unshift("Translating");
+    });
   }
 }
 

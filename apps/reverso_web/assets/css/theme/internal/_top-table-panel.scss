@@ -9,6 +9,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    flex-wrap: wrap-reverse;
     
   }
 
@@ -24,8 +25,12 @@
   }
 
   &-translation {
+    button {
+      margin-right: 45px;
+    }
 
     &__radio-buttons {
+      margin-right: 35px;
 
       strong {
         color: #969AA7;
@@ -35,11 +40,12 @@
       }
 
       .el-radio {
-        margin-left: 20px;
+        margin: 0px 0px 0px 10px;
       }
 
       .el-radio__label {
         font-size: smaller;
+
       }
     }
 

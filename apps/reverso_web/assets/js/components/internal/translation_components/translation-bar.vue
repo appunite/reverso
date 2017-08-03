@@ -15,8 +15,9 @@
       <strong>View:</strong>
 
       <el-radio-group fill="#5f69ef" v-model="filter.platform">
-        <el-radio label="Translating" @click="optionSelected">
-          Translating
+        <el-radio v-for="platform in platforms"
+        :label="platform" @click="optionSelected">
+          {{ platform }}
         </el-radio>
       </el-radio-group>
     </span>
