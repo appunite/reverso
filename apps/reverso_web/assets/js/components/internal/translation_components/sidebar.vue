@@ -57,7 +57,7 @@
         <uploadLanguage
           v-bind:platforms="platforms"
           v-bind:language_id="language_id"
-          v-bind:language_name="reference">
+          v-bind:language_name="language.language_name">
         </uploadLanguage>
       </div>
       
@@ -111,7 +111,7 @@ export default {
 
   computed: {
     listed_platforms(){
-      return this.platforms.join(", ");
+      return projectService.platformsMapToArray(this.platforms).join(", ");
     },
 
     lastEdit(){
@@ -142,7 +142,7 @@ export default {
   methods: {
     assignSidebarData(translationData){
       this.projectName = translationData.project_name;
-      this.platforms = projectService.platformsMapToArray(translationData.platforms);
+      this.platforms = translationData.platforms;
       this.reference = translationData.basic_language;
       
       this.language = translationData.languages[0];
@@ -150,7 +150,8 @@ export default {
       // this.calculateProgress(this.language.strings_count,
       //  this.reference.strings_count);  
 
-      this.$bus.$emit('platforms', this.platforms);
+      this.$bus.$emit('platforms',
+        projectService.platformsMapToArray(this.platforms));
     }, 
 
     calculateProgress(numerator, denominator){

@@ -4,12 +4,8 @@
     <div
     v-for="language in project.languages"
     :key="language.language_id"
-    class="project-item__language">
-      <router-link :to="{ name: 'translation',
-      params:
-      { project_id: project.id,
-      language_id: language.language_id }
-      }">
+    class="project-item__language"
+    @click="clickAction(language)">
       
       <span class="summary">
         <span class="summary-col-1">
@@ -18,7 +14,15 @@
 
         <span class="summary-col-2">
           <div v-if="isBasicLanguage(language.language_name)">
-            <strong>reference</strong>
+            <uploadLanguage
+            v-bind:platforms="project.platforms"
+            v-bind:language_id="language.language_id"
+            v-bind:language_name="language.language_name"
+            ref="uploadLanguage">
+              <span style="">
+                <strong>reference</strong>
+              </span>
+            </uploadLanguage>
           </div>
 
           <div v-else>
@@ -45,7 +49,6 @@
           </exportSettings>
         </span>
       </span>
-      </router-link>
 
     </div>
     
@@ -59,6 +62,7 @@
 
 <script>
 import newLanguage from './actions/new-language.vue'
+import uploadLanguage from './actions/upload-existing-language.vue'
 import exportSettings from './export-settings.vue'
 import projectService from '../../../services/project-service.js'
 
@@ -71,6 +75,7 @@ export default {
 
   components: {
     'newLanguage': newLanguage,
+    'uploadLanguage': uploadLanguage,
     'exportSettings': exportSettings
   },
 
@@ -98,6 +103,19 @@ export default {
     appendLanugage(language){
       this.project.languages.push(language);
       this.project.number_of_languages++;
+    },
+
+    clickAction(language){
+      if(this.isBasicLanguage(language.language_name)){
+        this.$refs.uploadLanguage[0].toggleVisibility();
+      }
+      else{
+        this.$router.push({ name: 'translation',
+          params:
+          { project_id: this.project.id,
+          language_id: language.language_id }
+        });
+      }
     }
   },
 

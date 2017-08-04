@@ -14,13 +14,13 @@
   }
 
   &-projects {
-    span {
+    &-col {
       display: flex;
       align-items: center;
+    }
 
-      button {
-        margin-left: 45px;
-      }
+    &__add {
+      margin-left: 45px;
     }
   }
 
@@ -57,7 +57,7 @@
 
       .el-dropdown {
 
-        &:nth-of-type(2) img {
+        &:last-of-type img {
           border-left: 1px solid $border-gray; 
           padding-right: 4px;
         }

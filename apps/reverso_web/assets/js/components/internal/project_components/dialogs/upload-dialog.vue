@@ -15,7 +15,7 @@
       {{ dialogData.header }}
     </div>
 
-    <el-form ref="form" :model="dialogData.new_upload" label-position="top">
+    <el-form ref="form" :model="dialogData" label-position="top">
 
       <div class="input-wrapper">
       <label>Language</label>
@@ -106,7 +106,7 @@ export default {
 
     filesChange(fileList) {
       let file = fileList[0];
-      this.dialogData.new_upload['language_file'] = file;
+      this.dialogData['language_file'] = file;
     },
 
     close(){

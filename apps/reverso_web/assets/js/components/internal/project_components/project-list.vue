@@ -2,7 +2,7 @@
   <div class="project-list"> 
 
     <div class="top-table-panel-projects">
-      <span>
+      <span class="top-table-panel-projects-col">
         MY PROJECTS ({{ projects.length }})
         <newProject
           v-on:project_added="addProject($event)">

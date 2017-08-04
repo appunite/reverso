@@ -2,7 +2,7 @@
   <div class="add-language">
     <el-button type="text"
     class="add_sth_btn"
-    id="dialogvisible"
+    id="dialogVisible"
     @click="toggleVisibility">
       <icon
       v-bind:imageName="dialogData.icon_name"

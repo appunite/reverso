@@ -1,6 +1,7 @@
 <template>
 <span @click.stop>
-  <el-button type="text" id="dialogVisable" @click="toggleVisibility">
+  <el-button type="text" id="dialogVisable" 
+  class="dialog-btn-icon__last" @click="toggleVisibility">
     <icon
       v-bind:imageName="dialogParams.icon_name"
       v-bind:className='icon_class'
@@ -45,6 +46,7 @@ export default {
         header: "project settings",
         icon_name: 'settings',
         delete_btn: true,
+        new_lang_allowed: false,
 
         project: {},
 
