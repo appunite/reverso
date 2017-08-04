@@ -12,3 +12,5 @@ apps/reverso_web/assets/package-lock.json
 /.vscode
 apps/reverso_web/assets/theme
 wiki.xliff
+
+.deliver/releases/**/*
