@@ -8,12 +8,9 @@
       type="textarea"
       :autosize="true"
       placeholder="No Reference"
-      v-model="term.basic"
-      @blur="updateOrCreateTerm(term)">
+      v-model="term.basic.basic"
+      @blur="updateOrCreateField(term.basic)">
       </el-input>
-      <span class="delete-img-wrapper">
-      <img src="/images/translation/ic-delete.svg"
-      v-show="showBin" @click="deleteTerm(term)">
       </span>
     </span>
   </th>
@@ -22,9 +19,9 @@
     <el-input
     type="textarea"
     :autosize="true"
-    v-model="term.translation"
+    v-model="term.translation.translation"
     placeholder="No Translation"
-    @blur="updateOrCreateTerm(term)">
+    @blur="updateOrCreateField(term.translation)">
   </el-input>
   </th>
 
@@ -34,7 +31,7 @@
     :autosize="true"
     v-model="term.description"
     placeholder="No comments added"
-    @blur="updateOrCreateTerm(term)">
+    @blur="updateOrCreateField(term.description)">
   </el-input>
   </th>
 
@@ -68,20 +65,20 @@
   },
 
   methods: {
-    updateOrCreateTerm(term){
-      if(term.basic){
-        if(term.id){
-          this.updateTerm(term);
-        }
+    updateOrCreateField(field){
+      // if(field.text){
+      //   if(field.id){
+      //     this.updateField(field);
+      //   }
 
-        else {
-          this.createTerm(term);
-        }
-      }
+      //   else {
+      //     this.createField(field);
+      //   }
+      // }
     },
 
-    updateTerm(term){
-      translationService.updateTerm(this.project_id, this.language_id, term).then(
+    updateField(field){
+      translationService.updateField(this.project_id, this.language_id, field).then(
         (response) => {
 
         },
@@ -92,8 +89,8 @@
       );
     },
 
-    createTerm(term){
-      translationService.createTerm(this.project_id, this.language_id, term).then(
+    createField(field){
+      translationService.createField(this.project_id, this.language_id, field).then(
         (response) => {
           //add key so it doesn't get created again
         },
@@ -103,26 +100,7 @@
         }
       );
     },
-
-    deleteTerm(term){
-      if(term.id){
-        translationService.deleteTerm(this.project_id, this.language_id, term.id).then(
-          (response) => {
-            console.log(response);
-            this.$emit('term_deleted', term);
-          },
-
-          (error) => {
-            console.log(error);
-          }
-        );
-      }
-
-      else {
-        this.$emit('row_deleted', term);
-      }
-    }
-  }
+  },
 }
 
 </script>

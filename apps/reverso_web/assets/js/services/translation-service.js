@@ -7,25 +7,18 @@ fetchTranslation(project_id, language_id, filter){
   return promise;
 },
 
-createTerm(project_id, language_id, term){
+createField(project_id, language_id, field){
   let promise = Vue.http.post(
-    `api/projects/${project_id}/languages/${language_id}`, term);
+    `api/projects/${project_id}/languages/${language_id}`, field);
 
   return promise;
 },
 
-updateTerm(project_id, language_id, term){
+updateField(project_id, language_id, field){
   let promise = Vue.http.patch(
-    `api/projects/${project_id}/languages/${language_id}/${term.id}`, term);
+    `api/projects/${project_id}/languages/${language_id}/${field.id}`, field);
 
   return promise;
-},
-
-deleteTerm(project_id, language_id, term_id){
-  let promise = Vue.http.delete(
-    `api/projects/${project_id}/languages/${language_id}/${term_id}`, {});
-
-  return promise;
-},
+}
 
 }
