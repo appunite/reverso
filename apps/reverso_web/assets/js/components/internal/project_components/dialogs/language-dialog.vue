@@ -20,6 +20,8 @@
       <div class="input-wrapper">
       <label>Language</label>
         <el-select v-model="new_language.language_name"
+        filterable
+        allow-create
         placeholder="Select Language">
           <el-option
           v-for="language in languages"

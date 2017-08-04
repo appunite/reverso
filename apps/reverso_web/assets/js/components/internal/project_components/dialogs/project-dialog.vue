@@ -27,7 +27,10 @@
     
     <div class="input-wrapper">
       <label>Reference Language</label>
-      <el-select v-model="tempProject.basic_language" placeholder="Select Language">
+      <el-select v-model="tempProject.basic_language"
+      :filterable="dialogParams.new_lang_allowed"
+      :allow-create="dialogParams.new_lang_allowed"
+      placeholder="Select Language">
         <el-option v-for="language in dialogParams.languages"
         :label="language.language_name"
         :value="language.language_name">

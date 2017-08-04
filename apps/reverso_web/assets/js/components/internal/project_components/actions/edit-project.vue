@@ -46,6 +46,7 @@ export default {
         header: "project settings",
         icon_name: 'settings',
         delete_btn: true,
+        new_lang_allowed: false,
 
         project: {},
 

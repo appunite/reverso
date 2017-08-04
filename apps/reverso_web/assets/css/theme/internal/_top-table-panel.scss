@@ -14,13 +14,13 @@
   }
 
   &-projects {
-    span {
+    &-col {
       display: flex;
       align-items: center;
+    }
 
-      button {
-        margin-left: 45px;
-      }
+    &__add {
+      margin-left: 45px;
     }
   }
 

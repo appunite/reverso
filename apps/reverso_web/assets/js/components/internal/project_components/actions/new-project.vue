@@ -1,7 +1,7 @@
   <template>
   <span>
     <el-button type="text"
-    class="add_sth_btn"
+    class="add_sth_btn top-table-panel-projects__add"
     id="dialogVisable"
     @click="toggleVisibility">
 
@@ -46,6 +46,7 @@ export default {
         icon: "/images/ic-add.svg",
         icon_name: "add",
         delete_btn: false,
+        new_lang_allowed: true,
 
         project: {
           project_name: "",
