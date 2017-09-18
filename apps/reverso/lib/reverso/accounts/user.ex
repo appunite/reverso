@@ -19,15 +19,14 @@ defmodule Reverso.Accounts.User do
     timestamps()
   end
 
-  @doc false
   def changeset(%User{} = user, attrs) do
     user
     |> cast(attrs, [:email, :name, :password, :activation_token])
     |> validate_required([:email, :name, :password, :activation_token])
     |> validate_format(:email, ~r/@/)
+    |> unique_constraint(:email)
     |> validate_length(:password, min: 5)
     |> validate_confirmation(:password)
-    |> unique_constraint(:email)
     |> hash_password()
   end
 
@@ -63,7 +62,9 @@ defmodule Reverso.Accounts.User do
 
   def activate_changeset(%User{} = user) do
     user
-    |> cast(%{activated: true, activation_token: nil}, [:activated, :activation_token])
+    |> change()
+    |> put_change(:activated, true)
+    |> put_change(:activation_token, nil)
   end
 
   def reset_password_changeset(%User{} = user, attrs) do
