@@ -19,7 +19,7 @@ defmodule Reverso.Accounts.User do
     timestamps()
   end
 
-  def changeset(%User{} = user, attrs) do
+  def changeset(%User{} = user, attrs \\ %{}) do
     user
     |> cast(attrs, [:email, :name, :password, :activation_token])
     |> validate_required([:email, :name, :password, :activation_token])
@@ -30,7 +30,7 @@ defmodule Reverso.Accounts.User do
     |> hash_password()
   end
 
-  def new_invitation_changeset(%User{} = user, attrs) do
+  def new_invitation_changeset(%User{} = user, attrs \\ %{}) do
     user
     |> cast(attrs, [:email, :invitation_token])
     |> validate_required([:email, :invitation_token])
@@ -38,7 +38,7 @@ defmodule Reverso.Accounts.User do
     |> unique_constraint(:email)
   end
 
-  def invitation_update_changeset(%User{} = user, attrs) do
+  def invitation_update_changeset(%User{} = user, attrs \\ %{}) do
     user
     |> cast(attrs, [:name, :password, :activation_token])
     |> validate_required([:name, :password, :activation_token])
@@ -49,13 +49,13 @@ defmodule Reverso.Accounts.User do
 
   end
 
-  def update_changeset(%User{} = user, attrs) do
+  def update_changeset(%User{} = user, attrs \\ %{}) do
     user
     |> cast(attrs, [:email, :name])
     |> validate_format(:email, ~r/@/)
   end
 
-  def user_token_changeset(%User{} = user, attrs) do
+  def user_token_changeset(%User{} = user, attrs \\ %{}) do
     user
     |> cast(attrs, [:user_token, :activation_token, :password_reset_token])
   end
@@ -67,7 +67,7 @@ defmodule Reverso.Accounts.User do
     |> put_change(:activation_token, nil)
   end
 
-  def reset_password_changeset(%User{} = user, attrs) do
+  def reset_password_changeset(%User{} = user, attrs \\ %{}) do
     user
     |> cast(attrs, [:password])
     |> put_change(:password_reset_token, nil)
@@ -82,6 +82,7 @@ defmodule Reverso.Accounts.User do
     put_change(changeset, :crypted_password, hashed_password(password))
   end
 
+  defp hashed_password(password) when password == "" or is_nil(password), do: nil
   defp hashed_password(password) do
     Comeonin.Bcrypt.hashpwsalt(password)
   end
