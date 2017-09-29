@@ -2,7 +2,7 @@ defmodule Reverso.Accounts do
 
   import Ecto.Query, warn: false
   alias Reverso.Repo
-  
+
   alias Reverso.Accounts.User
   alias Reverso.Accounts.ProjectCollaborator
   alias Reverso.Projects.Project
@@ -32,8 +32,9 @@ defmodule Reverso.Accounts do
   end
 
   def create_user(attrs) do
+    params = Map.merge(attrs, %{activation_token: Ecto.UUID.generate()})
     %User{}
-    |> User.changeset(Map.put(attrs, "activation_token", Ecto.UUID.generate()))
+    |> User.changeset(params)
     |> Repo.insert()
   end
 

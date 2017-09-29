@@ -52,7 +52,9 @@ defmodule Reverso.Accounts.User do
   def update_changeset(%User{} = user, attrs \\ %{}) do
     user
     |> cast(attrs, [:email, :name])
+    |> validate_required([:email, :name])
     |> validate_format(:email, ~r/@/)
+    |> unique_constraint(:email)
   end
 
   def user_token_changeset(%User{} = user, attrs \\ %{}) do
